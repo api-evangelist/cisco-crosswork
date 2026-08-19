@@ -1,0 +1,925 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Crosswork Platform API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Crosswork Team, Cisco",
+      "email": "support@cisco.com"
+    },
+    "license": {
+      "name": "Cisco Software License Agreement",
+      "url": "http://www.cisco.com/public/sw-license-agreement.html"
+    },
+    "x-provenance": {
+      "method": "harvested",
+      "authored_by": "Cisco Crosswork",
+      "harvested_by": "API Evangelist",
+      "harvested_on": "2026-08-19",
+      "first_party": true,
+      "note": "Published by Cisco. Retrieved unmodified except for this x-provenance block.",
+      "provider_published": true
+    },
+    "x-evidence": [
+      {
+        "type": "source",
+        "url": "https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.1APIs/platform.swagger.json"
+      },
+      {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.1APIs/platform.swagger.json"
+      }
+    ]
+  },
+  "tags": [
+    {
+      "name": "Crosswork Health API",
+      "description": "APIs to get the Health of Crosswork Applications and their dependent services"
+    },
+    {
+      "name": "Troubleshooting API",
+      "description": "Collect Logs, metrics and other details for the Tech-support to debug the Crosswork issues"
+    },
+    {
+      "name": "Alert API",
+      "description": "APIs to get the Alerts of Crosswork HTTPS Cert expiry and update"
+    },
+    {
+      "name": "Version API",
+      "description": "API to retrieve Crosswork version"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/crosswork/platform",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/alerts": {
+      "get": {
+        "summary": "Get Alerts from Crosswork Platform",
+        "operationId": "GetAlerts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiAlertResponse"
+            }
+          }
+        },
+        "tags": [
+          "Alert API"
+        ]
+      }
+    },
+    "/v1/apps/health": {
+      "get": {
+        "summary": "Get the health summary of applications running on the Crosswork Platform",
+        "operationId": "GetAppsSummary",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiHealthApps"
+            }
+          }
+        },
+        "tags": [
+          "Crosswork Health API"
+        ]
+      }
+    },
+    "/v1/apps/{AppName}/health": {
+      "get": {
+        "summary": "Get the health summary of an application running on the Crosswork Platform by specifying the application name",
+        "operationId": "GetAppServicesSummary",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiHealthAppServices"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "AppName",
+            "description": "App name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Crosswork Health API"
+        ]
+      }
+    },
+    "/v1/apps/{AppName}/{ServiceName}/health": {
+      "get": {
+        "summary": "Get the health summary of a specific service running as part of an application by specifying application name and service name",
+        "operationId": "GetAppServiceDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiHealthAppSrvProcesses"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "AppName",
+            "description": "App name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ServiceName",
+            "description": "Service name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Crosswork Health API"
+        ]
+      }
+    },
+    "/v1/collect-publish/show": {
+      "post": {
+        "summary": "Get the status of all PublishCollectJobs, where Crosswork internal operations data has been collected and is being sent to a remote location, such as Cisco TAC, for troubleshooting purposes.",
+        "operationId": "GetPublishCollectJobs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiCollectPubResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiCollectPubGetReq"
+            }
+          }
+        ],
+        "tags": [
+          "Troubleshooting API"
+        ]
+      }
+    },
+    "/v1/collect-publish/start": {
+      "post": {
+        "summary": "Send the Collected Op data for troubleshooting to remote location by specifying the ID of collect job",
+        "operationId": "PublishCollectJobData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiCollectPubResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiCollectPubPostReq"
+            }
+          }
+        ],
+        "tags": [
+          "Troubleshooting API"
+        ]
+      }
+    },
+    "/v1/collect/show": {
+      "post": {
+        "summary": "Get the list of all internal Crosswork operations data-collection jobs that have been requested on the platform. The list can be narrowed down by specifying a job \"Id\", \u201cType\u201d or \u201cScope\u201d parameters.",
+        "operationId": "GetCollectJobsInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiCollectOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiCollectInfoReq"
+            }
+          }
+        ],
+        "tags": [
+          "Troubleshooting API"
+        ]
+      }
+    },
+    "/v1/collect/start": {
+      "post": {
+        "summary": "Initiate collection of data for troubleshooting Crosswork Platform applications. Collection jobs can be scoped to a specific app or type.",
+        "operationId": "RequestCollectJobs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiCollectOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiCollectReq"
+            }
+          }
+        ],
+        "tags": [
+          "Troubleshooting API"
+        ]
+      }
+    },
+    "/v1/platform/health": {
+      "get": {
+        "summary": "Get a health summary for all applications running on the Crosswork platform. Returns a list of all running applications, with IDs, status, descriptions, and a count of applications in each state: Running, Degraded, Down and Unknown.",
+        "operationId": "GetSystemSummary",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiHealthSystem"
+            }
+          }
+        },
+        "tags": [
+          "Crosswork Health API"
+        ]
+      }
+    },
+    "/v1/platform/logging": {
+      "post": {
+        "summary": "Set the message logging level for a Crosswork platform service. Use \u201cId\u201d arg to pass the servicename, and \u201cLoglevel\u201d to pass the new level (\u201cInfo\u201d, \u201cDebug\u201d, \"Disable\u201d)",
+        "operationId": "ChangeLogLevel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiLogLevelReq"
+            }
+          }
+        ],
+        "tags": [
+          "Troubleshooting API"
+        ]
+      }
+    },
+    "/v1/version/show": {
+      "get": {
+        "summary": "Get the Crosswork Platform software version.",
+        "operationId": "GetVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/robotctl_apiOpResult"
+            }
+          }
+        },
+        "tags": [
+          "Version API"
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "definitions": {
+    "CollectOpResultcollectJob": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "title": "Unique Collect Job Id"
+        },
+        "JobScope": {
+          "type": "string"
+        },
+        "Type": {
+          "$ref": "#/definitions/robotctl_apiCollectType"
+        },
+        "JobStatus": {
+          "$ref": "#/definitions/robotctl_apijobStatus"
+        },
+        "User": {
+          "type": "string"
+        },
+        "CreationTime": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string",
+          "title": "Additional information regarding the job"
+        }
+      }
+    },
+    "CollectPubResultpublishJob": {
+      "type": "object",
+      "properties": {
+        "PublishJobId": {
+          "type": "string",
+          "title": "Id of publish job"
+        },
+        "CollectJobId": {
+          "type": "string",
+          "title": "Id of show tech job"
+        },
+        "Type": {
+          "$ref": "#/definitions/robotctl_apiPublishType"
+        },
+        "JobStatus": {
+          "$ref": "#/definitions/robotctl_apijobStatus"
+        },
+        "User": {
+          "type": "string"
+        },
+        "CreationTime": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Progress": {
+          "type": "string"
+        },
+        "SSH_Configuration": {
+          "$ref": "#/definitions/robotctl_apiSSH_Config"
+        }
+      }
+    },
+    "robotctl_apiAlertCount": {
+      "type": "object",
+      "properties": {
+        "Minor": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Major": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Critical": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "robotctl_apiAlertList": {
+      "type": "object",
+      "properties": {
+        "List": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/robotctl_apiAlertMsg"
+          }
+        }
+      }
+    },
+    "robotctl_apiAlertMsg": {
+      "type": "object",
+      "properties": {
+        "AlertMsg": {
+          "type": "string"
+        },
+        "AlertAction": {
+          "type": "string"
+        },
+        "ActionLink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "ActionLinkMsg": {
+          "type": "string"
+        },
+        "Priority": {
+          "$ref": "#/definitions/robotctl_apiAlertPriority"
+        }
+      }
+    },
+    "robotctl_apiAlertPriority": {
+      "type": "string",
+      "enum": [
+        "MINOR",
+        "MAJOR",
+        "CRITICAL"
+      ],
+      "default": "MINOR"
+    },
+    "robotctl_apiAlertResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "$ref": "#/definitions/robotctl_apiAlertCount"
+        },
+        "AlertMap": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/robotctl_apiAlertList"
+          }
+        }
+      }
+    },
+    "robotctl_apiBasicReq": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "title": "OPTIONAL: Service or app name. Defaults to all if not set"
+        }
+      }
+    },
+    "robotctl_apiCollectConfReq": {
+      "type": "object",
+      "properties": {
+        "Configuration": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "MANDATORY: Configuration key map. Currently only \"Timeout\" is support as key value."
+        }
+      }
+    },
+    "robotctl_apiCollectInfoReq": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "title": "OPTIONAL: Collection job identifier. Defaults to all jobs"
+        },
+        "JobScope": {
+          "type": "string",
+          "title": "OPTIONAL: Scope of job, i.e. name of service for which job was run. Defaults to all"
+        },
+        "Type": {
+          "$ref": "#/definitions/robotctl_apiCollectType",
+          "title": "OPTIONAL: Type of show tech collection. Defaults to all"
+        }
+      }
+    },
+    "robotctl_apiCollectOpResult": {
+      "type": "object",
+      "properties": {
+        "Result": {
+          "$ref": "#/definitions/robotctl_apiResultValue"
+        },
+        "Description": {
+          "type": "string",
+          "title": "Additional information regarding the response"
+        },
+        "CollectJobs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CollectOpResultcollectJob"
+          }
+        }
+      }
+    },
+    "robotctl_apiCollectPubGetReq": {
+      "type": "object",
+      "properties": {
+        "PublishJobId": {
+          "type": "string",
+          "title": "Unique Id of a publish job"
+        },
+        "CollectJobId": {
+          "type": "string"
+        }
+      }
+    },
+    "robotctl_apiCollectPubPostReq": {
+      "type": "object",
+      "properties": {
+        "CollectJobId": {
+          "type": "string",
+          "title": "MANDATORY: Unique Id of collection job to be published"
+        },
+        "Protocol": {
+          "$ref": "#/definitions/robotctl_apiPublishType",
+          "title": "MANDATORY: Publish protocol (SSH)"
+        },
+        "SSH_Configuration": {
+          "$ref": "#/definitions/robotctl_apiSSH_Config",
+          "title": "MANDATORY: SSH Configuration"
+        }
+      }
+    },
+    "robotctl_apiCollectPubResult": {
+      "type": "object",
+      "properties": {
+        "Result": {
+          "$ref": "#/definitions/robotctl_apiResultValue"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Jobs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CollectPubResultpublishJob"
+          }
+        }
+      }
+    },
+    "robotctl_apiCollectReq": {
+      "type": "object",
+      "properties": {
+        "JobScope": {
+          "type": "string",
+          "description": "OPTIONAL: Scope of collection job, i.e. name of service for which job is to be run. Defaults to all apps and services."
+        },
+        "Type": {
+          "$ref": "#/definitions/robotctl_apiCollectType",
+          "description": "OPTIONAL: Type of show tech collection (All, Logs, Metrics). Defaults to All."
+        }
+      }
+    },
+    "robotctl_apiCollectType": {
+      "type": "string",
+      "enum": [
+        "_",
+        "All",
+        "Logs",
+        "Metrics"
+      ],
+      "default": "_"
+    },
+    "robotctl_apiHealthAppServices": {
+      "type": "object",
+      "properties": {
+        "Result": {
+          "$ref": "#/definitions/robotctl_apiResultValue"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "ServiceList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/robotctl_apisrvInfo"
+          },
+          "title": "List of service names for the application"
+        }
+      },
+      "title": "Service detail per app"
+    },
+    "robotctl_apiHealthAppSrvProcesses": {
+      "type": "object",
+      "properties": {
+        "Result": {
+          "$ref": "#/definitions/robotctl_apiResultValue"
+        },
+        "Description": {
+          "type": "string",
+          "title": "Additional info for the service status response"
+        },
+        "ProcessList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/robotctl_apisrvProcessDetail"
+          },
+          "title": "List of processes for the service"
+        }
+      }
+    },
+    "robotctl_apiHealthApps": {
+      "type": "object",
+      "properties": {
+        "Result": {
+          "$ref": "#/definitions/robotctl_apiResultValue"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "AppList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/robotctl_apiappInfo"
+          },
+          "title": "List of application names/ids"
+        }
+      },
+      "title": "Application Summary"
+    },
+    "robotctl_apiHealthSystem": {
+      "type": "object",
+      "properties": {
+        "Result": {
+          "$ref": "#/definitions/robotctl_apiResultValue"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "AppSummary": {
+          "$ref": "#/definitions/robotctl_apicountInfo"
+        }
+      }
+    },
+    "robotctl_apiLogLevelReq": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "title": "MANDATORY: Service name"
+        },
+        "LogLevel": {
+          "$ref": "#/definitions/robotctl_apiLogLevels",
+          "title": "MANDATORY: Log level"
+        }
+      }
+    },
+    "robotctl_apiLogLevels": {
+      "type": "string",
+      "enum": [
+        "Info",
+        "Debug",
+        "Disable"
+      ],
+      "default": "Info"
+    },
+    "robotctl_apiOpResult": {
+      "type": "object",
+      "properties": {
+        "Result": {
+          "$ref": "#/definitions/robotctl_apiResultValue",
+          "description": "ResultValue indicates the success/failure for the requested operation."
+        },
+        "Description": {
+          "type": "string",
+          "title": "Addional response information"
+        },
+        "ResultMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Supplementary keyed response info for the operation (for example: version number, error message)"
+        },
+        "ResultString": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Simple result string"
+        }
+      },
+      "description": "OpResult is used to indicate whether an operation has been accepted or not. A string or map payload provides the additional response information (for example: version number, error data)."
+    },
+    "robotctl_apiPublishType": {
+      "type": "string",
+      "enum": [
+        "SSH"
+      ],
+      "default": "SSH"
+    },
+    "robotctl_apiResultMsg": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "$ref": "#/definitions/robotctl_apiResultValue",
+          "title": "Status of the CW self-signed renew request ( Success/Failure)"
+        },
+        "StatusMsg": {
+          "type": "string",
+          "title": "Error string detailing the error scenario"
+        },
+        "Recommendation": {
+          "type": "string",
+          "title": "Recommendation action during error case"
+        }
+      }
+    },
+    "robotctl_apiResultValue": {
+      "type": "string",
+      "enum": [
+        "NOOP",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "default": "NOOP"
+    },
+    "robotctl_apiRobotSvcState": {
+      "type": "string",
+      "enum": [
+        "Unknown",
+        "Down",
+        "Running",
+        "Degraded",
+        "Deleted",
+        "Failed"
+      ],
+      "default": "Unknown",
+      "description": " - Unknown: ROBOT_MSVC_STATE_UNKNOWN defines unknown state. Only used to app-status.\n - Down: ROBOT_MSVC_STATE_DOWN defines when the service/container is non-functional.\n - Running: ROBOT_MSVC_STATE_RUNNING defines when the service/container is completely functional.\n - Degraded: ROBOT_MSVC_STATE_DEGRADED defines when the service/container is not completely functional.\n - Deleted: ROBOT_MSVC_STATE_DELETING defines when the service/container is supposed to be deleted.\n - Failed: ROBOT_MSVC_STATE_FAILED defines when the service/container action failed and is in stale state."
+    },
+    "robotctl_apiSSH_Config": {
+      "type": "object",
+      "properties": {
+        "Username": {
+          "type": "string",
+          "title": "MANDATORY"
+        },
+        "Password": {
+          "type": "string",
+          "title": "MANDATORY"
+        },
+        "Destination": {
+          "type": "string",
+          "title": "MANDATORY"
+        },
+        "Dest_path": {
+          "type": "string",
+          "title": "MANDATORY - Path on destination host"
+        },
+        "Port": {
+          "type": "integer",
+          "format": "int32",
+          "title": "MANDATORY - SCP Port on destination host"
+        }
+      },
+      "title": "Configuration for SCP"
+    },
+    "robotctl_apiSupervisordState": {
+      "type": "string",
+      "enum": [
+        "SupRunning",
+        "SupFatal",
+        "SupRestarting",
+        "SupShutdown"
+      ],
+      "default": "SupRunning",
+      "title": "- SupRunning: supervisord API codes"
+    },
+    "robotctl_apiappInfo": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "title": "Application name"
+        },
+        "State": {
+          "$ref": "#/definitions/robotctl_apiRobotSvcState"
+        },
+        "Counts": {
+          "$ref": "#/definitions/robotctl_apicountInfo"
+        },
+        "Issue": {
+          "type": "string"
+        },
+        "Recommendation": {
+          "type": "string"
+        }
+      }
+    },
+    "robotctl_apicountInfo": {
+      "type": "object",
+      "properties": {
+        "Total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Running": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Degraded": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Down": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Unknown": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "robotctl_apijobStatus": {
+      "type": "string",
+      "enum": [
+        "JobUnknown",
+        "JobCreated",
+        "JobInProgress",
+        "JobCompleted",
+        "JobFailed"
+      ],
+      "default": "JobUnknown"
+    },
+    "robotctl_apisrvInfo": {
+      "type": "object",
+      "properties": {
+        "ServiceName": {
+          "type": "string"
+        },
+        "State": {
+          "$ref": "#/definitions/robotctl_apiRobotSvcState"
+        },
+        "Description": {
+          "type": "string",
+          "title": "Additional info for the service status response"
+        },
+        "Uptime": {
+          "type": "string"
+        },
+        "Issue": {
+          "type": "string"
+        },
+        "Recommendation": {
+          "type": "string"
+        },
+        "Pods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "List of pods running the service"
+        }
+      }
+    },
+    "robotctl_apisrvProcessDetail": {
+      "type": "object",
+      "properties": {
+        "ProcessName": {
+          "type": "string"
+        },
+        "Pod": {
+          "type": "string"
+        },
+        "State": {
+          "$ref": "#/definitions/robotctl_apiSupervisordState"
+        },
+        "Pid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Uptime": {
+          "type": "string"
+        },
+        "Issue": {
+          "type": "string"
+        },
+        "Recommendation": {
+          "type": "string"
+        },
+        "StatusString": {
+          "type": "string"
+        },
+        "Time": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

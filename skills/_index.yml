@@ -1,0 +1,45 @@
+generated: '2026-08-19'
+method: generated
+source: openapi/*.yml in this repository
+note: >-
+  Cisco publishes no Agent Skills, no AGENTS.md and no skills manifest for Crosswork — searched developer.cisco.com
+  and the CiscoDevNet GitHub organisation. These four are authored by API Evangelist and every operationId in them
+  was taken from a spec in openapi/, not invented. Each one also carries the two facts an agent gets wrong about
+  Crosswork: the host is the customer's, and nothing in this API is idempotent.
+skills:
+- name: cisco-crosswork-run-a-workflow
+  file: skills/cisco-crosswork-run-a-workflow.md
+  api: cisco-crosswork:cisco-crosswork-cwm-workflow-api
+  base_path: /crosswork/cwm/v2
+  operations: 10
+  summary: Find, validate, execute, follow and stop a Crosswork Workflow Manager workflow.
+- name: cisco-crosswork-deploy-an-adapter
+  file: skills/cisco-crosswork-deploy-an-adapter.md
+  api: cisco-crosswork:cisco-crosswork-cwm-adapters-api
+  base_path: /crosswork/cwm/v2
+  operations: 14
+  summary: Upload and deploy a CWM adapter and wire the resource type, resource and secret it needs.
+- name: cisco-crosswork-zero-touch-onboard-a-device
+  file: skills/cisco-crosswork-zero-touch-onboard-a-device.md
+  api: cisco-crosswork:cisco-crosswork-cwztpdevice-api
+  base_path: /crosswork/ztp/
+  operations: 15
+  summary: Create a ZTP profile and onboard devices individually, in bulk or from CSV.
+- name: cisco-crosswork-check-health-and-triage-alarms
+  file: skills/cisco-crosswork-check-health-and-triage-alarms.md
+  api: cisco-crosswork:cisco-crosswork-crosswork-health-api-api
+  base_path: /crosswork/platform
+  operations: 15
+  summary: Read deployment and application health, query and work alarms, manage forwarding destinations.
+common_context:
+  deployment: >-
+    Crosswork is customer-deployed. Every base path is relative to https://{crosswork-host}:{port} — a machine the
+    operator installed, not a Cisco endpoint.
+  authentication: >-
+    Two-step ticket exchange: POST /crosswork/sso/v1/tickets, then POST /crosswork/sso/v2/tickets/jwt, then
+    Authorization: Bearer {jwt}. RBAC governs what the account may call.
+  idempotency: >-
+    None. No Idempotency-Key, no de-duplication. Never blind-retry a mutation — reconcile with a read first.
+  rate_limits: None published and no 429 anywhere in the contract.
+  errors: Five incompatible envelopes and no problem+json. See errors/cisco-crosswork-problem-types.yml.
+checked: '2026-08-19'

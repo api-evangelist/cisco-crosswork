@@ -1,0 +1,214 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager Tasks API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and
+    developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the
+    Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json).
+      Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically
+      from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+tags:
+- name: tasks
+paths:
+  /task:
+    get:
+      summary: List all available tasks.
+      description: Retrieve a list of all available tasks.
+      operationId: list_tasks
+      tags:
+      - tasks
+      responses:
+        '200':
+          description: Tasks retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/models.CallbackTask'
+        '204':
+          description: No tasks found.
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /task/{taskId}:
+    delete:
+      summary: Delete a task by ID.
+      description: Delete a specific task by its ID.
+      operationId: delete_task
+      tags:
+      - tasks
+      parameters:
+      - name: taskId
+        in: path
+        description: Task ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Task deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Task not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    get:
+      summary: Get a specific task by ID.
+      description: Retrieve detailed information about a specific task by its ID.
+      operationId: get_task
+      tags:
+      - tasks
+      parameters:
+      - name: taskId
+        in: path
+        description: Task ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Task retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.CallbackTask'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Task not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+components:
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+  schemas:
+    models.CallbackForm:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        description:
+          type: string
+        dynamicContentSchema:
+          type: array
+          items:
+            type: integer
+        formId:
+          type: string
+        formSchema:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+        updatedAt:
+          type: string
+    models.CallbackTask:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        form:
+          $ref: '#/components/schemas/models.CallbackForm'
+        formId:
+          type: string
+        id:
+          type: string
+        jobId:
+          type: string
+        jobName:
+          type: string
+        payload:
+          type: array
+          items:
+            type: integer
+        resultSchema:
+          type: array
+          items:
+            type: integer
+        runId:
+          type: string
+        taskName:
+          type: string
+        updatedAt:
+          type: string
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
+security:
+- Bearer: []

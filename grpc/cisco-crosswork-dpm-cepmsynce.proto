@@ -1,0 +1,46 @@
+/*****************************************
+* Protobuf message definitions for Performance CEPMSYNCERecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message CEPMSYNCERecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Index
+	*/
+	optional int32 syncEIndex = 2;
+
+	/* 
+	Indicates the current clock quality level of the input clock source.  This is the
+	effective quality which is derived from three values:
+	    1) most recent clock quality level received,
+	    2) forced clock quality level (entered via configuration)
+	    3) overridden clock quality level as a result of line protocol down, signal failure, or alarms.
+	unit: NUMBER
+	min: 1
+	max: 36
+	*/
+	optional int32 syncEqualityLevelInput = 3;
+
+	/* 
+	Indicated the priority of an input clock source configured for the T0 clock selection.
+	A smaller value represents a higher priority.
+	unit: NUMBER
+	*/
+	optional int32 syncEPriority = 4;
+  };
+}
+
+

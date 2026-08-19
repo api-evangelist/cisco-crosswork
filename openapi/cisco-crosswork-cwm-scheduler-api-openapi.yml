@@ -1,0 +1,461 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager Scheduler API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and
+    developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the
+    Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json).
+      Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically
+      from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+tags:
+- name: scheduler
+paths:
+  /schedule:
+    get:
+      summary: List all schedules.
+      description: Retrieve a list of all available schedules.
+      operationId: list_schedule
+      tags:
+      - scheduler
+      responses:
+        '201':
+          description: Schedules listed successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+      security:
+      - Bearer: []
+    post:
+      summary: Create a new schedule.
+      description: Create a new schedule with the specified details.
+      operationId: create_schedule
+      tags:
+      - scheduler
+      requestBody:
+        description: Schedule creation request payload.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.createSchedule'
+      responses:
+        '201':
+          description: Schedule created successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+      security:
+      - Bearer: []
+  /schedule/{scheduleId}:
+    delete:
+      summary: Delete a schedule.
+      description: Delete a specific schedule by ID.
+      operationId: delete_schedule
+      tags:
+      - scheduler
+      parameters:
+      - name: scheduleId
+        in: path
+        description: Schedule ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Schedule deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+      security:
+      - Bearer: []
+    get:
+      summary: Get a specific schedule.
+      description: Retrieve the details of a specific schedule by ID.
+      operationId: Describe_schedule
+      tags:
+      - scheduler
+      parameters:
+      - name: scheduleId
+        in: path
+        description: Schedule ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Schedule retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+      security:
+      - Bearer: []
+    patch:
+      summary: Update a schedule.
+      description: Update an existing schedule with new details.
+      operationId: Update_schedule
+      tags:
+      - scheduler
+      parameters:
+      - name: scheduleId
+        in: path
+        description: Schedule ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Schedule update request payload.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.updateSchedule'
+      responses:
+        '200':
+          description: Schedule updated successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+      security:
+      - Bearer: []
+components:
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+  schemas:
+    client.ScheduleBackfill:
+      type: object
+      properties:
+        end:
+          description: End - end of the range to evaluate schedule in.
+          type: string
+        overlap:
+          $ref: '#/components/schemas/enums.ScheduleOverlapPolicy'
+        start:
+          description: Start - start of the range to evaluate schedule in.
+          type: string
+    client.ScheduleCalendarSpec:
+      type: object
+      properties:
+        comment:
+          description: Comment - Description of the intention of this schedule.
+          type: string
+        dayOfMonth:
+          description: 'DayOfMonth range to match (1-31)
+
+
+            default: matches all days'
+          type: array
+          items:
+            $ref: '#/components/schemas/internal.ScheduleRange'
+        dayOfWeek:
+          description: 'DayOfWeek range to match (0-6; 0 is Sunday)
+
+
+            default: matches all days of the week'
+          type: array
+          items:
+            $ref: '#/components/schemas/internal.ScheduleRange'
+        hour:
+          description: 'Hour range to match (0-23).
+
+
+            default: matches 0'
+          type: array
+          items:
+            $ref: '#/components/schemas/internal.ScheduleRange'
+        minute:
+          description: 'Minute range to match (0-59).
+
+
+            default: matches 0'
+          type: array
+          items:
+            $ref: '#/components/schemas/internal.ScheduleRange'
+        month:
+          description: 'Month range to match (1-12)
+
+
+            default: matches all months'
+          type: array
+          items:
+            $ref: '#/components/schemas/internal.ScheduleRange'
+        second:
+          description: 'Second range to match (0-59).
+
+
+            default: matches 0'
+          type: array
+          items:
+            $ref: '#/components/schemas/internal.ScheduleRange'
+        year:
+          description: 'Year range to match.
+
+
+            default: empty that matches all years'
+          type: array
+          items:
+            $ref: '#/components/schemas/internal.ScheduleRange'
+    client.ScheduleIntervalSpec:
+      type: object
+      properties:
+        every:
+          $ref: '#/components/schemas/time.Duration'
+        offset:
+          $ref: '#/components/schemas/time.Duration'
+    enums.ScheduleOverlapPolicy:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      x-enum-varnames:
+      - SCHEDULE_OVERLAP_POLICY_UNSPECIFIED
+      - SCHEDULE_OVERLAP_POLICY_SKIP
+      - SCHEDULE_OVERLAP_POLICY_BUFFER_ONE
+      - SCHEDULE_OVERLAP_POLICY_BUFFER_ALL
+      - SCHEDULE_OVERLAP_POLICY_CANCEL_OTHER
+      - SCHEDULE_OVERLAP_POLICY_TERMINATE_OTHER
+      - SCHEDULE_OVERLAP_POLICY_ALLOW_ALL
+      description: Overlap - Override the Overlap Policy for this request.
+    gin.H:
+      type: object
+      additionalProperties: {}
+    internal.ScheduleRange:
+      type: object
+      properties:
+        end:
+          description: 'End of the range (inclusive)
+
+
+            Optional: defaulted to Start'
+          type: integer
+        start:
+          description: Start of the range (inclusive)
+          type: integer
+        step:
+          description: 'Step to be take between each value
+
+
+            Optional: defaulted to 1'
+          type: integer
+    server.ScheduleSpec:
+      type: object
+      properties:
+        calendars:
+          type: array
+          items:
+            $ref: '#/components/schemas/client.ScheduleCalendarSpec'
+        cronExpressions:
+          type: array
+          items:
+            type: string
+        endAt:
+          type: string
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/client.ScheduleIntervalSpec'
+        jitter:
+          $ref: '#/components/schemas/time.Duration'
+        skip:
+          type: array
+          items:
+            $ref: '#/components/schemas/client.ScheduleCalendarSpec'
+        startAt:
+          type: string
+        timeZoneName:
+          type: string
+    server.createSchedule:
+      type: object
+      properties:
+        catchupWindow:
+          $ref: '#/components/schemas/time.Duration'
+        data:
+          type: object
+        jobName:
+          type: string
+        logLevel:
+          type: string
+        note:
+          type: string
+        overlap:
+          $ref: '#/components/schemas/enums.ScheduleOverlapPolicy'
+        pauseOnFailure:
+          type: boolean
+        paused:
+          type: boolean
+        remainingActions:
+          type: integer
+        scheduleBackfill:
+          type: array
+          items:
+            $ref: '#/components/schemas/client.ScheduleBackfill'
+        scheduleId:
+          type: string
+        spec:
+          $ref: '#/components/schemas/server.ScheduleSpec'
+        tags:
+          type: array
+          items:
+            type: string
+        triggerImmediately:
+          type: boolean
+        workflowName:
+          type: string
+        workflowVersion:
+          type: string
+    server.updateSchedule:
+      type: object
+      properties:
+        catchupWindow:
+          $ref: '#/components/schemas/time.Duration'
+        data:
+          type: object
+        jobName:
+          type: string
+        logLevel:
+          type: string
+        note:
+          type: string
+        overlap:
+          $ref: '#/components/schemas/enums.ScheduleOverlapPolicy'
+        pauseOnFailure:
+          type: boolean
+        paused:
+          type: boolean
+        remainingActions:
+          type: integer
+        scheduleBackfill:
+          type: array
+          items:
+            $ref: '#/components/schemas/client.ScheduleBackfill'
+        spec:
+          $ref: '#/components/schemas/server.ScheduleSpec'
+        tags:
+          type: array
+          items:
+            type: string
+        triggerImmediately:
+          type: boolean
+        workflowName:
+          type: string
+        workflowVersion:
+          type: string
+    time.Duration:
+      type: integer
+      enum:
+      - -9223372036854776000
+      - 9223372036854776000
+      - 1
+      - 1000
+      - 1000000
+      - 1000000000
+      - 60000000000
+      - 3600000000000
+      x-enum-varnames:
+      - minDuration
+      - maxDuration
+      - Nanosecond
+      - Microsecond
+      - Millisecond
+      - Second
+      - Minute
+      - Hour
+      description: 'Offset - is a fixed offset added to the intervals period.
+
+
+        Optional: Defaulted to 0'
+security:
+- Bearer: []

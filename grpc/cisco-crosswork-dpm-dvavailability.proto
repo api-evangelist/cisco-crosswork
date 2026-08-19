@@ -1,0 +1,41 @@
+/*****************************************
+* Protobuf message definitions for Performance DVAVAILABILITYRecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message DVAVAILABILITYRecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Device availability.
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional float deviceAvailability = 2;
+
+	/* 
+	Last reboot time in epoch time.
+	*/
+	optional int64 lastRebootTime = 3;
+
+	/* 
+	the sample's interval in milli seconds.
+	unit: NUMBER
+	*/
+	optional int64 deviceAvailabilityDuration = 4;
+  };
+}
+
+

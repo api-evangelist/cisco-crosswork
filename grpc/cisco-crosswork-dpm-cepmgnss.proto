@@ -1,0 +1,71 @@
+/*****************************************
+* Protobuf message definitions for Performance CEPMGNSSRecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message CEPMGNSSRecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Module lock status
+	*/
+	optional int32 gnssModuleLockStatus = 2;
+
+	/* 
+	Module presence status
+	*/
+	optional int32 gnssModulePresenceStatus = 3;
+
+	/* 
+	Module slot info
+	*/
+	optional int32 gnssModuleSlotInfo = 4;
+
+	/* 
+	Module slot state
+	*/
+	optional int32 gnssModuleSlotState = 5;
+
+	/* 
+	Module visibility status
+	unit: NUMBER
+	*/
+	optional int32 gnssSatelliteVisibilityStatus = 6;
+
+	/* 
+	Satellite locks count
+	unit: NUMBER
+	min: 0
+	*/
+	optional int32 gnssModuleSatelliteCount = 7;
+
+	/* 
+	Antenna short alarm status
+	*/
+	optional int32 gnssAntennaShortAlarmStatus = 8;
+
+	/* 
+	Antenna open alarm status
+	*/
+	optional int32 gnssAntennaOpenAlarmStatus = 9;
+
+	/* 
+	Module SNR
+	unit: DB
+	*/
+	optional string gnssModuleSvIdSNR = 10;
+  };
+}
+
+

@@ -1,0 +1,239 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Network Controller L3VPN Service L3VPN Route Policy Provision API
+  description: This document contains details of the Crosswork Network Controller L3VPN Service APIs
+  version: '1.0'
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/CNC/1.0APIs/cisco-flat-L3vpn-fp_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/CNC/1.0APIs/cisco-flat-L3vpn-fp_api.swagger.json
+servers:
+- url: /crosswork
+tags:
+- name: L3VPN Route Policy Provision
+paths:
+  /proxy/nso/restconf/data/cisco-flat-L3vpn-fp:l3vpn-route-policy={l3vpn-route-policy-name}:
+    post:
+      tags:
+      - L3VPN Route Policy Provision
+      summary: ''
+      description: Route policy
+      operationId: data_cisco_flat_L3vpn_fp_l3vpn_route_policy_l3vpn_route_policy_name_post
+      parameters:
+      - $ref: '#/components/parameters/l3vpn-route-policy-name'
+      - $ref: '#/components/parameters/l3vpn-route-policy'
+      responses:
+        '204':
+          description: The request was successful. L3VPN route policy was created.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+    put:
+      tags:
+      - L3VPN Route Policy Provision
+      summary: ''
+      description: Route policy
+      operationId: data_cisco_flat_L3vpn_fp_l3vpn_route_policy_l3vpn_route_policy_name_put
+      parameters:
+      - $ref: '#/components/parameters/l3vpn-route-policy-name'
+      - $ref: '#/components/parameters/l3vpn-route-policy'
+      - $ref: '#/components/parameters/insert'
+      - $ref: '#/components/parameters/point'
+      responses:
+        '201':
+          description: The request was successful. L3VPN route policy was updated.
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+    patch:
+      tags:
+      - L3VPN Route Policy Provision
+      summary: ''
+      description: Route policy
+      operationId: data_cisco_flat_L3vpn_fp_l3vpn_route_policy_l3vpn_route_policy_name_patch
+      parameters:
+      - $ref: '#/components/parameters/l3vpn-route-policy-name'
+      - $ref: '#/components/parameters/l3vpn-route-policy'
+      responses:
+        '204':
+          description: The request was successful. L3VPN route policy was modified.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+    delete:
+      tags:
+      - L3VPN Route Policy Provision
+      summary: ''
+      description: Route policy
+      operationId: data_cisco_flat_L3vpn_fp_l3vpn_route_policy_l3vpn_route_policy_name_delete
+      parameters:
+      - $ref: '#/components/parameters/l3vpn-route-policy-name'
+      responses:
+        '204':
+          description: The request was successful. L3VPN route policy was deleted.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+      security:
+      - basicAuth: []
+components:
+  parameters:
+    point:
+      name: point
+      in: query
+      description: Specify the insertion point.
+      required: false
+      schema:
+        type: string
+        format: string
+    l3vpn-route-policy:
+      name: l3vpn-route-policy
+      in: body
+      description: Route policy definition
+      required: true
+      schema:
+        $ref: '#/components/schemas/l3vpn-route-policy'
+    insert:
+      name: insert
+      in: query
+      description: Control the order of addition when adding new list elements.
+      required: false
+      schema:
+        type: string
+        format: enumeration
+        enum:
+        - first
+        - last
+        - before
+        - after
+        default: first
+    l3vpn-route-policy-name:
+      name: l3vpn-route-policy-name
+      in: path
+      description: Route-Policy name
+      required: true
+      schema:
+        type: string
+        format: string
+  responses:
+    '405':
+      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
+    '404':
+      description: Not Found. The client made a request for a resource that does not exist.
+    '204':
+      description: No Content. The request was successful and there is no additional content in the response body.
+    '401':
+      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
+    '409':
+      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+    '400':
+      description: Bad Request. The request is malformed in some way and the server cannot process it.
+  schemas:
+    l3vpn-route-policy:
+      type: object
+      properties:
+        name:
+          description: Route-Policy name (leaf)
+          x-yang:
+            type: leaf
+          type: string
+          format: string
+        color:
+          type: array
+          description: SR policy color (list)
+          x-yang:
+            type: list
+          items:
+            type: object
+            properties:
+              id:
+                description: <1-4294967295> - SR policy color (leaf)
+                x-yang:
+                  type: leaf
+                type: integer
+                format: uint32
+              ipv4:
+                description: IPv4 ODN SR (presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'true'
+                properties:
+                  prefix:
+                    type: array
+                    x-yang:
+                      type: leaf-list
+                    items:
+                      description: <A.B.C.D/prefix> - IPv4 Prefix List (leaf-list)
+                      type: string
+                      format: string
+              ipv6:
+                description: (presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'true'
+                properties:
+                  ipv6-prefix:
+                    type: array
+                    x-yang:
+                      type: leaf-list
+                    items:
+                      description: <X:X::X/length> - IPv6 Prefix List (leaf-list)
+                      type: string
+                      format: string
+      xml:
+        namespace: http://cisco.com/ns/nso/fp/examples/cisco-tsdn-flat-L3vpn
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

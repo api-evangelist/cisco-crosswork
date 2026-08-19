@@ -1,0 +1,62 @@
+/*****************************************
+* Protobuf message definitions for Performance Generic message
+* 
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+import "Custom.proto";
+import "CEPMCRC.proto";
+import "CEPMINTERFACE.proto";
+import "DVAVAILABILITY.proto";
+import "CPU.proto";
+import "ENVTEMP.proto";
+import "MEMORY.proto";
+import "OpticalSFP.proto";
+import "OPTICSLANE.proto";
+import "OTUCONTROLLERSINFO.proto";
+import "CEPMPOWER.proto";
+import "SRPOLICY.proto";
+import "CEPMQOS.proto";
+import "CEPMPTP.proto";
+import "CEPMSYNCE.proto";
+import "CEPMGNSS.proto";
+import "SRV6LOCATOR.proto";
+
+
+message PerformanceMonitoringMessage{
+
+  string deviceuuid = 1;
+  string devicename = 18;
+
+  oneof pm_data {
+  
+	//Out of the box policies
+    CEPMCRCRecords cepmcrc = 2;
+    CEPMINTERFACERecords cepminterface = 3;
+    DVAVAILABILITYRecords dvavailability = 4;
+    CPURecords cpu = 5;
+    ENVTEMPRecords envtemp = 6;
+    MEMORYRecords memory = 7;
+    OpticalSFPRecords opticalsfp = 8;
+    OPTICSLANERecords opticslane = 9;
+    OTUCONTROLLERSINFORecords otucontrollersinfo = 10;
+    CEPMPOWERRecords cepmpower = 11;
+    SRPOLICYRecords srpolicy = 12;
+    CEPMQOSRecords cepmqos = 13;
+    CEPMPTPRecords cepmptp = 15;
+    CEPMSYNCERecords cepmsynce = 16;
+    CEPMGNSSRecords cepmgnss = 17;
+    SRV6LOCATORRecords srv6locator = 19;
+
+	//Custom policy 
+	CustomRecords custom = 14;
+  }
+}
+
+
+

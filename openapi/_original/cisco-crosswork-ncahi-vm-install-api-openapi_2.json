@@ -1,0 +1,1094 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/vm_install_api.proto",
+    "version": "version not set",
+    "x-provenance": {
+      "method": "harvested",
+      "authored_by": "Cisco Crosswork",
+      "harvested_by": "API Evangelist",
+      "harvested_on": "2026-08-19",
+      "first_party": true,
+      "note": "Published by Cisco. Retrieved unmodified except for this x-provenance block.",
+      "provider_published": true
+    },
+    "x-evidence": [
+      {
+        "type": "source",
+        "url": "https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/4.0APIs/vm_install_api.swagger.json"
+      },
+      {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/4.0APIs/vm_install_api.swagger.json"
+      }
+    ]
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/node-manager/actions": {
+      "get": {
+        "summary": "Get the general Crosswork VMM Actions",
+        "operationId": "GetVMMActions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiNodeActions"
+            }
+          }
+        },
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/all": {
+      "get": {
+        "summary": "Get All Data Centre, Cluster and VM info.",
+        "operationId": "GetAll",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiVMMDump"
+            }
+          }
+        },
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/clusters": {
+      "get": {
+        "summary": "Get map of Clusters configured in Crosswork.",
+        "operationId": "GetClusters",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiClustersResp"
+            }
+          }
+        },
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/clusters/{Id}": {
+      "get": {
+        "summary": "Get Cluster identified by Id.",
+        "operationId": "GetCluster",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiCwClusterAndActions"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "Id of service or app name or resource as assigned by Crossworks.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/dcs": {
+      "get": {
+        "summary": "Get map of Data Centres configured in Crosswork.",
+        "operationId": "GetDCs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiDCsResp"
+            }
+          }
+        },
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/dcs/vcentres/{Id}": {
+      "get": {
+        "summary": "Get Vcentre Data Centre identified by Id configured in Crosswork.",
+        "operationId": "GetVCentre",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiVCentreDC"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "Id of service or app name or resource as assigned by Crossworks.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      },
+      "patch": {
+        "summary": "Patch Vcentre Data Centre data in Crosswork.",
+        "operationId": "PatchVCentreDC",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "ID as assigned by Crosswork",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/install_apiVCentreReq"
+            }
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/inventory/import": {
+      "post": {
+        "summary": "Upload a small inventory base64 encoded file only",
+        "operationId": "ImportInventory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/install_apiFiledata"
+            }
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/inventory/sample": {
+      "get": {
+        "summary": "Request a sample inventory base64 encoded file.",
+        "operationId": "GetSampleInventoryFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiSmallFileChunk"
+            }
+          }
+        },
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/inventory/{Id}/export": {
+      "post": {
+        "summary": "Export the cluster id inventory as a base64 encoded file.",
+        "operationId": "ExportInventory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiSmallFileChunk"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "Id of service or app name or resource as assigned by Crossworks.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/tasks": {
+      "get": {
+        "summary": "Get Network Manager Jobs",
+        "operationId": "GetVMMTasks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiVMMTaskResults"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "filter.pageNum",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "filterData.status",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filterData.jobType",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filterData.jobName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/tasks/{jobId}": {
+      "get": {
+        "summary": "Get Network Manager Job identified by job_id",
+        "operationId": "GetVMMTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiVMMTask"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/tasks/{jobId}/cancel": {
+      "post": {
+        "summary": "Cancel Network Manager Job identified by job_id",
+        "operationId": "CancelVMMTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/vms": {
+      "get": {
+        "summary": "Get map of all VMs configured in Crosswork.",
+        "operationId": "GetCwVMs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiVMsResp"
+            }
+          }
+        },
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/vms/add": {
+      "post": {
+        "summary": "Add Cw VM in Crosswork. Returned OpResult Id identifies the assigned VM id",
+        "operationId": "AddCwVM",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/install_apiCwVM"
+            }
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/vms/{Id}": {
+      "get": {
+        "summary": "Get Cw VM identified by Id",
+        "operationId": "GetCwVM",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiCwVM"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "Id of service or app name or resource as assigned by Crossworks.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      },
+      "delete": {
+        "summary": "Delete the VM identified by Id from the inventory.",
+        "operationId": "DeleteVm",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "Id of service or app name or resource as assigned by Crossworks.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      },
+      "patch": {
+        "summary": "Patch Cw VM identified by id",
+        "operationId": "PatchVm",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "Cluster Identifier as assigned by Crosswork",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/install_apiCwVM"
+            }
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/vms/{Id}/actions": {
+      "get": {
+        "summary": "Get the Actions allowed for the VM",
+        "operationId": "GetVMActions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiNodeActions"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "Id of service or app name or resource as assigned by Crossworks.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/vms/{Id}/deploy": {
+      "post": {
+        "summary": "Apply the configuration of the Cw VM identified. Returned Id identifes the install job/task",
+        "operationId": "ApplyVM",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "Id of service or app name or resource as assigned by Crossworks.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/vms/{Id}/erase": {
+      "delete": {
+        "summary": "Initiate task to destroy and delete the VM identified by Id from the inventory.",
+        "operationId": "DestroyVm",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "Id of service or app name or resource as assigned by Crossworks.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    },
+    "/v1/node-manager/vms/{Id}/remove": {
+      "post": {
+        "summary": "Drain and remove from the cluster the VM identified by its *Management IP address*.",
+        "operationId": "DrainRemoveVM",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/install_apiOpResult"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Id",
+            "description": "Id of service or app name or resource as assigned by Crossworks.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CwVmMangager"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CwVMDataCentre": {
+      "type": "object",
+      "properties": {
+        "DataCentre_Id": {
+          "type": "string",
+          "title": "The VM's DataCentre ID"
+        },
+        "Host": {
+          "type": "string",
+          "title": "Virtualization host name"
+        },
+        "Datastore": {
+          "type": "string",
+          "title": "Datastore name"
+        },
+        "HSDatastore": {
+          "type": "string",
+          "title": "High Speed Datastore name"
+        }
+      }
+    },
+    "install_apiClustersResp": {
+      "type": "object",
+      "properties": {
+        "CwClusterAndActions": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/install_apiCwClusterAndActions"
+          },
+          "description": "Map is keyed by cluster id."
+        }
+      }
+    },
+    "install_apiCwCluster": {
+      "type": "object",
+      "properties": {
+        "Cw_VM_Image": {
+          "type": "string",
+          "title": "Target Cw cluster image"
+        },
+        "ClusterIPStack": {
+          "type": "string",
+          "description": "Cluster IP Stack Type; IPv4 or IPv6."
+        },
+        "ManagementVIP": {
+          "type": "string",
+          "title": "Cluster Management Virtual IPv4 address"
+        },
+        "ManagementIPNetmask": {
+          "type": "string",
+          "title": "Cluster Management netmask in dotted decimal"
+        },
+        "ManagementIPGateway": {
+          "type": "string",
+          "title": "Cluster Management default gateway"
+        },
+        "DataVIP": {
+          "type": "string",
+          "title": "Cluster Data Virtual IPv4 address"
+        },
+        "DataIPNetmask": {
+          "type": "string",
+          "title": "Cluster Data netmask in dotted decimal"
+        },
+        "DataIPGateway": {
+          "type": "string",
+          "title": "Cluster Data default gateway"
+        },
+        "DNS": {
+          "type": "string",
+          "title": "DNS server address"
+        },
+        "DomainName": {
+          "type": "string",
+          "title": "DNS Domain Name used by the cluster"
+        },
+        "CWPassword": {
+          "type": "string",
+          "title": "Cluster VMs password"
+        },
+        "VMSize": {
+          "type": "string",
+          "title": "Cluster VMs size profile (Small, Medium or Large)"
+        },
+        "NTP": {
+          "type": "string",
+          "title": "NTP Server address"
+        },
+        "ClusterHostName": {
+          "type": "string",
+          "title": "Virtual Host name for the cluster"
+        },
+        "ClusterName": {
+          "type": "string",
+          "title": "The name/id of the cluster and DC"
+        },
+        "ClusterVMs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "List of VMs in the cluster"
+        },
+        "SchemaVersion": {
+          "type": "string",
+          "title": "The configuration schema version"
+        }
+      }
+    },
+    "install_apiCwClusterAndActions": {
+      "type": "object",
+      "properties": {
+        "CwCluster": {
+          "$ref": "#/definitions/install_apiCwCluster"
+        },
+        "ClusterActions": {
+          "$ref": "#/definitions/install_apiNodeActions"
+        }
+      }
+    },
+    "install_apiCwVM": {
+      "type": "object",
+      "properties": {
+        "ManagementIPAddress": {
+          "type": "string",
+          "title": "The VM's management IP address"
+        },
+        "DataIPAddress": {
+          "type": "string",
+          "title": "The VM's data IP address"
+        },
+        "NodeType": {
+          "type": "string",
+          "title": "The Cw VM Node type. One of Management, Worker, Hybrid"
+        },
+        "VMName": {
+          "type": "string",
+          "title": "The VM Name"
+        },
+        "CwImage": {
+          "type": "string",
+          "title": "The VM Image"
+        },
+        "Cluster_Id": {
+          "type": "string",
+          "title": "The VM's Cluster ID"
+        },
+        "HostDataCentre": {
+          "$ref": "#/definitions/CwVMDataCentre"
+        },
+        "Op_Status": {
+          "$ref": "#/definitions/install_apiCwVmState",
+          "title": "Operational Status - ignored in requests"
+        },
+        "VmSize": {
+          "type": "string",
+          "title": "VM Size"
+        }
+      }
+    },
+    "install_apiCwVmState": {
+      "type": "string",
+      "enum": [
+        "Initializing",
+        "Down",
+        "Running",
+        "Degraded",
+        "Erased",
+        "Failed",
+        "Suspended",
+        "Configuring",
+        "Erasing"
+      ],
+      "default": "Initializing",
+      "title": "- Initializing: Defines unknown/initialized state.\n - Down: When the VM is non-functional.\n - Running: When the VM is completely functional.\n - Degraded: When the VM is running but suspected not to be completely functional.\n - Erased: When the VM is erased but still in the inventory.\n - Failed: When some unrecoverable error happened\n - Suspended: When the VM is suspended\n - Configuring: When the VM is being configured\n - Erasing: When the VM is being destroyed/erased"
+    },
+    "install_apiDCsResp": {
+      "type": "object",
+      "properties": {
+        "VCentres": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/install_apiVCentreDC"
+          },
+          "description": "Map is keyed by VCentre id."
+        }
+      }
+    },
+    "install_apiFiledata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "install_apiGetJobsReqFilter": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageNum": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "install_apiGetJobsReqPageFilter": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "jobType": {
+          "type": "string"
+        },
+        "jobName": {
+          "type": "string"
+        }
+      }
+    },
+    "install_apiNodeActions": {
+      "type": "object",
+      "properties": {
+        "Actions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean",
+            "format": "boolean"
+          }
+        }
+      },
+      "title": "Node Actions"
+    },
+    "install_apiOpResult": {
+      "type": "object",
+      "properties": {
+        "Result": {
+          "$ref": "#/definitions/install_apiResultValue",
+          "description": "ResultValue indicates the success/failure for the requested operation."
+        },
+        "Description": {
+          "type": "string",
+          "title": "Addional response information"
+        },
+        "ResultMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Supplementary keyed response info for the operation (for example: version number, error message)"
+        },
+        "ResultString": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Simple result string"
+        },
+        "Id": {
+          "type": "string",
+          "title": "Resource Identifier returned by operation, if any"
+        }
+      },
+      "description": "OpResult is used to indicate whether an operation has been accepted or not. A string or map payload provides the additional response information (for example: version number, error data)."
+    },
+    "install_apiOpStatus": {
+      "type": "string",
+      "enum": [
+        "CANCELLED",
+        "FAILED",
+        "SUCCESSFUL",
+        "QUEUED",
+        "RUNNING",
+        "IDLE"
+      ],
+      "default": "CANCELLED"
+    },
+    "install_apiResultValue": {
+      "type": "string",
+      "enum": [
+        "NOOP",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "default": "NOOP"
+    },
+    "install_apiSmallFileChunk": {
+      "type": "object",
+      "properties": {
+        "filedata": {
+          "$ref": "#/definitions/install_apiFiledata"
+        }
+      }
+    },
+    "install_apiVCentreDC": {
+      "type": "object",
+      "properties": {
+        "DCname": {
+          "type": "string",
+          "title": "The vCentre DC Name, used as DC id"
+        },
+        "VCentreAddress": {
+          "type": "string",
+          "title": "The vCentre address"
+        },
+        "VCentreUser": {
+          "type": "string",
+          "title": "The vCentre username"
+        },
+        "VCentrePassword": {
+          "type": "string",
+          "title": "The vCentre password"
+        },
+        "MgmtNetworkName": {
+          "type": "string",
+          "title": "The name of the network in vCentre to be used as the Cw VM Management network"
+        },
+        "DataNetworkName": {
+          "type": "string",
+          "title": "The name of the network in vCentre to be used as the Cw VM Data network"
+        },
+        "DCfolder": {
+          "type": "string",
+          "title": "The folder on the vCentre"
+        },
+        "VMs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/install_apiVMResource"
+          }
+        }
+      }
+    },
+    "install_apiVCentreReq": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "title": "ID as assigned by Crosswork"
+        },
+        "VCentreUser": {
+          "type": "string",
+          "title": "The vCentre username"
+        },
+        "VCentrePassword": {
+          "type": "string",
+          "title": "The vCentre password"
+        },
+        "VCentreAddress": {
+          "type": "string",
+          "title": "The vCentre address"
+        },
+        "DCfolder": {
+          "type": "string",
+          "title": "The folder on the vCentre"
+        }
+      }
+    },
+    "install_apiVMMDump": {
+      "type": "object",
+      "properties": {
+        "VCentres": {
+          "$ref": "#/definitions/install_apiDCsResp"
+        },
+        "CwClusters": {
+          "$ref": "#/definitions/install_apiClustersResp"
+        },
+        "CwVMs": {
+          "$ref": "#/definitions/install_apiVMsResp"
+        }
+      }
+    },
+    "install_apiVMMTask": {
+      "type": "object",
+      "properties": {
+        "NmTaskId": {
+          "type": "string"
+        },
+        "NmTaskType": {
+          "$ref": "#/definitions/install_apiVMMTaskTypes"
+        },
+        "CwVMs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "TimeInitiated": {
+          "type": "string"
+        },
+        "TimeCompleted": {
+          "type": "string"
+        },
+        "Status": {
+          "$ref": "#/definitions/install_apiOpStatus"
+        },
+        "Username": {
+          "type": "string"
+        },
+        "InstallerVersion": {
+          "type": "string"
+        },
+        "RunOpts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "Output": {
+          "type": "string"
+        },
+        "Error": {
+          "type": "string"
+        },
+        "ClusterId": {
+          "type": "string"
+        },
+        "DcId": {
+          "type": "string"
+        },
+        "ManifestFile": {
+          "type": "string"
+        }
+      }
+    },
+    "install_apiVMMTaskResults": {
+      "type": "object",
+      "properties": {
+        "NmTasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/install_apiVMMTask"
+          }
+        }
+      }
+    },
+    "install_apiVMMTaskTypes": {
+      "type": "string",
+      "enum": [
+        "None",
+        "Deploy",
+        "Erase",
+        "Refresh",
+        "Plan",
+        "Add",
+        "Update",
+        "Delete",
+        "DrainRemove"
+      ],
+      "default": "None"
+    },
+    "install_apiVMResource": {
+      "type": "object",
+      "properties": {
+        "Host": {
+          "type": "string",
+          "title": "Virtualization host name"
+        },
+        "Datastore": {
+          "type": "string",
+          "title": "Datastore name"
+        },
+        "HSDatastore": {
+          "type": "string",
+          "title": "High Speed Datastore name"
+        },
+        "HostedCwVMs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "List of Cw VMs on this DC"
+        }
+      }
+    },
+    "install_apiVMsResp": {
+      "type": "object",
+      "properties": {
+        "CwVMs": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/install_apiCwVM"
+          },
+          "description": "Map is keyed by VM Crosswork assigned id."
+        }
+      }
+    }
+  }
+}

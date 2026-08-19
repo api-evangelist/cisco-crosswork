@@ -1,0 +1,675 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Crosswork ZTP Image Service APIs",
+    "version": "1.0",
+    "title": "Crosswork ZTP Image Service APIs",
+    "termsOfService": "urn:tos",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "x-provenance": {
+      "method": "harvested",
+      "authored_by": "Cisco Crosswork",
+      "harvested_by": "API Evangelist",
+      "harvested_on": "2026-08-19",
+      "first_party": true,
+      "note": "Published by Cisco. Retrieved unmodified except for this x-provenance block.",
+      "provider_published": true
+    },
+    "x-evidence": [
+      {
+        "type": "source",
+        "url": "https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.2APIs/cw_image_service.swagger.json"
+      },
+      {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.2APIs/cw_image_service.swagger.json"
+      }
+    ]
+  },
+  "basePath": "/crosswork/imagesvc/",
+  "tags": [
+    {
+      "name": "image-platform-controller",
+      "description": "Image Platform Controller"
+    },
+    {
+      "name": "file-controller",
+      "description": "File Controller"
+    },
+    {
+      "name": "image-controller",
+      "description": "Image Controller"
+    },
+    {
+      "name": "health-controller",
+      "description": "Health Controller"
+    }
+  ],
+  "paths": {
+    "/v1/device/files/{id}": {
+      "get": {
+        "tags": [
+          "file-controller"
+        ],
+        "summary": "Download image file by id from device",
+        "operationId": "downloadImageFromDeviceByImageIdUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-cisco-serial*",
+            "in": "header",
+            "description": "X-cisco-serial*",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/files/{id}": {
+      "get": {
+        "tags": [
+          "file-controller"
+        ],
+        "summary": "Download image file by id",
+        "operationId": "downloadImageByImageIdUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "tags": [
+          "health-controller"
+        ],
+        "summary": "/v1/health",
+        "operationId": "healthcheckUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/images": {
+      "get": {
+        "tags": [
+          "image-controller"
+        ],
+        "summary": "Get images",
+        "operationId": "getAllImagesUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "pageNumber",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "pageSize",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "descending",
+            "in": "query",
+            "description": "descending",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "imageType",
+            "in": "query",
+            "description": "imageType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "imagePlatform",
+            "in": "query",
+            "description": "imagePlatform",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "imageVersion",
+            "in": "query",
+            "description": "imageVersion",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "imageTitle",
+            "in": "query",
+            "description": "imageTitle",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "deviceFamily",
+            "in": "query",
+            "description": "deviceFamily",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "searchType",
+            "in": "query",
+            "description": "searchType",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "X-Real-IP",
+            "in": "header",
+            "description": "X-Real-IP",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseDto\u00abImageDto\u00bb"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "image-controller"
+        ],
+        "summary": "Delete images by id list",
+        "operationId": "deleteImagesByIdListUsingDELETE",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "idList",
+            "description": "idList",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/images/{imageId}": {
+      "get": {
+        "tags": [
+          "image-controller"
+        ],
+        "summary": "Get image by id",
+        "operationId": "getImageByIdUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "imageId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "X-Real-IP",
+            "in": "header",
+            "description": "X-Real-IP",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ImageDto"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "image-controller"
+        ],
+        "summary": "Update metadata of image",
+        "operationId": "updateImageInfoUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "imageId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "imageDto",
+            "description": "imageDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImageDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ImageDto"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "image-controller"
+        ],
+        "summary": "Delete image by id",
+        "operationId": "deleteImageByIdUsingDELETE",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "imageId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/platforms": {
+      "get": {
+        "tags": [
+          "image-platform-controller"
+        ],
+        "summary": "getPlatforms",
+        "operationId": "getPlatformsUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseDto"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/platforms/{platform}/families": {
+      "get": {
+        "tags": [
+          "image-platform-controller"
+        ],
+        "summary": "getFamiliesByPlatform",
+        "operationId": "getFamiliesByPlatformUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "path",
+            "description": "platform",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseDto"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/platforms/{platform}/versions": {
+      "get": {
+        "tags": [
+          "image-platform-controller"
+        ],
+        "summary": "getVersionsByPlatform",
+        "operationId": "getVersionsByPlatformUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "path",
+            "description": "platform",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseDto"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "definitions": {
+    "ImageDto": {
+      "type": "object",
+      "properties": {
+        "createdBy": {
+          "type": "string"
+        },
+        "deviceFamily": {
+          "type": "string"
+        },
+        "downloadURL": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "imageFileName": {
+          "type": "string"
+        },
+        "imagePlatform": {
+          "type": "string"
+        },
+        "imageSource": {
+          "type": "string"
+        },
+        "imageTitle": {
+          "type": "string"
+        },
+        "imageType": {
+          "type": "string"
+        },
+        "imageVersion": {
+          "type": "string"
+        },
+        "modifiedBy": {
+          "type": "string"
+        }
+      }
+    },
+    "ResponseDto": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ResponseDto\u00abImageDto\u00bb": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ImageDto"
+          }
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Status": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

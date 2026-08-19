@@ -1,0 +1,1827 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Network Controller L3VPN Service Flat L3VPN Retrieval API
+  description: This document contains details of the Crosswork Network Controller L3VPN Service APIs
+  version: '1.0'
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/CNC/1.0APIs/cisco-flat-L3vpn-fp_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/CNC/1.0APIs/cisco-flat-L3vpn-fp_api.swagger.json
+servers:
+- url: /crosswork
+tags:
+- name: Flat L3VPN Retrieval
+paths:
+  /nbi/cat-inventory/v1/restconf/data/cisco-flat-L3vpn-fp:flat-L3vpn={flat-L3vpn-name}:
+    get:
+      tags:
+      - Flat L3VPN Retrieval
+      summary: ''
+      description: Flat L3VPN service
+      operationId: data_cisco_flat_L3vpn_fp_flat_L3vpn_flat_L3vpn_name_get
+      parameters:
+      - $ref: '#/components/parameters/flat-L3vpn-name'
+      - $ref: '#/components/parameters/content'
+      - $ref: '#/components/parameters/depth'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/with-defaults'
+      responses:
+        '200':
+          description: The request was successful. Flat L3VPN service was returned.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/flat-L3vpn'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/flat-L3vpn'
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+  /nbi/cat-inventory/v1/restconf/data/cisco-flat-L3vpn-fp:flat-L3vpn-plan={flat-L3vpn-plan-name}:
+    get:
+      tags:
+      - Flat L3VPN Retrieval
+      summary: ''
+      description: ''
+      operationId: data_cisco_flat_L3vpn_fp_flat_L3vpn_plan_flat_L3vpn_plan_name_get
+      parameters:
+      - $ref: '#/components/parameters/flat-L3vpn-plan-name'
+      - $ref: '#/components/parameters/content'
+      - $ref: '#/components/parameters/depth'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/with-defaults'
+      responses:
+        '200':
+          description: The request was successful. Flat L3VPN plan was returned.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/flat-L3vpn-plan'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/flat-L3vpn-plan'
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+components:
+  responses:
+    '405':
+      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
+    '404':
+      description: Not Found. The client made a request for a resource that does not exist.
+    '204':
+      description: No Content. The request was successful and there is no additional content in the response body.
+    '401':
+      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
+    '409':
+      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+    '400':
+      description: Bad Request. The request is malformed in some way and the server cannot process it.
+  parameters:
+    fields:
+      name: fields
+      in: query
+      description: Identify specific data nodes in the response (optional).
+      required: false
+      schema:
+        type: string
+        format: string
+    depth:
+      name: depth
+      in: query
+      description: Limit the depth of the nodes in the response.
+      required: false
+      schema:
+        type: integer
+        format: uint16
+    flat-L3vpn-plan-name:
+      name: flat-L3vpn-plan-name
+      in: path
+      description: ''
+      required: true
+      schema:
+        type: string
+        format: string
+    content:
+      name: content
+      in: query
+      description: Control the descendant nodes in the response.
+      required: false
+      schema:
+        type: string
+        format: enumeration
+        enum:
+        - config
+        - nonconfig
+        - all
+        default: config
+    filter:
+      name: filter
+      in: query
+      description: An xpath expression to filter data nodes in the response.
+      required: false
+      schema:
+        type: string
+        format: string
+    flat-L3vpn-name:
+      name: flat-L3vpn-name
+      in: path
+      description: Service Name for L3VPN
+      required: true
+      schema:
+        type: string
+        format: string
+    with-defaults:
+      name: with-defaults
+      in: query
+      description: Control the default values in the response.
+      required: false
+      schema:
+        type: string
+        format: enumeration
+        enum:
+        - report-all
+        - trim
+        - explicit
+        - report-all-tagged
+        default: report-all
+  schemas:
+    flat-L3vpn:
+      type: object
+      properties:
+        modified:
+          description: Devices and other services this service has modified directly or indirectly (through another service). (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            devices:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: leafref
+            services:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: instance-identifier
+            lsa-services:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: instance-identifier
+        directly-modified:
+          description: Devices and other services that this service has explicitly modified. (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            devices:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: leafref
+            services:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: instance-identifier
+            lsa-services:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: instance-identifier
+        device-list:
+          type: array
+          x-yang:
+            type: leaf-list
+          items:
+            description: A list of managed devices this service instance has manipulated. This leaf is deprecated; use 'modified' instead. (leaf-list)
+            type: string
+            format: string
+        used-by-customer-service:
+          type: array
+          x-yang:
+            type: leaf-list
+          items:
+            description: (leaf-list)
+            type: string
+            format: leafref
+        commit-queue:
+          description: (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            queue-item:
+              type: array
+              description: 'When a service is committed through the commit queue, these fields act as references regarding the state of this service instance. In the worst-case scenario, a service instance is in the ''failed'' state. This means that parts of the queued commit failed.
+
+
+                If a service gets committed through the commit queue and the commit fails, the backpointers in the service data are followed and the affected service instances are updated and set to the ''failed'' state.
+
+
+                Depending on the nature of the failure, different techniques to reconcile the service can be used.
+
+
+                - Make sure the commit queue is blocked to not interfere with the error recovery procedure. Do a sync-from on the non-completed device(s) and then re-deploy the failed service(s) with the ''reconcile'' option to reconcile original data, i.e., take control of that data. This option acknowledges other services controlling the same data. The reference count will indicate how many services control the data. Release any queue lock that was created.
+
+
+                - Make sure the commit queue is blocked to not interfere with the error recovery procedure. Use un-deploy with the no-networking option on the service and then do sync-from on the non-completed device(s). Make sure the error is fixed and then re-deploy the failed service(s) with the ''reconcile'' option. Release any queue lock that was created.
+
+
+                In the ''failed'' state, these fields are reset if a new commit queue transaction is affecting this service, or the service is re-deployed, or these fields are deleted using the specific purge action.
+
+                In other cases, the ''failed'' state will remain. (list)'
+              x-yang:
+                type: list
+              items:
+                type: object
+                properties:
+                  id:
+                    description: If the queue item in the commit queue refers to this service, this is the queue number. (leaf)
+                    x-yang:
+                      type: leaf
+                    type: integer
+                    format: uint64
+                  status:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: enumeration
+                    default: waiting
+                    enum:
+                    - waiting
+                    - executing
+                    - blocking
+                    - blocked
+                    - failed
+                    - admin-cleared
+                    - commit-queue-failed
+                  cleared-by-admin:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: '[null]'
+                  no-of-impacted-services:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: integer
+                    format: uint32
+                  failed-device:
+                    type: array
+                    description: If the 'status' leaf is 'failed', this list contains detailed information on the devices that were responsible for the error of the commit queue item. (list)
+                    x-yang:
+                      type: list
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: leafref
+                        time:
+                          description: The time when the failure occurred. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        config-data:
+                          description: The configuration data that was rejected by the device, in XML format. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        error:
+                          description: The error returned by the device. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+        private:
+          description: Stores NCS service-related internal data. (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            diff-set:
+              description: 'Internal node use by NCS service manager to remember
+
+                the reverse diff for a service instance. This is the
+
+                data that is used by Fastmap (leaf)'
+              x-yang:
+                type: leaf
+              type: string
+              format: binary
+            forward-diff-set:
+              description: Internal node that the NCS service manager uses to remember the forward diff for a service instance. This data is used to produce the proper 'get-modifications' output. (leaf)
+              x-yang:
+                type: leaf
+              type: string
+              format: binary
+            device-list:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: A list of managed devices this service instance has manipulated. (leaf-list)
+                type: string
+                format: string
+            ned-id-list:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: A list of NED identities this service instance has manipulated. (leaf-list)
+                type: string
+                format: string
+            service-list:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: A list of services this service instance has manipulated. (leaf-list)
+                type: string
+                format: instance-identifier
+            lsa-service-list:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: A list of LSA services this service instance has manipulated. (leaf-list)
+                type: string
+                format: instance-identifier
+            property-list:
+              description: Fastmap service instance data used by the service implementation. (non-presence)
+              type: object
+              x-yang:
+                type: container
+                is_presence: 'false'
+              properties:
+                property:
+                  type: array
+                  description: (list)
+                  x-yang:
+                    type: list
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: string
+                      value:
+                        description: (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: string
+            re-deploy-counter:
+              description: (leaf)
+              x-yang:
+                type: leaf
+              type: string
+              format: int32
+            latest-commit-params:
+              description: Stores the commit parameters for the latest transactions. These are used in reactive re-deploy actions that must have the same parameters as the original service commit. (leaf)
+              x-yang:
+                type: leaf
+              type: string
+              format: binary
+            latest-u-info:
+              description: Stores the user info for the latest transactions. These are used in reactive re-deploy actions that must be performed by a user with the same user info. (leaf)
+              x-yang:
+                type: leaf
+              type: string
+              format: binary
+        log:
+          description: (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            log-entry:
+              type: array
+              description: (list)
+              x-yang:
+                type: list
+              items:
+                type: object
+                properties:
+                  when:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  type:
+                    description: Indicates this log entry's type. (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: identityref
+                  level:
+                    description: Indicates this log entry's log level. (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: enumeration
+                    default: all
+                    enum:
+                    - all
+                    - trace
+                    - debug
+                    - info
+                    - warn
+                    - error
+                  message:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+        name:
+          description: Service Name for L3VPN (leaf)
+          x-yang:
+            type: leaf
+          type: string
+          format: string
+        custom-template:
+          type: array
+          description: Custom templates to apply when device is ready (list)
+          x-yang:
+            type: list
+          items:
+            type: object
+            properties:
+              name:
+                description: Name of template to apply (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: leafref
+              variable:
+                type: array
+                description: Variables to bind when applying template one time (list)
+                x-yang:
+                  type: list
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: Name of template variable (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: leafref
+                    value:
+                      description: Value of template variable (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: string
+              iteration:
+                type: array
+                description: Apply custom template multiple times with iteration (list)
+                x-yang:
+                  type: list
+                items:
+                  type: object
+                  properties:
+                    number:
+                      description: <1-65535>;;Iteration number (leaf)
+                      x-yang:
+                        type: leaf
+                      type: integer
+                      format: uint16
+                    variable:
+                      type: array
+                      description: Variables to bind when applying template in iteration (list)
+                      x-yang:
+                        type: list
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            description: Name of template variable (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: leafref
+                          value:
+                            description: Value of template variable (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: string
+        endpoint:
+          type: array
+          description: L3VPN End-point (list)
+          x-yang:
+            type: list
+          items:
+            type: object
+            properties:
+              endpoint-name:
+                description: Endpoint name (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: string
+              access-pe:
+                description: PE device (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: leafref
+              custom-template:
+                type: array
+                description: Custom templates to apply when device is ready (list)
+                x-yang:
+                  type: list
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: Name of template to apply (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: leafref
+                    variable:
+                      type: array
+                      description: Variables to bind when applying template one time (list)
+                      x-yang:
+                        type: list
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            description: Name of template variable (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: leafref
+                          value:
+                            description: Value of template variable (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: string
+                    iteration:
+                      type: array
+                      description: Apply custom template multiple times with iteration (list)
+                      x-yang:
+                        type: list
+                      items:
+                        type: object
+                        properties:
+                          number:
+                            description: <1-65535>;;Iteration number (leaf)
+                            x-yang:
+                              type: leaf
+                            type: integer
+                            format: uint16
+                          variable:
+                            type: array
+                            description: Variables to bind when applying template in iteration (list)
+                            x-yang:
+                              type: list
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  description: Name of template variable (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: leafref
+                                value:
+                                  description: Value of template variable (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: string
+              if-type:
+                description: Interface Type (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: enumeration
+                default: Loopback
+                enum:
+                - Loopback
+                - BVI
+                - GigabitEthernet
+                - TenGigE
+                - FortyGigE
+                - HundredGigE
+                - FiftyGigE
+                - TwoHundredGigE
+                - Bundle-Ether
+                - FourHundredGigE
+                - TwentyFiveGigE
+              if-id:
+                description: Interface Id (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: string
+              mtu:
+                description: <64-65535> - Set the MTU on an interface (leaf)
+                x-yang:
+                  type: leaf
+                type: integer
+                format: uint16
+              pe-ip-addr:
+                description: <A.B.C.D/prefix> - PE IPv4 Address (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: string
+              pe-ipv6-addr:
+                description: <X:X::X/length> - PE IPv6 Address (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: string
+              as-no:
+                description: Autonomous Number (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: union
+              vlan-id:
+                description: <1-4000> - VLAN Id (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: int32
+              ce-pe-prot:
+                description: (non-presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'false'
+                properties:
+                  e-bgp:
+                    description: eBGP Routing (non-presence)
+                    type: object
+                    x-yang:
+                      type: container
+                      is_presence: 'false'
+                    properties:
+                      neighbor-ipv4:
+                        description: <A.B.C.D> - Neighbor IPv4 Address (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: string
+                      neighbor-ipv6:
+                        description: <X:X::X> - Neighbor IPv6 Address (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: string
+                      remote-as-ipv4:
+                        description: Neighbor IPv4 Remote AS (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: union
+                      remote-as-ipv6:
+                        description: Neighbor IPv6 Remote AS (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: union
+                      update-source:
+                        description: Source of routing updates (presence)
+                        type: object
+                        x-yang:
+                          type: container
+                          is_presence: 'true'
+                        properties:
+                          if-type:
+                            description: Interface Type (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: enumeration
+                            default: Loopback
+                            enum:
+                            - Loopback
+                            - GigabitEthernet
+                            - TenGigE
+                            - FortyGigE
+                            - HundredGigE
+                            - FiftyGigE
+                            - TwoHundredGigE
+                            - Bundle-Ether
+                            - FourHundredGigE
+                            - TwentyFiveGigE
+                          if-id:
+                            description: Interface Id (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: string
+              vrf:
+                description: VRF Definition (non-presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'false'
+                properties:
+                  vrf-definition:
+                    description: VRF Name (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  route-distinguisher:
+                    description: ASN:nn or IPV4-address:nn,VPN Route Distinguisher (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  vpn-id:
+                    description: '<0-ffffff>:  VPN ID, (OUI:VPN-Index) format(hex), 3 bytes OUI Part (leaf)'
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  address-family:
+                    type: array
+                    description: Address Family (list)
+                    x-yang:
+                      type: list
+                    items:
+                      type: object
+                      properties:
+                        address-family:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: enumeration
+                          default: ipv4
+                          enum:
+                          - ipv4
+                          - ipv6
+                        redistribute-connected:
+                          description: Redistribute Connected (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: '[null]'
+                        metric:
+                          description: Default metric (leaf)
+                          x-yang:
+                            type: leaf
+                          type: integer
+                          format: uint32
+                        vpn-target:
+                          type: array
+                          description: Route Targets (list)
+                          x-yang:
+                            type: list
+                          items:
+                            type: object
+                            properties:
+                              rt-type:
+                                description: Route-Target Type (leaf)
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: enumeration
+                                default: import
+                                enum:
+                                - import
+                                - export
+                                - both
+                              rt-value:
+                                description: Route-Target Value (leaf)
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: string
+              sr-te:
+                description: Segment Routing Association (presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'true'
+                properties:
+                  route-policy:
+                    description: Route policy definition (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: leafref
+              l2-attachment-circuit:
+                type: array
+                description: L2 Attachment Ciruit (list)
+                x-yang:
+                  type: list
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: L2 AC name (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: string
+                    if-type:
+                      description: Interface Type (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: enumeration
+                      default: GigabitEthernet
+                      enum:
+                      - GigabitEthernet
+                      - TenGigE
+                      - FortyGigE
+                      - HundredGigE
+                      - FiftyGigE
+                      - TwoHundredGigE
+                      - Bundle-Ether
+                      - FourHundredGigE
+                      - TwentyFiveGigE
+                    if-id:
+                      description: Interface Id (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: string
+                    vlan-id:
+                      description: <1-4000> - VLAN Id (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: int32
+                    rewrite:
+                      description: Tag Rewrite (presence)
+                      type: object
+                      x-yang:
+                        type: container
+                        is_presence: 'true'
+                      properties:
+                        ingress:
+                          description: Set the tag rewriting policy for this EFP (presence)
+                          type: object
+                          x-yang:
+                            type: container
+                            is_presence: 'true'
+                          properties:
+                            pop:
+                              description: Remove one or more tags (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: enumeration
+                              default: '1'
+                              enum:
+                              - '1'
+                              - '2'
+                            dot1q:
+                              description: <1-4094> - Push a Dot1Q tag (leaf)
+                              x-yang:
+                                type: leaf
+                              type: integer
+                              format: uint16
+                            mode:
+                              description: (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: enumeration
+                              default: symmetric
+                              enum:
+                              - symmetric
+              action:
+                description: (non-presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'false'
+                properties: {}
+              redeploy-flag:
+                description: Custom redeploy flag. It redeploys lower-level services if changed. (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: string
+        redeploy-flag:
+          description: Custom redeploy flag. It redeploys lower-level services if changed. (leaf)
+          x-yang:
+            type: leaf
+          type: string
+          format: string
+        action:
+          description: (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties: {}
+      xml:
+        namespace: http://cisco.com/ns/nso/fp/examples/cisco-tsdn-flat-L3vpn
+    flat-L3vpn-plan:
+      type: object
+      properties:
+        name:
+          description: (leaf)
+          x-yang:
+            type: leaf
+          type: string
+          format: string
+        plan:
+          description: (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            component:
+              type: array
+              description: A component has a type and a list of states. It is required that the first plan component is of the type ncs:self.  It is also required that the first state of a component is ncs:init and the last state is ncs:ready.  A service can have any number of components in addition to the 'self' component. These additional components will have types that are defined by user-specified YANG identities. (list)
+              x-yang:
+                type: list
+              items:
+                type: object
+                properties:
+                  name:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  type:
+                    description: The plan component type is defined by a YANG identity. It is used to identify the characteristics of a certain component. Therefore, if two components in the same service are of the same plan component type, they should be identical with respect to the number, type and order of their contained states. (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: identityref
+                  state:
+                    type: array
+                    description: A plan state represents a certain step that a service needs to execute or a stage that it needs to reach. It is identified as a YANG identity. There are two predefined states, 'ncs:init' and 'ncs:ready',  which are, respectively, the first and last state of a plan component. (list)
+                    x-yang:
+                      type: list
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: identityref
+                        status:
+                          description: 'A plan state is always in one of three states: ''not-reached'' when the state has not been executed, ''reached'' when the state has been executed, and ''failed'' if the state execution failed. (leaf)'
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: enumeration
+                          default: not-reached
+                          enum:
+                          - not-reached
+                          - reached
+                          - failed
+                        when:
+                          description: The time this state was successfully reached or failed. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        service-reference:
+                          description: If this component reflects the state of some other data (such as an instantiated RFS, an instantiated CFS, or something else), this optional field can be set to point to that instance. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: instance-identifier
+                        create-cb:
+                          description: Indicates if and which type of create callback should be registered for this state. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        delete-cb:
+                          description: Indicates if and which type of delete callback should be registered for this state. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        pre-conditions:
+                          description: Pre-conditions for a state control whether or not a state should be executed. There are separate conditions for the 'create' and 'delete' cases. The 'create' conditions are checked and, if possible, executed with the ultimate goal for the state of having the status 'reached'. The 'delete' conditions control whether the state changes should be deleted with the ultimate goal of the state having status 'not-reached'. (presence)
+                          type: object
+                          x-yang:
+                            type: container
+                            is_presence: 'true'
+                          properties:
+                            create-monitor:
+                              description: (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                            create-trigger-expr:
+                              description: (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                            delete-monitor:
+                              description: (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                            delete-trigger-expr:
+                              description: (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                        post-actions:
+                          description: 'Post-actions are called after successful execution of a state.  These are optional and there are separate actions that can be set for the ''create'' and ''delete'' case, respectively.
+
+
+                            These actions are put as requests in the side-effect-queue and are executed asynchronously with respect to the original service transaction. (presence)'
+                          type: object
+                          x-yang:
+                            type: container
+                            is_presence: 'true'
+                          properties:
+                            create-action-node:
+                              description: This leaf identifies the node on which a specified action resides. This action is called after this state has got a 'reached' status. (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                            create-action-name:
+                              description: The name of the action. (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                            create-action-result-expr:
+                              description: 'An action responds with a structured result. A certain value could indicate an error or a successful result, e.g. ''result true''.
+
+
+                                This statement describes an XPath expression to evaluate the result of the action so that the side-effect-queue can indicate action errors.
+
+
+                                The result of the expression is converted to a boolean using the standard XPath rules.  If the result is ''true'' the action is reported as successful, otherwise as failed.
+
+
+                                The context for evaluating this expression is the resulting XML tree of the action.
+
+
+                                The set of namespace declarations are all available namespaces, with the prefixes defined in the modules. (leaf)'
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                            delete-action-node:
+                              description: This leaf identifies the node on which a specified action resides. This action is called after this state has got a 'not-reached' status. (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                            delete-action-name:
+                              description: The name of the action. (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                            delete-action-result-expr:
+                              description: 'An action responds with a structured result. A certain value could indicate an error or a successful result, e.g. ''result true''.
+
+
+                                This statement describes an XPath expression to evaluate the result of the action so that the side-effect-queue can indicate action errors.
+
+
+                                The result of the expression is converted to a boolean using the standard XPath rules.  If the result is ''true'' the action is reported as successful, otherwise as failed.
+
+
+                                The context for evaluating this expression is the resulting XML tree of the action.
+
+
+                                The set of namespace declarations are all available namespaces, with the prefixes defined in the modules. (leaf)'
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                        post-action-status:
+                          description: 'This leaf is initially set to ''not-reached''.
+
+
+                            If a post-action was specified, and returned successfully, this leaf will be set to ''create-reached'' if the component is not backtracking, and ''delete-reached'' if it is backtracking.
+
+
+                            If the post-action did not return successfully, this leaf is set to ''failed''. (leaf)'
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: enumeration
+                          default: not-reached
+                          enum:
+                          - not-reached
+                          - create-reached
+                          - delete-reached
+                          - failed
+                        private:
+                          description: Stores NCS service-related internal data. (non-presence)
+                          type: object
+                          x-yang:
+                            type: container
+                            is_presence: 'false'
+                          properties:
+                            diff-set:
+                              description: 'Internal node use by NCS service manager to remember
+
+                                the reverse diff for a service instance. This is the
+
+                                data that is used by Fastmap (leaf)'
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: binary
+                            forward-diff-set:
+                              description: Internal node that the NCS service manager uses to remember the forward diff for a service instance. This data is used to produce the proper 'get-modifications' output. (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: binary
+                            device-list:
+                              type: array
+                              x-yang:
+                                type: leaf-list
+                              items:
+                                description: A list of managed devices this state has manipulated. (leaf-list)
+                                type: string
+                                format: string
+                            ned-id-list:
+                              type: array
+                              x-yang:
+                                type: leaf-list
+                              items:
+                                description: A list of NED identities this service instance has manipulated. (leaf-list)
+                                type: string
+                                format: string
+                            service-list:
+                              type: array
+                              x-yang:
+                                type: leaf-list
+                              items:
+                                description: A list of services this state has manipulated. (leaf-list)
+                                type: string
+                                format: instance-identifier
+                            lsa-service-list:
+                              type: array
+                              x-yang:
+                                type: leaf-list
+                              items:
+                                description: A list of LSA services this service instance has manipulated. (leaf-list)
+                                type: string
+                                format: instance-identifier
+                  private:
+                    description: Stores NCS service-related internal data. (non-presence)
+                    type: object
+                    x-yang:
+                      type: container
+                      is_presence: 'false'
+                    properties:
+                      property-list:
+                        description: 'Fastmap service component instance data used by the
+
+                          service implementation. (non-presence)'
+                        type: object
+                        x-yang:
+                          type: container
+                          is_presence: 'false'
+                        properties:
+                          property:
+                            type: array
+                            description: (list)
+                            x-yang:
+                              type: list
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  description: (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: string
+                                value:
+                                  description: (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: string
+                  back-track:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: boolean
+                  back-track-goal:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: identityref
+                  status-code:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+            commit-queue:
+              description: (presence)
+              type: object
+              x-yang:
+                type: container
+                is_presence: 'true'
+              properties:
+                queue-item:
+                  type: array
+                  description: (list)
+                  x-yang:
+                    type: list
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        description: If the queue item in the commit queue refers to this service, this is the queue number. (leaf)
+                        x-yang:
+                          type: leaf
+                        type: integer
+                        format: uint64
+            failed:
+              description: (leaf)
+              x-yang:
+                type: leaf
+              type: string
+              format: '[null]'
+            error-info:
+              description: (presence)
+              type: object
+              x-yang:
+                type: container
+                is_presence: 'true'
+              properties:
+                message:
+                  description: An explanatory message for the failing plan. (leaf)
+                  x-yang:
+                    type: leaf
+                  type: string
+                  format: string
+                log-entry:
+                  description: Reference to a service log entry with additional information. (leaf)
+                  x-yang:
+                    type: leaf
+                  type: string
+                  format: instance-identifier
+            deleting:
+              description: (leaf)
+              x-yang:
+                type: leaf
+              type: string
+              format: '[null]'
+            service-location:
+              description: (leaf)
+              x-yang:
+                type: leaf
+              type: string
+              format: instance-identifier
+            status-code-detail:
+              type: array
+              description: Status Codes (list)
+              x-yang:
+                type: list
+              items:
+                type: object
+                properties:
+                  type:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: identityref
+                  name:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  code:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  context:
+                    type: array
+                    description: (list)
+                    x-yang:
+                      type: list
+                    items:
+                      type: object
+                      properties:
+                        context-name:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        context-msg:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                  severity:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: enumeration
+                    default: INFO
+                    enum:
+                    - INFO
+                    - WARNING
+                    - ERROR
+                    - FATAL
+                    - NONE
+                  recommended-action:
+                    description: Recommended action to recover in case of error (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+        plan-history:
+          description: (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            plan:
+              type: array
+              description: Every time the plan changes its structure (that is, a plan component is added or deleted, or a state is added or deleted in a plan component), a copy of the old plan is stored in the plan history list. (list)
+              x-yang:
+                type: list
+              items:
+                type: object
+                properties:
+                  time:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  component:
+                    type: array
+                    description: A component has a type and a list of states. It is required that the first plan component is of the type ncs:self.  It is also required that the first state of a component is ncs:init and the last state is ncs:ready.  A service can have any number of components in addition to the 'self' component. These additional components will have types that are defined by user-specified YANG identities. (list)
+                    x-yang:
+                      type: list
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        type:
+                          description: The plan component type is defined by a YANG identity. It is used to identify the characteristics of a certain component. Therefore, if two components in the same service are of the same plan component type, they should be identical with respect to the number, type and order of their contained states. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: identityref
+                        state:
+                          type: array
+                          description: A plan state represents a certain step that a service needs to execute or a stage that it needs to reach. It is identified as a YANG identity. There are two predefined states, 'ncs:init' and 'ncs:ready',  which are, respectively, the first and last state of a plan component. (list)
+                          x-yang:
+                            type: list
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                description: (leaf)
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: identityref
+                              status:
+                                description: 'A plan state is always in one of three states: ''not-reached'' when the state has not been executed, ''reached'' when the state has been executed, and ''failed'' if the state execution failed. (leaf)'
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: enumeration
+                                default: not-reached
+                                enum:
+                                - not-reached
+                                - reached
+                                - failed
+                              when:
+                                description: The time this state was successfully reached or failed. (leaf)
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: string
+                              service-reference:
+                                description: If this component reflects the state of some other data (such as an instantiated RFS, an instantiated CFS, or something else), this optional field can be set to point to that instance. (leaf)
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: instance-identifier
+                              create-cb:
+                                description: Indicates if and which type of create callback should be registered for this state. (leaf)
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: string
+                              delete-cb:
+                                description: Indicates if and which type of delete callback should be registered for this state. (leaf)
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: string
+                              pre-conditions:
+                                description: Pre-conditions for a state control whether or not a state should be executed. There are separate conditions for the 'create' and 'delete' cases. The 'create' conditions are checked and, if possible, executed with the ultimate goal for the state of having the status 'reached'. The 'delete' conditions control whether the state changes should be deleted with the ultimate goal of the state having status 'not-reached'. (presence)
+                                type: object
+                                x-yang:
+                                  type: container
+                                  is_presence: 'true'
+                                properties:
+                                  create-monitor:
+                                    description: (leaf)
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: string
+                                  create-trigger-expr:
+                                    description: (leaf)
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: string
+                                  delete-monitor:
+                                    description: (leaf)
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: string
+                                  delete-trigger-expr:
+                                    description: (leaf)
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: string
+                              post-actions:
+                                description: 'Post-actions are called after successful execution of a state.  These are optional and there are separate actions that can be set for the ''create'' and ''delete'' case, respectively.
+
+
+                                  These actions are put as requests in the side-effect-queue and are executed asynchronously with respect to the original service transaction. (presence)'
+                                type: object
+                                x-yang:
+                                  type: container
+                                  is_presence: 'true'
+                                properties:
+                                  create-action-node:
+                                    description: This leaf identifies the node on which a specified action resides. This action is called after this state has got a 'reached' status. (leaf)
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: string
+                                  create-action-name:
+                                    description: The name of the action. (leaf)
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: string
+                                  create-action-result-expr:
+                                    description: 'An action responds with a structured result. A certain value could indicate an error or a successful result, e.g. ''result true''.
+
+
+                                      This statement describes an XPath expression to evaluate the result of the action so that the side-effect-queue can indicate action errors.
+
+
+                                      The result of the expression is converted to a boolean using the standard XPath rules.  If the result is ''true'' the action is reported as successful, otherwise as failed.
+
+
+                                      The context for evaluating this expression is the resulting XML tree of the action.
+
+
+                                      The set of namespace declarations are all available namespaces, with the prefixes defined in the modules. (leaf)'
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: string
+                                  delete-action-node:
+                                    description: This leaf identifies the node on which a specified action resides. This action is called after this state has got a 'not-reached' status. (leaf)
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: string
+                                  delete-action-name:
+                                    description: The name of the action. (leaf)
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: string
+                                  delete-action-result-expr:
+                                    description: 'An action responds with a structured result. A certain value could indicate an error or a successful result, e.g. ''result true''.
+
+
+                                      This statement describes an XPath expression to evaluate the result of the action so that the side-effect-queue can indicate action errors.
+
+
+                                      The result of the expression is converted to a boolean using the standard XPath rules.  If the result is ''true'' the action is reported as successful, otherwise as failed.
+
+
+                                      The context for evaluating this expression is the resulting XML tree of the action.
+
+
+                                      The set of namespace declarations are all available namespaces, with the prefixes defined in the modules. (leaf)'
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: string
+                              post-action-status:
+                                description: 'This leaf is initially set to ''not-reached''.
+
+
+                                  If a post-action was specified, and returned successfully, this leaf will be set to ''create-reached'' if the component is not backtracking, and ''delete-reached'' if it is backtracking.
+
+
+                                  If the post-action did not return successfully, this leaf is set to ''failed''. (leaf)'
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: enumeration
+                                default: not-reached
+                                enum:
+                                - not-reached
+                                - create-reached
+                                - delete-reached
+                                - failed
+                              private:
+                                description: Stores NCS service-related internal data. (non-presence)
+                                type: object
+                                x-yang:
+                                  type: container
+                                  is_presence: 'false'
+                                properties:
+                                  diff-set:
+                                    description: 'Internal node use by NCS service manager to remember
+
+                                      the reverse diff for a service instance. This is the
+
+                                      data that is used by Fastmap (leaf)'
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: binary
+                                  forward-diff-set:
+                                    description: Internal node that the NCS service manager uses to remember the forward diff for a service instance. This data is used to produce the proper 'get-modifications' output. (leaf)
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: binary
+                                  device-list:
+                                    type: array
+                                    x-yang:
+                                      type: leaf-list
+                                    items:
+                                      description: A list of managed devices this state has manipulated. (leaf-list)
+                                      type: string
+                                      format: string
+                                  ned-id-list:
+                                    type: array
+                                    x-yang:
+                                      type: leaf-list
+                                    items:
+                                      description: A list of NED identities this service instance has manipulated. (leaf-list)
+                                      type: string
+                                      format: string
+                                  service-list:
+                                    type: array
+                                    x-yang:
+                                      type: leaf-list
+                                    items:
+                                      description: A list of services this state has manipulated. (leaf-list)
+                                      type: string
+                                      format: instance-identifier
+                                  lsa-service-list:
+                                    type: array
+                                    x-yang:
+                                      type: leaf-list
+                                    items:
+                                      description: A list of LSA services this service instance has manipulated. (leaf-list)
+                                      type: string
+                                      format: instance-identifier
+                        private:
+                          description: Stores NCS service-related internal data. (non-presence)
+                          type: object
+                          x-yang:
+                            type: container
+                            is_presence: 'false'
+                          properties:
+                            property-list:
+                              description: 'Fastmap service component instance data used by the
+
+                                service implementation. (non-presence)'
+                              type: object
+                              x-yang:
+                                type: container
+                                is_presence: 'false'
+                              properties:
+                                property:
+                                  type: array
+                                  description: (list)
+                                  x-yang:
+                                    type: list
+                                  items:
+                                    type: object
+                                    properties:
+                                      name:
+                                        description: (leaf)
+                                        x-yang:
+                                          type: leaf
+                                        type: string
+                                        format: string
+                                      value:
+                                        description: (leaf)
+                                        x-yang:
+                                          type: leaf
+                                        type: string
+                                        format: string
+                        back-track:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: boolean
+                        back-track-goal:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: identityref
+                        status-code:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+            status-code-detail:
+              type: array
+              description: Status Codes (list)
+              x-yang:
+                type: list
+              items:
+                type: object
+                properties:
+                  type:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: identityref
+                  name:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  code:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  context:
+                    type: array
+                    description: (list)
+                    x-yang:
+                      type: list
+                    items:
+                      type: object
+                      properties:
+                        context-name:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        context-msg:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                  severity:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: enumeration
+                    default: INFO
+                    enum:
+                    - INFO
+                    - WARNING
+                    - ERROR
+                    - FATAL
+                    - NONE
+                  recommended-action:
+                    description: Recommended action to recover in case of error (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+      xml:
+        namespace: http://cisco.com/ns/nso/fp/examples/cisco-tsdn-flat-L3vpn
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

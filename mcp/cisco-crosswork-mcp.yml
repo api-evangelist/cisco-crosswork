@@ -1,0 +1,62 @@
+generated: '2026-08-19'
+method: searched
+source: https://developer.cisco.com/docs/crosswork/workflow-manager/mcp-handle-model-context-protocol-requests/
+name: Cisco Crosswork Workflow Manager MCP endpoint
+status: published
+summary: >-
+  Crosswork Workflow Manager 2.1 ships a first-party MCP endpoint as part of its northbound REST API. Cisco
+  documents it in the CWM API reference as POST /mcp on the CWM base path /crosswork/cwm/v2, handling MCP over
+  JSON-RPC 2.0. Because Crosswork is a customer-deployed product, the endpoint runs on the customer's own CWM host,
+  not on a Cisco-operated URL — an agent can reach it over HTTPS, but only after the customer has deployed CWM and
+  minted a JWT.
+deployment:
+  mode: remote
+  endpoint: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2/mcp
+  auth: oauth
+  verified: searched
+  note: >-
+    `endpoint` is templated because Cisco publishes a base path, not a host — CWM is installed by the customer.
+    `mode: remote` because an MCP client POSTs JSON-RPC to an HTTPS URL; there is no stdio package and no
+    `npx`/`python -m` install line anywhere in Cisco's Crosswork documentation. `auth: oauth` is the closest value
+    in this vocabulary: the endpoint takes `Authorization: Bearer <JWT>`, where the JWT is minted by the Crosswork
+    instance itself via POST /crosswork/sso/v1/tickets then POST /crosswork/sso/v2/tickets/jwt — a token-endpoint
+    exchange, but not RFC 6749 OAuth 2.0.
+transport: http-jsonrpc
+protocol_methods:
+- initialize
+- tools/list
+- tools/call
+- ping
+- notifications/initialized
+- logging/setLevel
+authentication:
+  scheme: Bearer
+  location: header
+  parameter: Authorization
+  token_source: https://{cwm-host}:{cwm-port}/crosswork/sso/v2/tickets/jwt
+tools:
+  enumerated: false
+  reason: >-
+    tools/list requires a JWT against a running customer deployment. There is no Cisco-hosted CWM instance to probe
+    anonymously, and Cisco's published API reference documents the MCP transport without enumerating the tools it
+    exposes. No tool list is recorded here rather than guessing one from the REST surface.
+  how_to_enumerate: >-
+    POST {"jsonrpc":"2.0","id":1,"method":"tools/list"} to https://<cwm-host>:<port>/crosswork/cwm/v2/mcp with
+    Authorization: Bearer <CWM JWT> and Accept: application/json, text/event-stream.
+contract:
+  openapi: openapi/cisco-crosswork-cwm-mcp-api-openapi.yml
+  operations:
+  - post_mcp
+  - get_mcp
+  request_schema: mcp.MCPRequest
+  response_schema: mcp.MCPResponse
+  error_schema: mcp.MCPErrorResponse
+x-evidence:
+- type: reference
+  url: https://developer.cisco.com/docs/crosswork/workflow-manager/mcp-handle-model-context-protocol-requests/
+  http_status: 200
+- type: raw
+  url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/mcp/post.json
+  http_status: 200
+  note: Cisco's own Swagger 2.0 fragment for the MCP operation.
+checked: '2026-08-19'

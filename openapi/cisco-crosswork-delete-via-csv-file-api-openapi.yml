@@ -1,0 +1,131 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Inventory Delete via CSV file API
+  version: 1.0.0
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.2APIs/inventory_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.2APIs/inventory_api.swagger.json
+servers:
+- url: /crosswork/inventory/
+security:
+- bearerAuth: []
+tags:
+- name: Delete via CSV file
+paths:
+  /v1/csvupload:
+    parameters: []
+    delete:
+      summary: Delete operation via CSV file upload. With this API, the uplaoded list of inventory will be deleted. Can be applied to Credentials, Tags, Providers and Devices
+      tags:
+      - Delete via CSV file
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotapiRobotNodeJob'
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/robotapiRobotCsvUploadReq'
+        required: true
+components:
+  schemas:
+    robotapiRobotNodeJob:
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: Job id
+        inst_id:
+          type: string
+          description: Server instance identifier
+        state:
+          $ref: '#/components/schemas/robotapiRobotJobState'
+          description: Current State of the Job
+        type:
+          type: string
+          description: Job type. Debug purpose
+        error:
+          type: string
+          description: If any error
+        completion_time:
+          type: string
+          format: int64
+          description: Remaining time to complete
+        creation_time:
+          type: string
+          format: int64
+          description: Job creation time in epoch seconds
+        created_by:
+          type: string
+          description: User
+        impacted_count:
+          type: integer
+          format: int64
+          description: Impacted nodes/tags, provider or profiles
+      impacted:
+        type: array
+        items:
+          type: string
+        title: Impacted elements list
+      description: Every Action related to Inventory will have a Job
+    robotapiRobotCsvUploadReq:
+      description: Request body for uploading a CSV file for any inventory type
+      type: object
+      properties:
+        csv:
+          type: string
+          format: byte
+        user:
+          type: string
+        type:
+          $ref: '#/components/schemas/robotapiRobotInventoryType'
+    robotapiRobotJobState:
+      description: Various Job Resulting states.
+      type: string
+      enum:
+      - JOB_INVALID
+      - JOB_REJECTED
+      - JOB_ACCEPTED
+      - JOB_DB_UPDATED
+      - JOB_NOTIFICATION_PUBLISHED
+      - JOB_COMPLETED
+      - JOB_FAILED
+      default: JOB_INVALID
+    robotapiRobotInventoryType:
+      description: Supported Inventory Type
+      type: string
+      enum:
+      - INV_TYPE_UNKNOWN
+      - INV_TYPE_NODE
+      - INV_TYPE_PROVIDER
+      - INV_TYPE_CREDENTIAL
+      - INV_TYPE_TAG
+      default: INV_TYPE_UNKNOWN
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header

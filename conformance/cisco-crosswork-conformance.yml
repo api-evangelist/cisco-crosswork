@@ -1,0 +1,135 @@
+generated: '2026-08-19'
+method: derived
+source: openapi/*.yml, authentication/, conventions/, security/, plus the Cisco Crosswork documentation set
+summary: >-
+  Crosswork's standards posture is unusually strong on the NETWORK side and unusually weak on the WEB-API side. It
+  implements IETF RESTCONF and ships IETF service models (L2VOPN NM, L3VPN, TE) as first-class northbound
+  contracts, and Cisco is a CSAF trusted advisory provider. It implements none of the modern HTTP-API conventions —
+  no OAuth 2.0, no OpenID Connect, no RFC 9457, no idempotency, no rate-limit signalling.
+conforms_to:
+- id: restconf
+  name: IETF RESTCONF (RFC 8040)
+  conforms: true
+  evidence: >-
+    Four northbound base contexts are RESTCONF endpoints (/crosswork/proxy/nso/restconf,
+    /crosswork/nbi/cat-inventory/v1/restconf, /crosswork/nbi/optima/v2/restconf,
+    /crosswork/nbi/topology/v3/restconf) and the documentation specifies Content-Type and Accept of
+    application/yang-data+json. The specs expose /yang-library-version and /data, /operations RESTCONF resources.
+  source: https://developer.cisco.com/docs/crosswork/network-controller/intent-based-service-provisioning-getting-started/
+- id: yang
+  name: YANG data modelling (RFC 7950) / YANG Library (RFC 8525)
+  conforms: true
+  evidence: >-
+    openapi/cisco-crosswork-yang-library-version-api-openapi.yml exposes the YANG library version resource, and
+    Cisco publishes the RESTCONF YANG models as a downloadable bundle
+    (CiscoDevNet/Crosswork-SDK/EMS-NBI/RESTCONF-YANG-Models/8.0/yang-model.zip).
+- id: ietf-l2vpn-ntw
+  name: IETF L2VPN Network Model (RFC 9291 family)
+  conforms: true
+  evidence: >-
+    openapi/cisco-crosswork-ietf-l2vpn-nm-provision-api-openapi.yml and
+    openapi/cisco-crosswork-ietf-l2vpn-nm-retrieval-api-openapi.yml expose
+    /restconf/data/ietf-l2vpn-ntw:l2vpn-ntw/vpn-services/vpn-service={vpn-service-vpn-id}.
+- id: ietf-te
+  name: IETF Traffic Engineering tunnel model
+  conforms: true
+  evidence: >-
+    openapi/cisco-crosswork-ietf-te-provision-api-openapi.yml and -retrieval- expose
+    /restconf/data/ietf-te:te/tunnels/tunnel={tunnel-name}.
+- id: openapi
+  name: OpenAPI / Swagger
+  conforms: true
+  partial: true
+  evidence: >-
+    Cisco publishes Swagger 2.0 for the CNC/CDG/ZTP/COE/NCAHI families in CiscoDevNet/crosswork-openapi-spec, and a
+    Swagger 2.0 document for Crosswork Workflow Manager 2.1 behind the DevNet reference renderer. No OpenAPI 3.x is
+    published, and the CWM document has no downloadable file — it is served as per-operation JSON fragments.
+- id: protobuf
+  name: Protocol Buffers (proto3)
+  conforms: true
+  evidence: 18 first-party proto3 definitions for the Crosswork Data Platform Model, saved to grpc/.
+- id: json-rpc-2.0
+  name: JSON-RPC 2.0
+  conforms: true
+  evidence: The Crosswork Workflow Manager MCP endpoint speaks JSON-RPC 2.0 (mcp.MCPRequest / mcp.MCPResponse).
+- id: mcp
+  name: Model Context Protocol
+  conforms: true
+  partial: true
+  evidence: >-
+    POST /crosswork/cwm/v2/mcp implements initialize, tools/list, tools/call, ping, notifications/initialized and
+    logging/setLevel. The protocol revision Cisco targets is not stated in the published reference, so conformance
+    to a specific MCP revision is unverified.
+  source: https://developer.cisco.com/docs/crosswork/workflow-manager/mcp-handle-model-context-protocol-requests/
+- id: csaf
+  name: CSAF 2.0 security advisories
+  conforms: true
+  evidence: >-
+    https://www.cisco.com/.well-known/csaf/provider-metadata.json returns 200 with role csaf_trusted_provider,
+    publisher Cisco PSIRT.
+- id: security-txt
+  name: RFC 9116 security.txt
+  conforms: true
+  evidence: https://www.cisco.com/.well-known/security.txt returns 200, PGP clear-signed, with Contact, Policy,
+    Encryption, CSAF and Expires fields.
+does_not_conform:
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: >-
+    No oauth2 securityScheme in any of the 99 specs. Authentication is a CAS-style two-step ticket exchange
+    (/crosswork/sso/v1/tickets then /crosswork/sso/v2/tickets/jwt) producing a bearer JWT. Authorisation is RBAC
+    with no scopes.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: No openIdConnect scheme and no /.well-known/openid-configuration on any Crosswork host.
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    No application/problem+json anywhere. Five incompatible error envelopes; 1,743 of 1,895 error responses have no
+    schema at all.
+- id: idempotency
+  name: Idempotency keys (draft-ietf-httpapi-idempotency-key)
+  conforms: false
+  evidence: No Idempotency-Key header or equivalent in any spec or document.
+- id: ratelimit-headers
+  name: RateLimit header fields for HTTP (draft-ietf-httpapi-ratelimit-headers)
+  conforms: false
+  evidence: No 429 and no rate-limit header declared across 2,838 responses.
+- id: rfc8594
+  name: RFC 8594 Sunset header
+  conforms: false
+  evidence: No Sunset or Deprecation header; zero operations marked deprecated.
+- id: pagination
+  name: A single pagination convention
+  conforms: false
+  evidence: >-
+    Three coexisting styles — pageSize/pageNumber, filter.pageSize/filter.pageNum, and nextPageToken cursor.
+- id: json-api
+  name: 'JSON:API'
+  conforms: false
+- id: odata
+  name: OData
+  conforms: false
+- id: scim
+  name: SCIM
+  conforms: false
+  evidence: >-
+    User and role management is Crosswork's own RBAC API (openapi/cisco-crosswork-rbac-api-openapi.yml), not SCIM.
+not_applicable:
+- id: fhir
+  reason: Not a healthcare provider.
+- id: fapi
+  reason: Not a financial-grade API.
+- id: psd2
+  reason: Not a payments provider.
+compliance_programme:
+  published: true
+  see: security/cisco-crosswork-trust-center.yml
+  note: >-
+    Cisco publishes a corporate compliance programme (Trust Portal, Cloud Controls Framework, Global Government
+    Certifications) covering SOC 2, ISO/IEC 27001, FedRAMP, C5 and CSA STAR. A Crosswork-specific Trust Package was
+    not confirmed from the public surface.
+checked: '2026-08-19'

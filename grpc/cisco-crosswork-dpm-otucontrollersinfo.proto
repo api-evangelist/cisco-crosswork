@@ -1,0 +1,74 @@
+/*****************************************
+* Protobuf message definitions for Performance OTUCONTROLLERSINFORecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message OTUCONTROLLERSINFORecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Controller name
+	*/
+	optional string controllerName = 2;
+
+	/* 
+	Bit error rate before forward error correction.
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float preFecBer = 3;
+
+	/* 
+	Bit error rate after forward error correction.
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float postFecBer = 4;
+
+	/* 
+	Q-margin calculated in dBQ.
+	unit: DBQ
+	min: 0
+	*/
+	optional float qmargin = 5;
+
+	/* 
+	Q-factor calculated in dB
+	unit: DB
+	min: 0
+	*/
+	optional float qfactor = 6;
+
+	/* 
+	Average bit errors corrected.
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional int64 ec = 7;
+
+	/* 
+	Uncorrected word count.
+	unit: NUMBER
+	min: 0
+	*/
+	optional int64 uc = 8;
+
+	/* 
+	the sample's interval in milli seconds.
+	*/
+	optional int32 duration = 9;
+  };
+}
+
+

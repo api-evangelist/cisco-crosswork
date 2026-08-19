@@ -1,0 +1,29 @@
+syntax = "proto3";
+//import "google/protobuf/any.proto";
+
+package com.cisco.ems.performance.proto;
+
+message CustomRecords {
+
+  optional string schemaName = 1;
+
+  repeated Record records = 2;
+
+  message Record {
+    repeated Property property = 1;
+    message Property {
+      string key = 1;
+      oneof value{
+        string strValue = 2;
+        int32 intValue = 3;
+        float floatValue = 4;
+        uint64 longValue = 5;
+        double doubleValue = 6;
+        bool boolValue = 7;
+      }
+    }
+  }
+}
+
+
+

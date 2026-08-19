@@ -1,0 +1,52 @@
+generated: '2026-08-19'
+method: searched
+source: https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/crosswork-network-automation/crosswork-essentials-adv-suites-ds.html
+plan_count: 0
+public_pricing: false
+summary: >-
+  Cisco publishes no price for Crosswork. The portfolio is sold as two named suites — Crosswork Essentials and
+  Crosswork Advantage — under an annual Right-to-Use licence quoted by Cisco sales or an authorised partner. The
+  data sheet describes what each suite contains and states that licensing turns on three factors including a flat
+  annual RTU fee, but prints no figures, no quota, no overage rate and no per-tier limits. There is no self-serve
+  sign-up and no machine-readable pricing or catalogue endpoint.
+tiers:
+- name: Crosswork Essentials
+  price: null
+  currency: null
+  billing_period: annual
+  model: Right to Use (RTU)
+  quota: null
+  overage: null
+  limits: null
+  description: >-
+    Positioned for infrastructure operations teams automating the Cisco device lifecycle — device turn-up, config
+    and operating-system management, monitoring and audit.
+  source: https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/crosswork-network-automation/crosswork-essentials-adv-suites-ds.html
+- name: Crosswork Advantage
+  price: null
+  currency: null
+  billing_period: annual
+  model: Right to Use (RTU)
+  quota: null
+  overage: null
+  limits: null
+  description: >-
+    The higher suite. Cisco states the suites cost less than buying the applications individually, but publishes no
+    comparison figures.
+  source: https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/crosswork-network-automation/crosswork-essentials-adv-suites-ds.html
+how_to_buy:
+  route: Cisco sales representative or authorised partner quote
+  self_serve: false
+adjacent:
+- product: Crosswork Cloud Network Insights
+  note: >-
+    A different, Cisco-HOSTED Crosswork product with Essentials and Advantage tiers listed on AWS Marketplace. Its
+    prices are published there, but they price a SaaS offering that is not the on-premises Crosswork automation
+    suite this profile covers, so no figure from it is recorded here.
+  urls:
+  - https://aws.amazon.com/marketplace/pp/prodview-kygt6drrr6byu
+  - https://aws.amazon.com/marketplace/pp/prodview-xq2gaxkptmyse
+note: >-
+  plan_count is 0 because zero priced plans are published, not because the search was skipped. For an on-premises
+  network-automation suite sold through channel this is the expected posture — recorded as an honest zero.
+checked: '2026-08-19'

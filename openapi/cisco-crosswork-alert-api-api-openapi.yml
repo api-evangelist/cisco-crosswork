@@ -1,0 +1,101 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Platform Alert API API
+  version: 1.0.0
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.1APIs/platform.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.1APIs/platform.swagger.json
+  description: APIs to get the Alerts of Crosswork HTTPS Cert expiry and update
+servers:
+- url: /crosswork/platform
+security:
+- bearerAuth: []
+tags:
+- name: Alert API
+  description: APIs to get the Alerts of Crosswork HTTPS Cert expiry and update
+paths:
+  /v1/alerts:
+    get:
+      summary: Get Alerts from Crosswork Platform
+      operationId: GetAlerts
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotctl_apiAlertResponse'
+      tags:
+      - Alert API
+components:
+  schemas:
+    robotctl_apiAlertCount:
+      type: object
+      properties:
+        Minor:
+          type: integer
+          format: int32
+        Major:
+          type: integer
+          format: int32
+        Critical:
+          type: integer
+          format: int32
+    robotctl_apiAlertResponse:
+      type: object
+      properties:
+        count:
+          $ref: '#/components/schemas/robotctl_apiAlertCount'
+        AlertMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/robotctl_apiAlertList'
+    robotctl_apiAlertMsg:
+      type: object
+      properties:
+        AlertMsg:
+          type: string
+        AlertAction:
+          type: string
+        ActionLink:
+          type: boolean
+          format: boolean
+        ActionLinkMsg:
+          type: string
+        Priority:
+          $ref: '#/components/schemas/robotctl_apiAlertPriority'
+    robotctl_apiAlertList:
+      type: object
+      properties:
+        List:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotctl_apiAlertMsg'
+    robotctl_apiAlertPriority:
+      type: string
+      enum:
+      - MINOR
+      - MAJOR
+      - CRITICAL
+      default: MINOR
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,102 @@
+generated: '2026-08-19'
+method: searched
+source: https://github.com/CiscoDevNet/Crosswork-SDK
+note: >-
+  Cisco ships no Crosswork client library to any public package registry. npm, PyPI, Maven Central, NuGet,
+  pkg.go.dev, RubyGems, Packagist and crates.io were all queried for crosswork / cisco-crosswork / crosswork-sdk and
+  every one returned 404 (proxy.golang.org answered 200 with an empty version list, which is the same finding).
+  What Cisco does publish is the CiscoDevNet/Crosswork-SDK repository: a set of downloadable, version-directoried
+  development tools — Java notification-client JARs, a Java/Python service-extensibility SDK, the Data Platform
+  Model protobufs and the RESTCONF YANG models. These are distributed as files in a git repository, not as registry
+  artifacts, so there is no registry metadata endpoint to read a version from; the version is the directory name
+  Cisco publishes them under, and `published` is the date of the last commit that touched that path.
+registry_probes:
+- registry: npm
+  queries: [crosswork, cisco-crosswork, '@cisco/crosswork']
+  result: 404 on all
+- registry: pypi
+  queries: [crosswork, cisco-crosswork, crosswork-sdk, cwm-sdk]
+  result: 404 on all
+- registry: go
+  queries: [github.com/ciscodevnet/crosswork-sdk]
+  result: 200 with an empty @v/list (no module published)
+packages:
+- name: Crosswork NBI Notification Client (connection-less)
+  official: true
+  first_party: true
+  language: java
+  registry: git
+  url: https://github.com/CiscoDevNet/Crosswork-SDK/tree/main/Notification-client/8.0/bin
+  artifact: nbi-notifications-connection-less-client.jar
+  version: '8.0'
+  published: '2026-08-18'
+  version_source: >-
+    Directory name published by Cisco (Notification-client/8.0). No registry metadata endpoint exists for this
+    distribution.
+  note: >-
+    Java client for the Crosswork northbound notification stream. Cisco keeps parallel directories for 6.0, 6.5,
+    7.0, 7.1, 7.2 and 8.0, so a consumer picks the JAR matching their deployed Crosswork release. Actively
+    maintained — the 8.0 path was last committed 2026-08-18.
+- name: Crosswork NBI Notification Client (connection-oriented)
+  official: true
+  first_party: true
+  language: java
+  registry: git
+  url: https://github.com/CiscoDevNet/Crosswork-SDK/tree/main/Notification-client/8.0/bin
+  artifact: nbi-notifications-connection-oriented-client.jar
+  version: '8.0'
+  published: '2026-08-18'
+  version_source: Directory name published by Cisco. No registry metadata endpoint.
+- name: Crosswork Network Controller Service Extensibility SDK
+  official: true
+  first_party: true
+  language: java, python
+  registry: git
+  url: https://github.com/CiscoDevNet/Crosswork-SDK/tree/main/Extensibility
+  version: '4.1'
+  published: '2022-12-21'
+  version_source: >-
+    Cisco's own readme.md titles it "Cisco Crosswork Network Controller 4.1 Service Extensibility SDK". No registry
+    metadata endpoint.
+  note: >-
+    Requires Crosswork Network Controller 4.1, Java JDK 11 and Python 3.8+. DECAY SIGNAL — Cisco is shipping
+    Crosswork Network Controller 7.2 while the published Extensibility SDK is still pinned to 4.1 and has not been
+    committed to since 2022-12-21.
+- name: Crosswork Data Platform Model (DPM) protobuf definitions
+  official: true
+  first_party: true
+  language: protobuf
+  registry: git
+  url: https://github.com/CiscoDevNet/Crosswork-SDK/tree/main/EMS/DPM/Proto
+  version: null
+  published: '2026-04-30'
+  version_source: >-
+    Cisco publishes no version for this path; the .proto headers carry a 2023 Cisco copyright and the path was last
+    committed 2026-04-30. Recorded null rather than guessed.
+  note: >-
+    18 .proto files describing the performance/telemetry records Crosswork emits. Saved verbatim to grpc/ in this
+    repo.
+- name: Crosswork EMS-NBI RESTCONF YANG models
+  official: true
+  first_party: true
+  language: yang
+  registry: git
+  url: https://github.com/CiscoDevNet/Crosswork-SDK/tree/main/EMS-NBI/RESTCONF-YANG-Models/8.0
+  artifact: yang-model.zip
+  version: '8.0'
+  published: '2026-07-08'
+  version_source: Directory name published by Cisco. No registry metadata endpoint.
+- name: Postman collections for Cisco Crosswork
+  official: true
+  first_party: true
+  language: postman
+  registry: git
+  url: https://github.com/CiscoDevNet/postman-for-Cisco-Crosswork
+  version: null
+  published: '2019-06-04'
+  version_source: >-
+    Cisco publishes no version. The repository has not been committed to since 2019-06-04, which predates every
+    Crosswork release currently supported. Recorded null rather than guessed.
+  note: >-
+    Five Postman collections (alert forwarding, interface flap, composite KPI, public IP collection) plus a lab
+    guide. DECAY SIGNAL — first-party collections seven years older than the API they exercise.

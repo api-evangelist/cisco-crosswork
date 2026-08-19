@@ -1,0 +1,130 @@
+generated: '2026-08-19'
+method: derived
+source: >-
+  openapi/*.yml (99 refined specs across NCAHI, CDG, ZTP, CNC, COE and Crosswork Workflow Manager) plus
+  https://developer.cisco.com/docs/crosswork/network-controller/intent-based-service-provisioning-getting-started/
+summary: >-
+  Crosswork is not one API with one set of conventions — it is five or six independently-built northbound
+  interfaces packaged as a suite, and the cross-cutting semantics differ between them. This document records what
+  each family actually does rather than a house style, because there isn't one.
+deployment_model:
+  hosted_by: customer
+  note: >-
+    Every Crosswork API runs on a host the customer deploys. Cisco publishes base PATHS, not base URLs; the
+    documentation writes them as https://$CNC_HOST:$CNC_PORT/crosswork/... There is no vendor-operated endpoint, no
+    sign-up, and no public instance an agent can reach.
+authentication:
+  style: JWT bearer, minted by the deployment
+  header: 'Authorization: Bearer {jwt}'
+  token_endpoints:
+  - https://{cnc-host}:{cnc-port}/crosswork/sso/v1/tickets
+  - https://{cnc-host}:{cnc-port}/crosswork/sso/v2/tickets/jwt
+  see: authentication/cisco-crosswork-authentication.yml
+base_paths:
+- family: Service provisioning (NSO proxy)
+  path: /crosswork/proxy/nso/restconf
+- family: CAT service inventory
+  path: /crosswork/nbi/cat-inventory/v1/restconf
+- family: COE transport engineering
+  path: /crosswork/nbi/optima/v2/restconf
+- family: Topology
+  path: /crosswork/nbi/topology/v3/restconf
+- family: Crosswork inventory (devices, credentials, providers, tags, destinations)
+  path: /crosswork/inventory/
+- family: Crosswork platform (health, alerts)
+  path: /crosswork/platform
+- family: Crosswork Data Gateway manager
+  path: /crosswork/dg-manager
+- family: Zero Touch Provisioning
+  path: /crosswork/ztp/
+- family: Image service
+  path: /crosswork/imagesvc/
+- family: Crosswork Workflow Manager
+  path: /crosswork/cwm/v2
+media_types:
+  restconf:
+    request: application/yang-data+json
+    response: application/yang-data+json
+    note: The RESTCONF-derived families (NSO proxy, CAT inventory, COE, topology) use IETF RESTCONF media types.
+  rest:
+    request: application/json
+    response: application/json
+    note: The Workflow Manager, inventory, platform, ZTP and Data Gateway families use plain JSON.
+  other:
+  - application/x-gzip
+  - application/x-www-form-urlencoded
+idempotency:
+  supported: false
+  evidence: >-
+    No Idempotency-Key header, no idempotency parameter and no mention of the word "idempotent" appears anywhere in
+    the 99 refined specs. Retrying a POST against Crosswork is not safe by contract. This repo therefore emits NO
+    Idempotency pointer.
+pagination:
+  consistent: false
+  styles:
+  - style: page-number
+    params: [pageSize, pageNumber, sortBy, descending]
+    family: Crosswork inventory / image service
+  - style: page-number (nested filter object)
+    params: [filter.pageSize, filter.pageNum]
+    family: Crosswork Workflow Manager jobs
+  - style: cursor
+    params: [nextPageToken]
+    family: Crosswork platform
+  note: >-
+    Three different pagination conventions inside one product suite, two of them page-number and one cursor, with
+    the page-number variant additionally appearing in a nested `filter.` form. An agent cannot page Crosswork
+    generically; it has to know which service it is talking to.
+filtering:
+  params: [query, filter, filterType, filterData.status, filterData.jobType, filterData.jobName, tags, searchType]
+  note: Per-service, not a shared grammar.
+expansion:
+  supported: partial
+  params: [extended, decrypt]
+metadata:
+  supported: false
+versioning:
+  style: path segment, per service, plus a product release train
+  examples: ['/v1/', '/v2/', '/v3/', '/crosswork/cwm/v2']
+  note: >-
+    Two independent version axes. Each northbound service versions its own path (cat-inventory/v1, optima/v2,
+    topology/v3, cwm/v2), and the whole suite versions as a Crosswork release (6.0, 6.5, 7.0, 7.1, 7.2, 8.0 in the
+    SDK's own directory names). Cisco publishes separate API documentation sets per release train.
+  see: lifecycle/cisco-crosswork-lifecycle.yml
+error_envelope:
+  consistent: false
+  shapes:
+  - schema: server.HTTPError
+    fields: [code, message]
+    family: Crosswork Workflow Manager (65 responses)
+  - schema: gin.H
+    fields: []
+    family: Crosswork Workflow Manager events (34 responses; free-form object, no declared fields)
+  - schema: rpc.GenericResponse
+    fields: [errorCode, message]
+    family: Crosswork Workflow Manager workers
+  - schema: errors.InternalAPIError
+    fields: [code, message, details, err]
+    family: Crosswork Workflow Manager payload
+  - schema: mcp.MCPErrorResponse
+    fields: [jsonrpc, id, error]
+    family: MCP endpoint (JSON-RPC 2.0 error object)
+  rfc9457: false
+  note: >-
+    No application/problem+json anywhere. 152 of the 1,895 4xx/5xx responses declare a JSON body; the remaining
+    1,743 declare a status code and a description only, with no schema at all.
+  see: errors/cisco-crosswork-problem-types.yml
+request_tracing:
+  supported: false
+  note: No request-id or correlation-id header is declared in any spec or documented in the getting-started guides.
+rate_limit_signaling:
+  supported: false
+  note: >-
+    No 429 response is declared on any of the 2,838 responses across the suite, and no X-RateLimit-*/RateLimit-*/
+    Retry-After header appears. See rate-limits/cisco-crosswork-rate-limits.yml.
+cross_links:
+  authentication: authentication/cisco-crosswork-authentication.yml
+  errors: errors/cisco-crosswork-problem-types.yml
+  lifecycle: lifecycle/cisco-crosswork-lifecycle.yml
+  rate_limits: rate-limits/cisco-crosswork-rate-limits.yml
+checked: '2026-08-19'

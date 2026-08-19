@@ -1,0 +1,79 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements to the Cisco Crosswork Workflow Manager contract
+  version: 1.0.0
+  x-generated: '2026-08-19'
+  x-method: generated
+  x-source: openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json
+  x-note: >-
+    This overlay records, as an auditable diff, every change API Evangelist made when turning Cisco's published
+    Crosswork Workflow Manager 2.1 reference into the refined openapi/cisco-crosswork-cwm-*-api-openapi.yml
+    documents. It exists so the enhancements can be reviewed, replayed or rejected independently of the harvest.
+    The harvested document itself is never mutated.
+extends: openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json
+actions:
+- target: $.info
+  description: >-
+    Stamp provenance. Records that Cisco authored the contract, that API Evangelist harvested it, when, and how —
+    reconstructed from the per-operation Swagger 2.0 fragments Cisco serves behind the DevNet reference renderer
+    rather than from a downloadable spec file, because Cisco publishes none for CWM.
+  update:
+    x-provenance:
+      method: harvested
+      authored_by: Cisco Crosswork
+      harvested_by: API Evangelist
+      harvested_on: '2026-08-19'
+      first_party: true
+      provider_published: true
+- target: $.info
+  description: >-
+    Add termsOfService as a resolvable URL. Cisco's own document sets info.termsOfService to the bare string
+    "www.cisco.com", which is not a URI and will not resolve for a consumer.
+  update:
+    termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+- target: $.info
+  description: Attach the evidence trail — the reference page and the fragment root the contract was read from.
+  update:
+    x-evidence:
+    - type: source
+      url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+    - type: raw
+      url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+- target: $
+  description: >-
+    Convert Swagger 2.0 to OpenAPI 3.2.0 — definitions to components.schemas, body parameters to requestBody,
+    formData parameters to a multipart requestBody, response schema to content-keyed media types, and
+    securityDefinitions to components.securitySchemes. No semantics are added or removed.
+  update:
+    openapi: 3.2.0
+- target: $
+  description: >-
+    Express Cisco's basePath as a servers[] entry, annotated to say what it is relative to. Crosswork is
+    customer-deployed, so the host is genuinely unknown to the publisher; the annotation says so rather than
+    inventing one.
+  update:
+    servers:
+    - url: /crosswork/cwm/v2
+      description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+- target: $.paths.*.*
+  description: >-
+    Synthesise an operationId where Cisco's source omits one. 8 of the 90 operations ship without an operationId,
+    which makes them unaddressable by every downstream tool; the synthesised value is derived deterministically
+    from method plus path so it is stable across re-harvests.
+  update:
+    x-operationId-source: synthesised-by-api-evangelist-where-absent
+- target: $.paths.*.*
+  description: >-
+    Apply the declared Bearer security scheme to every operation. Cisco declares the scheme globally but attaches
+    it to no operation, so a generated client would emit unauthenticated calls against an API where every call
+    requires a JWT.
+  update:
+    security:
+    - Bearer: []
+- target: $
+  description: >-
+    Split the single 90-operation document into one document per tag (16 files), carrying only the schemas each tag
+    transitively references. Matches the one-API-per-resource shape the rest of this repo uses.
+  update:
+    x-split-by: tag
+    x-split-into: 16

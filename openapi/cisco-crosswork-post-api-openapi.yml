@@ -1,0 +1,1208 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Post API
+  version: '2018-02-26'
+  description: 'Operations tagged post across 3 of this provider''s published API definitions: cisco-crosswork-coe-l3-openapi.json,
+    cisco-crosswork-coe-l3-state-openapi.json, cisco-crosswork-coe-network-state-openapi.json. Each path carries the servers
+    of the definition it was published in.'
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+    derived_view: Per-tag view of cisco-crosswork-coe-l3-openapi.json, the provider's source document. Operations and schemas
+      are the provider's, unmodified; only the partition is ours.
+    derived_from: cisco-crosswork-coe-l3-openapi.json
+    operation_coverage: 1/1
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/COE/1.1APIs/l3.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/COE/1.1APIs/l3.swagger.json
+servers:
+- url: /crosswork/nbi/optima/v1/restconf
+tags:
+- name: post
+  description: post resources
+paths:
+  /data:
+    post:
+      tags:
+      - post
+      summary: 'This module defines a model for Layer 3 Unicast
+
+        topologies.
+
+        Copyright (c) 2018 IETF Trust and the persons identified as
+
+        authors of the code.  All rights reserved.
+
+        Redistribution and use in source and binary forms, with or
+
+        without modification, is permitted pursuant to, and subject
+
+        to the license terms contained in, the Simplified BSD License
+
+        set forth in Section 4.c of the IETF Trust''s Legal Provisions
+
+        Relating to IETF Documents
+
+        (https://trustee.ietf.org/license-info).
+
+        This version of this YANG module is part of
+
+        RFC 8346; see the RFC itself for full legal notices.'
+      description: 'This module defines a model for Layer 3 Unicast
+
+        topologies.
+
+        Copyright (c) 2018 IETF Trust and the persons identified as
+
+        authors of the code.  All rights reserved.
+
+        Redistribution and use in source and binary forms, with or
+
+        without modification, is permitted pursuant to, and subject
+
+        to the license terms contained in, the Simplified BSD License
+
+        set forth in Section 4.c of the IETF Trust''s Legal Provisions
+
+        Relating to IETF Documents
+
+        (https://trustee.ietf.org/license-info).
+
+        This version of this YANG module is part of
+
+        RFC 8346; see the RFC itself for full legal notices.'
+      operationId: data_post
+      parameters:
+      - $ref: '#/components/parameters/data-post'
+      responses:
+        '201':
+          description: 'This module defines a model for Layer 3 Unicast
+
+            topologies.
+
+            Copyright (c) 2018 IETF Trust and the persons identified as
+
+            authors of the code.  All rights reserved.
+
+            Redistribution and use in source and binary forms, with or
+
+            without modification, is permitted pursuant to, and subject
+
+            to the license terms contained in, the Simplified BSD License
+
+            set forth in Section 4.c of the IETF Trust''s Legal Provisions
+
+            Relating to IETF Documents
+
+            (https://trustee.ietf.org/license-info).
+
+            This version of this YANG module is part of
+
+            RFC 8346; see the RFC itself for full legal notices.'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+    servers:
+    - url: /crosswork/nbi/optima/v1/restconf
+components:
+  responses:
+    '405':
+      description: Method Not Allowed
+    '404':
+      description: Not Found
+    '401':
+      description: Unauthorized
+    '409':
+      description: Conflict
+    '400':
+      description: Bad Request
+  parameters:
+    data-post:
+      name: data
+      in: body
+      description: 'This module defines a model for Layer 3 Unicast
+
+        topologies.
+
+        Copyright (c) 2018 IETF Trust and the persons identified as
+
+        authors of the code.  All rights reserved.
+
+        Redistribution and use in source and binary forms, with or
+
+        without modification, is permitted pursuant to, and subject
+
+        to the license terms contained in, the Simplified BSD License
+
+        set forth in Section 4.c of the IETF Trust''s Legal Provisions
+
+        Relating to IETF Documents
+
+        (https://trustee.ietf.org/license-info).
+
+        This version of this YANG module is part of
+
+        RFC 8346; see the RFC itself for full legal notices.'
+      required: true
+      schema:
+        $ref: '#/components/schemas/data-post'
+    data-post_2:
+      name: data
+      in: body
+      description: 'This module defines a model for Layer 3 Unicast topology
+
+        state, representing topology that either is learned or
+
+        results from applying topology that has been configured per
+
+        the ''ietf-l3-unicast-topology'' model, mirroring the
+
+        corresponding data nodes in this model.
+
+        This model mirrors ''ietf-l3-unicast-topology'' but contains only
+
+        read-only state data.  The model is not needed when the
+
+        underlying implementation infrastructure supports the Network
+
+        Management Datastore Architecture (NMDA).
+
+        Copyright (c) 2018 IETF Trust and the persons identified as
+
+        authors of the code.  All rights reserved.
+
+        Redistribution and use in source and binary forms, with or
+
+        without modification, is permitted pursuant to, and subject
+
+        to the license terms contained in, the Simplified BSD License
+
+        set forth in Section 4.c of the IETF Trust''s Legal Provisions
+
+        Relating to IETF Documents
+
+        (https://trustee.ietf.org/license-info).
+
+        This version of this YANG module is part of RFC 8346;
+
+        see the RFC itself for full legal notices.'
+      required: true
+      schema:
+        $ref: '#/components/schemas/data-post'
+    data-post_3:
+      name: data
+      in: body
+      description: 'This module defines a common base data model for a collection
+
+        of nodes in a network.  Node definitions are further used
+
+        in network topologies and inventories.  It represents
+
+        information that either (1) is learned and automatically
+
+        populated or (2) results from applying network information
+
+        that has been configured per the ''ietf-network'' data model,
+
+        mirroring the corresponding data nodes in this data model.
+
+        The data model mirrors ''ietf-network'' but contains only
+
+        read-only state data.  The data model is not needed when the
+
+        underlying implementation infrastructure supports the Network
+
+        Management Datastore Architecture (NMDA).
+
+        Copyright (c) 2018 IETF Trust and the persons identified as
+
+        authors of the code.  All rights reserved.
+
+        Redistribution and use in source and binary forms, with or
+
+        without modification, is permitted pursuant to, and subject
+
+        to the license terms contained in, the Simplified BSD License
+
+        set forth in Section 4.c of the IETF Trust''s Legal Provisions
+
+        Relating to IETF Documents
+
+        (https://trustee.ietf.org/license-info).
+
+        This version of this YANG module is part of RFC 8345;
+
+        see the RFC itself for full legal notices.'
+      required: true
+      schema:
+        $ref: '#/components/schemas/data-post_2'
+  schemas:
+    data-post:
+      type: object
+      properties: {}
+    data-post_2:
+      type: object
+      properties:
+        ietf-network-state:networks:
+          description: Serves as a top-level container for a list of networks. (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            network:
+              type: array
+              description: 'Describes a network.
+
+                A network typically contains an inventory of nodes,
+
+                topological information (augmented through the
+
+                network-topology data model), and layering information. (list)'
+              x-yang:
+                type: list
+              items:
+                type: object
+                properties:
+                  network-types:
+                    description: 'Serves as an augmentation target.
+
+                      The network type is indicated through corresponding
+
+                      presence containers augmented into this container. (non-presence)'
+                    type: object
+                    x-yang:
+                      type: container
+                      is_presence: 'false'
+                    properties:
+                      ietf-l3-unicast-topology-state:l3-unicast-topology:
+                        description: 'The presence of the container node indicates L3 Unicast
+
+                          topology (presence)'
+                        type: object
+                        x-yang:
+                          type: container
+                          is_presence: 'true'
+                        properties:
+                          cisco-crosswork-isis-topology:isis:
+                            description: Presence of this node identifies the ISIS topology type. (presence)
+                            type: object
+                            x-yang:
+                              type: container
+                              is_presence: 'true'
+                            properties: {}
+                          cisco-crosswork-ospf-topology:ospf:
+                            description: Presence of this node identifies the OSPF topology type. (presence)
+                            type: object
+                            x-yang:
+                              type: container
+                              is_presence: 'true'
+                            properties: {}
+                          ietf-sr-topology-state:sr-mpls:
+                            description: Its presence identifies the SR topology type. (presence)
+                            type: object
+                            x-yang:
+                              type: container
+                              is_presence: 'true'
+                            properties: {}
+                  network-id:
+                    description: Identifies a network. (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  supporting-network:
+                    type: array
+                    description: 'An underlay network, used to represent layered network
+
+                      topologies. (list)'
+                    x-yang:
+                      type: list
+                    items:
+                      type: object
+                      properties:
+                        network-ref:
+                          description: References the underlay network. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: leafref
+                  node:
+                    type: array
+                    description: The inventory of nodes of this network. (list)
+                    x-yang:
+                      type: list
+                    items:
+                      type: object
+                      properties:
+                        node-id:
+                          description: 'Uniquely identifies a node within the containing
+
+                            network. (leaf)'
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        supporting-node:
+                          type: array
+                          description: 'Represents another node that is in an underlay network
+
+                            and that supports this node.  Used to represent layering
+
+                            structure. (list)'
+                          x-yang:
+                            type: list
+                          items:
+                            type: object
+                            properties:
+                              network-ref:
+                                description: 'References the underlay network of which the
+
+                                  underlay node is a part. (leaf)'
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: leafref
+                              node-ref:
+                                description: References the underlay node itself. (leaf)
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: leafref
+                        ietf-network-topology-state:termination-point:
+                          type: array
+                          description: 'A termination point can terminate a link.
+
+                            Depending on the type of topology, a termination point
+
+                            could, for example, refer to a port or an interface. (list)'
+                          x-yang:
+                            type: list
+                          items:
+                            type: object
+                            properties:
+                              ietf-network-topology-state:tp-id:
+                                description: Termination point identifier. (leaf)
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: string
+                              ietf-network-topology-state:supporting-termination-point:
+                                type: array
+                                description: 'This list identifies any termination points on which a
+
+                                  given termination point depends or onto which it maps.
+
+                                  Those termination points will themselves be contained
+
+                                  in a supporting node.  This dependency information can be
+
+                                  inferred from the dependencies between links.  Therefore,
+
+                                  this item is not separately configurable.  Hence, no
+
+                                  corresponding constraint needs to be articulated.
+
+                                  The corresponding information is simply provided by the
+
+                                  implementing system. (list)'
+                                x-yang:
+                                  type: list
+                                items:
+                                  type: object
+                                  properties:
+                                    ietf-network-topology-state:network-ref:
+                                      description: 'This leaf identifies in which topology the
+
+                                        supporting termination point is present. (leaf)'
+                                      x-yang:
+                                        type: leaf
+                                      type: string
+                                      format: leafref
+                                    ietf-network-topology-state:node-ref:
+                                      description: 'This leaf identifies in which node the supporting
+
+                                        termination point is present. (leaf)'
+                                      x-yang:
+                                        type: leaf
+                                      type: string
+                                      format: leafref
+                                    ietf-network-topology-state:tp-ref:
+                                      description: 'Reference to the underlay node (the underlay node must
+
+                                        be in a different topology). (leaf)'
+                                      x-yang:
+                                        type: leaf
+                                      type: string
+                                      format: leafref
+                              ietf-l3-unicast-topology-state:l3-termination-point-attributes:
+                                description: Contains termination point attributes (non-presence)
+                                type: object
+                                x-yang:
+                                  type: container
+                                  is_presence: 'false'
+                                properties:
+                                  ietf-l3-unicast-topology-state:ip-address:
+                                    type: array
+                                    x-yang:
+                                      type: leaf-list
+                                    items:
+                                      description: IPv4 or IPv6 address. (leaf-list)
+                                      type: string
+                                      format: union
+                        ietf-l3-unicast-topology-state:l3-node-attributes:
+                          description: Contains node attributes (non-presence)
+                          type: object
+                          x-yang:
+                            type: container
+                            is_presence: 'false'
+                          properties:
+                            ietf-l3-unicast-topology-state:name:
+                              description: Node name (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                            ietf-l3-unicast-topology-state:flag:
+                              type: array
+                              x-yang:
+                                type: leaf-list
+                              items:
+                                description: Node flags (leaf-list)
+                                type: string
+                                format: identityref
+                            ietf-l3-unicast-topology-state:router-id:
+                              type: array
+                              x-yang:
+                                type: leaf-list
+                              items:
+                                description: Router-id for the node (leaf-list)
+                                type: string
+                                format: string
+                            ietf-l3-unicast-topology-state:prefix:
+                              type: array
+                              description: A list of prefixes along with their attributes (list)
+                              x-yang:
+                                type: list
+                              items:
+                                type: object
+                                properties:
+                                  ietf-l3-unicast-topology-state:prefix:
+                                    description: IP prefix value (leaf)
+                                    x-yang:
+                                      type: leaf
+                                    type: string
+                                    format: union
+                                  ietf-l3-unicast-topology-state:metric:
+                                    description: Prefix metric (leaf)
+                                    x-yang:
+                                      type: leaf
+                                    type: integer
+                                    format: uint32
+                                  ietf-l3-unicast-topology-state:flag:
+                                    type: array
+                                    x-yang:
+                                      type: leaf-list
+                                    items:
+                                      description: Prefix flags (leaf-list)
+                                      type: string
+                                      format: identityref
+                                  ietf-sr-topology-state:sr:
+                                    description: Containing SR attributes for a prefix. (presence)
+                                    type: object
+                                    x-yang:
+                                      type: container
+                                      is_presence: 'true'
+                                    properties:
+                                      ietf-sr-topology-state:value-type:
+                                        description: This leaf defines how value must be interpreted. (leaf)
+                                        x-yang:
+                                          type: leaf
+                                        type: string
+                                        format: enumeration
+                                        default: index
+                                        enum:
+                                        - index
+                                        - absolute
+                                      ietf-sr-topology-state:start-sid:
+                                        description: 'Value associated with prefix. The value must be
+
+                                          interpreted in the context of value-type. (leaf)'
+                                        x-yang:
+                                          type: leaf
+                                        type: integer
+                                        format: uint32
+                                      ietf-sr-topology-state:range:
+                                        description: Indicates how many SIDs can be allocated. (leaf)
+                                        x-yang:
+                                          type: leaf
+                                        type: integer
+                                        format: uint32
+                                      ietf-sr-topology-state:algorithm:
+                                        description: Prefix-sid algorithm. (leaf)
+                                        x-yang:
+                                          type: leaf
+                                        type: string
+                                        format: identityref
+                                      ietf-sr-topology-state:last-hop-behavior:
+                                        description: Configure last hop behavior. (leaf)
+                                        x-yang:
+                                          type: leaf
+                                        type: string
+                                        format: enumeration
+                                        default: explicit-null
+                                        enum:
+                                        - explicit-null
+                                        - no-php
+                                        - php
+                                      ietf-sr-topology-state:is-local:
+                                        description: '''true'' if the SID is local. (leaf)'
+                                        x-yang:
+                                          type: leaf
+                                        type: string
+                                        format: boolean
+                                      ietf-sr-topology-state:is-node:
+                                        description: "'true' if the Prefix-SID refers to the router identified\n by the prefix.\
+                                          \  Typically, the leaf 'is-node' (N-Flag)\n is set on Prefix-SIDs attached to a\
+                                          \ router loopback\n address. (leaf)"
+                                        x-yang:
+                                          type: leaf
+                                        type: string
+                                        format: boolean
+                                      ietf-sr-topology-state:is-readvertisment:
+                                        description: "'true' if the prefix to which this Prefix-SID is attached,\n has been\
+                                          \ propagated by the router from another\n topology by redistribution. (leaf)"
+                                        x-yang:
+                                          type: leaf
+                                        type: string
+                                        format: boolean
+                            cisco-crosswork-isis-topology:isis-node-attributes:
+                              description: ISIS attributes for a specific node (non-presence)
+                              type: object
+                              x-yang:
+                                type: container
+                                is_presence: 'false'
+                              properties:
+                                cisco-crosswork-isis-topology:system-id:
+                                  description: ISIS System ID, a 6 octet numerical value (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: string
+                                cisco-crosswork-isis-topology:area:
+                                  type: array
+                                  x-yang:
+                                    type: leaf-list
+                                  items:
+                                    description: 'List of Area addresses.
+
+                                      *** Should we return only a single Area address corresponding
+
+                                      to the current network?? (leaf-list)'
+                                    type: string
+                                    format: string
+                                cisco-crosswork-isis-topology:level:
+                                  description: Level 1, Level 2 or Level 1 & 2 (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: enumeration
+                                  default: level-1
+                                  enum:
+                                  - level-1
+                                  - level-2
+                                  - level-all
+                            cisco-crosswork-ospf-topology:ospf-node-attributes:
+                              description: Contains node's OSPF attributes (non-presence)
+                              type: object
+                              x-yang:
+                                type: container
+                                is_presence: 'false'
+                              properties:
+                                cisco-crosswork-ospf-topology:ospf-router-id:
+                                  description: 'OSPF router ID, which is an IPv4 address.
+
+                                    *** Note, only one router-ID is reported, corresponwing
+
+                                    to the IGP domain of the current network (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: string
+                                cisco-crosswork-ospf-topology:area-id:
+                                  type: array
+                                  x-yang:
+                                    type: leaf-list
+                                  items:
+                                    description: 'List of OSPF area IDs, each represented as an IPv4 address value
+
+                                      *** Should we report all Areas or just the one corresponwing to
+
+                                      the network?? (leaf-list)'
+                                    type: string
+                                    format: string
+                            ietf-sr-topology-state:sr:
+                              description: Containing SR attributes. (non-presence)
+                              type: object
+                              x-yang:
+                                type: container
+                                is_presence: 'false'
+                              properties:
+                                ietf-sr-topology-state:srgb:
+                                  type: array
+                                  description: List of global blocks to be advertised. (list)
+                                  x-yang:
+                                    type: list
+                                  items:
+                                    type: object
+                                    properties:
+                                      ietf-sr-topology-state:lower-bound:
+                                        description: Lower value in the label range. (leaf)
+                                        x-yang:
+                                          type: leaf
+                                        type: integer
+                                        format: uint32
+                                      ietf-sr-topology-state:upper-bound:
+                                        description: Upper value in the label range. (leaf)
+                                        x-yang:
+                                          type: leaf
+                                        type: integer
+                                        format: uint32
+                                ietf-sr-topology-state:srlb:
+                                  type: array
+                                  description: List of SRLBs. (list)
+                                  x-yang:
+                                    type: list
+                                  items:
+                                    type: object
+                                    properties:
+                                      ietf-sr-topology-state:lower-bound:
+                                        description: Lower value in the label range. (leaf)
+                                        x-yang:
+                                          type: leaf
+                                        type: integer
+                                        format: uint32
+                                      ietf-sr-topology-state:upper-bound:
+                                        description: Upper value in the label range. (leaf)
+                                        x-yang:
+                                          type: leaf
+                                        type: integer
+                                        format: uint32
+                                ietf-sr-topology-state:node-capabilities:
+                                  description: Shows the SR capability of the node. (non-presence)
+                                  type: object
+                                  x-yang:
+                                    type: container
+                                    is_presence: 'false'
+                                  properties:
+                                    ietf-sr-topology-state:transport-planes:
+                                      type: array
+                                      description: List of supported transport planes. (list)
+                                      x-yang:
+                                        type: list
+                                      items:
+                                        type: object
+                                        properties:
+                                          ietf-sr-topology-state:transport-plane:
+                                            description: Transport plane supported (leaf)
+                                            x-yang:
+                                              type: leaf
+                                            type: string
+                                            format: identityref
+                                    ietf-sr-topology-state:entropy-readable-label-depth:
+                                      description: Maximum label stack depth that a router can read. (leaf)
+                                      x-yang:
+                                        type: leaf
+                                      type: integer
+                                      format: byte
+                                ietf-sr-topology-state:msd:
+                                  description: Node MSD is the lowest MSD supported by the node. (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: integer
+                                  format: byte
+                                ietf-sr-topology-state:information-source:
+                                  description: Indicates the type of the information source. (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: enumeration
+                                  default: unknown
+                                  enum:
+                                  - unknown
+                                  - locally-configured
+                                  - ospfv2
+                                  - ospfv3
+                                  - isis
+                                  - bgp-ls
+                                  - system-processed
+                                  - other
+                                ietf-sr-topology-state:information-source-instance:
+                                  description: 'The name indicating the instance of the information
+
+                                    source. (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: string
+                                ietf-sr-topology-state:information-source-state:
+                                  description: 'The container contains state attributes related to
+
+                                    the information source. (non-presence)'
+                                  type: object
+                                  x-yang:
+                                    type: container
+                                    is_presence: 'false'
+                                  properties:
+                                    ietf-sr-topology-state:credibility-preference:
+                                      description: 'The preference value to calculate the traffic
+
+                                        engineering database credibility value used for
+
+                                        tie-break selection between different
+
+                                        information-source values.
+
+                                        Higher value is more preferable. (leaf)'
+                                      x-yang:
+                                        type: leaf
+                                      type: integer
+                                      format: uint16
+                  ietf-network-topology-state:link:
+                    type: array
+                    description: 'A network link connects a local (source) node and
+
+                      a remote (destination) node via a set of the respective
+
+                      node''s termination points.  It is possible to have several
+
+                      links between the same source and destination nodes.
+
+                      Likewise, a link could potentially be re-homed between
+
+                      termination points.  Therefore, in order to ensure that we
+
+                      would always know to distinguish between links, every link
+
+                      is identified by a dedicated link identifier.  Note that a
+
+                      link models a point-to-point link, not a multipoint link. (list)'
+                    x-yang:
+                      type: list
+                    items:
+                      type: object
+                      properties:
+                        ietf-network-topology-state:source:
+                          description: 'This container holds the logical source of a particular
+
+                            link. (non-presence)'
+                          type: object
+                          x-yang:
+                            type: container
+                            is_presence: 'false'
+                          properties:
+                            ietf-network-topology-state:source-node:
+                              description: Source node identifier.  Must be in the same topology. (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: leafref
+                            ietf-network-topology-state:source-tp:
+                              description: 'This termination point is located within the source node
+
+                                and terminates the link. (leaf)'
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: leafref
+                        ietf-network-topology-state:destination:
+                          description: 'This container holds the logical destination of a
+
+                            particular link. (non-presence)'
+                          type: object
+                          x-yang:
+                            type: container
+                            is_presence: 'false'
+                          properties:
+                            ietf-network-topology-state:dest-node:
+                              description: 'Destination node identifier.  Must be in the same
+
+                                network. (leaf)'
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: leafref
+                            ietf-network-topology-state:dest-tp:
+                              description: 'This termination point is located within the
+
+                                destination node and terminates the link. (leaf)'
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: leafref
+                        ietf-network-topology-state:link-id:
+                          description: 'The identifier of a link in the topology.
+
+                            A link is specific to a topology to which it belongs. (leaf)'
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        ietf-network-topology-state:supporting-link:
+                          type: array
+                          description: Identifies the link or links on which this link depends. (list)
+                          x-yang:
+                            type: list
+                          items:
+                            type: object
+                            properties:
+                              ietf-network-topology-state:network-ref:
+                                description: 'This leaf identifies in which underlay topology
+
+                                  the supporting link is present. (leaf)'
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: leafref
+                              ietf-network-topology-state:link-ref:
+                                description: 'This leaf identifies a link that is a part
+
+                                  of this link''s underlay.  Reference loops in which
+
+                                  a link identifies itself as its underlay, either
+
+                                  directly or transitively, are not allowed. (leaf)'
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: leafref
+                        ietf-l3-unicast-topology-state:l3-link-attributes:
+                          description: Contains link attributes (non-presence)
+                          type: object
+                          x-yang:
+                            type: container
+                            is_presence: 'false'
+                          properties:
+                            ietf-l3-unicast-topology-state:name:
+                              description: Link Name (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: string
+                            ietf-l3-unicast-topology-state:flag:
+                              type: array
+                              x-yang:
+                                type: leaf-list
+                              items:
+                                description: Link flags (leaf-list)
+                                type: string
+                                format: identityref
+                            ietf-l3-unicast-topology-state:metric1:
+                              description: Link Metric 1 (leaf)
+                              x-yang:
+                                type: leaf
+                              type: integer
+                              format: uint64
+                            ietf-l3-unicast-topology-state:metric2:
+                              description: Link Metric 2 (leaf)
+                              x-yang:
+                                type: leaf
+                              type: integer
+                              format: uint64
+                            cisco-crosswork-isis-topology:isis-link-attributes:
+                              description: ISIS link/ adjacency attributes (non-presence)
+                              type: object
+                              x-yang:
+                                type: container
+                                is_presence: 'false'
+                              properties:
+                                cisco-crosswork-isis-topology:net:
+                                  description: ISIS Network Entity Title which identifies an instance of ISIS (non-presence)
+                                  type: object
+                                  x-yang:
+                                    type: container
+                                    is_presence: 'false'
+                                  properties:
+                                    cisco-crosswork-isis-topology:system-id:
+                                      description: ISIS System ID which is a 6 octet numerical value (leaf)
+                                      x-yang:
+                                        type: leaf
+                                      type: string
+                                      format: string
+                                    cisco-crosswork-isis-topology:area:
+                                      description: ISIS Area address. Numerical value of 1 to 13 octets (leaf)
+                                      x-yang:
+                                        type: leaf
+                                      type: string
+                                      format: string
+                                cisco-crosswork-isis-topology:level:
+                                  description: ISIS level of the link/ adjacency (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: integer
+                                  format: byte
+                            cisco-crosswork-ospf-topology:ospf-link-attributes:
+                              description: Containing OSPF link attributes (non-presence)
+                              type: object
+                              x-yang:
+                                type: container
+                                is_presence: 'false'
+                              properties:
+                                cisco-crosswork-ospf-topology:ospf-router-id:
+                                  description: 'OSPF router ID, which is an IPv4 address,
+
+                                    of the local host (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: string
+                                cisco-crosswork-ospf-topology:area-id:
+                                  description: OSPF area ID, represented as an IPv4 address value (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: string
+                            ietf-sr-topology-state:sr:
+                              description: Containing SR attributes. (presence)
+                              type: object
+                              x-yang:
+                                type: container
+                                is_presence: 'true'
+                              properties:
+                                ietf-sr-topology-state:value-type:
+                                  description: This leaf defines how value must be interpreted. (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: enumeration
+                                  default: index
+                                  enum:
+                                  - index
+                                  - absolute
+                                ietf-sr-topology-state:sid:
+                                  description: 'Adjacency SID, which can be either IGP-Adjacency SID
+
+                                    or BGP PeerAdj SID, depending on the context. (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: integer
+                                  format: uint32
+                                ietf-sr-topology-state:advertise-protection:
+                                  description: 'If set, the Adj-SID refers to an
+
+                                    adjacency being protected. (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: enumeration
+                                  default: single
+                                  enum:
+                                  - single
+                                  - dual
+                                ietf-sr-topology-state:is-local:
+                                  description: '''true'' if the SID is local. (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: boolean
+                                ietf-sr-topology-state:msd:
+                                  description: SID depth of the interface associated with the link. (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: integer
+                                  format: byte
+                                ietf-sr-topology-state:address-family:
+                                  description: 'This leaf defines the F-Flag (Address-Family flag) of the
+
+                                    SID. (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: enumeration
+                                  default: ipv4
+                                  enum:
+                                  - ipv4
+                                  - ipv6
+                                ietf-sr-topology-state:is-backup:
+                                  description: '''true'' if the SID is a backup. (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: boolean
+                                ietf-sr-topology-state:is-part-of-set:
+                                  description: '''true'' if the SID is part of a set. (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: boolean
+                                ietf-sr-topology-state:is-persistent:
+                                  description: '''true'' if the SID is persistently allocated. (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: boolean
+                                ietf-sr-topology-state:is-on-lan:
+                                  description: '''true'' if on a lan. (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: boolean
+                                ietf-sr-topology-state:information-source:
+                                  description: Indicates the type of the information source. (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: enumeration
+                                  default: unknown
+                                  enum:
+                                  - unknown
+                                  - locally-configured
+                                  - ospfv2
+                                  - ospfv3
+                                  - isis
+                                  - bgp-ls
+                                  - system-processed
+                                  - other
+                                ietf-sr-topology-state:information-source-instance:
+                                  description: 'The name indicating the instance of the information
+
+                                    source. (leaf)'
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: string
+                                ietf-sr-topology-state:information-source-state:
+                                  description: 'The container contains state attributes related to
+
+                                    the information source. (non-presence)'
+                                  type: object
+                                  x-yang:
+                                    type: container
+                                    is_presence: 'false'
+                                  properties:
+                                    ietf-sr-topology-state:credibility-preference:
+                                      description: 'The preference value to calculate the traffic
+
+                                        engineering database credibility value used for
+
+                                        tie-break selection between different
+
+                                        information-source values.
+
+                                        Higher value is more preferable. (leaf)'
+                                      x-yang:
+                                        type: leaf
+                                      type: integer
+                                      format: uint16
+                  ietf-l3-unicast-topology-state:l3-topology-attributes:
+                    description: Contains topology attributes (non-presence)
+                    type: object
+                    x-yang:
+                      type: container
+                      is_presence: 'false'
+                    properties:
+                      ietf-l3-unicast-topology-state:name:
+                        description: Name of the topology (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: string
+                      ietf-l3-unicast-topology-state:flag:
+                        type: array
+                        x-yang:
+                          type: leaf-list
+                        items:
+                          description: Topology flags (leaf-list)
+                          type: string
+                          format: identityref
+                      cisco-crosswork-isis-topology:isis-topology-attributes:
+                        description: 'Contains ISIS topology attributes.
+
+                          *** Contains a single Area address, which means each nw:ietf-network
+
+                          must contain a single ISIS Area. is this what we want??
+
+                          *** How do we identify areas from different ISIS domains??
+
+                          *** What would the behavior be for a query asking for all ietf-networks?? (non-presence)'
+                        type: object
+                        x-yang:
+                          type: container
+                          is_presence: 'false'
+                        properties:
+                          cisco-crosswork-isis-topology:area:
+                            description: ISIS Area address. Numerical value of 1 to 13 octets (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: string
+                      cisco-crosswork-ospf-topology:ospf-topology-attributes:
+                        description: OSPF topology attributes (non-presence)
+                        type: object
+                        x-yang:
+                          type: container
+                          is_presence: 'false'
+                        properties:
+                          cisco-crosswork-ospf-topology:area-id:
+                            description: 'OSPF area ID, represented as an IPv4 address value.
+
+                              *** Contains a single Area ID, which means each ietf-network
+
+                              must contain a single OSPF Area. is this what we want??
+
+                              *** How do we identify areas from different OSPF domains?? (leaf)'
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: string
+                      ietf-sr-topology-state:sr:
+                        description: Containing SR attributes. (non-presence)
+                        type: object
+                        x-yang:
+                          type: container
+                          is_presence: 'false'
+                        properties:
+                          ietf-sr-topology-state:srgb:
+                            type: array
+                            description: List of global blocks to be advertised. (list)
+                            x-yang:
+                              type: list
+                            items:
+                              type: object
+                              properties:
+                                ietf-sr-topology-state:lower-bound:
+                                  description: Lower value in the label range. (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: integer
+                                  format: uint32
+                                ietf-sr-topology-state:upper-bound:
+                                  description: Upper value in the label range. (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: integer
+                                  format: uint32
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+x-refined-from:
+- cisco-crosswork-coe-l3-openapi.json
+- cisco-crosswork-coe-l3-state-openapi.json
+- cisco-crosswork-coe-network-state-openapi.json

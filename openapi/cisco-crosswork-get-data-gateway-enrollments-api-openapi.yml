@@ -1,0 +1,264 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Inventory Get Data Gateway Enrollments API
+  version: 1.0.0
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.2APIs/inventory_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.2APIs/inventory_api.swagger.json
+servers:
+- url: /crosswork/inventory/
+security:
+- bearerAuth: []
+tags:
+- name: Get Data Gateway Enrollments
+paths:
+  /v1/dg/query:
+    post:
+      summary: 'Retrieves a list of DG enrollments. This api returns RobotDataGateway,
+
+        filters can be applied to retrieve specific sets of Dg Enrollments by
+
+        specifying one or more fields to match. User can filter on combinations
+
+        of supported fields. The exceptions and details of the filter structure
+
+        are listed below. This api takes RobotDGEnrollmentGetReq as input, in which
+
+        the user can specifiy the limit(page size), next_from, filters (RobotDataGateway).'
+      description: 'URL : post: /crosswork/inventory/v1/dg/query'
+      operationId: GetDgEnrollments
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotapiRobotDataGatewayGetResp'
+      tags:
+      - Get Data Gateway Enrollments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/robotapiRobotDataGatewayGetReq'
+        required: true
+components:
+  schemas:
+    RobotDataGatewayConfigRole:
+      type: string
+      enum:
+      - INVALID_ROLE
+      - ACTIVE
+      - PASSIVE
+      default: INVALID_ROLE
+    robotapiRobotDataGatewayGetResp:
+      type: object
+      properties:
+        return:
+          $ref: '#/components/schemas/robotapiRobotResponseInfo'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotDataGateway'
+        total_count:
+          type: integer
+          format: int32
+          title: Number of total Data Gateways available at present
+    robotapiRobotDataGatewayConfig:
+      type: object
+      properties:
+        description:
+          type: string
+        version:
+          type: string
+        tags:
+          type: string
+        interfaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/RobotDataGatewayConfigInterface'
+        cert_chain:
+          $ref: '#/components/schemas/RobotDataGatewayConfigCert'
+        profile:
+          $ref: '#/components/schemas/RobotDataGatewayConfigProfile'
+        role:
+          $ref: '#/components/schemas/RobotDataGatewayConfigRole'
+        admin_state:
+          $ref: '#/components/schemas/RobotDataGatewayConfigAdminState'
+    RobotDataGatewayOperationalOperationalState:
+      type: string
+      enum:
+      - INVALID_OS
+      - OS_UNKNOWN
+      - OS_UP
+      - OS_ERROR
+      - OS_PARTIAL_UP
+      default: INVALID_OS
+    RobotDataGatewayOperationalComponentState:
+      type: string
+      enum:
+      - CS_UNKNOWN
+      - CS_UP
+      - CS_DOWN
+      default: CS_UNKNOWN
+    robotapiRobotFilterData:
+      description: Request body with filter options
+      type: object
+      properties:
+        SortBy:
+          type: string
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
+    robotapiRobotDataGatewayOperational:
+      type: object
+      properties:
+        oper_state:
+          $ref: '#/components/schemas/RobotDataGatewayOperationalOperationalState'
+        oper_state_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/RobotDataGatewayOperationalOperationStatusDetails'
+        created_time:
+          type: string
+          format: int64
+        last_updated_time:
+          type: string
+          format: int64
+    robotapiRobotResponseInfo:
+      type: object
+      properties:
+        code:
+          type: string
+          format: int64
+          description: Typically from an enum defined by the component.
+        desc:
+          type: string
+          description: Description of error. May not be filled for success error codes.
+      description: Generic template for responses
+    RobotDataGatewayConfigInterface:
+      type: object
+      properties:
+        name:
+          type: string
+        mac:
+          type: string
+        ip_addr:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotInetAddr'
+    RobotDataGatewayConfigAdminState:
+      type: string
+      enum:
+      - UNKNOWN_AS
+      - AS_UP
+      - AS_DOWN
+      default: UNKNOWN_AS
+    RobotDataGatewayConfigCert:
+      type: object
+      properties:
+        certificate:
+          type: string
+    robotapiRobotInetAddr:
+      description: Inet Address
+      type: object
+      properties:
+        inet_af:
+          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
+        inet_addr:
+          type: string
+        mask:
+          type: string
+    robotapiRobotDataGatewayGetReq:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+          description: Number of entries requested in the response.
+        sort_by_field:
+          type: string
+          description: 'The field name in RobotDataGateway to use for sorting. If this field
+
+            is omitted, data is sorted by default on name.'
+        last_key:
+          type: string
+          description: Ask for data beyond last_key per the sorted order.
+        filter:
+          $ref: '#/components/schemas/robotapiRobotDataGateway'
+        filterData:
+          $ref: '#/components/schemas/robotapiRobotFilterData'
+    robotapiRobotDataGateway:
+      type: object
+      properties:
+        duuid:
+          type: string
+        name:
+          type: string
+        config_data:
+          $ref: '#/components/schemas/robotapiRobotDataGatewayConfig'
+        operational_data:
+          $ref: '#/components/schemas/robotapiRobotDataGatewayOperational'
+      title: Data gateway config and operational data
+    RobotDataGatewayOperationalOperationStatusDetails:
+      type: object
+      properties:
+        component_name:
+          type: string
+        state:
+          $ref: '#/components/schemas/RobotDataGatewayOperationalComponentState'
+        state_reason:
+          type: string
+    robotapiRobotInetAddressFamily:
+      description: Inet Address Family
+      type: string
+      enum:
+      - ROBOT_INET_ADDR_TYPE_NONE
+      - ROBOT_INET_ADDR_TYPE_v4
+      - ROBOT_INET_ADDR_TYPE_v6
+      default: ROBOT_INET_ADDR_TYPE_NONE
+    RobotDataGatewayConfigProfile:
+      type: object
+      properties:
+        cpu:
+          type: integer
+          format: int64
+        memory:
+          type: integer
+          format: int64
+        nics:
+          type: integer
+          format: int64
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header

@@ -1,0 +1,192 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Misc API
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  version: '1.0'
+  description: 'Operations tagged Misc across 2 of this provider''s published API definitions: cisco-crosswork-cdg-cdg-health-api-openapi.json,
+    cisco-crosswork-cdg-cdg-outage-history-api-openapi.json. Each path carries the servers of the definition it was published
+    in.'
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+    derived_view: Per-tag view of cisco-crosswork-cdg-cdg-health-api-openapi.json, the provider's source document. Operations
+      and schemas are the provider's, unmodified; only the partition is ours.
+    derived_from: cisco-crosswork-cdg-cdg-health-api-openapi.json
+    operation_coverage: 1/2
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/CDG/2.0APIs/cdg_health_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/CDG/2.0APIs/cdg_health_api.swagger.json
+servers:
+- url: /crosswork/dg-manager
+- url: https://example.com/crosswork/dg-manager
+security:
+- bearerAuth: []
+tags:
+- name: Misc
+paths:
+  /v1/vitals/query:
+    post:
+      description: Displays the vitals info for given Data Gateway.Replaces earlier GET /crosswork/dg-manager/device/vitals/
+        API
+      summary: Displays the vitals info for given Data Gateway
+      tags:
+      - Misc
+      operationId: GetHealthOfDG
+      deprecated: false
+      responses:
+        '200':
+          description: OK. The request was successful. The result is contained in the response body.
+        '400':
+          description: Bad Request. The client made a request for a resource that does not exist.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetHealthOfDG'
+        required: true
+    servers:
+    - url: /crosswork/dg-manager
+  /v1/device/outage-history/query:
+    post:
+      description: Query Outage History records with Virtual/Physical Data Gateway ID
+      summary: Query Outage History
+      tags:
+      - Misc
+      operationId: QueryOutageHistory
+      deprecated: false
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers: {}
+        '400':
+          description: Bad Request
+          headers: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetOutageHistoryForVDGRequest'
+        required: true
+    servers:
+    - url: https://example.com/crosswork/dg-manager
+components:
+  schemas:
+    GetHealthOfDG:
+      title: GetHealthOfDG
+      example:
+        queryParams:
+        - field: DGID
+          value:
+            valueStr: 6ddad364-77d1-4f3a-b3b8-2371789436a3
+      type: object
+      properties:
+        queryParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryParam'
+      required:
+      - queryParams
+    QueryParam:
+      title: QueryParam
+      example:
+        field: DGID
+        value:
+          valueStr: 6ddad364-77d1-4f3a-b3b8-2371789436a3
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          $ref: '#/components/schemas/Value'
+      required:
+      - field
+      - value
+    Value:
+      title: Value
+      example:
+        valueStr: 6ddad364-77d1-4f3a-b3b8-2371789436a3
+      type: object
+      properties:
+        valueStr:
+          type: string
+      required:
+      - valueStr
+    GetOutageHistoryForVDGRequest:
+      title: GetOutageHistoryForVDGRequest
+      example:
+        queryParams:
+        - field: DGID
+          value:
+            valueStr: ''
+        - field: VDGID
+          value:
+            valueStr: b7fa0480-e421-42cf-868d-94ecd660116b
+        - field: DAYS
+          value:
+            valueStr: '14'
+      type: object
+      properties:
+        queryParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryParam_2'
+      required:
+      - queryParams
+    QueryParam_2:
+      title: QueryParam
+      example:
+        field: DGID
+        value:
+          valueStr: ''
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          $ref: '#/components/schemas/Value_2'
+      required:
+      - field
+      - value
+    Value_2:
+      title: Value
+      example:
+        valueStr: ''
+      type: object
+      properties:
+        valueStr:
+          type: string
+      required:
+      - valueStr
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+x-refined-from:
+- cisco-crosswork-cdg-cdg-health-api-openapi.json
+- cisco-crosswork-cdg-cdg-outage-history-api-openapi.json

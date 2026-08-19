@@ -1,0 +1,31 @@
+generated: '2026-08-19'
+method: searched
+source: https://developer.cisco.com/docs/crosswork/network-controller/intent-based-service-provisioning-getting-started/
+limit_count: 0
+published: false
+summary: >-
+  Cisco documents no rate limits for the Crosswork northbound APIs, and the contract confirms it: not one of the
+  2,838 declared responses across the 99 refined specs is a 429, and no X-RateLimit-*, RateLimit-* or Retry-After
+  header is declared or documented anywhere in the suite. An agent integrating with Crosswork gets no runtime
+  back-pressure signal at all.
+limits: []
+response_headers:
+  ratelimit_standard: false
+  x_ratelimit: false
+  retry_after: false
+exhaustion_status_code: null
+evidence:
+- type: docs
+  url: https://developer.cisco.com/docs/crosswork/network-controller/intent-based-service-provisioning-getting-started/
+  http_status: 200
+  finding: >-
+    The getting-started guide covers authentication, base URL contexts and RESTCONF media types. It says nothing
+    about throttling, quotas or retry behaviour.
+- type: contract
+  source: openapi/*.yml
+  finding: 0 occurrences of HTTP 429 across 2,838 declared responses.
+caveat: >-
+  Crosswork runs on the customer's own infrastructure, so any practical ceiling is a function of the deployment's
+  own sizing rather than a vendor-imposed quota. That explains the absence but does not remove the cost of it: the
+  contract still gives a client no way to discover, or react to, saturation.
+checked: '2026-08-19'

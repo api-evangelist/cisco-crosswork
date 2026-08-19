@@ -1,0 +1,201 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Network Controller L3VPN Service L3VPN Route Policy Retrieval API
+  description: This document contains details of the Crosswork Network Controller L3VPN Service APIs
+  version: '1.0'
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/CNC/1.0APIs/cisco-flat-L3vpn-fp_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/CNC/1.0APIs/cisco-flat-L3vpn-fp_api.swagger.json
+servers:
+- url: /crosswork
+tags:
+- name: L3VPN Route Policy Retrieval
+paths:
+  /nbi/cat-inventory/v1/restconf/data/cisco-flat-L3vpn-fp:l3vpn-route-policy={l3vpn-route-policy-name}:
+    get:
+      tags:
+      - L3VPN Route Policy Retrieval
+      summary: ''
+      description: Route policy
+      operationId: data_cisco_flat_L3vpn_fp_l3vpn_route_policy_l3vpn_route_policy_name_get
+      parameters:
+      - $ref: '#/components/parameters/l3vpn-route-policy-name'
+      - $ref: '#/components/parameters/content'
+      - $ref: '#/components/parameters/depth'
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/with-defaults'
+      responses:
+        '200':
+          description: The request was successful. L3VPN route policy was returned.
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/l3vpn-route-policy'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/l3vpn-route-policy'
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+components:
+  responses:
+    '405':
+      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
+    '404':
+      description: Not Found. The client made a request for a resource that does not exist.
+    '204':
+      description: No Content. The request was successful and there is no additional content in the response body.
+    '401':
+      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
+    '409':
+      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+    '400':
+      description: Bad Request. The request is malformed in some way and the server cannot process it.
+  parameters:
+    fields:
+      name: fields
+      in: query
+      description: Identify specific data nodes in the response (optional).
+      required: false
+      schema:
+        type: string
+        format: string
+    depth:
+      name: depth
+      in: query
+      description: Limit the depth of the nodes in the response.
+      required: false
+      schema:
+        type: integer
+        format: uint16
+    content:
+      name: content
+      in: query
+      description: Control the descendant nodes in the response.
+      required: false
+      schema:
+        type: string
+        format: enumeration
+        enum:
+        - config
+        - nonconfig
+        - all
+        default: config
+    l3vpn-route-policy-name:
+      name: l3vpn-route-policy-name
+      in: path
+      description: Route-Policy name
+      required: true
+      schema:
+        type: string
+        format: string
+    filter:
+      name: filter
+      in: query
+      description: An xpath expression to filter data nodes in the response.
+      required: false
+      schema:
+        type: string
+        format: string
+    with-defaults:
+      name: with-defaults
+      in: query
+      description: Control the default values in the response.
+      required: false
+      schema:
+        type: string
+        format: enumeration
+        enum:
+        - report-all
+        - trim
+        - explicit
+        - report-all-tagged
+        default: report-all
+  schemas:
+    l3vpn-route-policy:
+      type: object
+      properties:
+        name:
+          description: Route-Policy name (leaf)
+          x-yang:
+            type: leaf
+          type: string
+          format: string
+        color:
+          type: array
+          description: SR policy color (list)
+          x-yang:
+            type: list
+          items:
+            type: object
+            properties:
+              id:
+                description: <1-4294967295> - SR policy color (leaf)
+                x-yang:
+                  type: leaf
+                type: integer
+                format: uint32
+              ipv4:
+                description: IPv4 ODN SR (presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'true'
+                properties:
+                  prefix:
+                    type: array
+                    x-yang:
+                      type: leaf-list
+                    items:
+                      description: <A.B.C.D/prefix> - IPv4 Prefix List (leaf-list)
+                      type: string
+                      format: string
+              ipv6:
+                description: (presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'true'
+                properties:
+                  ipv6-prefix:
+                    type: array
+                    x-yang:
+                      type: leaf-list
+                    items:
+                      description: <X:X::X/length> - IPv6 Prefix List (leaf-list)
+                      type: string
+                      format: string
+      xml:
+        namespace: http://cisco.com/ns/nso/fp/examples/cisco-tsdn-flat-L3vpn
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

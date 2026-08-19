@@ -1,0 +1,79 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Platform Version API API
+  version: 1.0.0
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.1APIs/platform.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.1APIs/platform.swagger.json
+  description: API to retrieve Crosswork version
+servers:
+- url: /crosswork/platform
+security:
+- bearerAuth: []
+tags:
+- name: Version API
+  description: API to retrieve Crosswork version
+paths:
+  /v1/version/show:
+    get:
+      summary: Get the Crosswork Platform software version.
+      operationId: GetVersion
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotctl_apiOpResult'
+      tags:
+      - Version API
+components:
+  schemas:
+    robotctl_apiResultValue:
+      type: string
+      enum:
+      - NOOP
+      - SUCCESS
+      - FAILURE
+      default: NOOP
+    robotctl_apiOpResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
+          description: ResultValue indicates the success/failure for the requested operation.
+        Description:
+          type: string
+          title: Addional response information
+        ResultMap:
+          type: object
+          additionalProperties:
+            type: string
+          title: 'Supplementary keyed response info for the operation (for example: version number, error message)'
+        ResultString:
+          type: array
+          items:
+            type: string
+          title: Simple result string
+      description: 'OpResult is used to indicate whether an operation has been accepted or not. A string or map payload provides the additional response information (for example: version number, error data).'
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header

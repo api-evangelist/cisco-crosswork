@@ -1,0 +1,98 @@
+/*****************************************
+* Protobuf message definitions for Performance CEPMPTPRecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message CEPMPTPRecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Specifies the domain number used to create logical group of PTP devices
+	*/
+	optional int32 ptpClockDomainIndex = 2;
+
+	/* 
+	Clock type: ordinaryClock(1), boundaryClock(2),transparentClock(3),boundaryNode(4)
+	*/
+	optional int32 ptpClockTypeIndex = 3;
+
+	/* 
+	Specifies the instance of the clock for this clock type in the given domain
+	*/
+	optional int32 ptpClockInstanceIndex = 4;
+
+	/* 
+	Specifies the PTP Portnumber for this port.
+	*/
+	optional int32 ptpClockPortNumberIndex = 5;
+
+	/* 
+	Specifies the PTP clock port name configured on the router
+	*/
+	optional string ptpClockPortName = 6;
+
+	/* 
+	Describes the current role (client/server) of the port
+	*/
+	optional int32 ptpClockPortRole = 7;
+
+	/* 
+	Specifies the parent dataset grandmaster clock quality class.
+	unit: NUMBER
+	min: 0
+	max: 255
+	*/
+	optional int32 ptpClockClass = 8;
+
+	/* 
+	Specifies the Clock state returned by PTP engine which was described earlier.
+	 Freerun state: Applies to a client device that is not locked to  a server. This is the initial state a client starts out with
+	          when it is not getting any PTP packets from the server or because of some other input error (erroneous packets, etc).
+	 Holdover state: In this state the client device is locked to a server but communication with the server is lost or the
+	          timestamps in the ptp packets are incorrect. But since the client was locked to the server, it can run with the same
+	          accuracy for sometime. The client can continue to operate in this state for some time.
+	          If communication with the server is not restored for a while, the device is moved to the FREERUN state.
+	 Acquiring state: The client device is receiving packets from a server and is trying to acquire a lock.
+	 Freq_locked state: client device is locked to the server with respect to frequency, but not phase aligned
+	 Phase_aligned state: Locked to the server with respect to frequency and phase.
+	unit: NUMBER
+	min: 1
+	max: 5
+	*/
+	optional int32 ptpClockState = 9;
+
+	/* 
+	Specifies -
+	For a server port - the number of PTP client sessions (peers) associated with this PTP port.
+	For a client port - the number of servers available to this client port (might or might not be peered).
+	*/
+	optional int32 ptpClockAssociatedPorts = 10;
+
+	/* 
+	Specifies the timeproperties dataset value of current UTC offset.
+	In PTP systems whose epoch is the PTP epoch, the value of timePropertiesDS.currentUtcOffset is the offset
+	between TAI and UTC;otherwise the value has no meaning. The value shall be in units of seconds.
+	The initialization value shall be selected as follows:
+	a) If the timePropertiesDS.ptpTimescale is TRUE,  the value is the value obtained from a
+	    primary reference if the value is known at the time of initialization, else.
+	b) The value shall be the current number of leap seconds when the node is designed.
+	unit: NUMBER
+	min: 0
+	max: 65535
+	*/
+	optional int32 ptpClockUTCOffset = 11;
+  };
+}
+
+

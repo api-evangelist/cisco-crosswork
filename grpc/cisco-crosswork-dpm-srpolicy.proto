@@ -1,0 +1,78 @@
+/*****************************************
+* Protobuf message definitions for Performance SRPOLICYRecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message SRPOLICYRecords{
+
+  repeated Record records = 1;
+  optional string vendor = 2;	
+  
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Name
+	*/
+	optional string name = 2;
+
+	/* 
+	Color
+	*/
+	optional int32 color = 3;
+
+	/* 
+	Endpoint
+	*/
+	optional string endpoint = 4;
+
+	/* 
+	State
+	*/
+	optional int32 state = 5;
+
+	/* 
+	Path name
+	*/
+	optional string pathName = 6;
+
+	/* 
+	the sample's interval in milli seconds.
+	*/
+	optional int32 duration = 7;
+
+	/* 
+	Transmitted packets rate.
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float outPktsRate = 9;
+
+	/* 
+	Transmitted traffic rate.
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float outBitRate = 10;
+
+	/* 
+	Transmitted octet raw value.
+	*/
+	optional int64 outOctetsRaw = 11;
+
+	/* 
+	Transmitted packet raw value. 
+	*/
+	optional int64 outPacketsRaw = 12;
+  };
+}
+
+

@@ -1,0 +1,308 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/cw_ztp_profile.proto",
+    "version": "2.0.0",
+    "x-provenance": {
+      "method": "harvested",
+      "authored_by": "Cisco Crosswork",
+      "harvested_by": "API Evangelist",
+      "harvested_on": "2026-08-19",
+      "first_party": true,
+      "note": "Published by Cisco. Retrieved unmodified except for this x-provenance block.",
+      "provider_published": true
+    },
+    "x-evidence": [
+      {
+        "type": "source",
+        "url": "https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/ZTP/2.0APIs/cw_ztp_profile.swagger.json"
+      },
+      {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/ZTP/2.0APIs/cw_ztp_profile.swagger.json"
+      }
+    ]
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/profiles": {
+      "delete": {
+        "summary": "Delete one or more selected ZTP profile. Pass any valid profile metadata to filter or identify the profiles to delete. Profiles cannot be deleted if they are already associated with a ZTP device. Request Body: ZtpProfileRequest. Response Body: ZtpProfileResponse",
+        "operationId": "DeleteProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpProfileResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpprofile"
+        ]
+      },
+      "post": {
+        "summary": "PostProfiles API\nAPI: Add ZTP profiles in bulk. Request Body: ZtpProfileList. Response Body: ZtpProfileResponse.",
+        "operationId": "SetProfiles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpProfileResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpProfileList"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpprofile"
+        ]
+      },
+      "put": {
+        "summary": "Update a ZTP profile. A profile cannot be updated if it is already associated to a ZTP device with a status other than \"unprovisioned\" or \"ztp-error\". Request Body: ZtpProfile. Response Body: ZtpProfileResponse.",
+        "operationId": "UpdateProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpProfileResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpProfile"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpprofile"
+        ]
+      }
+    },
+    "/v1/profiles/query": {
+      "post": {
+        "summary": "GetProfile API: Retrieves a list of ZTP profiles. This API returns complete data for each profile. You can apply filters to retrieve specific sets of profiles by specifying one or more fields on which to match. You can also filter on combinations of supported fields. This API takes ZtpProfileRequest as input, which you can use to specifiy the filter input.",
+        "operationId": "GetProfileList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpProfileResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpprofile"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "cwztpsvcZtpFilterData": {
+      "type": "object",
+      "properties": {
+        "SortBy": {
+          "type": "string"
+        },
+        "PageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "PageNum": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Descending": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "MatchCase": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Criteria": {
+          "type": "string"
+        },
+        "TotalCount": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "cwztpsvcZtpProfile": {
+      "type": "object",
+      "properties": {
+        "profileId": {
+          "type": "string",
+          "title": "Unique ID of Profile"
+        },
+        "profileName": {
+          "type": "string",
+          "title": "Name of the profile"
+        },
+        "profileDescription": {
+          "type": "string"
+        },
+        "osPlatform": {
+          "type": "string",
+          "description": "OS Platform of Image and Config of the image and configuration files associated with this ZTP profile."
+        },
+        "deviceFamily": {
+          "type": "string",
+          "description": "Device Family of Image and Config of the image and configuration files associated with this ZTP profile."
+        },
+        "version": {
+          "type": "string",
+          "description": "Version of Image and Config of the image and configuration files associated with this ZTP profile."
+        },
+        "image": {
+          "type": "string",
+          "description": "The unique ID of the image file associated with this ZTP profile."
+        },
+        "config": {
+          "type": "string",
+          "description": "The unique ID of the configuration file associated with this ZTP profile."
+        },
+        "isSecureZtp": {
+          "type": "string",
+          "title": "flag to identify if profile is secure or classic"
+        },
+        "preConfig": {
+          "type": "string",
+          "description": "Unique ID of pre-Config file associated with this ZTP profile."
+        },
+        "postConfig": {
+          "type": "string",
+          "description": "Unique ID of post-Config file associated with this ZTP profile."
+        },
+        "profileCategory": {
+          "type": "string",
+          "title": "Category of profile"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "int64",
+          "title": "TimeInMillis when device was last updated/created"
+        },
+        "imageName": {
+          "type": "string"
+        },
+        "configName": {
+          "type": "string"
+        },
+        "preConfigName": {
+          "type": "string"
+        },
+        "postConfigName": {
+          "type": "string"
+        },
+        "isImageInvalid": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "Flag to check if the ZTP profile is in sync with the associated image."
+        },
+        "isConfigInvalid": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "Flag to check if the ZTP profile is in sync with the associated configuration."
+        },
+        "isPreConfigInvalid": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "isPostConfigInvalid": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "cwztpsvcZtpProfileList": {
+      "type": "object",
+      "properties": {
+        "profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/cwztpsvcZtpProfile"
+          }
+        }
+      }
+    },
+    "cwztpsvcZtpProfileRequest": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "$ref": "#/definitions/cwztpsvcZtpProfile"
+        },
+        "criteria": {
+          "type": "string"
+        },
+        "filterData": {
+          "$ref": "#/definitions/cwztpsvcZtpFilterData"
+        }
+      }
+    },
+    "cwztpsvcZtpProfileResponse": {
+      "type": "object",
+      "properties": {
+        "ztpProfiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/cwztpsvcZtpProfile"
+          }
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "paginationDetails": {
+          "$ref": "#/definitions/cwztpsvcZtpFilterData"
+        }
+      }
+    }
+  }
+}

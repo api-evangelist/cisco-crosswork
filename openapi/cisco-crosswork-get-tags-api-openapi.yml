@@ -1,0 +1,123 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Inventory Get Tags API
+  version: 1.0.0
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.2APIs/inventory_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.2APIs/inventory_api.swagger.json
+servers:
+- url: /crosswork/inventory/
+security:
+- bearerAuth: []
+tags:
+- name: Get Tags
+paths:
+  /v1/tags/query:
+    parameters: []
+    post:
+      summary: Read the Tags information
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotapiRobotNodeTagList'
+        '404':
+          description: Not Found
+      tags:
+      - Get Tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/robotapiRobotNodeTagGetReq'
+        required: true
+components:
+  schemas:
+    robotapiRobotFilterData:
+      description: Request body with filter options
+      type: object
+      properties:
+        SortBy:
+          type: string
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
+    robotapiRobotNodeTag:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        created_by:
+          type: string
+        creation_time:
+          type: string
+          format: int64
+        devices_tagged:
+          type: integer
+          format: int64
+      description: Device Tag Object
+    robotapiRobotNodeTagGetReq:
+      description: Tage Request Data
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/robotapiRobotNodeTag'
+        filterData:
+          $ref: '#/components/schemas/robotapiRobotFilterData'
+        limit:
+          type: integer
+          format: int64
+        next_from:
+          type: string
+    robotapiRobotNodeTagList:
+      description: List of Tags
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotNodeTag'
+          description: List of Tags
+        user:
+          type: string
+        total_count:
+          type: integer
+          format: int32
+          description: Number of total tags available at present
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header

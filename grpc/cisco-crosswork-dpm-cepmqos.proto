@@ -1,0 +1,160 @@
+/*****************************************
+* Protobuf message definitions for Performance CEPMQOSRecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message CEPMQOSRecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Interface name
+	*/
+	optional string interfaceName = 2;
+
+	/* 
+	Holds the name of the policy map.
+	*/
+	optional string policyMapName = 3;
+
+	/* 
+	hold the name of the class map. The pattern is the following:  PolicyMapName:ClassMapName. for example 'Scale:dscp14
+	*/
+	optional string classifierName = 4;
+
+	/* 
+	Direction of the policy map. Input - 1 , Output -2.
+	*/
+	optional int32 direction = 5;
+
+	/* 
+	a match line in a class map that matches a packet's Class of Service (CoS) value.
+	The IEEE 802.1Q/ISL CoS value can be a value from 0 to 7. And you can specify from 1 to 4 values on a single line.
+	*/
+	optional string matchCos = 6;
+
+	/* 
+	Pre-policy packets rate
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float prePolicyPktsRate = 7;
+
+	/* 
+	Pre policy traffic rate
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float prePolicyBitsRate = 8;
+
+	/* 
+	Post policy traffic rate
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float postPolicyBitsRate = 9;
+
+	/* 
+	Dropped packets rate
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float dropPktsRate = 10;
+
+	/* 
+	Dropped packets
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional float dropPktsPercent = 11;
+
+	/* 
+	Dropped traffic rate
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float dropBitsRate = 12;
+
+	/* 
+	Dropped traffic
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional float dropBitsPercent = 13;
+
+	/* 
+	Queue dropped packets rate
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float queueDiscardPktsRate = 14;
+
+	/* 
+	Queue dropped traffic rate
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float queueDiscardBitsRate = 15;
+
+	/* 
+	Conformed packets rate
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float conformPktsRate = 16;
+
+	/* 
+	Conformed traffic rate
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float conformBitsRate = 17;
+
+	/* 
+	Exceeded packets rate
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float exceedPktsRate = 18;
+
+	/* 
+	Exceeded traffic rate
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float exceedBitsRate = 19;
+
+	/* 
+	Violated packets rate
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float violatePktsRate = 20;
+
+	/* 
+	Violated traffic rate
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float violateBitsRate = 21;
+
+	/* 
+	the sample's interval in milli seconds.
+	*/
+	optional int32 sampleDuration = 22;
+  };
+}
+
+

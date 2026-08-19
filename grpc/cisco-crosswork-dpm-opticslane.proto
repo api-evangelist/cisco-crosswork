@@ -1,0 +1,74 @@
+/*****************************************
+* Protobuf message definitions for Performance OPTICSLANERecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message OPTICSLANERecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Interface name
+	*/
+	optional string ifName = 2;
+
+	/* 
+	Lane index
+	*/
+	optional int32 laneIndex = 3;
+
+	/* 
+	Average receive power in dBm.
+	unit: DBM
+	min: -40
+	*/
+	optional float receivePower = 4;
+
+	/* 
+	Minimum receive power in dBm.
+	unit: DBM
+	min: -40
+	*/
+	optional float minReceivePower = 5;
+
+	/* 
+	Maximum receive power in dBm.
+	unit: DBM
+	min: -40
+	*/
+	optional float maxReceivePower = 6;
+
+	/* 
+	Average transmit power in dBm.
+	unit: DBM
+	min: -40
+	*/
+	optional float transmitPower = 7;
+
+	/* 
+	Minimum transmit power in dBm.
+	unit: DBM
+	min: -40
+	*/
+	optional float minTransmitPower = 8;
+
+	/* 
+	Maximum transmit power in dBm.
+	unit: DBM
+	min: -40
+	*/
+	optional float maxTransmitPower = 9;
+  };
+}
+
+

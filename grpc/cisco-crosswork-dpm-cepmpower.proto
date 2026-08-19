@@ -1,0 +1,88 @@
+/*****************************************
+* Protobuf message definitions for Performance CEPMPOWERRecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+enum EntityType {
+  DEVICE = 0;
+  PSU = 1;
+}
+enum PowerState {
+  UNKNOWN = 0;
+  OK = 1;
+  FAILED = 2;
+  NOT_PRESENT = 3;
+}
+
+message CEPMPOWERRecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Indicate if this record represent PSU (1) or device(0).
+	*/
+	optional EntityType entityType = 2;
+
+	/* 
+	If this record is for PSU then this field displays the PSU's name/location.
+	Otherwise the field is empty.
+	*/
+	optional string name = 3;
+
+	/* 
+	If this record is for PSU then this field displays the PSU's state.
+	Otherwise the field is set to PowerState.UNKNOWN
+	*/
+	optional PowerState state = 4;
+
+	/* 
+	Power input in watts
+	unit: WATTS
+	*/
+	optional float inputPower = 5;
+
+	/* 
+	Power supply capacity in watts
+	unit: WATTS
+	*/
+	optional float capacity = 6;
+
+	/* 
+	Power supply output in watts
+	unit: WATTS
+	*/
+	optional float outputPower = 7;
+
+	/* 
+	Power supply load in percentage - power/capacity
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional float load = 8;
+
+	/* 
+	Power supply efficiency in percentage - output/input
+	unit: PERCENTAGE
+	*/
+	optional float efficiency = 9;
+
+	/* 
+	Temperature in Celsius.
+	Currently not in used.
+	unit: CELSIUS
+	*/
+	optional float temperature = 10;
+  };
+}
+
+

@@ -1,0 +1,470 @@
+openapi: 3.2.0
+info:
+  title: tls.proto TLS Manager API
+  version: version not set
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/4.0APIs/tls.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/4.0APIs/tls.swagger.json
+tags:
+- name: TLSManager
+paths:
+  /v2/cert/assoc:
+    post:
+      summary: Gets association details of a certificate
+      operationId: GetAssocDetails
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tlsAssocDetails'
+      tags:
+      - TLSManager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tlsCertReq'
+        required: true
+  /v2/cert/detail/list:
+    post:
+      summary: Gets a list of certificate details
+      operationId: GetCertDetailList
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tlsCertDetailList'
+      tags:
+      - TLSManager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tlsCertReq'
+        required: true
+  /v2/cert/export/all:
+    post:
+      summary: Exports the trust store and intermediate key store of a certificate
+      operationId: ExportAllCerts
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tlsAllCertResp'
+      tags:
+      - TLSManager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tlsCertReq'
+        required: true
+  /v2/cert/export/intermediatekeystore:
+    post:
+      summary: Exports the intermediate key store of a certificate
+      operationId: ExportIntermediateKeyStore
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tlsIntermediateKeyStoreResp'
+      tags:
+      - TLSManager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tlsCertReq'
+        required: true
+  /v2/cert/export/truststore:
+    post:
+      summary: Exports the trust store of a certificate
+      operationId: ExportTrustStore
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tlsTrustStoreResp'
+      tags:
+      - TLSManager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tlsCertReq'
+        required: true
+  /v2/cert/label:
+    post:
+      summary: Gets the trust store and key store of a certificate
+      operationId: GetCertStoreLabels
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tlsCertStoreLabel'
+      tags:
+      - TLSManager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tlsCertLabelReq'
+        required: true
+  /v2/cert/role:
+    get:
+      summary: Gets a list of role names of a certificate
+      operationId: GetCertRoleNames
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tlsCertRoleList'
+      tags:
+      - TLSManager
+  /v2/cert/summary/list:
+    get:
+      summary: Gets a list of certificate summaries
+      operationId: GetCertSummaryList
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tlsCertSummaryList'
+      tags:
+      - TLSManager
+  /v2/cert/summary/listwithfilter:
+    post:
+      summary: Gets a list of certificate summaries
+      operationId: GetCertSummaryListWithFilter
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tlsCertSummaryList'
+      tags:
+      - TLSManager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tlsCertReq'
+        required: true
+  /v2/cert/update:
+    post:
+      summary: Creates or updates a certificate
+      operationId: UpdateCert
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tlsCertUpdateResp'
+      tags:
+      - TLSManager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tlsCertUpdateReq'
+        required: true
+  /v2/cert/web/msg:
+    get:
+      summary: Web server restart notification
+      operationId: GetWebRestartMsg
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tlsWebRestartMsg'
+      tags:
+      - TLSManager
+components:
+  schemas:
+    tlsDestinationNodes:
+      type: object
+      properties:
+        destination_ip:
+          type: string
+        destination_uuid:
+          type: string
+    tlsTrustStoreResp:
+      type: object
+      properties:
+        trust_store:
+          $ref: '#/components/schemas/tlsTrustStore'
+        response:
+          $ref: '#/components/schemas/tlsResponse'
+    tlsCertDisplay:
+      type: string
+      enum:
+      - NO_OP
+      - READONLY
+      - READWRITE
+      - READWRITEADD
+      default: NO_OP
+    tlsTrustStoreLabel:
+      type: object
+      properties:
+        cert_label:
+          $ref: '#/components/schemas/tlsLabel'
+    tlsRespCode:
+      type: string
+      enum:
+      - UNKNOWN
+      - SUCCESS
+      - FAILURE
+      default: UNKNOWN
+    tlsWebRestartMsg:
+      type: object
+      properties:
+        display_msg:
+          type: string
+          title: Display the warning message to log out
+        time_before_restart:
+          type: string
+          title: Time to restart in minutes
+        auto_logout:
+          type: boolean
+          format: boolean
+          title: Auto logout
+    tlsAssocSummary:
+      type: object
+      properties:
+        role_name:
+          type: string
+    tlsCertDetail:
+      type: object
+      properties:
+        description:
+          type: string
+        signed:
+          type: string
+        installed:
+          type: string
+        signed_by:
+          type: string
+        expires:
+          type: string
+        _type:
+          type: string
+        _showExport:
+          type: boolean
+          format: boolean
+        _exportUrlPath:
+          type: string
+    tlsCertSummaryList:
+      type: object
+      properties:
+        cert_summary:
+          type: array
+          items:
+            $ref: '#/components/schemas/tlsCertSummary'
+      title: Certificate Page
+    tlsTrustStore:
+      type: object
+      properties:
+        trust_store_cert:
+          type: string
+    tlsIntermediateKeyStoreLabel:
+      type: object
+      properties:
+        cert_label:
+          $ref: '#/components/schemas/tlsLabel'
+        key_label:
+          $ref: '#/components/schemas/tlsLabel'
+        passphrase_label:
+          $ref: '#/components/schemas/tlsLabel'
+    tlsCertStore:
+      type: object
+      properties:
+        trust_store:
+          $ref: '#/components/schemas/tlsTrustStore'
+        intermediate_key_store:
+          $ref: '#/components/schemas/tlsIntermediateKeyStore'
+    tlsAssocDetails:
+      type: object
+      properties:
+        cert_name:
+          type: string
+        role_name:
+          type: string
+        device_details:
+          $ref: '#/components/schemas/tlsDeviceDetails'
+        destination_details:
+          $ref: '#/components/schemas/tlsDestinationDetails'
+    tlsIntermediateKeyStoreResp:
+      type: object
+      properties:
+        intermediate_key_store:
+          $ref: '#/components/schemas/tlsIntermediateKeyStore'
+        response:
+          $ref: '#/components/schemas/tlsResponse'
+    tlsCertUpdateReq:
+      type: object
+      properties:
+        cert_name:
+          type: string
+        role_name:
+          type: string
+        cert_store:
+          $ref: '#/components/schemas/tlsCertStore'
+        device_details:
+          $ref: '#/components/schemas/tlsDeviceDetails'
+        destination_details:
+          $ref: '#/components/schemas/tlsDestinationDetails'
+        isEdit:
+          type: boolean
+          format: boolean
+    tlsCertStoreLabel:
+      type: object
+      properties:
+        role_name:
+          type: string
+        trust_store_label:
+          $ref: '#/components/schemas/tlsTrustStoreLabel'
+        intermediate_key_store_label:
+          $ref: '#/components/schemas/tlsIntermediateKeyStoreLabel'
+    tlsCertLabelReq:
+      type: object
+      properties:
+        role_name:
+          type: string
+    tlsCertRoleList:
+      type: object
+      properties:
+        role_name:
+          type: array
+          items:
+            type: string
+    tlsResponse:
+      type: object
+      properties:
+        resp_code:
+          $ref: '#/components/schemas/tlsRespCode'
+        message:
+          type: string
+    tlsCertReq:
+      type: object
+      properties:
+        cert_name:
+          type: string
+        cert_roles:
+          type: array
+          items:
+            type: string
+    tlsDestinationDetails:
+      type: object
+      properties:
+        destination_nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/tlsDestinationNodes'
+    tlsCertDetailList:
+      type: object
+      properties:
+        cert_name:
+          type: string
+        cert_detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/tlsCertDetail'
+        _exportAllTrustStore:
+          type: boolean
+          format: boolean
+        _exportAllKeyStore:
+          type: boolean
+          format: boolean
+    tlsDeviceNodes:
+      type: object
+      properties:
+        device_ip:
+          type: string
+        device_uuid:
+          type: string
+    tlsCertUpdateResp:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/tlsResponse'
+    tlsLabel:
+      type: object
+      properties:
+        present:
+          type: boolean
+          format: boolean
+        mandatory:
+          type: boolean
+          format: boolean
+        name:
+          type: string
+    tlsDeviceDetails:
+      type: object
+      properties:
+        device_nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/tlsDeviceNodes'
+    tlsIntermediateKeyStore:
+      type: object
+      properties:
+        intermediate_key_store_cert:
+          type: string
+        key:
+          type: string
+        passphrase:
+          type: string
+    tlsAllCertResp:
+      type: object
+      properties:
+        cert_store:
+          $ref: '#/components/schemas/tlsCertStore'
+        response:
+          $ref: '#/components/schemas/tlsResponse'
+    tlsCertSummary:
+      type: object
+      properties:
+        cert_name:
+          type: string
+        expiration_date:
+          type: string
+        last_updated_by:
+          type: string
+        last_update_time:
+          type: string
+        assoc_summary:
+          $ref: '#/components/schemas/tlsAssocSummary'
+        cert_display:
+          $ref: '#/components/schemas/tlsCertDisplay'
+        role_name:
+          type: string

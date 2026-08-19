@@ -1,0 +1,49 @@
+generated: '2026-08-19'
+method: searched
+source: https://www.cisco.com/c/en/us/support/cloud-systems-management/crosswork-network-controller/model.html
+scheme: product release notes (per release train), not a dated API changelog
+machine_readable: false
+summary: >-
+  Cisco publishes no API changelog for Crosswork. What exists is a conventional software release-notes set, one HTML
+  document per Crosswork Network Controller maintenance release, on cisco.com. API changes appear inside those
+  documents as prose alongside platform, scale and UI changes — there is no per-endpoint change record, no feed, and
+  no dated entry an agent can diff.
+current_version: 7.2.1
+entries:
+- version: 7.2.1
+  url: https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/crosswork-network-controller/7-2-1/Release-Notes/release-notes-for-cisco-crosswork-network-controller-release-7-2-1.html
+  date: null
+  date_note: Cisco does not print a publication date on the release-notes page; recorded null rather than guessed.
+- version: 7.2.0
+  url: https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/crosswork-network-controller/7-2/Release-Notes/release-notes-for-cisco-crosswork-network-controller-release-7-2-0.html
+  date: null
+  breaking: false
+  highlights:
+  - Multiple Segment Lists (MSL) integrated into Local Congestion Mitigation.
+  - High interface density support for ASR 9000.
+  - Single-VM deployment option for smaller environments.
+  - Automated Geo HA onboarding and closed-loop automation.
+  - Fleet upgrade and golden configuration management workflows.
+  api_note: >-
+    The one API-adjacent change called out is an NSO RESTCONF integration fix: Crosswork's calls to the NSO
+    service-state-changes RESTCONF API could leave sessions hanging until NSO ran out of sessions, and the remedy is
+    a keepalive setting in ncs.conf on the NSO side — a change to the operator's configuration, not to the contract.
+- version: 7.1.3
+  url: https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/crosswork-network-controller/7-1-3/Release-Notes/release-notes-for-cisco-crosswork-network-controller-release-7-1-3.html
+  date: null
+- version: 7.1.1
+  url: https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/crosswork-network-controller/7-1-1/Release-Notes/release-notes-for-cisco-crosswork-network-controller-release-7-1-1.html
+  date: null
+- version: 7.1.0
+  url: https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/crosswork-network-controller/7-1/Release-Notes/release-notes-for-cisco-crosswork-network-controller-release-7-1-0.html
+  date: null
+- version: 7.0.5
+  url: https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/crosswork-network-controller/7-0-5/Release-Notes/release-notes-for-cisco-crosswork-network-controller-release-7-0-5.html
+  date: null
+gaps:
+- No RSS/Atom feed for Crosswork release notes.
+- No dates published on the release-notes pages themselves.
+- No per-endpoint or per-operation change record.
+- The public spec repository (CiscoDevNet/crosswork-openapi-spec) has not been committed to since 2022-12-14, so
+  the specs cannot be used as a change record either.
+checked: '2026-08-19'

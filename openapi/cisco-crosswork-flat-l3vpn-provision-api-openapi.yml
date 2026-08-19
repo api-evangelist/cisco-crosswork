@@ -1,0 +1,998 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Network Controller L3VPN Service Flat L3VPN Provision API
+  description: This document contains details of the Crosswork Network Controller L3VPN Service APIs
+  version: '1.0'
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/CNC/1.0APIs/cisco-flat-L3vpn-fp_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/CNC/1.0APIs/cisco-flat-L3vpn-fp_api.swagger.json
+servers:
+- url: /crosswork
+tags:
+- name: Flat L3VPN Provision
+paths:
+  /proxy/nso/restconf/data/cisco-flat-L3vpn-fp:flat-L3vpn={flat-L3vpn-name}:
+    post:
+      tags:
+      - Flat L3VPN Provision
+      summary: ''
+      description: Flat L3VPN service
+      operationId: data_cisco_flat_L3vpn_fp_flat_L3vpn_flat_L3vpn_name_post
+      parameters:
+      - $ref: '#/components/parameters/flat-L3vpn-name'
+      - $ref: '#/components/parameters/flat-L3vpn'
+      responses:
+        '204':
+          description: The request was successful. Flat L3VPN service was created.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+    put:
+      tags:
+      - Flat L3VPN Provision
+      summary: ''
+      description: Flat L3VPN service
+      operationId: data_cisco_flat_L3vpn_fp_flat_L3vpn_flat_L3vpn_name_put
+      parameters:
+      - $ref: '#/components/parameters/flat-L3vpn-name'
+      - $ref: '#/components/parameters/flat-L3vpn'
+      - $ref: '#/components/parameters/insert'
+      - $ref: '#/components/parameters/point'
+      responses:
+        '201':
+          description: The request was successful. Flat L3VPN service was updated.
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+    patch:
+      tags:
+      - Flat L3VPN Provision
+      summary: ''
+      description: Flat L3VPN service
+      operationId: data_cisco_flat_L3vpn_fp_flat_L3vpn_flat_L3vpn_name_patch
+      parameters:
+      - $ref: '#/components/parameters/flat-L3vpn-name'
+      - $ref: '#/components/parameters/flat-L3vpn'
+      responses:
+        '204':
+          description: The request was successful. Flat L3VPN service was modified.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+    delete:
+      tags:
+      - Flat L3VPN Provision
+      summary: ''
+      description: Flat L3VPN service
+      operationId: data_cisco_flat_L3vpn_fp_flat_L3vpn_flat_L3vpn_name_delete
+      parameters:
+      - $ref: '#/components/parameters/flat-L3vpn-name'
+      responses:
+        '204':
+          description: The request was successful. Flat L3VPN service was deleted.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+      security:
+      - basicAuth: []
+components:
+  parameters:
+    point:
+      name: point
+      in: query
+      description: Specify the insertion point.
+      required: false
+      schema:
+        type: string
+        format: string
+    insert:
+      name: insert
+      in: query
+      description: Control the order of addition when adding new list elements.
+      required: false
+      schema:
+        type: string
+        format: enumeration
+        enum:
+        - first
+        - last
+        - before
+        - after
+        default: first
+    flat-L3vpn:
+      name: flat-L3vpn
+      in: body
+      description: Flat L3VPN Configuration
+      required: true
+      schema:
+        $ref: '#/components/schemas/flat-L3vpn'
+    flat-L3vpn-name:
+      name: flat-L3vpn-name
+      in: path
+      description: Service Name for L3VPN
+      required: true
+      schema:
+        type: string
+        format: string
+  responses:
+    '405':
+      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
+    '404':
+      description: Not Found. The client made a request for a resource that does not exist.
+    '204':
+      description: No Content. The request was successful and there is no additional content in the response body.
+    '401':
+      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
+    '409':
+      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+    '400':
+      description: Bad Request. The request is malformed in some way and the server cannot process it.
+  schemas:
+    flat-L3vpn:
+      type: object
+      properties:
+        modified:
+          description: Devices and other services this service has modified directly or indirectly (through another service). (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            devices:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: leafref
+            services:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: instance-identifier
+            lsa-services:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: instance-identifier
+        directly-modified:
+          description: Devices and other services that this service has explicitly modified. (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            devices:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: leafref
+            services:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: instance-identifier
+            lsa-services:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: (leaf-list)
+                type: string
+                format: instance-identifier
+        device-list:
+          type: array
+          x-yang:
+            type: leaf-list
+          items:
+            description: A list of managed devices this service instance has manipulated. This leaf is deprecated; use 'modified' instead. (leaf-list)
+            type: string
+            format: string
+        used-by-customer-service:
+          type: array
+          x-yang:
+            type: leaf-list
+          items:
+            description: (leaf-list)
+            type: string
+            format: leafref
+        commit-queue:
+          description: (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            queue-item:
+              type: array
+              description: 'When a service is committed through the commit queue, these fields act as references regarding the state of this service instance. In the worst-case scenario, a service instance is in the ''failed'' state. This means that parts of the queued commit failed.
+
+
+                If a service gets committed through the commit queue and the commit fails, the backpointers in the service data are followed and the affected service instances are updated and set to the ''failed'' state.
+
+
+                Depending on the nature of the failure, different techniques to reconcile the service can be used.
+
+
+                - Make sure the commit queue is blocked to not interfere with the error recovery procedure. Do a sync-from on the non-completed device(s) and then re-deploy the failed service(s) with the ''reconcile'' option to reconcile original data, i.e., take control of that data. This option acknowledges other services controlling the same data. The reference count will indicate how many services control the data. Release any queue lock that was created.
+
+
+                - Make sure the commit queue is blocked to not interfere with the error recovery procedure. Use un-deploy with the no-networking option on the service and then do sync-from on the non-completed device(s). Make sure the error is fixed and then re-deploy the failed service(s) with the ''reconcile'' option. Release any queue lock that was created.
+
+
+                In the ''failed'' state, these fields are reset if a new commit queue transaction is affecting this service, or the service is re-deployed, or these fields are deleted using the specific purge action.
+
+                In other cases, the ''failed'' state will remain. (list)'
+              x-yang:
+                type: list
+              items:
+                type: object
+                properties:
+                  id:
+                    description: If the queue item in the commit queue refers to this service, this is the queue number. (leaf)
+                    x-yang:
+                      type: leaf
+                    type: integer
+                    format: uint64
+                  status:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: enumeration
+                    default: waiting
+                    enum:
+                    - waiting
+                    - executing
+                    - blocking
+                    - blocked
+                    - failed
+                    - admin-cleared
+                    - commit-queue-failed
+                  cleared-by-admin:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: '[null]'
+                  no-of-impacted-services:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: integer
+                    format: uint32
+                  failed-device:
+                    type: array
+                    description: If the 'status' leaf is 'failed', this list contains detailed information on the devices that were responsible for the error of the commit queue item. (list)
+                    x-yang:
+                      type: list
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: leafref
+                        time:
+                          description: The time when the failure occurred. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        config-data:
+                          description: The configuration data that was rejected by the device, in XML format. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+                        error:
+                          description: The error returned by the device. (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: string
+        private:
+          description: Stores NCS service-related internal data. (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            diff-set:
+              description: 'Internal node use by NCS service manager to remember
+
+                the reverse diff for a service instance. This is the
+
+                data that is used by Fastmap (leaf)'
+              x-yang:
+                type: leaf
+              type: string
+              format: binary
+            forward-diff-set:
+              description: Internal node that the NCS service manager uses to remember the forward diff for a service instance. This data is used to produce the proper 'get-modifications' output. (leaf)
+              x-yang:
+                type: leaf
+              type: string
+              format: binary
+            device-list:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: A list of managed devices this service instance has manipulated. (leaf-list)
+                type: string
+                format: string
+            ned-id-list:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: A list of NED identities this service instance has manipulated. (leaf-list)
+                type: string
+                format: string
+            service-list:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: A list of services this service instance has manipulated. (leaf-list)
+                type: string
+                format: instance-identifier
+            lsa-service-list:
+              type: array
+              x-yang:
+                type: leaf-list
+              items:
+                description: A list of LSA services this service instance has manipulated. (leaf-list)
+                type: string
+                format: instance-identifier
+            property-list:
+              description: Fastmap service instance data used by the service implementation. (non-presence)
+              type: object
+              x-yang:
+                type: container
+                is_presence: 'false'
+              properties:
+                property:
+                  type: array
+                  description: (list)
+                  x-yang:
+                    type: list
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: string
+                      value:
+                        description: (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: string
+            re-deploy-counter:
+              description: (leaf)
+              x-yang:
+                type: leaf
+              type: string
+              format: int32
+            latest-commit-params:
+              description: Stores the commit parameters for the latest transactions. These are used in reactive re-deploy actions that must have the same parameters as the original service commit. (leaf)
+              x-yang:
+                type: leaf
+              type: string
+              format: binary
+            latest-u-info:
+              description: Stores the user info for the latest transactions. These are used in reactive re-deploy actions that must be performed by a user with the same user info. (leaf)
+              x-yang:
+                type: leaf
+              type: string
+              format: binary
+        log:
+          description: (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties:
+            log-entry:
+              type: array
+              description: (list)
+              x-yang:
+                type: list
+              items:
+                type: object
+                properties:
+                  when:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  type:
+                    description: Indicates this log entry's type. (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: identityref
+                  level:
+                    description: Indicates this log entry's log level. (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: enumeration
+                    default: all
+                    enum:
+                    - all
+                    - trace
+                    - debug
+                    - info
+                    - warn
+                    - error
+                  message:
+                    description: (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+        name:
+          description: Service Name for L3VPN (leaf)
+          x-yang:
+            type: leaf
+          type: string
+          format: string
+        custom-template:
+          type: array
+          description: Custom templates to apply when device is ready (list)
+          x-yang:
+            type: list
+          items:
+            type: object
+            properties:
+              name:
+                description: Name of template to apply (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: leafref
+              variable:
+                type: array
+                description: Variables to bind when applying template one time (list)
+                x-yang:
+                  type: list
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: Name of template variable (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: leafref
+                    value:
+                      description: Value of template variable (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: string
+              iteration:
+                type: array
+                description: Apply custom template multiple times with iteration (list)
+                x-yang:
+                  type: list
+                items:
+                  type: object
+                  properties:
+                    number:
+                      description: <1-65535>;;Iteration number (leaf)
+                      x-yang:
+                        type: leaf
+                      type: integer
+                      format: uint16
+                    variable:
+                      type: array
+                      description: Variables to bind when applying template in iteration (list)
+                      x-yang:
+                        type: list
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            description: Name of template variable (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: leafref
+                          value:
+                            description: Value of template variable (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: string
+        endpoint:
+          type: array
+          description: L3VPN End-point (list)
+          x-yang:
+            type: list
+          items:
+            type: object
+            properties:
+              endpoint-name:
+                description: Endpoint name (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: string
+              access-pe:
+                description: PE device (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: leafref
+              custom-template:
+                type: array
+                description: Custom templates to apply when device is ready (list)
+                x-yang:
+                  type: list
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: Name of template to apply (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: leafref
+                    variable:
+                      type: array
+                      description: Variables to bind when applying template one time (list)
+                      x-yang:
+                        type: list
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            description: Name of template variable (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: leafref
+                          value:
+                            description: Value of template variable (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: string
+                    iteration:
+                      type: array
+                      description: Apply custom template multiple times with iteration (list)
+                      x-yang:
+                        type: list
+                      items:
+                        type: object
+                        properties:
+                          number:
+                            description: <1-65535>;;Iteration number (leaf)
+                            x-yang:
+                              type: leaf
+                            type: integer
+                            format: uint16
+                          variable:
+                            type: array
+                            description: Variables to bind when applying template in iteration (list)
+                            x-yang:
+                              type: list
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  description: Name of template variable (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: leafref
+                                value:
+                                  description: Value of template variable (leaf)
+                                  x-yang:
+                                    type: leaf
+                                  type: string
+                                  format: string
+              if-type:
+                description: Interface Type (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: enumeration
+                default: Loopback
+                enum:
+                - Loopback
+                - BVI
+                - GigabitEthernet
+                - TenGigE
+                - FortyGigE
+                - HundredGigE
+                - FiftyGigE
+                - TwoHundredGigE
+                - Bundle-Ether
+                - FourHundredGigE
+                - TwentyFiveGigE
+              if-id:
+                description: Interface Id (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: string
+              mtu:
+                description: <64-65535> - Set the MTU on an interface (leaf)
+                x-yang:
+                  type: leaf
+                type: integer
+                format: uint16
+              pe-ip-addr:
+                description: <A.B.C.D/prefix> - PE IPv4 Address (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: string
+              pe-ipv6-addr:
+                description: <X:X::X/length> - PE IPv6 Address (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: string
+              as-no:
+                description: Autonomous Number (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: union
+              vlan-id:
+                description: <1-4000> - VLAN Id (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: int32
+              ce-pe-prot:
+                description: (non-presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'false'
+                properties:
+                  e-bgp:
+                    description: eBGP Routing (non-presence)
+                    type: object
+                    x-yang:
+                      type: container
+                      is_presence: 'false'
+                    properties:
+                      neighbor-ipv4:
+                        description: <A.B.C.D> - Neighbor IPv4 Address (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: string
+                      neighbor-ipv6:
+                        description: <X:X::X> - Neighbor IPv6 Address (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: string
+                      remote-as-ipv4:
+                        description: Neighbor IPv4 Remote AS (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: union
+                      remote-as-ipv6:
+                        description: Neighbor IPv6 Remote AS (leaf)
+                        x-yang:
+                          type: leaf
+                        type: string
+                        format: union
+                      update-source:
+                        description: Source of routing updates (presence)
+                        type: object
+                        x-yang:
+                          type: container
+                          is_presence: 'true'
+                        properties:
+                          if-type:
+                            description: Interface Type (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: enumeration
+                            default: Loopback
+                            enum:
+                            - Loopback
+                            - GigabitEthernet
+                            - TenGigE
+                            - FortyGigE
+                            - HundredGigE
+                            - FiftyGigE
+                            - TwoHundredGigE
+                            - Bundle-Ether
+                            - FourHundredGigE
+                            - TwentyFiveGigE
+                          if-id:
+                            description: Interface Id (leaf)
+                            x-yang:
+                              type: leaf
+                            type: string
+                            format: string
+              vrf:
+                description: VRF Definition (non-presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'false'
+                properties:
+                  vrf-definition:
+                    description: VRF Name (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  route-distinguisher:
+                    description: ASN:nn or IPV4-address:nn,VPN Route Distinguisher (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  vpn-id:
+                    description: '<0-ffffff>:  VPN ID, (OUI:VPN-Index) format(hex), 3 bytes OUI Part (leaf)'
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: string
+                  address-family:
+                    type: array
+                    description: Address Family (list)
+                    x-yang:
+                      type: list
+                    items:
+                      type: object
+                      properties:
+                        address-family:
+                          description: (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: enumeration
+                          default: ipv4
+                          enum:
+                          - ipv4
+                          - ipv6
+                        redistribute-connected:
+                          description: Redistribute Connected (leaf)
+                          x-yang:
+                            type: leaf
+                          type: string
+                          format: '[null]'
+                        metric:
+                          description: Default metric (leaf)
+                          x-yang:
+                            type: leaf
+                          type: integer
+                          format: uint32
+                        vpn-target:
+                          type: array
+                          description: Route Targets (list)
+                          x-yang:
+                            type: list
+                          items:
+                            type: object
+                            properties:
+                              rt-type:
+                                description: Route-Target Type (leaf)
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: enumeration
+                                default: import
+                                enum:
+                                - import
+                                - export
+                                - both
+                              rt-value:
+                                description: Route-Target Value (leaf)
+                                x-yang:
+                                  type: leaf
+                                type: string
+                                format: string
+              sr-te:
+                description: Segment Routing Association (presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'true'
+                properties:
+                  route-policy:
+                    description: Route policy definition (leaf)
+                    x-yang:
+                      type: leaf
+                    type: string
+                    format: leafref
+              l2-attachment-circuit:
+                type: array
+                description: L2 Attachment Ciruit (list)
+                x-yang:
+                  type: list
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: L2 AC name (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: string
+                    if-type:
+                      description: Interface Type (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: enumeration
+                      default: GigabitEthernet
+                      enum:
+                      - GigabitEthernet
+                      - TenGigE
+                      - FortyGigE
+                      - HundredGigE
+                      - FiftyGigE
+                      - TwoHundredGigE
+                      - Bundle-Ether
+                      - FourHundredGigE
+                      - TwentyFiveGigE
+                    if-id:
+                      description: Interface Id (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: string
+                    vlan-id:
+                      description: <1-4000> - VLAN Id (leaf)
+                      x-yang:
+                        type: leaf
+                      type: string
+                      format: int32
+                    rewrite:
+                      description: Tag Rewrite (presence)
+                      type: object
+                      x-yang:
+                        type: container
+                        is_presence: 'true'
+                      properties:
+                        ingress:
+                          description: Set the tag rewriting policy for this EFP (presence)
+                          type: object
+                          x-yang:
+                            type: container
+                            is_presence: 'true'
+                          properties:
+                            pop:
+                              description: Remove one or more tags (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: enumeration
+                              default: '1'
+                              enum:
+                              - '1'
+                              - '2'
+                            dot1q:
+                              description: <1-4094> - Push a Dot1Q tag (leaf)
+                              x-yang:
+                                type: leaf
+                              type: integer
+                              format: uint16
+                            mode:
+                              description: (leaf)
+                              x-yang:
+                                type: leaf
+                              type: string
+                              format: enumeration
+                              default: symmetric
+                              enum:
+                              - symmetric
+              action:
+                description: (non-presence)
+                type: object
+                x-yang:
+                  type: container
+                  is_presence: 'false'
+                properties: {}
+              redeploy-flag:
+                description: Custom redeploy flag. It redeploys lower-level services if changed. (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: string
+        redeploy-flag:
+          description: Custom redeploy flag. It redeploys lower-level services if changed. (leaf)
+          x-yang:
+            type: leaf
+          type: string
+          format: string
+        action:
+          description: (non-presence)
+          type: object
+          x-yang:
+            type: container
+            is_presence: 'false'
+          properties: {}
+      xml:
+        namespace: http://cisco.com/ns/nso/fp/examples/cisco-tsdn-flat-L3vpn
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

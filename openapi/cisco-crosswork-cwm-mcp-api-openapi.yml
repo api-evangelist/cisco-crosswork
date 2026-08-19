@@ -1,0 +1,165 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager MCP API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and
+    developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the
+    Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json).
+      Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically
+      from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+tags:
+- name: mcp
+paths:
+  /mcp:
+    get:
+      summary: Handle Model Context Protocol requests
+      description: 'Handles MCP (Model Context Protocol) requests via JSON-RPC 2.0. Supports methods: initialize,
+        tools/list, tools/call, ping, notifications/initialized, logging/setLevel'
+      operationId: get_mcp
+      tags:
+      - mcp
+      requestBody:
+        description: JSON-RPC 2.0 Request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/mcp.MCPRequest'
+      responses:
+        '200':
+          description: JSON-RPC 2.0 Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp.MCPResponse'
+        '400':
+          description: Parse error or invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp.MCPErrorResponse'
+      security:
+      - Bearer: []
+    post:
+      summary: Handle Model Context Protocol requests
+      description: 'Handles MCP (Model Context Protocol) requests via JSON-RPC 2.0. Supports methods: initialize,
+        tools/list, tools/call, ping, notifications/initialized, logging/setLevel'
+      operationId: post_mcp
+      tags:
+      - mcp
+      requestBody:
+        description: JSON-RPC 2.0 Request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/mcp.MCPRequest'
+      responses:
+        '200':
+          description: JSON-RPC 2.0 Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp.MCPResponse'
+        '400':
+          description: Parse error or invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp.MCPErrorResponse'
+      security:
+      - Bearer: []
+components:
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+  schemas:
+    mcp.MCPError:
+      description: Error object with code and message
+      type: object
+      properties:
+        code:
+          description: 'Error code (-32700: Parse error, -32600: Invalid Request, -32601: Method not found, -32602:
+            Invalid params, -32603: Internal error)'
+          type: integer
+          example: -32600
+        data:
+          description: Additional error data (optional)
+        message:
+          description: Human-readable error message
+          type: string
+          example: Invalid Request
+    mcp.MCPErrorResponse:
+      description: JSON-RPC 2.0 error response structure
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/mcp.MCPError'
+        id:
+          description: Request identifier (may be null on parse errors)
+          type: string
+          example: ''
+        jsonrpc:
+          description: JSON-RPC version, always "2.0"
+          type: string
+          example: '2.0'
+    mcp.MCPRequest:
+      description: JSON-RPC 2.0 request structure for MCP
+      type: object
+      properties:
+        id:
+          description: Request identifier (string or number)
+          type: string
+          example: '1'
+        jsonrpc:
+          description: JSON-RPC version, must be "2.0"
+          type: string
+          example: '2.0'
+        method:
+          description: 'Method name to invoke: initialize, tools/list, tools/call, ping, notifications/initialized,
+            logging/setLevel'
+          type: string
+          example: tools/list
+        params:
+          description: Optional parameters for the method
+    mcp.MCPResponse:
+      description: JSON-RPC 2.0 response structure for MCP
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/mcp.MCPError'
+        id:
+          description: Request identifier matching the request
+          type: string
+          example: '1'
+        jsonrpc:
+          description: JSON-RPC version, always "2.0"
+          type: string
+          example: '2.0'
+        result:
+          description: Result of the method call (present on success)
+security:
+- Bearer: []

@@ -1,0 +1,598 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Inventory Remove Tags from Nodes/Devices API
+  version: 1.0.0
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.2APIs/inventory_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.2APIs/inventory_api.swagger.json
+servers:
+- url: /crosswork/inventory/
+security:
+- bearerAuth: []
+tags:
+- name: Remove Tags from Nodes/Devices
+paths:
+  /v1/nodes/unassigntag:
+    parameters: []
+    put:
+      summary: Removes one or more tags associations from the list of nodes.
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotapiRobotNodeJob'
+        '404':
+          description: Not Found
+      tags:
+      - Remove Tags from Nodes/Devices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/robotapiRobotNodeDataList'
+        required: true
+components:
+  schemas:
+    robotapiTelemetryTransportType:
+      type: string
+      enum:
+      - UNKNOWN_TRANSPORT_TYPE
+      - TCP_DIALOUT
+      default: UNKNOWN_TRANSPORT_TYPE
+    robotapiRobotNodeAdminState:
+      type: string
+      enum:
+      - ROBOT_ADMIN_STATE_UNKNOWN
+      - ROBOT_ADMIN_STATE_UNMANAGED
+      - ROBOT_ADMIN_STATE_DOWN
+      - ROBOT_ADMIN_STATE_UP
+      default: ROBOT_ADMIN_STATE_UNKNOWN
+      description: Configured state for a Device. This is set during onboarding and can be updated as needed.
+    robotapiRobotRoutinginfo:
+      type: object
+      properties:
+        global_isis_system_id:
+          type: string
+        global_ospf_router_id:
+          type: string
+        telemetry_intf_src_name:
+          type: string
+        telemetry_intf_src_vrf:
+          type: string
+        telemetry_transport_type:
+          $ref: '#/components/schemas/robotapiTelemetryTransportType'
+        telemetry_device_encoding:
+          $ref: '#/components/schemas/robotapiTelemetryDeviceEncoding'
+        te_router_id:
+          type: string
+          description: Traffic engineering router id
+    robotapiRobotReachCheck:
+      description: Flag to turn on or turn opff Reachability Check
+      type: string
+      enum:
+      - REACH_CHECK_NONE
+      - REACH_CHECK_DISABLE
+      - REACH_CHECK_ENABLE
+    robotapiRobotNodeJob:
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: Job id
+        inst_id:
+          type: string
+          description: Server instance identifier
+        state:
+          $ref: '#/components/schemas/robotapiRobotJobState'
+          description: Current State of the Job
+        type:
+          type: string
+          description: Job type. Debug purpose
+        error:
+          type: string
+          description: If any error
+        completion_time:
+          type: string
+          format: int64
+          description: Remaining time to complete
+        creation_time:
+          type: string
+          format: int64
+          description: Job creation time in epoch seconds
+        created_by:
+          type: string
+          description: User
+        impacted_count:
+          type: integer
+          format: int64
+          description: Impacted nodes/tags, provider or profiles
+      impacted:
+        type: array
+        items:
+          type: string
+        title: Impacted elements list
+      description: Every Action related to Inventory will have a Job
+    robotapiRobotEntityConnectivityState:
+      description: Derived reachability state for a device. Cannot be set by user
+      type: string
+      enum:
+      - CONN_STATE_UNKNOWN
+      - CONN_STATE_REACHABLE
+      - CONN_STATE_UNREACHABLE
+      - CONN_STATE_MAX
+      - CONN_STATE_DEGRADED
+      default: CONN_STATE_UNKNOWN
+    robotapiRobotInetAddressFamily:
+      description: Inet Address Family
+      type: string
+      enum:
+      - ROBOT_INET_ADDR_TYPE_NONE
+      - ROBOT_INET_ADDR_TYPE_v4
+      - ROBOT_INET_ADDR_TYPE_v6
+      default: ROBOT_INET_ADDR_TYPE_NONE
+    robotapiTelemetryDeviceEncoding:
+      type: string
+      enum:
+      - UNKNOWN_ENCODING
+      - GPBKV
+      default: UNKNOWN_ENCODING
+    robotapiRobotProviderData:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: 'Internal key, mandatory field. Allocated internally on provider
+
+            creation. UUID is a generated value based on the name'
+        name:
+          type: string
+          description: User-defined key, mandatory field.
+        type:
+          $ref: '#/components/schemas/robotapiRobotProviderType'
+        reachability_state:
+          $ref: '#/components/schemas/robotapiRobotEntityConnectivityState'
+        connectivity_info:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotTransport'
+          description: All supported transports allowed to connect to this provider.
+        profile:
+          type: string
+          description: Credential Profile applicable to this provider. Mandatory field.
+        provider_device_key:
+          $ref: '#/components/schemas/robotapiRobotProviderDeviceKey'
+        last_upd_time:
+          type: string
+          format: int64
+          description: 'Last time this Provider Entry was Updated in DB.
+
+            Unix time in seconds.'
+        last_reach_time:
+          type: string
+          format: int64
+          description: 'Last time this provider was determined to be reachable.
+
+            Unix time in seconds.'
+        supported_models:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiSupportedModels'
+          description: provider models
+        family:
+          $ref: '#/components/schemas/robotapiRobotProviderFamily'
+          description: Provider Family. Not supoorted YET.
+        properties:
+          type: object
+          description: map to configure provider specific properties as key, value pairs
+    robotapiRobotNodeProductInfo:
+      type: object
+      properties:
+        software_type:
+          type: string
+          description: discovered by Crosswork.
+        software_version:
+          type: string
+          description: discovered by Crosswork.
+        product_type:
+          type: string
+        product_family:
+          type: string
+        product_series:
+          type: string
+        manufacturer:
+          type: string
+        sys_object_id:
+          type: string
+        hw_change_timestamp:
+          type: string
+        config_change_timestamp:
+          type: string
+        capability:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotNodeCapability'
+        device_type:
+          $ref: '#/components/schemas/robotapiRobotNodeType'
+    robotapiRobotNodeTag:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        created_by:
+          type: string
+        creation_time:
+          type: string
+          format: int64
+        devices_tagged:
+          type: integer
+          format: int64
+      description: Device Tag Object
+    robotapiRobotEntityLockState:
+      description: A device can be locked, by an app, to prevent other apps from using it. Various possible Lock states .
+      type: string
+      enum:
+      - INVALID_STATE
+      - UNLOCKED
+      - LOCKED
+      - ERRORED
+      default: INVALID_STATE
+    robotapiRobotNodeOperationalState:
+      type: string
+      enum:
+      - ROBOT_OPER_STATE_UNKNOWN
+      - ROBOT_OPER_STATE_UNMANAGED
+      - ROBOT_OPER_STATE_ADMIN_DOWN
+      - ROBOT_OPER_STATE_CHECKING
+      - ROBOT_OPER_STATE_OK
+      - ROBOT_OPER_STATE_ERROR
+      - ROBOT_OPER_STATE_LOCKED
+      - ROBOT_OPER_STATE_DELETING
+      default: ROBOT_OPER_STATE_UNKNOWN
+      description: Derived state for a Device. Cannot be set by user
+    robotapiRobotNodeData:
+      type: object
+      properties:
+        inventory_id:
+          type: string
+          description: Custom unique device identifier
+        node_ip:
+          $ref: '#/components/schemas/robotapiRobotInetAddr'
+        uuid:
+          type: string
+          description: Uuid is generated based on the key type and value provided by the User
+        mac:
+          type: string
+          description: Chassis backplane Mac address. Can be used to generate UUID
+        serial_number:
+          type: string
+          description: Device Serial Number. Can be used to generate UUID
+        host_name:
+          type: string
+          description: Device Host name. Can be used to generate UUID
+        profile:
+          type: string
+          description: Mandatory if Device is configured to be UP on boarding. Credential Profile applicable to this device.
+        reachability_state:
+          $ref: '#/components/schemas/robotapiRobotEntityConnectivityState'
+          title: Reachability state
+        admin_state:
+          $ref: '#/components/schemas/robotapiRobotNodeAdminState'
+          title: Device state the administrator intends for the device to go to.
+        connectivity_info:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotTransport'
+          description: Mandatory if Device is configured to be UP. List of Device Connections
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotNodeTag'
+          description: Tags associated with the device
+        product_info:
+          $ref: '#/components/schemas/robotapiRobotNodeProductInfo'
+          description: Node Product Info
+        geo_info:
+          $ref: '#/components/schemas/robotapiRobotNodeGeoData'
+          description: Device Geographical Location Info
+        routing_info:
+          $ref: '#/components/schemas/robotapiRobotRoutinginfo'
+          description: Routing info and Management Ip info
+        uptime:
+          type: string
+          description: Device uptime
+        last_upd_time:
+          type: string
+          format: int64
+          description: Last time this Device Entry was Updated
+        provider:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/robotapiRobotNodeCustomProvider'
+          description: List of providers - one per type strictly
+        reachability_check:
+          $ref: '#/components/schemas/robotapiRobotReachCheck'
+        reachability_state_upd_time:
+          type: string
+          format: int64
+        operational_state:
+          $ref: '#/components/schemas/robotapiRobotNodeOperationalState'
+          description: Device operational state. It is derived in Crosswork -readonly
+        lock_status:
+          $ref: '#/components/schemas/robotapiRobotNodeLockStatus'
+        errors:
+          type: array
+          items:
+            type: string
+          description: List of errors causing the device to be in ERROR state - readonly
+        state_map:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/robotapiCurrentState'
+    robotapiRobotNodeLockStatus:
+      type: object
+      properties:
+        lock_id:
+          type: string
+        state:
+          $ref: '#/components/schemas/robotapiRobotEntityLockState'
+        owner:
+          type: string
+        start_time:
+          type: string
+          format: int64
+        end_time:
+          type: string
+          format: int64
+    robotapiState:
+      type: string
+      enum:
+      - UNKNOWN
+      - UP
+      - DOWN
+      - DEGRADE
+      - ERROR
+      - DISABLE
+      default: UNKNOWN
+    robotapiRobotProviderDeviceKey:
+      type: string
+      enum:
+      - ROBOT_PROVDEVKEY_NONE
+      - ROBOT_PROVDEVKEY_HOST_NAME
+      - ROBOT_PROVDEVKEY_NODE_IP
+      - ROBOT_PROVDEVKEY_INVENTORY_ID
+      default: ROBOT_PROVDEVKEY_NONE
+      description: Key types used for generating UUID for Provider
+    robotapiRobotGeoCoordinates:
+      description: Node Geographical location data
+      type: object
+      properties:
+        longitude:
+          type: number
+          format: double
+        latitude:
+          type: number
+          format: double
+        altitude:
+          type: number
+          format: double
+    robotapiCurrentState:
+      type: object
+      properties:
+        element:
+          $ref: '#/components/schemas/robotapiRobotNodeStateElement'
+        value:
+          $ref: '#/components/schemas/robotapiState'
+        last_updated_time:
+          type: string
+          format: int64
+        next_check_time:
+          type: string
+          format: int64
+        info:
+          type: string
+    robotapiRobotNodeStateElement:
+      type: string
+      enum:
+      - UNSUPPORTED
+      - REACHABILITY
+      - DISCOVERY
+      - CLOCK_DRIFT
+      - LOCK
+      - SYNC
+      default: UNSUPPORTED
+    robotapiRobotInetAddr:
+      description: Inet Address
+      type: object
+      properties:
+        inet_af:
+          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
+        inet_addr:
+          type: string
+        mask:
+          type: string
+    robotapiRobotTransport:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/robotapiRobotTransportType'
+          description: Device connectivity type.
+        ipaddrs:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotInetAddr'
+          description: V4/V6 ip address for this connectivity type
+        port:
+          type: integer
+          format: int64
+          description: Port for this connectivity type
+        timeout:
+          type: string
+          format: uint64
+          description: Timeout for this connectivity type
+        reachability_state:
+          $ref: '#/components/schemas/robotapiRobotEntityConnectivityState'
+          description: Reachability Status for Transport Connection
+        reachability_state_upd_time:
+          type: string
+          format: int64
+          description: 'Reachability timestamp. Time when the reach state was updated.
+
+            Unix epoch time in seconds.'
+        error:
+          type: string
+          description: error reason for protocol reachability failure
+    robotapiRobotProviderType:
+      type: string
+      enum:
+      - ROBOT_PROVIDER_NONE
+      - ROBOT_PROVIDER_CFG_LOCAL
+      - ROBOT_PROVIDER_INSTALL
+      - ROBOT_PROVIDER_COMPUTE
+      default: ROBOT_PROVIDER_NONE
+      description: Provider types
+    robotapiRobotProviderFamily:
+      type: string
+      enum:
+      - ROBOT_PROVIDER_UNKNOWN
+      - ROBOT_PROVIDER_EPNM
+      - ROBOT_PROVIDER_NSO
+      - ROBOT_PROVIDER_WAE
+      - ROBOT_PROVIDER_CSM
+      - ROBOT_PROVIDER_XTC
+      - ROBOT_PROVIDER_SYSLOG_STORAGE
+      - ROBOT_PROVIDER_SR_PCE
+      - ROBOT_PROVIDER_DESTINATION
+      default: ROBOT_PROVIDER_UNKNOWN
+      description: Provider Family types
+    robotapiRobotNodeType:
+      type: string
+      enum:
+      - NODE_TYPE_UNKNOWN
+      - NODE_TYPE_ROUTER
+      - NODE_TYPE_SWITCH
+      - NODE_TYPE_ROADM
+      - NODE_TYPE_AMPLIFIER
+      - NODE_TYPE_CBR
+      default: NODE_TYPE_UNKNOWN
+      description: "- NODE_TYPE_UNKNOWN: Not known\n - NODE_TYPE_ROUTER: Layer 3 router\n - NODE_TYPE_SWITCH: Layer 2 ethernet switch\n - NODE_TYPE_ROADM: Layer 1 optical add/drop device\n - NODE_TYPE_AMPLIFIER: Layer 1 optical repeater/ amplifier\n - NODE_TYPE_CBR: Converged broadband router\n "
+    robotapiRobotNodeDataList:
+      description: List of Node Data.
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotNodeData'
+        user:
+          type: string
+    robotapiRobotTransportType:
+      type: string
+      enum:
+      - ROBOT_MSVC_TRANS_NONE
+      - ROBOT_MSVC_TRANS_TCP
+      - ROBOT_MSVC_TRANS_UDP
+      - ROBOT_MSVC_TRANS_HTTP
+      - ROBOT_MSVC_TRANS_HTTPS
+      - ROBOT_MSVC_TRANS_GRPC
+      - ROBOT_MSVC_TRANS_SSH
+      - ROBOT_MSVC_TRANS_NETCONF
+      - ROBOT_MSVC_TRANS_TELNET
+      - ROBOT_MSVC_TRANS_SNMP
+      - ROBOT_MSVC_TRANS_TL1
+      - ROBOT_MSVC_TRANS_TL1_SECURE
+      - ROBOT_MSVC_TRANS_ICMP
+      - ROBOT_MSVC_TRANS_KAFKA
+      - ROBOT_MSVC_TRANS_NATS
+      default: ROBOT_MSVC_TRANS_NONE
+      description: Transport types for robot micro-services
+    robotapiRobotNodeCustomProvider:
+      description: Node to Provider mapping data.
+      type: object
+      properties:
+        provider_name:
+          type: string
+        provider_node_id:
+          type: string
+        provider:
+          $ref: '#/components/schemas/robotapiRobotProviderData'
+    robotapiSupportedModels:
+      type: object
+      properties:
+        model_prefix:
+          type: string
+          description: Yang model prefix e.g. Cisco-IOS-XR, Cisco-NX-OS, Cisco-IOS-XE
+        model_version:
+          type: string
+          description: Yang model version
+    robotapiRobotJobState:
+      description: Various Job Resulting states.
+      type: string
+      enum:
+      - JOB_INVALID
+      - JOB_REJECTED
+      - JOB_ACCEPTED
+      - JOB_DB_UPDATED
+      - JOB_NOTIFICATION_PUBLISHED
+      - JOB_COMPLETED
+      - JOB_FAILED
+      default: JOB_INVALID
+    robotapiRobotNodeCapability:
+      type: string
+      enum:
+      - NONE
+      - YANG_MDT
+      - SNMP
+      - TL1
+      - YANG_CLI
+      - YANG_EPNM
+      - SNMPTRAPS
+      default: NONE
+      description: Capabilities supported by Device
+    robotapiRobotNodeGeoData:
+      type: object
+      properties:
+        coordinates:
+          $ref: '#/components/schemas/robotapiRobotGeoCoordinates'
+        building:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+        region:
+          type: string
+        zip:
+          type: string
+        range_incr:
+          description: Applicable only on the Request. Used only for transitional data to specify the increments(+/-) on the coordinates above for  searching the list of device in the Range.
+          $ref: '#/components/schemas/robotapiRobotGeoCoordinates'
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header

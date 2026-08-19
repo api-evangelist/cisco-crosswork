@@ -1,0 +1,108 @@
+generated: '2026-08-19'
+method: derived
+source: >-
+  openapi/cisco-crosswork-cwm-event-api-openapi.yml, openapi/cisco-crosswork-cwm-event-type-api-openapi.yml,
+  openapi/cisco-crosswork-add-destinations-api-openapi.yml, grpc/cisco-crosswork-dpm-*.proto,
+  https://github.com/CiscoDevNet/Crosswork-SDK/tree/main/Notification-client
+asyncapi_published: false
+asyncapi_note: >-
+  Cisco publishes no AsyncAPI document for Crosswork. Probed the DevNet documentation set and the CiscoDevNet GitHub
+  organisation; there is no asyncapi.yaml, no event catalogue and no channel document. This is recorded as an
+  absence, not fabricated.
+summary: >-
+  Crosswork has a substantial event and streaming surface — it is just not described as one. Three separate
+  mechanisms exist: Workflow Manager consumes and produces events through a registerable event-type system with an
+  HTTP listener, Crosswork Data Gateway forwards collected telemetry to customer-owned destinations over gRPC,
+  TCP, UDP, HTTP(S) and Kafka-style dispatch, and the platform emits a northbound notification stream that Cisco
+  ships a Java client for. None of the three has a machine-readable event contract; the payload shapes are
+  discoverable only from the protobufs and the REST schemas.
+surfaces:
+- name: Workflow Manager event types
+  direction: bidirectional
+  kind: registerable event types (consumed / produced)
+  transport: HTTP
+  registration:
+    list: GET /crosswork/cwm/v2/eventType
+    create: POST /crosswork/cwm/v2/eventType
+    read: GET /crosswork/cwm/v2/eventType/{type}/{actionOrKind}
+    update: PUT /crosswork/cwm/v2/eventType/{type}/{actionOrKind}
+    delete: DELETE /crosswork/cwm/v2/eventType/{type}/{actionOrKind}
+    start_stop_listener: POST /crosswork/cwm/v2/eventType/{type}/{actionOrKind}
+  receiver: POST /crosswork/cwm/v2/event/http
+  receiver_operation: http_event_listener
+  receiver_note: >-
+    Crosswork Workflow Manager RECEIVES webhooks here — it is the listener, not the sender. The request body is
+    undeclared in the published contract; the 200 is a bare string and both error responses are the free-form gin.H
+    object.
+  event_definition:
+    schema: server.EventDefinition
+    fields:
+    - name: type
+      note: The event type name.
+    - name: kind
+      note: '"consumed" or "produced", per Cisco''s own description of the Kind field.'
+    - name: source
+    - name: endpoint
+    - name: resourceId
+    - name: payloadAttrs
+      note: Free-form string map — the payload shape is NOT declared in the contract.
+    - name: correlationAttrs
+    - name: createWorkflow
+      note: When true, an inbound event starts a workflow.
+    - name: workflowName
+    - name: workflowVersion
+  response_schema: server.EventResponse
+  response_extra_fields: [state, internallyManagedListener]
+  event_catalog_published: false
+  event_catalog_note: >-
+    There is no list of event types Cisco ships. The catalogue is whatever the operator registers, so the set is
+    per-deployment by design — which also means no agent can know it in advance.
+- name: Crosswork Data Gateway destinations
+  direction: outbound
+  kind: telemetry forwarding
+  transports:
+  - ROBOT_MSVC_TRANS_GRPC
+  - ROBOT_MSVC_TRANS_TCP
+  - ROBOT_MSVC_TRANS_UDP
+  - ROBOT_MSVC_TRANS_HTTP
+  - ROBOT_MSVC_TRANS_HTTPS
+  - ROBOT_MSVC_TRANS_SSH
+  - ROBOT_MSVC_TRANS_NETCONF
+  - ROBOT_MSVC_TRANS_TELNET
+  - ROBOT_MSVC_TRANS_SNMP
+  - ROBOT_MSVC_TRANS_TL1
+  - ROBOT_MSVC_TRANS_TL1_SECURE
+  management:
+    create: POST /crosswork/inventory/v1/destinations
+    read: openapi/cisco-crosswork-get-destinations-api-openapi.yml
+    update: openapi/cisco-crosswork-update-destinations-api-openapi.yml
+    replace: openapi/cisco-crosswork-put-replace-destinations-api-openapi.yml
+    delete: openapi/cisco-crosswork-delete-destinations-api-openapi.yml
+  payload_contract: grpc/cisco-crosswork-dpm-*.proto
+  payload_note: >-
+    The records Crosswork forwards ARE described — as 18 proto3 files in the Crosswork Data Platform Model
+    (interface, CPU, memory, optics, PTP, SyncE, QoS, GNSS, power, temperature, SR policy, SRv6 locator, CRC,
+    availability, OTU controllers and a GenericRecord umbrella). Saved verbatim to grpc/ in this repo. This is the
+    strongest event-payload documentation in the whole product, and it lives in an SDK repository rather than in
+    the API reference.
+- name: Northbound notification stream
+  direction: outbound
+  kind: platform notifications
+  client: https://github.com/CiscoDevNet/Crosswork-SDK/tree/main/Notification-client
+  client_versions: ['6.0', '6.5', '7.0', '7.1', '7.2', '8.0']
+  client_artifacts:
+  - nbi-notifications-connection-less-client.jar
+  - nbi-notifications-connection-oriented-client.jar
+  contract_published: false
+  contract_note: >-
+    Cisco ships a Java client for this stream but publishes no wire contract for it — no AsyncAPI, no schema, no
+    message catalogue. A non-Java consumer has the JAR and nothing else. The two client flavours (connection-less
+    and connection-oriented) imply two delivery modes that are likewise undocumented in the API reference.
+webhooks:
+  provider_sends: false
+  provider_receives: true
+  note: >-
+    Worth stating plainly, because it inverts the usual reading: Crosswork does not send webhooks to you. Workflow
+    Manager receives them from your systems and can start a workflow in response. Outbound flow is telemetry
+    streaming to a destination you configure, not HTTP callbacks.
+checked: '2026-08-19'

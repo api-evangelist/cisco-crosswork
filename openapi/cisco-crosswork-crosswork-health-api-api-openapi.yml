@@ -1,0 +1,261 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Platform Crosswork Health API API
+  version: 1.0.0
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.1APIs/platform.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.1APIs/platform.swagger.json
+  description: APIs to get the Health of Crosswork Applications and their dependent services
+servers:
+- url: /crosswork/platform
+security:
+- bearerAuth: []
+tags:
+- name: Crosswork Health API
+  description: APIs to get the Health of Crosswork Applications and their dependent services
+paths:
+  /v1/apps/health:
+    get:
+      summary: Get the health summary of applications running on the Crosswork Platform
+      operationId: GetAppsSummary
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotctl_apiHealthApps'
+      tags:
+      - Crosswork Health API
+  /v1/apps/{AppName}/health:
+    get:
+      summary: Get the health summary of an application running on the Crosswork Platform by specifying the application name
+      operationId: GetAppServicesSummary
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotctl_apiHealthAppServices'
+      parameters:
+      - name: AppName
+        description: App name
+        in: path
+        required: true
+        schema:
+          type: string
+      tags:
+      - Crosswork Health API
+  /v1/apps/{AppName}/{ServiceName}/health:
+    get:
+      summary: Get the health summary of a specific service running as part of an application by specifying application name and service name
+      operationId: GetAppServiceDetail
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotctl_apiHealthAppSrvProcesses'
+      parameters:
+      - name: AppName
+        description: App name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: ServiceName
+        description: Service name
+        in: path
+        required: true
+        schema:
+          type: string
+      tags:
+      - Crosswork Health API
+  /v1/platform/health:
+    get:
+      summary: 'Get a health summary for all applications running on the Crosswork platform. Returns a list of all running applications, with IDs, status, descriptions, and a count of applications in each state: Running, Degraded, Down and Unknown.'
+      operationId: GetSystemSummary
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotctl_apiHealthSystem'
+      tags:
+      - Crosswork Health API
+components:
+  schemas:
+    robotctl_apiHealthApps:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
+        Description:
+          type: string
+        AppList:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotctl_apiappInfo'
+          title: List of application names/ids
+      title: Application Summary
+    robotctl_apisrvInfo:
+      type: object
+      properties:
+        ServiceName:
+          type: string
+        State:
+          $ref: '#/components/schemas/robotctl_apiRobotSvcState'
+        Description:
+          type: string
+          title: Additional info for the service status response
+        Uptime:
+          type: string
+        Issue:
+          type: string
+        Recommendation:
+          type: string
+        Pods:
+          type: array
+          items:
+            type: string
+          title: List of pods running the service
+    robotctl_apiSupervisordState:
+      type: string
+      enum:
+      - SupRunning
+      - SupFatal
+      - SupRestarting
+      - SupShutdown
+      default: SupRunning
+      title: '- SupRunning: supervisord API codes'
+    robotctl_apiHealthSystem:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
+        Description:
+          type: string
+        AppSummary:
+          $ref: '#/components/schemas/robotctl_apicountInfo'
+    robotctl_apiRobotSvcState:
+      type: string
+      enum:
+      - Unknown
+      - Down
+      - Running
+      - Degraded
+      - Deleted
+      - Failed
+      default: Unknown
+      description: " - Unknown: ROBOT_MSVC_STATE_UNKNOWN defines unknown state. Only used to app-status.\n - Down: ROBOT_MSVC_STATE_DOWN defines when the service/container is non-functional.\n - Running: ROBOT_MSVC_STATE_RUNNING defines when the service/container is completely functional.\n - Degraded: ROBOT_MSVC_STATE_DEGRADED defines when the service/container is not completely functional.\n - Deleted: ROBOT_MSVC_STATE_DELETING defines when the service/container is supposed to be deleted.\n - Failed: ROBOT_MSVC_STATE_FAILED defines when the service/container action failed and is in stale state."
+    robotctl_apiHealthAppServices:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
+        Description:
+          type: string
+        ServiceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotctl_apisrvInfo'
+          title: List of service names for the application
+      title: Service detail per app
+    robotctl_apicountInfo:
+      type: object
+      properties:
+        Total:
+          type: integer
+          format: int32
+        Running:
+          type: integer
+          format: int32
+        Degraded:
+          type: integer
+          format: int32
+        Down:
+          type: integer
+          format: int32
+        Unknown:
+          type: integer
+          format: int32
+    robotctl_apiResultValue:
+      type: string
+      enum:
+      - NOOP
+      - SUCCESS
+      - FAILURE
+      default: NOOP
+    robotctl_apiappInfo:
+      type: object
+      properties:
+        Id:
+          type: string
+          title: Application name
+        State:
+          $ref: '#/components/schemas/robotctl_apiRobotSvcState'
+        Counts:
+          $ref: '#/components/schemas/robotctl_apicountInfo'
+        Issue:
+          type: string
+        Recommendation:
+          type: string
+    robotctl_apiHealthAppSrvProcesses:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
+        Description:
+          type: string
+          title: Additional info for the service status response
+        ProcessList:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotctl_apisrvProcessDetail'
+          title: List of processes for the service
+    robotctl_apisrvProcessDetail:
+      type: object
+      properties:
+        ProcessName:
+          type: string
+        Pod:
+          type: string
+        State:
+          $ref: '#/components/schemas/robotctl_apiSupervisordState'
+        Pid:
+          type: integer
+          format: int32
+        Uptime:
+          type: string
+        Issue:
+          type: string
+        Recommendation:
+          type: string
+        StatusString:
+          type: string
+        Time:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header

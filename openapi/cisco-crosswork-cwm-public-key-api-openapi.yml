@@ -1,0 +1,291 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager Public Keys API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and
+    developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the
+    Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json).
+      Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically
+      from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+tags:
+- name: publicKey
+paths:
+  /publicKey:
+    get:
+      summary: List all registered public keys
+      description: Retrieves all public keys in the system with optional filtering by author and enabled status.
+      operationId: get_public_key
+      tags:
+      - publicKey
+      parameters:
+      - name: author
+        in: query
+        description: Filter by author
+        required: false
+        schema:
+          type: string
+      - name: enabled
+        in: query
+        description: Filter by enabled status (true/false)
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/server.PublicKeyResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+    post:
+      summary: Register a new RSA public key
+      description: Adds a new RSA public key to the system for encryption and signature verification. Supports PKCS#1
+        (RSA PUBLIC KEY) and PKCS#8 (PUBLIC KEY) PEM formats.
+      operationId: post_public_key
+      tags:
+      - publicKey
+      requestBody:
+        description: Public Key to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.PublicKeyCreateRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.PublicKeyResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '409':
+          description: Public key with this name already exists
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+  /publicKey/{publicKeyName}:
+    delete:
+      summary: Delete a public key
+      description: Permanently removes a public key from the system by its unique name.
+      operationId: delete_public_key_by_public_key_name
+      tags:
+      - publicKey
+      parameters:
+      - name: publicKeyName
+        in: path
+        description: Public Key Name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '404':
+          description: Public key not found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+    get:
+      summary: Retrieve a public key by name
+      description: Fetches a public key's complete details including PEM format, key type, and metadata by its unique
+        name.
+      operationId: get_public_key_by_public_key_name
+      tags:
+      - publicKey
+      parameters:
+      - name: publicKeyName
+        in: path
+        description: Public Key Name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.PublicKeyResponse'
+        '404':
+          description: Public key not found
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+    patch:
+      summary: Update an existing public key
+      description: Modifies an existing public key's properties including the PEM key itself, author, or enabled
+        status.
+      operationId: patch_public_key_by_public_key_name
+      tags:
+      - publicKey
+      parameters:
+      - name: publicKeyName
+        in: path
+        description: Public Key Name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Public Key updates
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.PublicKeyUpdateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.PublicKeyResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Public key not found
+          content:
+            application/json:
+              schema:
+                type: string
+        '409':
+          description: Public key name already exists
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+components:
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+  schemas:
+    server.PublicKeyCreateRequest:
+      type: object
+      required:
+      - author
+      - name
+      - publicKey
+      properties:
+        author:
+          type: string
+        enabled:
+          type: boolean
+        name:
+          type: string
+        publicKey:
+          type: string
+    server.PublicKeyResponse:
+      type: object
+      properties:
+        author:
+          type: string
+        createdAt:
+          type: string
+        enabled:
+          type: boolean
+        keyAlgorithm:
+          description: RSA
+          type: string
+        keyFormat:
+          description: PKCS#1 or PKCS#8
+          type: string
+        name:
+          type: string
+        publicKey:
+          type: string
+        updatedAt:
+          type: string
+    server.PublicKeyUpdateRequest:
+      type: object
+      properties:
+        author:
+          type: string
+        enabled:
+          type: boolean
+        publicKey:
+          type: string
+security:
+- Bearer: []

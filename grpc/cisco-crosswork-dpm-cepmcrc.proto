@@ -1,0 +1,47 @@
+/*****************************************
+* Protobuf message definitions for Performance CEPMCRCRecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message CEPMCRCRecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Interface name
+	*/
+	optional string interfaceName = 2;
+
+	/* 
+	the sample's interval in milli seconds.
+	*/
+	optional int32 crcDuration = 3;
+
+	/* 
+	CRC errors.
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional float crcPercentage = 4;
+
+	/* 
+	CRC errors rate.
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float crc = 5;
+  };
+}
+
+

@@ -1,0 +1,95 @@
+generated: '2026-08-19'
+method: derived
+source: openapi/*.yml (99 refined specs)
+format: none
+rfc9457: false
+summary: >-
+  Crosswork declares 1,895 error responses across the suite and gives only 152 of them a body schema. There is no
+  RFC 9457 problem+json, no shared error envelope, and no error code registry — five different error shapes appear,
+  four of them inside Crosswork Workflow Manager alone. The rest are a status code and a one-line description.
+status_codes:
+  '400': 401
+  '401': 347
+  '403': 43
+  '404': 422
+  '405': 321
+  '409': 319
+  '422': 2
+  '500': 29
+  '503': 11
+envelopes:
+- schema: server.HTTPError
+  media_type: application/json
+  fields:
+  - name: code
+    type: integer
+    example: 400
+  - name: message
+    type: string
+    example: status bad request
+  occurrences: 65
+  family: Crosswork Workflow Manager
+  spec: openapi/cisco-crosswork-cwm-workflow-api-openapi.yml
+- schema: gin.H
+  media_type: application/json
+  fields: []
+  occurrences: 34
+  family: Crosswork Workflow Manager events
+  spec: openapi/cisco-crosswork-cwm-event-api-openapi.yml
+  note: >-
+    A free-form object with additionalProperties and no declared field. The name is the Go gin framework's map
+    type leaking into the published contract — a consumer is told an error is JSON and nothing more.
+- schema: rpc.GenericResponse
+  media_type: application/json
+  fields:
+  - name: errorCode
+    type: enum
+    note: References an ErrorCode enum whose schema name carries an internal Cisco build path.
+  - name: message
+    type: string
+    note: Returned if ErrorCode is not OK.
+  occurrences: 11
+  family: Crosswork Workflow Manager workers
+  spec: openapi/cisco-crosswork-cwm-workers-api-openapi.yml
+- schema: errors.InternalAPIError
+  media_type: application/json
+  fields:
+  - name: code
+    type: integer
+  - name: message
+    type: string
+  - name: details
+    type: string
+  - name: err
+    type: any
+  occurrences: 3
+  family: Crosswork Workflow Manager payload
+  spec: openapi/cisco-crosswork-cwm-payload-api-openapi.yml
+- schema: mcp.MCPErrorResponse
+  media_type: application/json
+  fields:
+  - name: jsonrpc
+    type: string
+    example: '2.0'
+  - name: id
+    type: string
+    note: May be null on parse errors.
+  - name: error
+    type: object
+    note: JSON-RPC 2.0 error object.
+  occurrences: 2
+  family: MCP endpoint
+  spec: openapi/cisco-crosswork-cwm-mcp-api-openapi.yml
+undocumented:
+  count: 1743
+  note: >-
+    1,743 of the 1,895 declared error responses carry no schema at all. The NCAHI, CDG, ZTP, CNC and COE families
+    are almost entirely in this group — a 404 is declared as "Not Found" and nothing else. An agent handling a
+    Crosswork failure has no machine-readable way to tell a transient error from a permanent one.
+error_code_registry:
+  published: false
+  note: >-
+    Cisco publishes no error-code reference page for the Crosswork northbound APIs. Searched the DevNet Crosswork
+    documentation set; there is a getting-started and a per-operation reference, but no error catalogue to enrich
+    these titles from. Recorded as absent rather than invented.
+checked: '2026-08-19'

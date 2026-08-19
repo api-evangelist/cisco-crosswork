@@ -1,0 +1,697 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "tls.proto",
+    "version": "version not set",
+    "x-provenance": {
+      "method": "harvested",
+      "authored_by": "Cisco Crosswork",
+      "harvested_by": "API Evangelist",
+      "harvested_on": "2026-08-19",
+      "first_party": true,
+      "note": "Published by Cisco. Retrieved unmodified except for this x-provenance block.",
+      "provider_published": true
+    },
+    "x-evidence": [
+      {
+        "type": "source",
+        "url": "https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/4.0APIs/tls.swagger.json"
+      },
+      {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/4.0APIs/tls.swagger.json"
+      }
+    ]
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v2/cert/assoc": {
+      "post": {
+        "summary": "Gets association details of a certificate",
+        "operationId": "GetAssocDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tlsAssocDetails"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tlsCertReq"
+            }
+          }
+        ],
+        "tags": [
+          "TLSManager"
+        ]
+      }
+    },
+    "/v2/cert/detail/list": {
+      "post": {
+        "summary": "Gets a list of certificate details",
+        "operationId": "GetCertDetailList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tlsCertDetailList"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tlsCertReq"
+            }
+          }
+        ],
+        "tags": [
+          "TLSManager"
+        ]
+      }
+    },
+    "/v2/cert/export/all": {
+      "post": {
+        "summary": "Exports the trust store and intermediate key store of a certificate",
+        "operationId": "ExportAllCerts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tlsAllCertResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tlsCertReq"
+            }
+          }
+        ],
+        "tags": [
+          "TLSManager"
+        ]
+      }
+    },
+    "/v2/cert/export/intermediatekeystore": {
+      "post": {
+        "summary": "Exports the intermediate key store of a certificate",
+        "operationId": "ExportIntermediateKeyStore",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tlsIntermediateKeyStoreResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tlsCertReq"
+            }
+          }
+        ],
+        "tags": [
+          "TLSManager"
+        ]
+      }
+    },
+    "/v2/cert/export/truststore": {
+      "post": {
+        "summary": "Exports the trust store of a certificate",
+        "operationId": "ExportTrustStore",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tlsTrustStoreResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tlsCertReq"
+            }
+          }
+        ],
+        "tags": [
+          "TLSManager"
+        ]
+      }
+    },
+    "/v2/cert/label": {
+      "post": {
+        "summary": "Gets the trust store and key store of a certificate",
+        "operationId": "GetCertStoreLabels",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tlsCertStoreLabel"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tlsCertLabelReq"
+            }
+          }
+        ],
+        "tags": [
+          "TLSManager"
+        ]
+      }
+    },
+    "/v2/cert/role": {
+      "get": {
+        "summary": "Gets a list of role names of a certificate",
+        "operationId": "GetCertRoleNames",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tlsCertRoleList"
+            }
+          }
+        },
+        "tags": [
+          "TLSManager"
+        ]
+      }
+    },
+    "/v2/cert/summary/list": {
+      "get": {
+        "summary": "Gets a list of certificate summaries",
+        "operationId": "GetCertSummaryList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tlsCertSummaryList"
+            }
+          }
+        },
+        "tags": [
+          "TLSManager"
+        ]
+      }
+    },
+    "/v2/cert/summary/listwithfilter": {
+      "post": {
+        "summary": "Gets a list of certificate summaries",
+        "operationId": "GetCertSummaryListWithFilter",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tlsCertSummaryList"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tlsCertReq"
+            }
+          }
+        ],
+        "tags": [
+          "TLSManager"
+        ]
+      }
+    },
+    "/v2/cert/update": {
+      "post": {
+        "summary": "Creates or updates a certificate",
+        "operationId": "UpdateCert",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tlsCertUpdateResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tlsCertUpdateReq"
+            }
+          }
+        ],
+        "tags": [
+          "TLSManager"
+        ]
+      }
+    },
+    "/v2/cert/web/msg": {
+      "get": {
+        "summary": "Web server restart notification",
+        "operationId": "GetWebRestartMsg",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tlsWebRestartMsg"
+            }
+          }
+        },
+        "tags": [
+          "TLSManager"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "tlsAllCertResp": {
+      "type": "object",
+      "properties": {
+        "cert_store": {
+          "$ref": "#/definitions/tlsCertStore"
+        },
+        "response": {
+          "$ref": "#/definitions/tlsResponse"
+        }
+      }
+    },
+    "tlsAssocDetails": {
+      "type": "object",
+      "properties": {
+        "cert_name": {
+          "type": "string"
+        },
+        "role_name": {
+          "type": "string"
+        },
+        "device_details": {
+          "$ref": "#/definitions/tlsDeviceDetails"
+        },
+        "destination_details": {
+          "$ref": "#/definitions/tlsDestinationDetails"
+        }
+      }
+    },
+    "tlsAssocSummary": {
+      "type": "object",
+      "properties": {
+        "role_name": {
+          "type": "string"
+        }
+      }
+    },
+    "tlsCertDetail": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "signed": {
+          "type": "string"
+        },
+        "installed": {
+          "type": "string"
+        },
+        "signed_by": {
+          "type": "string"
+        },
+        "expires": {
+          "type": "string"
+        },
+        "_type": {
+          "type": "string"
+        },
+        "_showExport": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "_exportUrlPath": {
+          "type": "string"
+        }
+      }
+    },
+    "tlsCertDetailList": {
+      "type": "object",
+      "properties": {
+        "cert_name": {
+          "type": "string"
+        },
+        "cert_detail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tlsCertDetail"
+          }
+        },
+        "_exportAllTrustStore": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "_exportAllKeyStore": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "tlsCertDisplay": {
+      "type": "string",
+      "enum": [
+        "NO_OP",
+        "READONLY",
+        "READWRITE",
+        "READWRITEADD"
+      ],
+      "default": "NO_OP"
+    },
+    "tlsCertLabelReq": {
+      "type": "object",
+      "properties": {
+        "role_name": {
+          "type": "string"
+        }
+      }
+    },
+    "tlsCertReq": {
+      "type": "object",
+      "properties": {
+        "cert_name": {
+          "type": "string"
+        },
+        "cert_roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tlsCertRoleList": {
+      "type": "object",
+      "properties": {
+        "role_name": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tlsCertStore": {
+      "type": "object",
+      "properties": {
+        "trust_store": {
+          "$ref": "#/definitions/tlsTrustStore"
+        },
+        "intermediate_key_store": {
+          "$ref": "#/definitions/tlsIntermediateKeyStore"
+        }
+      }
+    },
+    "tlsCertStoreLabel": {
+      "type": "object",
+      "properties": {
+        "role_name": {
+          "type": "string"
+        },
+        "trust_store_label": {
+          "$ref": "#/definitions/tlsTrustStoreLabel"
+        },
+        "intermediate_key_store_label": {
+          "$ref": "#/definitions/tlsIntermediateKeyStoreLabel"
+        }
+      }
+    },
+    "tlsCertSummary": {
+      "type": "object",
+      "properties": {
+        "cert_name": {
+          "type": "string"
+        },
+        "expiration_date": {
+          "type": "string"
+        },
+        "last_updated_by": {
+          "type": "string"
+        },
+        "last_update_time": {
+          "type": "string"
+        },
+        "assoc_summary": {
+          "$ref": "#/definitions/tlsAssocSummary"
+        },
+        "cert_display": {
+          "$ref": "#/definitions/tlsCertDisplay"
+        },
+        "role_name": {
+          "type": "string"
+        }
+      }
+    },
+    "tlsCertSummaryList": {
+      "type": "object",
+      "properties": {
+        "cert_summary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tlsCertSummary"
+          }
+        }
+      },
+      "title": "Certificate Page"
+    },
+    "tlsCertUpdateReq": {
+      "type": "object",
+      "properties": {
+        "cert_name": {
+          "type": "string"
+        },
+        "role_name": {
+          "type": "string"
+        },
+        "cert_store": {
+          "$ref": "#/definitions/tlsCertStore"
+        },
+        "device_details": {
+          "$ref": "#/definitions/tlsDeviceDetails"
+        },
+        "destination_details": {
+          "$ref": "#/definitions/tlsDestinationDetails"
+        },
+        "isEdit": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "tlsCertUpdateResp": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "#/definitions/tlsResponse"
+        }
+      }
+    },
+    "tlsDestinationDetails": {
+      "type": "object",
+      "properties": {
+        "destination_nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tlsDestinationNodes"
+          }
+        }
+      }
+    },
+    "tlsDestinationNodes": {
+      "type": "object",
+      "properties": {
+        "destination_ip": {
+          "type": "string"
+        },
+        "destination_uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "tlsDeviceDetails": {
+      "type": "object",
+      "properties": {
+        "device_nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tlsDeviceNodes"
+          }
+        }
+      }
+    },
+    "tlsDeviceNodes": {
+      "type": "object",
+      "properties": {
+        "device_ip": {
+          "type": "string"
+        },
+        "device_uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "tlsIntermediateKeyStore": {
+      "type": "object",
+      "properties": {
+        "intermediate_key_store_cert": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "passphrase": {
+          "type": "string"
+        }
+      }
+    },
+    "tlsIntermediateKeyStoreLabel": {
+      "type": "object",
+      "properties": {
+        "cert_label": {
+          "$ref": "#/definitions/tlsLabel"
+        },
+        "key_label": {
+          "$ref": "#/definitions/tlsLabel"
+        },
+        "passphrase_label": {
+          "$ref": "#/definitions/tlsLabel"
+        }
+      }
+    },
+    "tlsIntermediateKeyStoreResp": {
+      "type": "object",
+      "properties": {
+        "intermediate_key_store": {
+          "$ref": "#/definitions/tlsIntermediateKeyStore"
+        },
+        "response": {
+          "$ref": "#/definitions/tlsResponse"
+        }
+      }
+    },
+    "tlsLabel": {
+      "type": "object",
+      "properties": {
+        "present": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "mandatory": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "tlsRespCode": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "default": "UNKNOWN"
+    },
+    "tlsResponse": {
+      "type": "object",
+      "properties": {
+        "resp_code": {
+          "$ref": "#/definitions/tlsRespCode"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "tlsTrustStore": {
+      "type": "object",
+      "properties": {
+        "trust_store_cert": {
+          "type": "string"
+        }
+      }
+    },
+    "tlsTrustStoreLabel": {
+      "type": "object",
+      "properties": {
+        "cert_label": {
+          "$ref": "#/definitions/tlsLabel"
+        }
+      }
+    },
+    "tlsTrustStoreResp": {
+      "type": "object",
+      "properties": {
+        "trust_store": {
+          "$ref": "#/definitions/tlsTrustStore"
+        },
+        "response": {
+          "$ref": "#/definitions/tlsResponse"
+        }
+      }
+    },
+    "tlsWebRestartMsg": {
+      "type": "object",
+      "properties": {
+        "display_msg": {
+          "type": "string",
+          "title": "Display the warning message to log out"
+        },
+        "time_before_restart": {
+          "type": "string",
+          "title": "Time to restart in minutes"
+        },
+        "auto_logout": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Auto logout"
+        }
+      }
+    }
+  }
+}

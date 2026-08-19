@@ -1,0 +1,353 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Image Controller API
+  version: '1.0'
+  description: 'Operations tagged image-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json,
+    cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+    derived_view: Per-tag view of cisco-crosswork-ztp-cw-image-service-openapi.json, the provider's source document. Operations
+      and schemas are the provider's, unmodified; only the partition is ours.
+    derived_from: cisco-crosswork-ztp-cw-image-service-openapi.json
+    operation_coverage: 6/6
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/ZTP/2.0APIs/cw_image_service.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/ZTP/2.0APIs/cw_image_service.swagger.json
+servers:
+- url: /crosswork/imagesvc/
+security:
+- bearerAuth: []
+tags:
+- name: image-controller
+  description: Image Controller
+paths:
+  /v1/images:
+    get:
+      tags:
+      - image-controller
+      summary: Get images
+      operationId: getAllImagesUsingGET
+      parameters:
+      - name: pageNumber
+        in: query
+        description: pageNumber
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        description: pageSize
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        description: sortBy
+        required: false
+        schema:
+          type: string
+      - name: descending
+        in: query
+        description: descending
+        required: false
+        schema:
+          type: boolean
+      - name: imageType
+        in: query
+        description: imageType
+        required: false
+        schema:
+          type: string
+      - name: imagePlatform
+        in: query
+        description: imagePlatform
+        required: false
+        schema:
+          type: string
+      - name: imageVersion
+        in: query
+        description: imageVersion
+        required: false
+        schema:
+          type: string
+      - name: imageTitle
+        in: query
+        description: imageTitle
+        required: false
+        schema:
+          type: string
+      - name: deviceFamily
+        in: query
+        description: deviceFamily
+        required: false
+        schema:
+          type: string
+      - name: searchType
+        in: query
+        description: searchType
+        required: false
+        schema:
+          type: string
+      - name: X-Real-IP
+        in: header
+        description: X-Real-IP
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDto_ImageDto'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+      - image-controller
+      summary: Delete images by id list
+      operationId: deleteImagesByIdListUsingDELETE
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        description: idList
+        required: true
+    servers:
+    - url: /crosswork/imagesvc/
+  /v1/images/{imageId}:
+    get:
+      tags:
+      - image-controller
+      summary: Get image by id
+      operationId: getImageByIdUsingGET
+      parameters:
+      - name: imageId
+        in: path
+        description: imageId
+        required: true
+        schema:
+          type: string
+      - name: X-Real-IP
+        in: header
+        description: X-Real-IP
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageDto'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+      - image-controller
+      summary: Update metadata of image
+      operationId: updateImageInfoUsingPUT
+      parameters:
+      - name: imageId
+        in: path
+        description: imageId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageDto'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageDto'
+        description: imageDto
+        required: true
+    delete:
+      tags:
+      - image-controller
+      summary: Delete image by id
+      operationId: deleteImageByIdUsingDELETE
+      parameters:
+      - name: imageId
+        in: path
+        description: imageId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    servers:
+    - url: /crosswork/imagesvc/
+  /v1/images/count:
+    get:
+      tags:
+      - image-controller
+      summary: Get total count of images
+      operationId: getImageCountUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+        '401':
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for
+            the target resource.
+        '403':
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to
+            perform this request.
+        '404':
+          description: Not Found. The client made a request for a resource that does not exist.
+    servers:
+    - url: /crosswork/imagesvc/
+components:
+  schemas:
+    ImageDto:
+      type: object
+      properties:
+        createdBy:
+          type: string
+        deviceFamily:
+          type: string
+        downloadURL:
+          type: string
+        id:
+          type: string
+        imageFileName:
+          type: string
+        imagePlatform:
+          type: string
+        imageSource:
+          type: string
+        imageTitle:
+          type: string
+        imageType:
+          type: string
+        imageVersion:
+          type: string
+        modifiedBy:
+          type: string
+    ResponseDto_ImageDto:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageDto'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+    ImageDto_2:
+      type: object
+      properties:
+        createdBy:
+          type: string
+        deviceFamily:
+          type: string
+        downloadURL:
+          type: string
+        id:
+          type: string
+        imageFileName:
+          type: string
+        imagePlatform:
+          type: string
+        imageSource:
+          type: string
+        imageTitle:
+          type: string
+        imageType:
+          type: string
+        imageVersion:
+          type: string
+        modifiedBy:
+          type: string
+      title: ImageDto
+    ResponseDtoOfImageDto:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageDto_2'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+      title: ResponseDtoOfImageDto
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+x-refined-from:
+- cisco-crosswork-ncahi-cw-image-service-openapi.json
+- cisco-crosswork-ztp-cw-image-service-openapi.json

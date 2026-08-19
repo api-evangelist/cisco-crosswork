@@ -1,0 +1,45 @@
+generated: '2026-08-19'
+method: searched
+source: https://blogs.cisco.com/developer/crossworkautomationsandbox01
+published: true
+name: Cisco Crosswork Automation Sandbox (Cisco DevNet Sandbox)
+summary: >-
+  Cisco does not offer a Crosswork test mode, test keys or a hosted sandbox API — the product has no vendor-hosted
+  surface at all. What it offers instead is a full lab: DevNet Sandbox runs a production Crosswork suite against a
+  real multi-platform network that a developer can reserve, free, and drive with the real northbound APIs. That is
+  a materially different thing from a sandbox API, and worth being precise about: an agent cannot reach it, a
+  human must reserve it and connect over VPN first.
+type: reserved-lab
+model:
+  test_vs_live_keys: false
+  test_key_prefix: null
+  test_data_fixtures: false
+  time_simulation: false
+  note: >-
+    None of the usual sandbox machinery applies. There are no test-vs-live modes, no test credentials published,
+    no fixture or trigger tooling, and no test clock. The lab is a real deployment with real credentials issued per
+    reservation, so no test values exist to record — and none are invented here.
+access:
+  cost: free
+  requires_account: true
+  account: Cisco DevNet account
+  reservation_required: true
+  setup_time: 15-45 minutes (DevNet Sandbox reservation setup)
+  connectivity: VPN, with per-reservation credentials emailed to the requester
+  agent_reachable: false
+contents:
+- Cisco Crosswork cluster
+- Cisco Crosswork Data Gateway (CDG)
+- Cisco Network Services Orchestrator (NSO)
+- Cisco IOS XE and IOS XR routers
+scenarios:
+- Device management
+- Health Insights monitoring
+- Network automation workflows
+urls:
+  topology: https://devnetsandbox.cisco.com/RM/Diagram/Index/7b60491f-6dc2-4c1c-8c7f-b5a87f667d6e?diagramType=Topology
+  runbook: https://devnetsandbox.cisco.com/sandbox-instructions/Crosswork/Crosswork-Learning-Lab.pdf
+  sandbox_home: https://developer.cisco.com/site/sandbox/
+  first_reservation_guide: https://developer.cisco.com/docs/sandbox/first-reservation-guide/
+  announcement: https://blogs.cisco.com/developer/crossworkautomationsandbox01
+checked: '2026-08-19'

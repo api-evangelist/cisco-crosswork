@@ -1,0 +1,652 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Crosswork ZTP Device API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Crosswork Team, Cisco",
+      "email": "support@cisco.com"
+    },
+    "license": {
+      "name": "Cisco Software License Agreement",
+      "url": "http://www.cisco.com/public/sw-license-agreement.html"
+    },
+    "description": " This document contains details of the Crosswork ZTP App RESTful APIs that can be used to add Devices",
+    "x-provenance": {
+      "method": "harvested",
+      "authored_by": "Cisco Crosswork",
+      "harvested_by": "API Evangelist",
+      "harvested_on": "2026-08-19",
+      "first_party": true,
+      "note": "Published by Cisco. Retrieved unmodified except for this x-provenance block.",
+      "provider_published": true
+    },
+    "x-evidence": [
+      {
+        "type": "source",
+        "url": "https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.2APIs/cw_ztp_device.swagger.json"
+      },
+      {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.2APIs/cw_ztp_device.swagger.json"
+      }
+    ]
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/crosswork/ztp/",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/devices": {
+      "delete": {
+        "summary": "Delete the bulk of devices from ZTP. Pass UUID of each device, to identify which devices to delete.\nDevices with valid UUIDs will be deleted\nResponse message will give information about devices which are not deleted.\nRequest Body: ZtpDeviceList\n  - Mandatory: Valid \"UUID\", to delete a device\nResponse Body: ZtpDeviceResponse",
+        "operationId": "DeleteDevice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceList"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpdevice"
+        ]
+      },
+      "post": {
+        "summary": "PostDevices API\nAdd the bulk of Ztp devices. Either all Ztp devices would be added or none.\nRequest Body: ZtpDeviceList\n  - Mandatory: Valid \"Host Name\"/\"Serial Number\"/\"Credential Profile\", to add a device\nResponse Body: ZtpDeviceResponse\nDEPRECATED Attribute : providerDeviceKey",
+        "operationId": "SetDevices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceList"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpdevice"
+        ]
+      },
+      "put": {
+        "summary": "Update the device, if the device status is in unprovisioned status.\nRequest Body: ZtpDevice\n  - Mandatory: Valid \"Host Name\"/\"Serial Number\"/\"uuid\", to update device\nResponse Body: ZtpDeviceResponse\nDEPRECATED Attribute : providerDeviceKey",
+        "operationId": "UpdateDevice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDevice"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpdevice"
+        ]
+      },
+      "patch": {
+        "summary": "Update the device ,if the device status is in inprogress/provisioned/provisioningError/onboardingError status.\nRequest Body: ZtpDevice\n  - Mandatory: Valid \"Serial Number\"/\"uuid\", to update device status\nResponse Body: ZtpDeviceResponse\nDEPRECATED Attribute : providerDeviceKey",
+        "operationId": "UpdateDeviceStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDevice"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpdevice"
+        ]
+      }
+    },
+    "/v1/devices/csvtemplate": {
+      "post": {
+        "summary": "get the device headers with sample data in csv\nRequest Body: ZtpDevice.Pass empty device like  \"{}\"\nResponse Body: ZtpDeviceResponse",
+        "operationId": "ZtpsampleService",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDevice"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpdevice"
+        ]
+      }
+    },
+    "/v1/devices/export": {
+      "post": {
+        "summary": "ztp devices Export API.Export List of ztp devices in csv form.\nRequest Body: ZtpDeviceExportReq.pass list of deviceids to export specific devices,pass empty device list to export all devices.\nResponse Body: ZtpDeviceResponse",
+        "operationId": "ExportDevice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceExportReq"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpdevice"
+        ]
+      }
+    },
+    "/v1/devices/import": {
+      "post": {
+        "summary": "Import csv to add devices in bulk.\nRequest Body: ZtpImport contains encode base64 content of csv.\nResponse Body: ZtpDeviceResponse\nDEPRECATED Attribute : providerDeviceKey",
+        "operationId": "ImportDevices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpImport"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpdevice"
+        ]
+      }
+    },
+    "/v1/devices/policies/query": {
+      "post": {
+        "summary": "Get DevicePolices API\nRetrieves a list of policies that apply on ztp devices.\nRequest Body: ZtpDevicePolicyRequest.Pass empty device like  \"{}\"\nResponse Body: ZtpDevicePolicyResponse",
+        "operationId": "GetDevicesPolicies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDevicePolicyResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDevicePolicyRequest"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpdevice"
+        ]
+      }
+    },
+    "/v1/devices/query": {
+      "post": {
+        "summary": "GetDevices API\nRetrieves a list of devices. This api returns complete data for each device.filters can be applied to retrieve\nspecific sets of devices by specifying one or more fields to match. User can filter on combinations of supported fields.\nThis api takes ZtpDeviceRequest as input, in which the user can specifiy the Filter input.",
+        "operationId": "GetDevices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpdevice"
+        ]
+      }
+    },
+    "/v1/onboarding": {
+      "post": {
+        "summary": "Onboarding API\nFor onboarding of individual Device from ZTP to DLM on ztp process provisioned\nRequest Body: ZtpDevice\n  - Mandatory: Valid \"Serial Number\"/\"uuid\"/\"Host Name\", to onboard ztp device to DLM\nResponse Body: ZtpDeviceResponse\nDEPRECATED Attribute : providerDeviceKey",
+        "operationId": "OnboardDevice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDeviceResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cwztpsvcZtpDevice"
+            }
+          }
+        ],
+        "tags": [
+          "cwztpdevice"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "cwztpsvcConnectivityDetail": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "description": "Device connectivity type protocol."
+        },
+        "inetAddr": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/cwztpsvcZtpInetAddr"
+          },
+          "title": "V4/V6 ip address for this connectivity type"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Port for this connectivity type"
+        },
+        "timeout": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Timeout for this connectivity type"
+        }
+      }
+    },
+    "cwztpsvcProviderInfo": {
+      "type": "object",
+      "properties": {
+        "providerName": {
+          "type": "string",
+          "title": "Name of Provider. Should be unique"
+        },
+        "providerDeviceKey": {
+          "type": "string",
+          "title": "Deprecated attribute from 3.2.2 release"
+        }
+      }
+    },
+    "cwztpsvcZtpDevice": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "title": "Unique device identifier,If uuid not passed, its randomly generated by crossworks"
+        },
+        "hostName": {
+          "type": "string",
+          "description": "Device Host name."
+        },
+        "serialNumber": {
+          "type": "string",
+          "description": "Device Serial Number."
+        },
+        "credentialProfile": {
+          "type": "string",
+          "description": "MUST FIELD.\nCredential Profile applicable to this device."
+        },
+        "ipAddress": {
+          "$ref": "#/definitions/cwztpsvcZtpInetAddr"
+        },
+        "macAddress": {
+          "type": "string",
+          "description": "Chassis backplane Mac address."
+        },
+        "osPlatform": {
+          "type": "string",
+          "title": "OS Platform of Image and Config"
+        },
+        "deviceFamily": {
+          "type": "string",
+          "title": "Device Family of Image and Config"
+        },
+        "image": {
+          "type": "string",
+          "title": "unique ID of Image"
+        },
+        "config": {
+          "type": "string",
+          "title": "unique ID of Config"
+        },
+        "version": {
+          "type": "string",
+          "title": "Version of Image and Config"
+        },
+        "profileName": {
+          "type": "string",
+          "title": "device profile name"
+        },
+        "status": {
+          "type": "string",
+          "title": "Device status.supported status  - Unprovisioned,InProgress,Provisioned,ProvisioningError,Onboarded,OnboardingError"
+        },
+        "providerInfo": {
+          "$ref": "#/definitions/cwztpsvcProviderInfo",
+          "title": "provider data"
+        },
+        "connectivityDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/cwztpsvcConnectivityDetail"
+          },
+          "title": "List of device Connections"
+        },
+        "message": {
+          "type": "string",
+          "title": "device onboaed status messages"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "int64"
+        },
+        "imageName": {
+          "type": "string"
+        },
+        "configName": {
+          "type": "string"
+        },
+        "isImageInvalid": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "flag to check if ZTP device is in sync with Image"
+        },
+        "isConfigInvalid": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "flag to check if ZTP device is in sync with Config"
+        },
+        "additionalAttributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "map of device attributes that are added as part of policy data."
+        },
+        "inventoryId": {
+          "type": "string",
+          "title": "Device Inventory Id.Supported from 3.2.2 release"
+        }
+      }
+    },
+    "cwztpsvcZtpDeviceExportReq": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cwztpsvcZtpDeviceList": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/cwztpsvcZtpDevice"
+          }
+        }
+      }
+    },
+    "cwztpsvcZtpDevicePolicy": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "unique identifier"
+        },
+        "policyFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "all the policy fields"
+        },
+        "existingAttributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "policy attributes that are exits in ztp"
+        },
+        "newAttributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "policy attributes that are added to ztp"
+        }
+      }
+    },
+    "cwztpsvcZtpDevicePolicyRequest": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "$ref": "#/definitions/cwztpsvcZtpDevicePolicy"
+        },
+        "filterData": {
+          "$ref": "#/definitions/cwztpsvcZtpFilterData"
+        },
+        "criteria": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "cwztpsvcZtpDevicePolicyResponse": {
+      "type": "object",
+      "properties": {
+        "policydata": {
+          "$ref": "#/definitions/cwztpsvcZtpDevicePolicy"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "cwztpsvcZtpDeviceRequest": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "$ref": "#/definitions/cwztpsvcZtpDevice"
+        },
+        "filterData": {
+          "$ref": "#/definitions/cwztpsvcZtpFilterData"
+        },
+        "criteria": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "cwztpsvcZtpDeviceResponse": {
+      "type": "object",
+      "properties": {
+        "ztpnodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/cwztpsvcZtpDevice"
+          }
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "paginationDetails": {
+          "$ref": "#/definitions/cwztpsvcZtpFilterData"
+        }
+      }
+    },
+    "cwztpsvcZtpFilterData": {
+      "type": "object",
+      "properties": {
+        "SortBy": {
+          "type": "string"
+        },
+        "PageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "PageNum": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Descending": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "MatchCase": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Criteria": {
+          "type": "string"
+        },
+        "TotalCount": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "cwztpsvcZtpImport": {
+      "type": "object",
+      "properties": {
+        "b64Content": {
+          "type": "string",
+          "title": "encoded base64 content"
+        },
+        "isDryRun": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "validate only device fields"
+        }
+      }
+    },
+    "cwztpsvcZtpInetAddr": {
+      "type": "object",
+      "properties": {
+        "inetAddressFamily": {
+          "type": "string"
+        },
+        "ipaddrs": {
+          "type": "string"
+        },
+        "mask": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "device ip address"
+    }
+  }
+}

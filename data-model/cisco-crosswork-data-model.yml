@@ -1,0 +1,177 @@
+generated: '2026-08-19'
+method: derived
+source: >-
+  openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json (117 definitions, 51 paths) and
+  openapi/cisco-crosswork-*-api-openapi.yml (the NCAHI inventory, ZTP, CDG and platform families)
+summary: >-
+  Two largely independent object graphs live inside Crosswork. The INVENTORY graph models the managed network —
+  devices, the credentials and providers used to reach them, the tags that group them, and the data-gateway
+  enrolments and destinations that carry their telemetry. The WORKFLOW graph models automation — workflows and
+  their versions, the jobs and runs that execute them, the adapters that give them capabilities, and the workers,
+  resources and secrets they run against. They meet only at the operational level, not in the contract: no schema
+  in the Workflow Manager document references a device, and no inventory schema references a workflow.
+id_style:
+  format: opaque string identifiers, no type prefix
+  note: >-
+    Crosswork ids carry no domain prefix (nothing like `wf_` or `dev_`). The type is conveyed by the FIELD NAME
+    (adapterId, workflowId, resourceId, secretId, jobId, runId), not by the value, so an id lifted out of its
+    context is untypeable.
+  composite_keys:
+  - entity: workflow
+    key: [workflowName, workflowVersion]
+    note: >-
+      Workflows are addressable two ways — by UUID (/workflow/{workflowId}) and by name+version
+      (/workflow/name/{workflowName}/version/{workflowVersion}). Both are first-class in the contract, with
+      parallel GET/PUT/DELETE operations.
+entities:
+- name: workflow
+  domain: automation
+  paths: ['/workflow', '/workflow/{workflowId}', '/workflow/name/{workflowName}/version/{workflowVersion}']
+  operations: [list_workflows, create_workflow, get_workflow_by_id, update_workflow_by_id, delete_workflow,
+    get_workflow_by_name_version, update_workflow_by_name_version, delete_workflow_by_name_version,
+    validate_workflow, validate_workflow_input, list_workflow_tags, export_workflows, import_workflows]
+- name: job
+  domain: automation
+  paths: ['/job', '/job/count', '/job/tags', '/job/{jobId}/runs/{runId}']
+  operations: [list_jobs, execute_job, job_count, list_job_tags, describe_job, get_job_history, cancel_job,
+    terminate_job]
+- name: run
+  domain: automation
+  paths: ['/job/{jobId}/runs/{runId}']
+  note: A run is addressed only underneath a job; it has no independent collection.
+- name: adapter
+  domain: automation
+  paths: ['/adapter', '/adapter/{adapterId}', '/adapter/{adapterId}/deploy']
+  operations: [list_adapters, file_upload, get_adapter, update_adapter, patch_adapter, delete_adapter,
+    deploy_adapter]
+- name: activity
+  domain: automation
+  note: >-
+    Adapter-scoped capability with its own inputSchema/outputSchema, exposed inside the adapter response
+    (server.getAdapterActivityResponse) rather than as its own resource.
+- name: worker
+  domain: automation
+  paths: ['/worker', '/worker/{workerName}', '/worker/{workerName}/start', '/worker/{workerName}/stop']
+- name: workerProfile
+  domain: automation
+  paths: ['/workerProfile', '/workerProfile/{profileName}']
+- name: resource
+  domain: automation
+  paths: ['/resource', '/resource/{resourceId}', '/resourceImport', '/resourceExport']
+- name: resourceType
+  domain: automation
+  paths: ['/resourceType', '/resourceType/{resourceTypeId}']
+- name: secret
+  domain: automation
+  paths: ['/secret', '/secret/{secretId}']
+- name: secretType
+  domain: automation
+  paths: ['/secretType', '/secretType/{secretTypeId}']
+- name: schedule
+  domain: automation
+  paths: ['/schedule', '/schedule/{scheduleId}']
+- name: task
+  domain: automation
+  paths: ['/task', '/task/{taskId}']
+- name: form
+  domain: automation
+  paths: ['/form', '/form/{formId}', '/formImport', '/formExport']
+- name: eventType
+  domain: automation
+  paths: ['/eventType', '/eventType/{type}/{actionOrKind}']
+- name: publicKey
+  domain: automation
+  paths: ['/publicKey', '/publicKey/{publicKeyName}']
+- name: device
+  domain: inventory
+  spec: openapi/cisco-crosswork-get-nodes-devices-api-openapi.yml
+  aliases: [node]
+- name: credential
+  domain: inventory
+  spec: openapi/cisco-crosswork-get-credentials-api-openapi.yml
+- name: provider
+  domain: inventory
+  spec: openapi/cisco-crosswork-get-providers-api-openapi.yml
+- name: tag
+  domain: inventory
+  spec: openapi/cisco-crosswork-get-tags-api-openapi.yml
+  aliases: [device group]
+- name: destination
+  domain: inventory
+  spec: openapi/cisco-crosswork-get-destinations-api-openapi.yml
+  note: Telemetry destination. Transport enum includes GRPC, TCP, UDP, HTTP, HTTPS, SSH, NETCONF, SNMP, TL1.
+- name: dataGatewayEnrollment
+  domain: inventory
+  spec: openapi/cisco-crosswork-get-data-gateway-enrollments-api-openapi.yml
+relationships:
+- from: adapter
+  to: resourceType
+  type: has_one
+  via: resourceTypeId
+- from: adapter
+  to: activity
+  type: has_many
+  via: activities[]
+- from: resource
+  to: resourceType
+  type: belongs_to
+  via: resourceTypeId
+- from: secret
+  to: secretType
+  type: belongs_to
+  via: secretTypeId
+- from: job
+  to: workflow
+  type: belongs_to
+  via: workflowName
+- from: job
+  to: run
+  type: has_many
+  via: /job/{jobId}/runs/{runId}
+- from: run
+  to: worker
+  type: has_one
+  via: workerUUID
+- from: worker
+  to: workerProfile
+  type: belongs_to
+  via: profileName
+- from: schedule
+  to: workflow
+  type: has_one
+  via: workflowName
+- from: workflow
+  to: form
+  type: has_many
+  via: formId
+- from: workflow
+  to: secret
+  type: has_many
+  via: secretId
+- from: workflow
+  to: resource
+  type: has_many
+  via: resourceId
+- from: device
+  to: credential
+  type: has_one
+  via: credential reference on the device record
+- from: device
+  to: provider
+  type: has_one
+  via: provider reference on the device record
+- from: device
+  to: tag
+  type: has_many
+  via: tag membership
+- from: device
+  to: dataGatewayEnrollment
+  type: has_one
+  via: map-or-unmap devices to a data gateway
+- from: dataGatewayEnrollment
+  to: destination
+  type: has_many
+  via: destination list on the gateway
+render: null
+render_note: No subway/ diagram exists in this repo yet.
+checked: '2026-08-19'

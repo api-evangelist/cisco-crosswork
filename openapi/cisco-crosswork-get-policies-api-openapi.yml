@@ -1,0 +1,156 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Inventory Get Policies API
+  version: 1.0.0
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.2APIs/inventory_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.2APIs/inventory_api.swagger.json
+servers:
+- url: /crosswork/inventory/
+security:
+- bearerAuth: []
+tags:
+- name: Get Policies
+paths:
+  /v1/policies/query:
+    parameters: []
+    post:
+      summary: 'Retrieves a list of policies. '
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotapiRobotUniquePolicyGetResp'
+        '404':
+          description: Not Found
+      tags:
+      - Get Policies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/robotapiRobotUniquePolicyGetReq'
+        required: true
+components:
+  schemas:
+    robotapiRobotUniquePolicyGetResp:
+      type: object
+      properties:
+        return:
+          $ref: '#/components/schemas/robotapiRobotResponseInfo'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotUniquePolicy'
+        total_count:
+          type: integer
+          format: int32
+          title: Number of total providers available at present
+    robotapiRobotFilterData:
+      description: Request body with filter options
+      type: object
+      properties:
+        SortBy:
+          type: string
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
+    robotapiRobotUniquePolicy:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Unique name
+        invType:
+          $ref: '#/components/schemas/robotapiRobotInventoryType'
+          title: Inventory Type, In 3.1 version, policies are supported only for Nodes
+        fields:
+          type: array
+          items:
+            type: string
+          title: Array of field names on which the uniqueness will be maintained
+        Type:
+          $ref: '#/components/schemas/robotapiUniquePolicyType'
+          title: Combination of all the filed supplied or independent
+    robotapiRobotUniquePolicyGetReq:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+          description: Number of policies requested in the response.
+        sort_by_field:
+          type: string
+          description: 'The field name in RobotUniquePolicy to use for sorting. If this field
+
+            is omitted, data is sorted by default on name.'
+        last_key:
+          type: string
+          description: Ask for data beyond last_key per the sorted order.
+        filter:
+          $ref: '#/components/schemas/robotapiRobotUniquePolicy'
+        filterData:
+          $ref: '#/components/schemas/robotapiRobotFilterData'
+    robotapiRobotResponseInfo:
+      type: object
+      properties:
+        code:
+          type: string
+          format: int64
+          description: Typically from an enum defined by the component.
+        desc:
+          type: string
+          description: Description of error. May not be filled for success error codes.
+      description: Generic template for responses
+    robotapiUniquePolicyType:
+      type: string
+      enum:
+      - UNKNOWN_TYPE
+      - INDEPENDENT
+      - COMBINED
+      default: UNKNOWN_TYPE
+    robotapiRobotInventoryType:
+      description: Supported Inventory Type
+      type: string
+      enum:
+      - INV_TYPE_UNKNOWN
+      - INV_TYPE_NODE
+      - INV_TYPE_PROVIDER
+      - INV_TYPE_CREDENTIAL
+      - INV_TYPE_TAG
+      default: INV_TYPE_UNKNOWN
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header

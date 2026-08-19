@@ -1,0 +1,221 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Network Controller Flat L2VPN Service L2VPN Route Policy Provision API
+  description: This document contains details of the Crosswork Network Controller Flat L2VPN Service APIs
+  version: '2.0'
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/CNC/2.0APIs/cisco-flat-L2vpn-fp_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/CNC/2.0APIs/cisco-flat-L2vpn-fp_api.swagger.json
+servers:
+- url: /crosswork
+tags:
+- name: L2VPN Route Policy Provision
+paths:
+  /proxy/nso/restconf/data/cisco-flat-L2vpn-fp:l2vpn-route-policy={l2vpn-route-policy-name}:
+    post:
+      tags:
+      - L2VPN Route Policy Provision
+      summary: ''
+      description: Route policy
+      operationId: data_cisco_flat_L2vpn_fp_l2vpn_route_policy_l2vpn_route_policy_name_post
+      parameters:
+      - $ref: '#/components/parameters/l2vpn-route-policy-name'
+      - $ref: '#/components/parameters/l2vpn-route-policy'
+      responses:
+        '204':
+          description: The request was successful. Route policy was created.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+    put:
+      tags:
+      - L2VPN Route Policy Provision
+      summary: ''
+      description: Route policy
+      operationId: data_cisco_flat_L2vpn_fp_l2vpn_route_policy_l2vpn_route_policy_name_put
+      parameters:
+      - $ref: '#/components/parameters/l2vpn-route-policy-name'
+      - $ref: '#/components/parameters/l2vpn-route-policy'
+      responses:
+        '201':
+          description: The request was successful. Route policy was updated.
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+    patch:
+      tags:
+      - L2VPN Route Policy Provision
+      summary: ''
+      description: Route policy
+      operationId: data_cisco_flat_L2vpn_fp_l2vpn_route_policy_l2vpn_route_policy_name_patch
+      parameters:
+      - $ref: '#/components/parameters/l2vpn-route-policy-name'
+      - $ref: '#/components/parameters/l2vpn-route-policy'
+      responses:
+        '204':
+          description: The request was successful. Route policy was modified.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '409':
+          $ref: '#/components/responses/409'
+      security:
+      - basicAuth: []
+    delete:
+      tags:
+      - L2VPN Route Policy Provision
+      summary: ''
+      description: Route policy
+      operationId: data_cisco_flat_L2vpn_fp_l2vpn_route_policy_l2vpn_route_policy_name_delete
+      parameters:
+      - $ref: '#/components/parameters/l2vpn-route-policy-name'
+      responses:
+        '204':
+          description: The request was successful. Route policy was deleted.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+      security:
+      - basicAuth: []
+components:
+  responses:
+    '405':
+      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
+    '404':
+      description: Not Found. The client made a request for a resource that does not exist.
+    '204':
+      description: No Content. The request was successful and there is no additional content in the response body.
+    '401':
+      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
+    '409':
+      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+    '400':
+      description: Bad Request. The request is malformed in some way and the server cannot process it.
+  parameters:
+    l2vpn-route-policy-name:
+      name: l2vpn-route-policy-name
+      in: path
+      description: Route-Policy name
+      required: true
+      schema:
+        type: string
+        format: string
+    l2vpn-route-policy:
+      name: l2vpn-route-policy
+      in: body
+      description: Route policy definition
+      required: true
+      schema:
+        $ref: '#/components/schemas/data_cisco-flat-L2vpn-fp_l2vpn-route-policy_l2vpn-route-policy-name'
+  schemas:
+    data_cisco-flat-L2vpn-fp_l2vpn-route-policy_l2vpn-route-policy-name:
+      type: object
+      properties:
+        cisco-flat-L2vpn-fp:l2vpn-route-policy:
+          type: array
+          description: Route policy definition (list)
+          x-yang:
+            type: list
+          items:
+            type: object
+            properties:
+              name:
+                description: Route-Policy name (leaf)
+                x-yang:
+                  type: leaf
+                type: string
+                format: string
+              color:
+                type: array
+                description: SR policy color (list)
+                x-yang:
+                  type: list
+                items:
+                  type: object
+                  properties:
+                    id:
+                      description: <1-4294967295> - SR policy color (leaf)
+                      x-yang:
+                        type: leaf
+                      type: integer
+                      format: uint32
+                    ipv4:
+                      description: IPv4 ODN SR (presence)
+                      type: object
+                      x-yang:
+                        type: container
+                        is_presence: 'true'
+                      properties:
+                        rd:
+                          type: array
+                          x-yang:
+                            type: leaf-list
+                          items:
+                            description: ASN:nn or IPV4-address:nn,VPN Route Distinguisher (leaf-list)
+                            type: string
+                            format: string
+                    ipv6:
+                      description: IPv6 ODN SR (presence)
+                      type: object
+                      x-yang:
+                        type: container
+                        is_presence: 'true'
+                      properties:
+                        rd:
+                          type: array
+                          x-yang:
+                            type: leaf-list
+                          items:
+                            description: ASN:nn or IPV4-address:nn,VPN Route Distinguisher (leaf-list)
+                            type: string
+                            format: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

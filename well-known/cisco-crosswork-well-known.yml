@@ -1,0 +1,105 @@
+generated: '2026-08-19'
+method: probed
+source: live HTTP probes of the Cisco hosts that serve Crosswork documentation and corporate policy
+note: >-
+  Cisco Crosswork is a customer-deployed, on-premises product. There is no vendor-hosted Crosswork API host to probe,
+  so /.well-known/ was probed against the two Cisco hosts this provider actually publishes from: the Crosswork
+  developer documentation host (developer.cisco.com) and the Cisco corporate host that carries Cisco's security
+  policy documents (www.cisco.com). Cisco serves a real, PGP-signed security.txt and a CSAF trusted-provider
+  metadata document from www.cisco.com; every other probed path 404s on both hosts.
+hosts:
+- host: developer.cisco.com
+  role: Crosswork developer documentation portal
+  hits: 0
+- host: www.cisco.com
+  role: Cisco corporate host carrying the PSIRT security policy documents
+  hits: 2
+probes:
+- host: developer.cisco.com
+  path: /.well-known/security.txt
+  status: 404
+  file: null
+- host: developer.cisco.com
+  path: /.well-known/openid-configuration
+  status: 404
+  file: null
+- host: developer.cisco.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  file: null
+- host: developer.cisco.com
+  path: /.well-known/oauth-protected-resource
+  status: 404
+  file: null
+- host: developer.cisco.com
+  path: /.well-known/api-catalog
+  status: 404
+  file: null
+- host: developer.cisco.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+  file: null
+- host: developer.cisco.com
+  path: /.well-known/agent-card.json
+  status: 404
+  file: null
+- host: developer.cisco.com
+  path: /.well-known/agent.json
+  status: 404
+  file: null
+- host: www.cisco.com
+  path: /.well-known/security.txt
+  status: 200
+  content_type: text/plain
+  file: well-known/cisco-crosswork-security.txt
+  note: >-
+    Real document, PGP-signed. Contact mailto:psirt@cisco.com, Policy
+    https://sec.cloudapps.cisco.com/security/center/resources/security_vulnerability_policy.html,
+    Expires 2027-01-01.
+- host: www.cisco.com
+  path: /.well-known/csaf/provider-metadata.json
+  status: 200
+  content_type: application/json
+  file: well-known/cisco-crosswork-csaf-provider-metadata.json
+  note: >-
+    CSAF 2.0 provider metadata, role csaf_trusted_provider, publisher Cisco PSIRT. Discovered from the CSAF line in
+    security.txt. last_updated 2024-12-18.
+- host: www.cisco.com
+  path: /.well-known/openid-configuration
+  status: 404
+  file: null
+- host: www.cisco.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  file: null
+- host: www.cisco.com
+  path: /.well-known/oauth-protected-resource
+  status: 404
+  file: null
+- host: www.cisco.com
+  path: /.well-known/api-catalog
+  status: 404
+  file: null
+- host: www.cisco.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+  file: null
+- host: www.cisco.com
+  path: /.well-known/agent-card.json
+  status: 404
+  file: null
+- host: www.cisco.com
+  path: /.well-known/agent.json
+  status: 404
+  file: null
+out_of_scope_observations:
+- host: id.cisco.com
+  path: /oauth2/default/.well-known/openid-configuration
+  status: 200
+  file: null
+  note: >-
+    Cisco's corporate SSO issuer answers a valid OpenID Provider Configuration, but it authenticates cisco.com
+    accounts. It is NOT the authorization server for a Crosswork deployment — a Crosswork instance issues its own
+    JWT from /crosswork/sso/v2/tickets/jwt on the customer's host. Recorded, deliberately not saved and deliberately
+    not counted as a Crosswork well-known hit.
+checked: '2026-08-19'

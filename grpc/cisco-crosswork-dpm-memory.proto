@@ -1,0 +1,61 @@
+/*****************************************
+* Protobuf message definitions for Performance MEMORYRecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message MEMORYRecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Memory pool name
+	*/
+	optional string memoryPoolName = 2;
+
+	/* 
+	Represents the different types of memory pools that may be present in a managed device.
+	Memory pools can be roughly categorized into two groups, predefined pools and dynamic pools.
+	The following pool types are currently predefined:
+	1: processor memory
+	2: i/o memory
+	3: pci memory
+	4: fast memory
+	5: multibus memory Dynamic pools will have a pool type value greater than any of the predefined types listed above.
+	Note that only the processor pool is required to be supported by all device.
+	Support for other pool types is dependent on the device being managed.
+	*/
+	optional int32 memoryPoolType = 3;
+
+	/* 
+	Memory pool utilization.
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional int32 memoryUtilization = 4;
+
+	/* 
+	Indicates the number of bytes from the memory pool that are currently in use by applications on the managed device.
+	unit: BYTES
+	*/
+	optional int64 memoryPoolUsed = 5;
+
+	/* 
+	Indicates the number of bytes from the memory pool that are currently unused on the managed device. 
+	unit: BYTES
+	*/
+	optional int64 memoryPoolFree = 6;
+  };
+}
+
+

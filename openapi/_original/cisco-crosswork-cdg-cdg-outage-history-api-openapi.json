@@ -1,0 +1,231 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Crosswork Data Gateway Manager Outage History APIs",
+    "description": "APIs to support Data Gateway Outage History",
+    "contact": {
+      "name": "Crosswork Team, Cisco",
+      "email": "support@cisco.com"
+    },
+    "license": {
+      "name": "Cisco Software License Agreement",
+      "url": "http://www.cisco.com/public/sw-license-agreement.html"
+    },
+    "x-provenance": {
+      "method": "harvested",
+      "authored_by": "Cisco Crosswork",
+      "harvested_by": "API Evangelist",
+      "harvested_on": "2026-08-19",
+      "first_party": true,
+      "note": "Published by Cisco. Retrieved unmodified except for this x-provenance block.",
+      "provider_published": true
+    },
+    "x-evidence": [
+      {
+        "type": "source",
+        "url": "https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/CDG/2.0APIs/cdg_outage_history_api.swagger.json"
+      },
+      {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/CDG/2.0APIs/cdg_outage_history_api.swagger.json"
+      }
+    ]
+  },
+  "host": "example.com",
+  "basePath": "/crosswork/dg-manager",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/device/outage-history/query": {
+      "post": {
+        "description": "Query Outage History records with Virtual/Physical Data Gateway ID",
+        "summary": "Query Outage History",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "QueryOutageHistory",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GetOutageHistoryForVDGRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "definitions": {
+    "GetOutageHistoryForVDGRequest": {
+      "title": "GetOutageHistoryForVDGRequest",
+      "example": {
+        "queryParams": [
+          {
+            "field": "DGID",
+            "value": {
+              "valueStr": ""
+            }
+          },
+          {
+            "field": "VDGID",
+            "value": {
+              "valueStr": "b7fa0480-e421-42cf-868d-94ecd660116b"
+            }
+          },
+          {
+            "field": "DAYS",
+            "value": {
+              "valueStr": "14"
+            }
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "queryParams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QueryParam"
+          }
+        }
+      },
+      "required": [
+        "queryParams"
+      ]
+    },
+    "QueryParam": {
+      "title": "QueryParam",
+      "example": {
+        "field": "DGID",
+        "value": {
+          "valueStr": ""
+        }
+      },
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/definitions/Value"
+        }
+      },
+      "required": [
+        "field",
+        "value"
+      ]
+    },
+    "Value": {
+      "title": "Value",
+      "example": {
+        "valueStr": ""
+      },
+      "type": "object",
+      "properties": {
+        "valueStr": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "valueStr"
+      ]
+    },
+    "GetOutageHistoryForPDGRequest": {
+      "title": "GetOutageHistoryForPDGRequest",
+      "example": {
+        "queryParams": [
+          {
+            "field": "DGID",
+            "value": {
+              "valueStr": "b7fa0480-e421-42cf-868d-94ecd660116c"
+            }
+          },
+          {
+            "field": "VDGID",
+            "value": {
+              "valueStr": ""
+            }
+          },
+          {
+            "field": "DAYS",
+            "value": {
+              "valueStr": "14"
+            }
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "queryParams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QueryParam"
+          }
+        }
+      },
+      "required": [
+        "queryParams"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ]
+}

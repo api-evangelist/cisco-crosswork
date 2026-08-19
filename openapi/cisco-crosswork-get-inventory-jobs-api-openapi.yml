@@ -1,0 +1,164 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Inventory Get Inventory Jobs API
+  version: 1.0.0
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.2APIs/inventory_api.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.2APIs/inventory_api.swagger.json
+servers:
+- url: /crosswork/inventory/
+security:
+- bearerAuth: []
+tags:
+- name: Get Inventory Jobs
+paths:
+  /v1/jobs/query:
+    parameters: []
+    post:
+      summary: Get all Inventory Jobs
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/robotapiRobotNodeJobList'
+        '404':
+          description: Not Found
+      tags:
+      - Get Inventory Jobs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/robotapiRobotNodeJobGetReq'
+        required: true
+components:
+  schemas:
+    robotapiRobotFilterData:
+      description: Request body with filter options
+      type: object
+      properties:
+        SortBy:
+          type: string
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
+    robotapiRobotJobState:
+      description: Various Job Resulting states.
+      type: string
+      enum:
+      - JOB_INVALID
+      - JOB_REJECTED
+      - JOB_ACCEPTED
+      - JOB_DB_UPDATED
+      - JOB_NOTIFICATION_PUBLISHED
+      - JOB_COMPLETED
+      - JOB_FAILED
+      default: JOB_INVALID
+    robotapiRobotNodeJobGetReq:
+      description: Job Request data
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: 'job_id or State would be supported filter
+
+            creation_time would be used for offset and sorting'
+        state:
+          $ref: '#/components/schemas/robotapiRobotJobState'
+        creation_time:
+          type: string
+          format: int64
+        limit:
+          type: integer
+          format: int64
+          description: Page size. Max limit 100 per req
+        filter:
+          $ref: '#/components/schemas/robotapiRobotNodeJob'
+        filterData:
+          $ref: '#/components/schemas/robotapiRobotFilterData'
+    robotapiRobotNodeJob:
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: Job id
+        inst_id:
+          type: string
+          description: Server instance identifier
+        state:
+          $ref: '#/components/schemas/robotapiRobotJobState'
+          description: Current State of the Job
+        type:
+          type: string
+          description: Job type. Debug purpose
+        error:
+          type: string
+          description: If any error
+        completion_time:
+          type: string
+          format: int64
+          description: Remaining time to complete
+        creation_time:
+          type: string
+          format: int64
+          description: Job creation time in epoch seconds
+        created_by:
+          type: string
+          description: User
+        impacted_count:
+          type: integer
+          format: int64
+          description: Impacted nodes/tags, provider or profiles
+      impacted:
+        type: array
+        items:
+          type: string
+        title: Impacted elements list
+      description: Every Action related to Inventory will have a Job
+    robotapiRobotNodeJobList:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotNodeJob'
+          description: creation time based sorted list of RobotNodeJob
+        total_count:
+          type: integer
+          format: int32
+          description: Number of total jobs available at present
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header

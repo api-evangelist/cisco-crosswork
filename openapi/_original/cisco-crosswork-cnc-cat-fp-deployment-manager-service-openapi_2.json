@@ -1,0 +1,337 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This document contains details of the cat-fp-deployment-manager service APIs",
+    "version": "2.0",
+    "title": "Crosswork Network Controller CAT FP Deployment Manager APIs",
+    "contact": {
+      "name": "Crosswork Team, Cisco",
+      "email": "support@cisco.com"
+    },
+    "license": {
+      "name": "Cisco Software License Agreement",
+      "url": "http://www.cisco.com/public/sw-license-agreement.html"
+    },
+    "x-provenance": {
+      "method": "harvested",
+      "authored_by": "Cisco Crosswork",
+      "harvested_by": "API Evangelist",
+      "harvested_on": "2026-08-19",
+      "first_party": true,
+      "note": "Published by Cisco. Retrieved unmodified except for this x-provenance block.",
+      "provider_published": true
+    },
+    "x-evidence": [
+      {
+        "type": "source",
+        "url": "https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/CNC/2.0APIs/cat_fp_deployment_manager_service.swagger.json"
+      },
+      {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/CNC/2.0APIs/cat_fp_deployment_manager_service.swagger.json"
+      }
+    ]
+  },
+  "host": "cat-fp-deployment-manager:8080",
+  "tags": [
+    {
+      "name": "two-phase-commit-runner",
+      "description": "Two Phase Commit Runner"
+    }
+  ],
+  "paths": {
+    "/twophasecommitrunner/deploy": {
+      "post": {
+        "tags": [
+          "two-phase-commit-runner"
+        ],
+        "summary": "deploy",
+        "operationId": "deployUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/twophasecommitrunner/getConsumers": {
+      "get": {
+        "tags": [
+          "two-phase-commit-runner"
+        ],
+        "summary": "Get function pack deployment active consumers and nodes.",
+        "operationId": "getConsumersUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/twophasecommitrunner/getDeploymentInfo": {
+      "get": {
+        "tags": [
+          "two-phase-commit-runner"
+        ],
+        "summary": "getDeploymentInfo",
+        "operationId": "getDeploymentInfoUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "extended",
+            "in": "query",
+            "description": "extended",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/twophasecommitrunner/packages": {
+      "get": {
+        "tags": [
+          "two-phase-commit-runner"
+        ],
+        "summary": "getPackages",
+        "operationId": "getPackagesUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/twophasecommitrunner/switchToFlatModels": {
+      "post": {
+        "tags": [
+          "two-phase-commit-runner"
+        ],
+        "summary": "switchToFlatModels",
+        "operationId": "switchToFlatModelsUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/twophasecommitrunner/switchToNMModels": {
+      "post": {
+        "tags": [
+          "two-phase-commit-runner"
+        ],
+        "summary": "switchToNMModels",
+        "operationId": "switchToNMModelsUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/twophasecommitrunner/undeployPackages": {
+      "delete": {
+        "tags": [
+          "two-phase-commit-runner"
+        ],
+        "summary": "undeployPackages",
+        "operationId": "undeployPackagesUsingDELETE",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "packages",
+            "description": "packages",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/JsonNode"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/twophasecommitrunner/uploadPackages": {
+      "patch": {
+        "tags": [
+          "two-phase-commit-runner"
+        ],
+        "summary": "uploadPackages",
+        "operationId": "uploadPackagesUsingPATCH",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "packages",
+            "description": "packages",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "file"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "JsonNode": {
+      "type": "object",
+      "title": "JsonNode"
+    }
+  }
+}

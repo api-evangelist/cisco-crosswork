@@ -1,0 +1,238 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Remote Authentication Server Integration Authconfig API
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  version: 1.0.0
+  description: APIs to support integration of the Crosswork platform and remote authentication servers. Currently only the TACACS server type is supported.
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.1APIs/authremote.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.1APIs/authremote.swagger.json
+servers:
+- url: /crosswork/authconfig
+security:
+- bearerAuth: []
+tags:
+- name: authconfig
+paths:
+  /v1/remote/tacacs:
+    get:
+      summary: Get list of remote TACACS servers
+      description: Returns the list of TACACS servers that were configured to integrate with Crosswork.
+      operationId: GetAllTacacs
+      responses:
+        '200':
+          description: OK. The request was successful. The result is contained in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authconfigTacacsServers'
+        '403':
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
+        '500':
+          description: Internal Server Error. The server could not fulfill the request.
+      tags:
+      - authconfig
+    put:
+      summary: Update list of remote TACACS servers
+      description: Update the list of TACACS servers that were configured to integrate with Crosswork. The updated list will overwrite the current list of TACACS servers. To delete a given TACACS server, simply remove it from the body payload. To add a new TACACS server, add it to the existing list of servers in the body payload.
+      operationId: UpdateAllTacacs
+      responses:
+        '204':
+          description: No Content. The request was successful and there is no additional content in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authconfigEmpty'
+        '403':
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
+        '422':
+          description: Unprocessable Entity. The server understands the content type of the request entity, and the syntax of the request entity is correct, but it was unable to process the contained instructions.
+        '500':
+          description: Internal Server Error. The server could not fulfill the request.
+      tags:
+      - authconfig
+      requestBody:
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/authconfigTacacsServers'
+        required: true
+  /v1/remote/ldap:
+    get:
+      summary: Get list of remote LDAP servers
+      description: Returns the list of LDAP servers that were configured to integrate with Crosswork.
+      operationId: LdapGetAll
+      responses:
+        '200':
+          description: OK. The request was successful. The result is contained in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authconfigLdapServers'
+        '403':
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
+        '500':
+          description: Internal Server Error. The server could not fulfill the request.
+      tags:
+      - authconfig
+    put:
+      summary: Update list of remote LDAP servers
+      description: Update the list of LDAP servers that were configured to integrate with Crosswork. The updated list will overwrite the current list of LDAP servers. To delete a given LDAP server, simply remove it from the body payload. To add a new LDAP server, add it to the existing list of servers in the body payload.
+      operationId: LdapUpdate
+      responses:
+        '204':
+          description: No Content. The request was successful and there is no additional content in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authconfigEmpty'
+        '403':
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
+        '422':
+          description: Unprocessable Entity. The server understands the content type of the request entity, and the syntax of the request entity is correct, but it was unable to process the contained instructions.
+        '500':
+          description: Internal Server Error. The server could not fulfill the request.
+      tags:
+      - authconfig
+      requestBody:
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/authconfigLdapServers'
+        required: true
+components:
+  schemas:
+    authconfigTacacsServers:
+      type: object
+      properties:
+        tacacs_servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/authconfigTacacsServer'
+          example:
+          - host: 1.2.3.4
+            port: 49
+            secret: secret
+            service: raccess
+            priority: 1
+            timeout: 30
+    authconfigLdapServers:
+      type: object
+      properties:
+        ldap:
+          type: array
+          items:
+            $ref: '#/components/schemas/authconfigLdapServer'
+          example:
+          - name: Ldap-132-24
+            ldapUrl: ldap://10.194.132.24:10389
+            bindDn: cn=admin,dc=example,dc=org
+            bindCredential: admin
+            connectTimeout: 5000
+            baseDn: dc=example,dc=org
+            userFilter: uid={user}
+            dnFormat: uid=%s,dc=example,dc=org
+            principalAttributeId: uid
+            policyId: crossworkPolicyId
+            order: 1
+    authconfigLdapServer:
+      type: object
+      required:
+      - name
+      - ldapUrl
+      - bindDn
+      - bindCredential
+      - baseDn
+      - userFilter
+      - dnFormat
+      - principalAttributeId
+      - policyId
+      - order
+      - connectTimeout
+      properties:
+        name:
+          type: string
+          description: Name of the connection
+        ldapUrl:
+          type: string
+          description: URL of the LDAP server
+        bindDn:
+          type: string
+          description: Credentials to bind when initializing connections
+        bindCredential:
+          type: string
+          description: Credentials to bind when initializing connections
+        baseDn:
+          type: string
+          description: Search for the bind user admin will be done starting at the base Distinguished Name (DN)
+        userFilter:
+          type: string
+          description: filter to match the users.
+        dnFormat:
+          type: string
+          description: Format for the Distinguished Name (DN)
+        principalAttributeId:
+          type: string
+          description: Key in LDAP for the username of the user
+        policyId:
+          type: string
+          description: Key in LDAP for the Crosswork role mapping
+        order:
+          type: string
+          description: Priority order of the LDAP server
+        connectTimeout:
+          type: integer
+          description: Connection timeout in milliseconds
+    authconfigEmpty:
+      type: object
+    authconfigTacacsServer:
+      type: object
+      required:
+      - host
+      - port
+      - secret
+      - service
+      - timeout
+      - retries
+      properties:
+        host:
+          type: string
+          description: IP Address
+        port:
+          type: integer
+        secret:
+          type: string
+          description: Shared secret
+        service:
+          type: string
+        priority:
+          type: integer
+        timeout:
+          type: integer
+          description: Re-transmit timeout
+        interface:
+          type: string
+          description: Interface IP Address
+        policy-id:
+          type: string
+          description: Key name for role ID configured on the TACACS server
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header

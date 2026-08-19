@@ -1,0 +1,126 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork File Controller API
+  version: '1.0'
+  description: 'Operations tagged file-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json,
+    cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+    derived_view: Per-tag view of cisco-crosswork-ztp-cw-image-service-openapi.json, the provider's source document. Operations
+      and schemas are the provider's, unmodified; only the partition is ours.
+    derived_from: cisco-crosswork-ztp-cw-image-service-openapi.json
+    operation_coverage: 3/3
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/ZTP/2.0APIs/cw_image_service.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/ZTP/2.0APIs/cw_image_service.swagger.json
+servers:
+- url: /crosswork/imagesvc/
+security:
+- bearerAuth: []
+tags:
+- name: file-controller
+  description: File Controller
+paths:
+  /v1/device/files/{id}:
+    get:
+      tags:
+      - file-controller
+      summary: Download image file by id from device
+      operationId: downloadImageFromDeviceByImageIdUsingGET
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      - name: X-cisco-serial*
+        in: header
+        description: X-cisco-serial*
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    servers:
+    - url: /crosswork/imagesvc/
+  /v1/files/{id}:
+    get:
+      tags:
+      - file-controller
+      summary: Download image file by id
+      operationId: downloadImageByImageIdUsingGET
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    servers:
+    - url: /crosswork/imagesvc/
+  /v1/device/image/download/{token}/{name}:
+    get:
+      tags:
+      - file-controller
+      summary: Download image file by a token(random ID) from device.
+      operationId: downloadImageFromDeviceByRandomIdUsingGET
+      parameters:
+      - name: token
+        in: path
+        description: token
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK. The request was successful. The result is contained in the response body.
+        '401':
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for
+            the target resource.
+        '403':
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to
+            perform this request.
+        '404':
+          description: Not Found. The client made a request for a resource that does not exist.
+    servers:
+    - url: /crosswork/imagesvc/
+components:
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+x-refined-from:
+- cisco-crosswork-ncahi-cw-image-service-openapi.json
+- cisco-crosswork-ztp-cw-image-service-openapi.json

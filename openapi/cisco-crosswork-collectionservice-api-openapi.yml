@@ -1,0 +1,1396 @@
+openapi: 3.2.0
+info:
+  title: Crosswork Collection Service API
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  version: '4.0'
+  description: The collection service API allows an application to control collection jobs across different collection types on a device or a device group within Crosswork. This could be different collect types such as MDT,SNMP,CLI.
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/4.0APIs/collection_service.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/4.0APIs/collection_service.swagger.json
+tags:
+- name: CollectionService
+paths:
+  /crosswork/collection/v1/collectionjob:
+    delete:
+      summary: 'DeleteCollectionJob API
+
+        DeleteCollectionJob is used to mark an collection job for deletion within collection based on Application Context.
+
+        Collection Service will clean up associated sensor configs on collectors or devices in asynchronously.
+
+        GetCollectionJobSummary can be used to track the progress and phase of the deletion. An Collection Job marked for deletion
+
+        will move from ACTIVE phase to TERMINATING phase , on successful termination , AppContext will be deleted from the
+
+        Collection service, if not CollectionJob will enter TERMINATION_FAILED phase ;Deletion can be tried again from
+
+        TERMINATION_FAILED phase where in it will move to TERMINATING phase.'
+      operationId: DeleteCollectionJob
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/collection_serviceDeleteCollectionJobResponse'
+      tags:
+      - CollectionService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collection_serviceDeleteCollectionJobRequest'
+        required: true
+    put:
+      summary: 'CreateCollectionJob API
+
+        This API allows you to a create an collection job for a devcice set. An application sends a request for list of sensor paths
+
+        where path identified by a YANG model i.e, it could be native YANG path for the device such as
+
+        "Cisco-IOS-XR-infra-statsd-oper:infra-statistics/interfaces/interface/latest/data-rate" where the path identifies the
+
+        device OS type and YANG model on the device or  SNMP YANG path such as "SNMPv2-MIB:SNMPv2-MIB/system/sysName" or
+
+        OID:1.2.3.4 or CLI command such as "show clock" or Trap yang path "snmp-trap-raw-oper:traps/data"or Syslog path or
+
+        GNMI path in addition to cadence for push or poll .
+
+        The cadence that is specified in this request
+
+        can be over written by another application and is open to optimization, if other applications also request the same
+
+        path. CreateCollectionJob does a set of sensor paths configs within collection service based on application context
+
+        on a bunch of devices or a single device group. ApplicationContext is expected to be globally unique.
+
+        An application context could only be associated with one CollectType at a time. Recreation of application context
+
+        in NOT_READY state or TERMINATING or TERMINATION_FAILED phase will result in failure.Collection service tries its
+
+        best meet the lowest common denominator for cadence on a requested path across all services. A collection job''s
+
+        collect type and device set is immutable once it is accepted into the system, on successive create calls, which results.
+
+        in update unless DeleteCollectionJob is done. User is responsible for specifying for proper paths associated with
+
+        collect type.
+
+        - DeviceId: Uuid of Device as specified in DLM
+
+        - DeviceGroup : Device tags as specified in DLM'
+      operationId: CreateCollectionJob
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/collection_serviceCreateCollectionJobResponse'
+      tags:
+      - CollectionService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collection_serviceCreateCollectionJobRequest'
+        required: true
+  /crosswork/collection/v1/collectionjob/config/query:
+    post:
+      summary: "GetCollectionJobConfig API\nGetConfiguration\nGetCollectionJobConfig can be used track the configuration request within Collection Service API. It will\nreturn all sensor configuration and device set with their destinations.\n Application context is optional"
+      operationId: GetCollectionJobConfig
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/collection_serviceGetCollectionJobConfigResponse'
+      tags:
+      - CollectionService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collection_serviceGetCollectionJobConfigRequest'
+        required: true
+  /crosswork/collection/v1/collectionjob/controlstatus/query:
+    post:
+      summary: 'GetCollectionControlStatusPerDevice API
+
+        Detailed Granular view of each device within a job for control status
+
+        GetCollectionControlStatusPerDevice can be used track a control status within Collection Service API over list of devices a job spans
+
+        over. It indicates control path state on per device per sensor has been successfully setup within helios or not.
+
+        Application context or device id is must  for this API'
+      operationId: GetCollectionControlStatusPerDevice
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/collection_serviceGetCollectionControlStatusResponse'
+      tags:
+      - CollectionService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collection_serviceGetCollectionControlStatusRequest'
+        required: true
+  /crosswork/collection/v1/collectionjob/count/query:
+    post:
+      summary: 'Get job count in system,along with list of input count,output count,error count per collection job if
+
+        collection job application context is passed. If application context is not passed , it will return
+
+        over all count of input,output,error in system across all collection jobs.'
+      operationId: GetCollectionJobCount
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/collection_serviceGetCollectionJobCountResponse'
+      tags:
+      - CollectionService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collection_serviceGetCollectionJobCountRequest'
+        required: true
+  /crosswork/collection/v1/collectionjob/datametrics/query:
+    post:
+      summary: "GetCollectionDataMetricsPerDevice API\nDetailed Granular view of each device within a job for data metrics\nReturns the data metrics from per device per sensor basis . Only last reported values is retained.\nThe metrics is driven is pushed on a cadence basis in the backend. Its on per device per sensor basis with input metrics from device to collector,\noutput metrics from collector to  destinations.If the collector does not any status , it might be an empty response.\n Application context or device id is must  for this API"
+      operationId: GetCollectionDataMetricsPerDevice
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/collection_serviceGetCollectionDataMetricsResponse'
+      tags:
+      - CollectionService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collection_serviceGetCollectionDataMetricsRequest'
+        required: true
+  /crosswork/collection/v1/collectionjob/datastatus/query:
+    post:
+      summary: "GetCollectionDataStatusPerDevice API\nDetailed Granular view of each device within a job for data status\nReturns the data status from per device per sensor basis .  Only last reported values is retained.\nThe status is driven by on change notification in the backend. Its on per device per sensor basis whether collection took place from device to collector,\nwhether write took place from collector to  destinations. If anything failed in input or output, you would see\nerror describing the failure and state.If the collector does not any status , it might be an empty response.\n Application context or device id is must  for this API"
+      operationId: GetCollectionDataStatusPerDevice
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/collection_serviceGetCollectionDataStatusResponse'
+      tags:
+      - CollectionService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collection_serviceGetCollectionDataStatusRequest'
+        required: true
+  /crosswork/collection/v1/collectionjob/state/query:
+    post:
+      summary: Returns the overall state of the collection job based on counters.
+      operationId: GetCollectionJobState
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/collection_serviceGetCollectionJobLifeCycleStateResponse'
+      tags:
+      - CollectionService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collection_serviceGetCollectionJobLifeCycleStateRequest'
+        required: true
+  /crosswork/collection/v1/collectionjob/summary/query:
+    post:
+      summary: "GetCollectionJobSummary API\nGetCollectionJobSummary can be used track a operational state request within Collection Service API. It indicates current status\ni.e, READY , NOT_READY,FAILED .\nIf the Phase indicates\nTERMINATING or TERMINATION_FAILED no create/update operations can be performed on app context. If phase is\nTERMINATION_FAILED an app could retry to delete an Collection Job again. Once CollectionJob enters  TERMINATING or\nTERMINATION_FAILED phase , status of the Job is no longer relevant.\n Application context is optional"
+      operationId: GetCollectionJobSummary
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/collection_serviceGetCollectionJobSummaryResponse'
+      tags:
+      - CollectionService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collection_serviceGetCollectionJobSummaryRequest'
+        required: true
+  /crosswork/collection/v1/resource/inuse/query:
+    post:
+      summary: Returns whether a Resource is in use . Currently supported resource is Destination id. Internal use only
+      operationId: GetIsResourceInUse
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/collection_serviceGetIsResourceInUseResponse'
+      tags:
+      - CollectionService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collection_serviceGetIsResourceInUseRequest'
+        required: true
+components:
+  schemas:
+    collection_servicePhase:
+      type: string
+      enum:
+      - UNKNOWN_PHASE
+      - ACTIVE
+      - TERMINATING
+      - TERMINATION_FAILED
+      - DELETED
+      default: UNKNOWN_PHASE
+      description: "- ACTIVE: Request is active , Collection  Job associated with app Context may be in any one of the above states\n - TERMINATING: Request is marked for deletion , Collection Job associated with app Context is queued for deletion\n - TERMINATION_FAILED: Request is marked for deletion , Collection Job was failed to be deleted, even in one of the devices.\n - DELETED: Request is successfully deleted from the Collection Service on all devices. This phase will only appear in bus\nnotifications, will not appear in GetJobStatus, as the job will be deleted from DB."
+      title: Phase indicates whether Request asscociated with AppContext is Alive or marked for deletion within collection service
+    common_collection_dataSensorData:
+      type: object
+      properties:
+        snmp_sensor:
+          $ref: '#/components/schemas/common_collection_dataSnmpSensor'
+        snmp_yang_sensor:
+          $ref: '#/components/schemas/common_collection_dataSnmpYangSensor'
+        cli_yang_sensor:
+          $ref: '#/components/schemas/common_collection_dataCliYangSensor'
+        cli_sensor:
+          $ref: '#/components/schemas/common_collection_dataCliSensor'
+        mdt_sensor:
+          $ref: '#/components/schemas/common_collection_dataMDTSensor'
+        trap_sensor:
+          $ref: '#/components/schemas/common_collection_dataTrapSensor'
+        trap_yang_sensor:
+          $ref: '#/components/schemas/common_collection_dataTrapYangSensor'
+        gnmi_sensor:
+          $ref: '#/components/schemas/common_collection_dataGnmiSensor'
+        syslog_sensor:
+          $ref: '#/components/schemas/common_collection_dataSyslogSensor'
+      title: Sensor Data
+    gnmiSubscriptionMode:
+      type: string
+      enum:
+      - TARGET_DEFINED
+      - ON_CHANGE
+      - SAMPLE
+      default: TARGET_DEFINED
+      title: 'SubscriptionMode is the mode of the subscription, specifying how the
+
+        target must return values in a subscription.
+
+        Reference: gNMI Specification Section 3.5.1.3'
+    common_collection_dataKeyValue:
+      type: object
+      properties:
+        key:
+          type: string
+        bytes_value:
+          type: string
+          format: byte
+        string_value:
+          type: string
+        bool_value:
+          type: boolean
+          format: boolean
+        uint32_value:
+          type: integer
+          format: int64
+        uint64_value:
+          type: string
+          format: uint64
+        sint32_value:
+          type: integer
+          format: int32
+        sint64_value:
+          type: string
+          format: int64
+        double_value:
+          type: number
+          format: double
+        float_value:
+          type: number
+          format: float
+      title: Generic Key value message
+    collection_serviceGetCollectionDataMetricsResponse:
+      type: object
+      properties:
+        collection_data_metrics_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceCollectionDataMetrics'
+          title: CollectionJobStatus represents current status of the job
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          title: Pagination and other query options
+        result:
+          $ref: '#/components/schemas/collection_serviceResult'
+          title: Sync Request reply , indicating whether request has accepted or rejected
+      title: GetCollectionDataMetricsResponse
+    collection_serviceDeviceData:
+      type: object
+      properties:
+        device_id:
+          type: string
+          title: UUID of device in CW inventory
+        host_name:
+          type: string
+          title: Host name  of device in CW inventory.Optional to populate
+      title: Device Data
+    collection_serviceGetCollectionJobSummaryResponse:
+      type: object
+      properties:
+        collection_job_status_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceCollectionJobStatus'
+          title: CollectionJobStatus represents current status of the job
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          title: Pagination and other query options
+        result:
+          $ref: '#/components/schemas/collection_serviceResult'
+          title: Sync Request reply , indicating whether request has accepted or rejected
+    collection_serviceGetCollectionJobLifeCycleStateResponse:
+      type: object
+      properties:
+        collection_life_cycle_states:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceCollectionLifeCycleState'
+          description: Requested states associated to a collection job unique identifier.
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          description: Pagination and other query options.
+        result:
+          $ref: '#/components/schemas/collection_serviceResult'
+          description: 'Result reply to determine any possible issue with the request or honoring
+
+            it.'
+    collection_serviceGetCollectionJobConfigResponse:
+      type: object
+      properties:
+        collection_job_configuration_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceCollectionJobConfiguration'
+          title: CollectionJobConfiguration contains configuration for device and sensors
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          title: Pagination and other query options
+        result:
+          $ref: '#/components/schemas/collection_serviceResult'
+          title: Sync Request reply , indicating whether request has accepted or rejected
+      title: Returns a list of Collection Job Config
+    collection_serviceSensorInputConfig:
+      type: object
+      properties:
+        sensor_data:
+          $ref: '#/components/schemas/common_collection_dataSensorData'
+          title: Path represents sensor
+        cadence_in_millisec:
+          type: string
+          format: uint64
+          title: Push or Poll cadence
+      description: SensorInputConfig  represents device side collection at some cadence.
+    collection_serviceMetrics:
+      type: object
+      properties:
+        key_value_metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceKeyValueMetric'
+      title: "Message containing various collection metrics\nFollowing metrics need to be collected\n last_collection_time_msec = 1;\n last_polling_cadence_msec = 2;\n total_collected_bytes_count = 3;\n total_collected_errors_count = 4;\n total_write_errors_count = 5;\n total_collected_msgs_count = 6;\n total_dropped_msgs_count = 7;\n last_device_latency_msec = 8;"
+    collection_serviceRequestResult:
+      type: string
+      enum:
+      - UNKNOWN_RESULT
+      - REJECTED
+      - ACCEPTED
+      default: UNKNOWN_RESULT
+      description: "- REJECTED: Request has been rejected\n - ACCEPTED: Request has been accepted for processing"
+      title: 'Request - reply
+
+        response'
+    collection_serviceFilterOperator:
+      type: string
+      enum:
+      - UNKNOWN_OPERATOR
+      - OPERATOR_OR
+      - OPERATOR_AND
+      - OPERATOR_EQ
+      - OPERATOR_REGEX
+      - OPERATOR_CONTAINS
+      default: UNKNOWN_OPERATOR
+      description: " - UNKNOWN_OPERATOR: unknown operator\n - OPERATOR_OR: OR operator filter applied across filter list\n - OPERATOR_AND: AND operator filter applied across filter list\n - OPERATOR_EQ: EQUAL operator filter applied across filter list. not supported yet.\n - OPERATOR_REGEX: REGEX operator filter applied across filter list. not supported yet.\n - OPERATOR_CONTAINS: CONTAINS operator filter applied across filter list. supported only for hostname."
+    collection_serviceGetCollectionDataStatusResponse:
+      type: object
+      properties:
+        collection_data_status_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceCollectionDataStatus'
+          title: The input and output collection
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          title: Pagination and other query options
+        result:
+          $ref: '#/components/schemas/collection_serviceResult'
+          title: Result reply
+      description: CollectionJobDeviceSetStatus indicates the list of devices for which the job is successfully processed.
+    collection_serviceCollectionDataStatus:
+      type: object
+      properties:
+        input_status_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceInputStatus'
+          title: Status per device per sensor on the input collection side
+        output_status_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceOutputStatus'
+          title: Status per device per destination on the output collection side
+      title: 'CollectionJob Data Status from CDG Instances
+
+        ContextId : robot.collector.helios.collection.datastatus'
+    collection_serviceCreateCollectionJobResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/collection_serviceResult'
+          title: Sync Request reply , indicating whether request has accepted or rejected
+    collection_serviceInputStatus:
+      type: object
+      properties:
+        device_data:
+          $ref: '#/components/schemas/collection_serviceDeviceData'
+          title: Device data
+        sensor_data:
+          $ref: '#/components/schemas/common_collection_dataSensorData'
+          title: Sensor
+        collection_status:
+          $ref: '#/components/schemas/collection_serviceCollectionStatus'
+          title: Input side collection state
+      title: Collection input status
+    SyslogSensorPRIs:
+      type: object
+      properties:
+        facilities:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Syslog Facility , valid numbers 0 to 23
+        severities:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Syslog Severity , valid numbers 0 to 7
+      title: 'PRI is combination of Facility code(0-23) and Severity(0-7).
+
+        Empty list will result in all syslog messages getting collected.
+
+        If multiple items are present in the same list type, as long as any one matches, messages would be collected.
+
+        Three digit code that''s a combination of Facility and Severity'
+    collection_serviceCollectionJobConfiguration:
+      type: object
+      properties:
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          description: Unique handle to identify your application's collection job , serves as Key to Object on which CRUD ops are done.
+        collection_mode:
+          $ref: '#/components/schemas/collection_serviceCollectionMode'
+          title: 'Style of collection persistent or non-persistent
+
+            Note Recurrent , Transient jobs are not applicable to any collection that involves device config change'
+        job_device_set:
+          $ref: '#/components/schemas/collection_serviceJobDeviceSet'
+          title: Job DeviceSet reflects a collection of devices or device group
+        sensor_input_configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceSensorInputConfig'
+          description: SensorInputConfig reflects a group of sensors and their cadences.
+        sensor_output_configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceSensorOutputConfig'
+          title: SensorOutputConfig reflects a group of sensors and their destinations
+      title: 'CollectionJobConfiguration that encapsulates bunch of sensor configs across devices or one device group with an application
+
+        context'
+    collection_serviceFilter:
+      type: object
+      properties:
+        operator:
+          $ref: '#/components/schemas/collection_serviceFilterOperator'
+          title: the filter logical or conditional operator ex. AND, OR, >, <
+        field_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceFilterField'
+          title: the filter criteria list
+      title: Filter
+    collection_serviceQueryOptions:
+      type: object
+      properties:
+        page_token:
+          type: string
+          title: 'Page token to echo back to get next page, if collection_job_device_sets is empty or page token is empty ,
+
+            then there is no more results'
+        page_size:
+          type: integer
+          format: int64
+          title: page_size
+        filter_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceFilter'
+          title: filtering options
+        filter_query:
+          type: string
+          title: Reserved for future use. Not used as of CW 3.1
+      title: Query Options
+    collection_serviceInputMetrics:
+      type: object
+      properties:
+        device_data:
+          $ref: '#/components/schemas/collection_serviceDeviceData'
+          title: Device data
+        sensor_data:
+          $ref: '#/components/schemas/common_collection_dataSensorData'
+          title: Sensor
+        metrics:
+          $ref: '#/components/schemas/collection_serviceMetrics'
+          title: Input side metrics
+    common_collection_dataTrapYangSensor:
+      type: object
+      properties:
+        path:
+          type: string
+          title: Example ISIS-MIB:notifications,SNMPv2-MIB:notifications,IF-MIB:notifications
+    common_collection_dataSnmpYangSensor:
+      type: object
+      properties:
+        path:
+          type: string
+          title: Example SNMPv2-MIB:SNMPv2-MIB/system
+    common_collection_dataDevicePackage:
+      type: object
+      properties:
+        device_package_name:
+          type: string
+          title: XDE device package name
+        function_name:
+          type: string
+          title: XDE function name within package
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/common_collection_dataKeyValue'
+          title: Parameters for custom device packages
+      title: XDE Device package
+    collection_serviceGetCollectionJobLifeCycleStateRequest:
+      type: object
+      properties:
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          description: Unique collection job(s) identifier.
+        v_cdg_id:
+          type: string
+          description: Virtual CDG.
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          description: Pagination and other query options.
+      description: 'GetCollectionJobStateRequest encapsulates requests for the lifetime cycle
+
+        state of associated collection jobs.'
+    collection_serviceGetCollectionJobSummaryRequest:
+      type: object
+      properties:
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          description: Unique handle to identify your application's collection job , serves as Key to Object on which CRUD ops are done.
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          title: Query options
+      description: 'Will return all collection job operational status summary if device_id is empty for given application context
+
+        or will return on per device basis.'
+    collection_serviceJobLifetimeType:
+      type: string
+      enum:
+      - UNKNOWN_TEMPORAL_TYPE
+      - APPLICATION_MANAGED
+      - CALENDAR_MANAGED
+      - AUTO_DELETE_AFTER_N_SAMPLES
+      default: UNKNOWN_TEMPORAL_TYPE
+      description: "- UNKNOWN_TEMPORAL_TYPE: Invalid Lifetime\n - APPLICATION_MANAGED: Create and Delete of Collection job is managed by Application\n - CALENDAR_MANAGED: Create and Delete of Collection job is managed by Calendaring service tied to a calendar schedule.\nNot Supported as of now.\n - AUTO_DELETE_AFTER_N_SAMPLES: Auto Delete of Collection job after N Collections."
+      title: Types of job life times supported
+    collection_serviceDeleteCollectionJobResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/collection_serviceResult'
+          title: Sync Request reply , indicating whether request has accepted or rejected
+    collection_serviceGetCollectionJobCountResponse:
+      type: object
+      properties:
+        job_count:
+          type: string
+          format: uint64
+          title: job count
+        input_collection_count:
+          type: string
+          format: uint64
+          title: the number of input sensor collection endpoints for given collection job(s)
+        output_collection_count:
+          type: string
+          format: uint64
+          title: the number of output collection endpoints for given collection job(s)
+        input_error_collection_count:
+          type: string
+          format: uint64
+          title: the number of input sensor collection endpoints for given collection job(s)
+        output_error_collection_count:
+          type: string
+          format: uint64
+          title: the number of output collection endpoints for given collection job(s)
+        control_error_count:
+          type: string
+          format: uint64
+          title: the number of output collection endpoints for given collection job(s)
+        result:
+          $ref: '#/components/schemas/collection_serviceResult'
+          title: Result
+      title: 'Return a total count of collect jobs and total collection endpoints and errors in the system if no application context
+
+        is provided.  If application context is provided counts are for that collection job'
+    common_collection_dataMDTSensor:
+      type: object
+      properties:
+        path:
+          type: string
+          title: Example Cisco-IOS-XR-infra-statsd-oper:infra-statistics/interfaces/interface/latest/generic-counters
+    collection_serviceGetCollectionJobCountRequest:
+      type: object
+      properties:
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          description: Unique handle to identify your application's collection job , serves as Key to Object on which CRUD ops are done.
+    collection_serviceGetIsResourceInUseRequest:
+      type: object
+      properties:
+        destination_id:
+          type: string
+          title: UUID of destination in crosswork inventory
+      title: Request to check whether a resource is in use
+    collection_serviceCollectionStatus:
+      type: object
+      properties:
+        state:
+          $ref: '#/components/schemas/collection_serviceCollectionState'
+          title: Object state
+        error:
+          $ref: '#/components/schemas/collection_serviceError'
+          title: Error if any
+        reported_time:
+          type: string
+          format: uint64
+          title: Event time
+      title: Operational status of collection
+    collection_serviceCreateCollectionJobRequest:
+      type: object
+      properties:
+        collection_job:
+          $ref: '#/components/schemas/collection_serviceCollectionJobConfiguration'
+          title: CollectionJobConfiguration describing collection job with application context as key
+      title: CreateCollectionJobRequest
+    collection_serviceConfigurationCommitState:
+      type: string
+      enum:
+      - UNKNOWN_CONFIG_COMMIT_STATE
+      - COMMITTED
+      - NOT_COMMITTED
+      default: UNKNOWN_CONFIG_COMMIT_STATE
+      description: "- COMMITTED: Control config for device was successfully converged based on target state\n - NOT_COMMITTED: Control config for device was not successfully converged based on target state"
+      title: Collection Configuration state
+    collection_serviceCollectionJobStatus:
+      type: object
+      properties:
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          description: Unique handle to identify your application's collection job , serves as Key to Object on which CRUD ops are done.
+        creation_time:
+          type: string
+          format: uint64
+          title: UTC Creation Time of the job as epoch time in milliseconds when request was created
+        deletion_time:
+          type: string
+          format: uint64
+          title: UTC Deletion Time of job as epoch time in milliseconds when request for deletion was initiated
+        progress:
+          type: number
+          format: float
+          title: Current Progress as percentage
+        status:
+          $ref: '#/components/schemas/collection_serviceStatus'
+          title: Current Status of the job i.e, READY,NOT_READY,FAILED
+        phase:
+          $ref: '#/components/schemas/collection_servicePhase'
+          title: Current Phase of Request itself, ACTIVE or TERMINATING OR TERMINATION_FAILED OR DELETED
+        collector_type:
+          $ref: '#/components/schemas/common_collection_dataCollectionType'
+          title: CollectType
+        job_error:
+          $ref: '#/components/schemas/collection_serviceError'
+          description: 'If the job is FAILED or TERMINATION_FAILED state, descriptive error indicating failure reason
+
+            Error if any. Its a summary .'
+      title: 'CollectionJobStatus represents current status of the job
+
+        ContextId : robot.collector.helios.collectionjob.summary'
+    collection_serviceCollectionDataMetrics:
+      type: object
+      properties:
+        input_metrics_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceInputMetrics'
+          title: Metrics per device per sensor on the input collection side
+        output_metrics_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceOutputMetrics'
+          title: Metrics per device per destination on the output collection side
+      title: Collection Data Metrics
+    gnmiPath:
+      type: object
+      properties:
+        element:
+          type: array
+          items:
+            type: string
+          description: 'Elements of the path are no longer encoded as a string, but rather within
+
+            the elem field as a PathElem message.'
+        origin:
+          type: string
+        elem:
+          type: array
+          items:
+            $ref: '#/components/schemas/gnmiPathElem'
+        target:
+          type: string
+      description: 'Path encodes a data tree path as a series of repeated strings, with
+
+        each element of the path representing a data tree node name and the
+
+        associated attributes.
+
+        Reference: gNMI Specification Section 2.2.2.'
+    gnmiQOSMarking:
+      type: object
+      properties:
+        marking:
+          type: integer
+          format: int64
+      title: 'QOSMarking specifies the DSCP value to be set on transmitted telemetry
+
+        updates from the target.
+
+        Reference: gNMI Specification Section 3.5.1.2'
+    collection_serviceGetCollectionControlStatusRequest:
+      type: object
+      properties:
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          title: CollectionJobConfiguration key
+        device_data:
+          $ref: '#/components/schemas/collection_serviceDeviceData'
+          title: Device data
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          title: Pagination and other query options
+      title: GetCollectionControlStatusRequest
+    collection_serviceDevices:
+      type: object
+      properties:
+        device_ids:
+          type: array
+          items:
+            type: string
+          title: Array of device_ids, refers to uuid in Crosswork Inventory
+    collection_serviceGetCollectionDataStatusRequest:
+      type: object
+      properties:
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          title: Application context
+        device_data:
+          $ref: '#/components/schemas/collection_serviceDeviceData'
+          title: Device data
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          title: Pagination and other query options
+      title: GetCollectionDataStatusRequest
+    collection_serviceOutputMetrics:
+      type: object
+      properties:
+        destination:
+          $ref: '#/components/schemas/collection_serviceDestination'
+          title: Destination
+        device_data:
+          $ref: '#/components/schemas/collection_serviceDeviceData'
+          title: Device data
+        sensor_data:
+          $ref: '#/components/schemas/common_collection_dataSensorData'
+          title: Sensor
+        metrics:
+          $ref: '#/components/schemas/collection_serviceMetrics'
+          title: Input side metrics
+    common_collection_dataSnmpOperation:
+      type: string
+      enum:
+      - UNKNOWN_SNMP_OPERATION
+      - WALK
+      - SCALAR
+      - TABLE
+      default: UNKNOWN_SNMP_OPERATION
+      title: SNMP operation types
+    collection_serviceGetIsResourceInUseResponse:
+      type: object
+      properties:
+        is_in_use:
+          type: boolean
+          format: boolean
+          title: Whether a resource is in used or not
+        result:
+          $ref: '#/components/schemas/collection_serviceResult'
+          title: Sync Request reply , indicating whether request has accepted or rejected
+      title: Response to check whether a resource is in use
+    collection_serviceGetCollectionControlStatusResponse:
+      type: object
+      properties:
+        collection_control_status_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceCollectionControlStatus'
+          description: Status of job over a list of devices.
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          title: Pagination and other query options
+        result:
+          $ref: '#/components/schemas/collection_serviceResult'
+          title: Request reply , indicating whether request has accepted or rejected
+      description: CollectionControlStatusDeviceResponse indicates the list of devices for which the job is successfully processed.
+    common_collection_dataSnmpSensor:
+      type: object
+      properties:
+        snmp_mib:
+          $ref: '#/components/schemas/common_collection_dataSnmpMib'
+          title: Snmp mib
+        device_package:
+          $ref: '#/components/schemas/common_collection_dataDevicePackage'
+          title: Total size  is limited to 512 characters
+    collection_serviceSensorOutputConfigCommitted:
+      type: object
+      properties:
+        sensor_data:
+          $ref: '#/components/schemas/common_collection_dataSensorData'
+          title: Sensor Path
+        cadence_in_millisec:
+          type: string
+          format: uint64
+          description: "This is a cadence at which the data is sent out to a given destination\npost optimization across all apps. Take special note that for types:\n   - GNMI\nThe cadence will be adjusted to be the same as the lowest input\ncadence due to device collection limitations."
+        destination:
+          $ref: '#/components/schemas/collection_serviceDestination'
+          title: Destination
+    common_collection_dataCollectionType:
+      type: string
+      enum:
+      - UNKNOWN_COLLECTOR
+      - MDT_COLLECTOR
+      - SNMP_COLLECTOR
+      - CLI_COLLECTOR
+      - TRAP_COLLECTOR
+      - GNMI_COLLECTOR
+      - SYSLOG_COLLECTOR
+      default: UNKNOWN_COLLECTOR
+      title: Supported Collect types
+    collection_serviceFilterField:
+      type: object
+      properties:
+        field:
+          type: string
+          title: field to filter on.  Only CollectionState String is supported
+        value:
+          type: string
+          description: field value to filter on.  Note for non string backend will convert to honor actual db type.
+    gnmiModelData:
+      type: object
+      properties:
+        name:
+          type: string
+        organization:
+          type: string
+        version:
+          type: string
+      title: 'ModelData is used to describe a set of schema modules. It can be used in a
+
+        CapabilityResponse where a target reports the set of modules that it
+
+        supports, and within the SubscribeRequest and GetRequest messages to specify
+
+        the set of models from which data tree elements should be reported.
+
+        Reference: gNMI Specification Section 3.2.3'
+    collection_serviceApplicationContext:
+      type: object
+      properties:
+        application_id:
+          type: string
+          description: Unique ID to identify your application. Crosswork Applications need to prefix application id with cw prefix.
+        context_id:
+          type: string
+          description: Unique ID to identify your application subscription across all collection jobs. Recommended to use UUID.
+      title: 'ApplicationContext Unique handle to identify your application''s subscription . Combination of Application id and context_id
+
+        should be globally unique'
+    collection_serviceCollectionLifeCycleState:
+      type: object
+      properties:
+        life_cycle_state:
+          $ref: '#/components/schemas/collection_serviceLifeCycleState'
+          description: The actual collection job lifetime cycle state.
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          description: The associated unique identifier for a given collection job.
+        creation_time:
+          type: string
+          format: uint64
+          description: The creation time (used as last modified time).
+      description: CollectionState aggregate an application context to a State.
+    common_collection_dataTrapSensor:
+      type: object
+      properties:
+        path:
+          type: string
+          title: Example snmp-trap-oper:traps/notifications
+    collection_serviceJobDeviceSet:
+      type: object
+      properties:
+        device_set:
+          $ref: '#/components/schemas/collection_serviceDeviceSet'
+      title: JobDeviceSet represents a list of devices or device group
+    collection_serviceGetCollectionDataMetricsRequest:
+      type: object
+      properties:
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          title: Application context
+        device_data:
+          $ref: '#/components/schemas/collection_serviceDeviceData'
+          title: Device data
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          title: Pagination and other query options
+      title: GetCollectionDataMetricsRequest
+    gnmiPathElem:
+      type: object
+      properties:
+        name:
+          type: string
+        key:
+          type: object
+          additionalProperties:
+            type: string
+      description: 'PathElem encodes an element of a gNMI path, along with any attributes (keys)
+
+        that may be associated with it.
+
+        Reference: gNMI Specification Section 2.2.2.'
+    collection_serviceOutputStatus:
+      type: object
+      properties:
+        destination:
+          $ref: '#/components/schemas/collection_serviceDestination'
+          title: Destination
+        device_data:
+          $ref: '#/components/schemas/collection_serviceDeviceData'
+          title: Device data
+        sensor_data:
+          $ref: '#/components/schemas/common_collection_dataSensorData'
+          title: Sensor
+        collection_status:
+          $ref: '#/components/schemas/collection_serviceCollectionStatus'
+          title: Output side  collection status per destination
+      title: Collection output status
+    collection_serviceStatus:
+      type: string
+      enum:
+      - UNKNOWN_STATUS
+      - NOTREADY
+      - READY
+      - FAILED
+      default: UNKNOWN_STATUS
+      description: "- NOTREADY: NOTREADY indicates that initial setup of the object is in progress,\nor being retried.\n - READY: READY indicates that initial setup of the object is complete and\ncollection organised. Status moves to READY only on success across all devices.\n - FAILED: An unrecoverable failure has occurred, associated with the object. Status moves to FAILED , even if one of the\ndevices within request encountered failure."
+      title: State of async Object App Context within the collection service with respect operational state on one or more devices
+    common_collection_dataSnmpMib:
+      type: object
+      properties:
+        oid:
+          type: string
+          title: OID of the path Example 1.3.5.6.1
+        snmp_operation:
+          $ref: '#/components/schemas/common_collection_dataSnmpOperation'
+          title: SNMP operation type
+    common_collection_dataSyslogSensor:
+      type: object
+      properties:
+        pris:
+          $ref: '#/components/schemas/SyslogSensorPRIs'
+          title: List of priority levels
+        application_names:
+          type: array
+          items:
+            type: string
+          title: 'Empty list will result in all syslog messages getting collected
+
+            If multiple items are present in the same list type, as long as any one matches, messages would be collected.
+
+            Optional list of ApplicationName''s to filter upon'
+        process_names:
+          type: array
+          items:
+            type: string
+          description: 'Empty list will result in all syslog messages getting collected
+
+            Optional list of  process_names to filter upon
+
+            If multiple items are present in the same list type, as long as any one matches, messages would be collected.'
+      title: 'Refer https://www.paessler.com/it-explained/syslog,https://datatracker.ietf.org/doc/rfc5424/
+
+        Example if PRI is (165,111) , application_name is  (su,syslogd) all messages with PRI (165 or 111) and application
+
+        name su or syslogd would be collected'
+    collection_serviceLifeCycleState:
+      type: string
+      enum:
+      - UNKNOWN_LIFE_CYCLE_STATE
+      - SCHEDULED_LIFE_CYCLE_STATE
+      - CREATING_LIFE_CYCLE_STATE
+      - SUCCESS_LIFE_CYCLE_STATE
+      - DEGRADED_LIFE_CYCLE_STATE
+      - DELETING_LIFE_CYCLE_STATE
+      - DELETE_FAILED_LIFE_CYCLE_STATE
+      default: UNKNOWN_LIFE_CYCLE_STATE
+      title: 'LifeCycleState of collection job based on current device counts.
+
+        See: https://confluence-eng-rtp1.cisco.com/conf/display/UXSP/CreateDeleteCollectionJobs'
+    collection_serviceDeleteCollectionJobRequest:
+      type: object
+      properties:
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          description: Unique handle to identify your application's collection job , serves as Key to Object on which CRUD ops are done.
+    collection_serviceCollectionMode:
+      type: object
+      properties:
+        lifetime_type:
+          $ref: '#/components/schemas/collection_serviceJobLifetimeType'
+          title: lifetime of job
+        collector_type:
+          $ref: '#/components/schemas/common_collection_dataCollectionType'
+          title: Collection Type
+        schedule_id:
+          type: string
+          description: 'Calendar-ID: Calendar schedule to follow for CALENDAR_DRIVEN jobs . NOT Supported as of now.'
+        n_collections:
+          type: integer
+          format: int64
+          description: 'Number of collections to run before auto-deletion.
+
+            Used only when lifetime_type is AUTO_DELETE_AFTER_N_SAMPLES.
+
+            Number of collections represents cadence cycle irrespective of out come of each collection which may be SUCCESS
+
+            or FAILED.
+
+            Only supported for collections where collector intiates the connection to device i,e, SNMP and CLI.'
+    collection_serviceResult:
+      type: object
+      properties:
+        request_result:
+          $ref: '#/components/schemas/collection_serviceRequestResult'
+          description: ResultValue indicated accept/reject for a request, not the outcome of the work itself.
+        error:
+          $ref: '#/components/schemas/collection_serviceError'
+          description: 'Message is a textual description of reason for rejection, and can be safely passed on to operator through logs
+
+            or UI.'
+      description: 'Result is used to convey whether an operation (individual or in a batch)
+
+        has been accepted or rejected. For sync API''s an error or rejection indicates failure of operation.
+
+        A string error message accompanies rejection to support troubleshooting. For notification objects,
+
+        rejection represents failure to do intended operation.'
+    collection_serviceError:
+      type: object
+      properties:
+        error:
+          type: string
+          title: 'Message is a textual description of reason for rejection, and can be safely passed on to operator through logs
+
+            or UI'
+      title: Error  associated with an Object
+    collection_serviceCollectionControlStatus:
+      type: object
+      properties:
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          description: Unique handle to identify your application's collection job , serves as Key to Object on which CRUD ops are done.
+        device_data:
+          $ref: '#/components/schemas/collection_serviceDeviceData'
+          title: 'Device Set on which operation was carried out. ** NOT A SET, might want to put id **
+
+            Device data'
+        status:
+          $ref: '#/components/schemas/collection_serviceStatus'
+          title: Current Status of the overall job i.e, READY,NOT_READY,FAILED
+        phase:
+          $ref: '#/components/schemas/collection_servicePhase'
+          title: Current Phase of overall job, ACTIVE or TERMINATING
+        sensor_config_committed:
+          $ref: '#/components/schemas/collection_serviceSensorConfigCommitted'
+          title: Sensor config committed based on optimization
+        commit_state:
+          $ref: '#/components/schemas/collection_serviceConfigurationCommitState'
+          title: Indicates whether target state vs requested was converged on the device successfully across all jobs
+        device_error:
+          $ref: '#/components/schemas/collection_serviceError'
+          title: Any processing error encountered during commit
+      title: 'CollectionControlStatus  indicating success or failure on a per device basis for a given job
+
+        ContextId : robot.collector.helios.collection.device.control.status'
+    collection_serviceKeyValueMetric:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: number
+          format: double
+      title: Key Value metric
+    common_collection_dataGNMIDeviceSetting:
+      type: object
+      properties:
+        suppress_redundant:
+          type: boolean
+          format: boolean
+        heartbeat_interval:
+          type: string
+          format: uint64
+          description: 'Specifies the maximum allowable silent period in nanoseconds when
+
+            suppress_redundant is in use. The target should send a value at least once
+
+            in the period specified.'
+        qos:
+          $ref: '#/components/schemas/gnmiQOSMarking'
+        allow_aggregation:
+          type: boolean
+          format: boolean
+        use_models:
+          type: array
+          items:
+            $ref: '#/components/schemas/gnmiModelData'
+          description: 'The set of schemas that define the elements of the data tree that should
+
+            be sent by the target.'
+        updates_only:
+          type: boolean
+          format: boolean
+          description: 'An optional field to specify that only updates to current state should be
+
+            sent to a client. If set, the initial state is not sent to the client but
+
+            rather only the sync message followed by any subsequent updates to the
+
+            current state. For ONCE and POLL modes, this causes the server to send only
+
+            the sync message (Sec. 3.5.2.3).'
+      title: Device settings that may or may not be supported for GNMI
+    common_collection_dataGnmiSensor:
+      type: object
+      properties:
+        path:
+          $ref: '#/components/schemas/gnmiPath'
+          title: 'Gnmi path
+
+            Example {"origin":"syslog-oper","elem":[{"name":"syslog"},{"name":"messages"}]}'
+        mode:
+          $ref: '#/components/schemas/gnmiSubscriptionMode'
+          description: Subscription mode to be used.
+        device_setting:
+          $ref: '#/components/schemas/common_collection_dataGNMIDeviceSetting'
+          title: Optional GNMI Device setting
+      title: 'Reference: gNMI Specification Section 3.5.1.3'
+    common_collection_dataCliYangSensor:
+      type: object
+      properties:
+        path:
+          type: string
+          title: Example cli_xr_show_logging:syslog
+    common_collection_dataCliSensor:
+      type: object
+      properties:
+        command:
+          type: string
+          title: Example show clock
+        device_package:
+          $ref: '#/components/schemas/common_collection_dataDevicePackage'
+          title: Total size  is limited to 512 characters
+    collection_serviceCollectionState:
+      type: string
+      enum:
+      - UNKNOWN_COLLECTION_STATE
+      - ACTIVE_STATE
+      - INACTIVE_STATE
+      - ACCEPTED_STATE
+      default: UNKNOWN_COLLECTION_STATE
+      description: "- ACTIVE_STATE: Object is behaving as expected\n - INACTIVE_STATE: Object is in a bad state.\n - ACCEPTED_STATE: Object is under evaluation"
+      title: Collection Operation states of an object
+    collection_serviceGetCollectionJobConfigRequest:
+      type: object
+      properties:
+        application_context:
+          $ref: '#/components/schemas/collection_serviceApplicationContext'
+          description: Unique handle to identify your application's collection job , serves as Key to Object on which CRUD ops are done.
+        query_options:
+          $ref: '#/components/schemas/collection_serviceQueryOptions'
+          title: Pagination and other query options
+        result:
+          $ref: '#/components/schemas/collection_serviceResult'
+          title: Sync Request reply , indicating whether request has accepted or rejected
+      title: Will return all collection job configuration (sensor config and device set) for given application context
+    collection_serviceSensorInputConfigCommitted:
+      type: object
+      properties:
+        sensor_data:
+          $ref: '#/components/schemas/common_collection_dataSensorData'
+          title: Sensor Path
+        cadence_in_millisec:
+          type: string
+          format: uint64
+          description: This is the cadence at which path is collected from device to collector post optimization across all apps.
+    collection_serviceDeviceSet:
+      type: object
+      properties:
+        devices:
+          $ref: '#/components/schemas/collection_serviceDevices'
+          description: Devices or Routers identified as UUID's in Inventory in Crosswork.
+        device_group:
+          type: string
+          description: Device group id identified by device ‘tags’ in Crosswork.
+      description: 'Device Grouping Object , for a given request set one of either one of device grouping
+
+        i.e, list of devices or a device group not both. OneOf construct is enforced at runtime.'
+    collection_serviceSensorConfigCommitted:
+      type: object
+      properties:
+        sensor_input_config_committed_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceSensorInputConfigCommitted'
+        sensor_output_config_committed_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/collection_serviceSensorOutputConfigCommitted'
+      description: SensorConfig describing cadence from input and output side along with destination.
+    collection_serviceSensorOutputConfig:
+      type: object
+      properties:
+        sensor_data:
+          $ref: '#/components/schemas/common_collection_dataSensorData'
+          title: Sensor path, Every sensor path on the input side needs to have one mapping on the output side
+        filter_profile_id:
+          type: string
+          description: Optional filter_profile_id, forward looking not used.
+        destination:
+          $ref: '#/components/schemas/collection_serviceDestination'
+          description: Destinations a sensor data is written to.
+      description: 'Sensor Output represents output of sensor to a destination for given sensor which is a topic on a message broker or
+
+        GRPC server.'
+    collection_serviceDestination:
+      type: object
+      properties:
+        destination_id:
+          type: string
+          title: Unique identifier for Destination Provider in Inventory
+        context_id:
+          type: string
+          description: 'Destination context identifier.
+
+            It could be topic name if destination is message bus.
+
+            The combination of destination_id and context_id needs to be unique for Destination. What context id
+
+            means depends on the Destination type of Destination provider.
+
+            If GRPC is destination type, context_id is not used and will be ignored.'
+        destination_name:
+          type: string
+          title: 'Not used during Write, Optionally filled during Get API''s.
+
+            Maps to destination provider name in DLM'
+      description: 'Destination identifier to uniquely identify a destination
+
+        Output encoding format for destination is derived from Inventory destination_id.'

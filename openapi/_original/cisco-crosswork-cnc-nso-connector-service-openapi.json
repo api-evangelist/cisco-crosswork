@@ -1,0 +1,278 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This document contains details of the Crosswork Network Controller nso-connector APIs",
+    "version": "2.0",
+    "title": "Crosswork Network Controller CAT NSO Connector APIs",
+    "contact": {
+      "name": "Crosswork Team, Cisco",
+      "email": "support@cisco.com"
+    },
+    "license": {
+      "name": "Cisco Software License Agreement",
+      "url": "http://www.cisco.com/public/sw-license-agreement.html"
+    },
+    "x-provenance": {
+      "method": "harvested",
+      "authored_by": "Cisco Crosswork",
+      "harvested_by": "API Evangelist",
+      "harvested_on": "2026-08-19",
+      "first_party": true,
+      "note": "Published by Cisco. Retrieved unmodified except for this x-provenance block.",
+      "provider_published": true
+    },
+    "x-evidence": [
+      {
+        "type": "source",
+        "url": "https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/CNC/2.0APIs/nso_connector_service.swagger.json"
+      },
+      {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/CNC/2.0APIs/nso_connector_service.swagger.json"
+      }
+    ]
+  },
+  "host": "localhost:8080",
+  "tags": [
+    {
+      "name": "api-controller",
+      "description": "API Controller"
+    },
+    {
+      "name": "log-controller",
+      "description": "Log Controller"
+    }
+  ],
+  "paths": {
+    "/api/fullResync": {
+      "post": {
+        "tags": [
+          "api-controller"
+        ],
+        "summary": "Performs a full resync for all service types.",
+        "description": "This is heavy operation, use with caution.",
+        "operationId": "fullResyncUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "force",
+            "in": "query",
+            "description": "true or false. Default true.",
+            "required": false,
+            "type": "string",
+            "x-example": "false"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/log/changeLogLevel": {
+      "get": {
+        "tags": [
+          "log-controller"
+        ],
+        "summary": "changeLogLevel",
+        "operationId": "changeLogLevelUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "level",
+            "in": "query",
+            "description": "level",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/serviceResync": {
+      "post": {
+        "tags": [
+          "api-controller"
+        ],
+        "summary": "Resyncs service by service type and name.",
+        "description": "Resyncs the service and  service-plan of this service.",
+        "operationId": "serviceResyncUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "serviceName",
+            "in": "query",
+            "description": "The name of the service.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "typePath",
+            "in": "query",
+            "description": "This parameter is lenient. We recommend that you use the full path as shown in the following example.",
+            "required": true,
+            "type": "string",
+            "x-example": "ietf-l2vpn-ntw:l2vpn-ntw/vpn-services/vpn-service"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/serviceStatus": {
+      "get": {
+        "tags": [
+          "api-controller"
+        ],
+        "summary": "Retrieves the service status. Use for development and debugging purposes only.",
+        "description": "Retrieves the status of the service, which is active/standby (leader/follower).",
+        "operationId": "serviceStatusUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "extended",
+            "in": "query",
+            "description": "Use for development purposes only. The value is true or false. The default value is false. When true, it adds extended status, including NSO provider related status. ",
+            "required": false,
+            "type": "string",
+            "x-example": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/typeResync": {
+      "post": {
+        "tags": [
+          "api-controller"
+        ],
+        "summary": "Resyncs  by service type.",
+        "description": "Resyncs the service, service-plan, and resources of this service type.",
+        "operationId": "typeResyncUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "force",
+            "in": "query",
+            "description": "force",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "typePath",
+            "in": "query",
+            "description": "This parameter is lenient. We recommend that you use the full path as shown in the following example:",
+            "required": true,
+            "type": "string",
+            "x-example": "ietf-l2vpn-ntw:l2vpn-ntw/vpn-services/vpn-service"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  }
+}

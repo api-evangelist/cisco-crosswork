@@ -1,0 +1,709 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/alarms.proto",
+    "version": "version not set",
+    "x-provenance": {
+      "method": "harvested",
+      "authored_by": "Cisco Crosswork",
+      "harvested_by": "API Evangelist",
+      "harvested_on": "2026-08-19",
+      "first_party": true,
+      "note": "Published by Cisco. Retrieved unmodified except for this x-provenance block.",
+      "provider_published": true
+    },
+    "x-evidence": [
+      {
+        "type": "source",
+        "url": "https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/4.0APIs/alarms.swagger.json"
+      },
+      {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/4.0APIs/alarms.swagger.json"
+      }
+    ]
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/ack": {
+      "put": {
+        "summary": "Acknowledge Alarms",
+        "operationId": "AcknowledgeAlarms",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alarmsAlarmResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alarmsAcknowledgeAlarmReq"
+            }
+          }
+        ],
+        "tags": [
+          "Alarms"
+        ]
+      }
+    },
+    "/v1/clear": {
+      "put": {
+        "summary": "Clear alarms",
+        "operationId": "ClearAlarms",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alarmsAlarmResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alarmsClearAlarmReq"
+            }
+          }
+        ],
+        "tags": [
+          "Alarms"
+        ]
+      }
+    },
+    "/v1/event": {
+      "post": {
+        "summary": "Create and raise an event",
+        "operationId": "RaiseEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alarmsAlarmResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alarmsEvent"
+            }
+          }
+        ],
+        "tags": [
+          "Alarms"
+        ]
+      }
+    },
+    "/v1/note": {
+      "put": {
+        "summary": "Add Note to Alarms",
+        "operationId": "NoteAlarms",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alarmsAlarmResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alarmsNoteAlarmReq"
+            }
+          }
+        ],
+        "tags": [
+          "Alarms"
+        ]
+      }
+    },
+    "/v1/query": {
+      "post": {
+        "summary": "Get Alarms according to criteria in the request",
+        "operationId": "GetAlarms",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alarmsAlarmResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alarmsGetAlarmsReq"
+            }
+          }
+        ],
+        "tags": [
+          "Alarms"
+        ]
+      }
+    },
+    "/v1/rest-dest": {
+      "delete": {
+        "summary": "Del Rest Destination",
+        "operationId": "DelRestDestination",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alarmsAlarmResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alarmsRestDestination"
+            }
+          }
+        ],
+        "tags": [
+          "Alarms"
+        ]
+      },
+      "post": {
+        "summary": "Add Rest Destination",
+        "operationId": "AddRestDestination",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alarmsAlarmResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alarmsRestDestination"
+            }
+          }
+        ],
+        "tags": [
+          "Alarms"
+        ]
+      }
+    },
+    "/v1/rest-dest/query": {
+      "post": {
+        "summary": "Get Syslog Destinations, always return a full list",
+        "operationId": "GetRestDestinations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alarmsRestDestinationList"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alarmsRestDestination"
+            }
+          }
+        ],
+        "tags": [
+          "Alarms"
+        ]
+      }
+    },
+    "/v1/syslog-dest": {
+      "delete": {
+        "summary": "Del Syslog Destination",
+        "operationId": "DelSyslogDestination",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alarmsAlarmResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alarmsSyslogDestination"
+            }
+          }
+        ],
+        "tags": [
+          "Alarms"
+        ]
+      },
+      "post": {
+        "summary": "Add Syslog Destination",
+        "operationId": "AddSyslogDestination",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alarmsAlarmResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alarmsSyslogDestination"
+            }
+          }
+        ],
+        "tags": [
+          "Alarms"
+        ]
+      }
+    },
+    "/v1/syslog-dest/query": {
+      "post": {
+        "summary": "Get Syslog Destinations, always return a full list",
+        "operationId": "GetSyslogDestinations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alarmsSyslogDestinationList"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alarmsSyslogDestination"
+            }
+          }
+        ],
+        "tags": [
+          "Alarms"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "alarmsAcknowledgeAlarmReq": {
+      "type": "object",
+      "properties": {
+        "alarmId": {
+          "type": "string"
+        },
+        "criteria": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "ack": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "Acknowledge/UnAcknowledge Alarm Request"
+    },
+    "alarmsAlarm": {
+      "type": "object",
+      "properties": {
+        "AlarmId": {
+          "type": "string",
+          "title": "A unique uuid generated for the alarm"
+        },
+        "origin_service_id": {
+          "type": "string",
+          "title": "The origin service id of this event"
+        },
+        "origin_app_id": {
+          "type": "string",
+          "title": "The origin app id of this event"
+        },
+        "object_id": {
+          "type": "string",
+          "title": "The object/model identifier of the faulting event"
+        },
+        "object_description": {
+          "type": "string",
+          "title": "The description of the object/model identifier as it should be shown in the GUI"
+        },
+        "event_type": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Event Type for correlation"
+        },
+        "State": {
+          "$ref": "#/definitions/alarmsSeverity",
+          "description": "Current Alarm severity per the latest event."
+        },
+        "Description": {
+          "type": "string",
+          "description": "The alarm description per the latest event."
+        },
+        "Created": {
+          "type": "string",
+          "format": "int64",
+          "title": "Time when the alarm was created"
+        },
+        "Updated": {
+          "type": "string",
+          "format": "int64",
+          "title": "Time when the alarm was last updated"
+        },
+        "Closed": {
+          "type": "string",
+          "format": "int64",
+          "title": "Time when the alarm was cleared"
+        },
+        "Acknowledge": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "Was the alarm Acknowledge"
+        },
+        "AcknowledeBy": {
+          "type": "string",
+          "title": "Who acknowledge the alarm"
+        },
+        "AcknowledgeAt": {
+          "type": "string",
+          "format": "int64",
+          "title": "When was the alarm acknowledge"
+        },
+        "Events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/alarmsEvent"
+          },
+          "title": "Events aggregated under the alarm"
+        },
+        "Alarms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/alarmsAlarm"
+          },
+          "title": "Alarms correlated to this alarm"
+        },
+        "AlarmCategory": {
+          "$ref": "#/definitions/alarmsCategory",
+          "title": "The Alarm Category"
+        },
+        "Notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/alarmsEvent"
+          },
+          "title": "Notes"
+        },
+        "AckHist": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/alarmsEvent"
+          },
+          "title": "Acknowledge History"
+        },
+        "events_count": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Number of events in this alarm"
+        }
+      },
+      "title": "An Alarm that aggregates several Events & Alarms"
+    },
+    "alarmsAlarmResponse": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "$ref": "#/definitions/alarmsResponseState"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "eventId": {
+          "type": "string"
+        },
+        "alarmId": {
+          "type": "string"
+        },
+        "alarms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/alarmsAlarm"
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/alarmsEvent"
+          }
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "Response object for any Alarm Center API"
+    },
+    "alarmsCategory": {
+      "type": "string",
+      "enum": [
+        "InvalidCategory",
+        "System",
+        "Network",
+        "Audit",
+        "Security",
+        "External"
+      ],
+      "default": "InvalidCategory",
+      "title": "Defines the Category of the Event/Alarm"
+    },
+    "alarmsClearAlarmReq": {
+      "type": "object",
+      "properties": {
+        "alarmId": {
+          "type": "string"
+        },
+        "criteria": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "title": "Clear Alarm Request"
+    },
+    "alarmsEvent": {
+      "type": "object",
+      "properties": {
+        "EventId": {
+          "type": "string",
+          "description": "Generated uuid to identify uniquely the event. Will be generated by the client lib."
+        },
+        "origin_service_id": {
+          "type": "string",
+          "title": "The origin service id of this event"
+        },
+        "origin_app_id": {
+          "type": "string",
+          "title": "The origin app id of this event"
+        },
+        "object_id": {
+          "type": "string",
+          "title": "The object/model identifier of the faulting event"
+        },
+        "object_description": {
+          "type": "string",
+          "title": "The description of the object/model identifier as it should be shown in the GUI"
+        },
+        "event_type": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Event Type for correlation"
+        },
+        "Timestamp": {
+          "type": "string",
+          "format": "int64",
+          "description": "The time this event was created. Will be filled by the client lib."
+        },
+        "EventSeverity": {
+          "$ref": "#/definitions/alarmsSeverity",
+          "description": "The severity of the Event."
+        },
+        "Description": {
+          "type": "string",
+          "description": "A free text, parametrized, description. Do not need to fill if there is an event type..."
+        },
+        "DescriptionParams": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Parameters for the alarm description."
+        },
+        "CreateBy": {
+          "type": "string",
+          "description": "Who created the event, if the user acknowledge the alarm then the source is the same but the creator is not..."
+        },
+        "EventCategory": {
+          "$ref": "#/definitions/alarmsCategory",
+          "description": "The event category, e.g. system, network & etc."
+        },
+        "Flagging": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "If the event is a flagging event, e.g. raise an alarm"
+        }
+      },
+      "title": "An Event structure, an application/service will post this proto as an input\nfor the Alarm Center to create Events and Alarms"
+    },
+    "alarmsGetAlarmsReq": {
+      "type": "object",
+      "properties": {
+        "openAlarmsOnly": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "criteria": {
+          "type": "string"
+        }
+      },
+      "title": "Request Alarms proto, criteria is a criteria for alarms"
+    },
+    "alarmsNoteAlarmReq": {
+      "type": "object",
+      "properties": {
+        "alarmId": {
+          "type": "string"
+        },
+        "criteria": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "title": "Add Notes to Alarm Request"
+    },
+    "alarmsResponseState": {
+      "type": "string",
+      "enum": [
+        "InvalidState",
+        "Success",
+        "Fail",
+        "Partial"
+      ],
+      "default": "InvalidState",
+      "title": "Indicate the outcome of the API operation response invoked on the Alarm Center"
+    },
+    "alarmsRestDestination": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "url": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "Rest Destination"
+    },
+    "alarmsRestDestinationList": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/alarmsRestDestination"
+          }
+        }
+      },
+      "title": "Rest Destination List"
+    },
+    "alarmsSeverity": {
+      "type": "string",
+      "enum": [
+        "InvalidSeverity",
+        "Clear",
+        "Info",
+        "Warning",
+        "Minor",
+        "Major",
+        "Critical"
+      ],
+      "default": "InvalidSeverity",
+      "title": "Defines the Event/Alarm severity"
+    },
+    "alarmsSyslogDestination": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "criteria": {
+          "type": "string"
+        },
+        "rate_per_second": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "secure": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "certificate_id": {
+          "type": "string"
+        }
+      },
+      "title": "Syslog Destination"
+    },
+    "alarmsSyslogDestinationList": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/alarmsSyslogDestination"
+          }
+        }
+      },
+      "title": "Syslog Destination List"
+    }
+  }
+}

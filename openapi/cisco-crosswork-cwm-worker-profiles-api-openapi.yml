@@ -1,0 +1,250 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager Worker Profiles API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and
+    developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the
+    Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json).
+      Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically
+      from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+tags:
+- name: workerProfiles
+paths:
+  /workerProfile:
+    get:
+      summary: List all worker profiles.
+      description: Retrieve a list of all worker profiles defined in the system.
+      operationId: list_worker_profiles
+      tags:
+      - workerProfiles
+      responses:
+        '200':
+          description: Worker profiles retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/server.WorkerProfile'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    post:
+      summary: Create a new worker profile.
+      description: Create a new worker profile with CPU and memory values to be assigned to workers.
+      operationId: create_worker_profile
+      tags:
+      - workerProfiles
+      requestBody:
+        description: Worker profile input details.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.WorkerProfile'
+      responses:
+        '200':
+          description: Worker profile created successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /workerProfile/{profileName}:
+    delete:
+      summary: Delete a worker profile.
+      description: Delete a specific worker profile identified by its name.
+      operationId: delete_worker_profile
+      tags:
+      - workerProfiles
+      parameters:
+      - name: profileName
+        in: path
+        description: Profile name.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Worker profile deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    get:
+      summary: Get a specific worker profile.
+      description: Retrieve a specific worker profile by its name.
+      operationId: get_worker_profile
+      tags:
+      - workerProfiles
+      parameters:
+      - name: profileName
+        in: path
+        description: Profile name.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Worker profile retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.WorkerProfile'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    patch:
+      summary: Update a worker profile.
+      description: Update an existing worker profile's CPU and memory settings. Updates will not apply to workers
+        already created. To set CPUMax or MemMax to nil, provide an empty string.
+      operationId: update_worker_profile
+      tags:
+      - workerProfiles
+      parameters:
+      - name: profileName
+        in: path
+        description: Profile name.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Worker profile update payload.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.WorkerProfileUpdate'
+      responses:
+        '200':
+          description: Worker profile updated successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+components:
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+  schemas:
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
+    server.WorkerProfile:
+      type: object
+      properties:
+        cpuMax:
+          type: string
+        cpuMin:
+          type: string
+        memMax:
+          type: string
+        memMin:
+          type: string
+        profileName:
+          type: string
+    server.WorkerProfileUpdate:
+      type: object
+      properties:
+        cpuMax:
+          type: string
+        cpuMin:
+          type: string
+        memMax:
+          type: string
+        memMin:
+          type: string
+security:
+- Bearer: []

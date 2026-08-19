@@ -1,0 +1,71 @@
+/*****************************************
+* Protobuf message definitions for Performance OpticalSFPRecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message OpticalSFPRecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	The interface's ifIndex.
+	*/
+	optional int32 interfaceIndex = 2;
+
+	/* 
+	Interface name
+	*/
+	optional string interfaceName = 3;
+
+	/* 
+	Lane id
+	*/
+	optional int32 laneId = 4;
+
+	/* 
+	Temperature in celsius.
+	unit: CELSIUS
+	*/
+	optional float temperature = 5;
+
+	/* 
+	Voltage in volts
+	unit: VOLT
+	min: 0
+	*/
+	optional float voltage = 6;
+
+	/* 
+	Transmitted bias current.
+	unit: MILLIAMP
+	min: 0
+	*/
+	optional float txBias = 7;
+
+	/* 
+	Transmitted optical power in dBm.
+	unit: DBM
+	min: -40
+	*/
+	optional float txPower = 8;
+
+	/* 
+	Received optical power in dBm.
+	unit: DBM
+	min: -40
+	*/
+	optional float rxPower = 9;
+  };
+}
+
+

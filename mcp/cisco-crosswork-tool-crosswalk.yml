@@ -1,0 +1,476 @@
+generated: '2026-08-19'
+method: derived
+source: mcp/cisco-crosswork-mcp.yml, openapi/cisco-crosswork-cwm-*.yml
+note: 'Crosswork Workflow Manager exposes BOTH a REST surface and an MCP endpoint from the same service and the
+  same base path (/crosswork/cwm/v2), so a crosswalk is meaningful. It cannot yet be filled in: tools/list on the
+  MCP endpoint requires a JWT against a customer-deployed CWM instance, and Cisco''s published reference documents
+  the MCP transport without naming a single tool. Rather than invent tool names and bind them to plausible operations,
+  crosswalk[] is left empty and every CWM REST operation is recorded in rest_only[] as the candidate binding surface.
+  Fill crosswalk[] on the first authenticated tools/list against a real deployment.'
+surfaces:
+  openapi:
+    files: openapi/cisco-crosswork-cwm-*.yml
+    count: 16
+    gated: false
+    note: Published by Cisco at developer.cisco.com/docs/crosswork/workflow-manager/ and harvested into this repo.
+  mcp:
+    endpoint: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2/mcp
+    gated: true
+    note: Requires a Crosswork-minted JWT against a customer deployment; no anonymous introspection is possible.
+  graphql: null
+crosswalk: []
+mcp_only:
+- tool: get_mcp
+  reason: Transport operation for the MCP endpoint itself, not a business capability.
+- tool: post_mcp
+  reason: Transport operation for the MCP endpoint itself, not a business capability.
+rest_only:
+- operationId: list_adapters
+  method: GET
+  path: /adapter
+  category: adapters
+  summary: List all uploaded adapters.
+- operationId: file_upload
+  method: POST
+  path: /adapter
+  category: adapters
+  summary: Upload a new adapter.
+- operationId: delete_adapter
+  method: DELETE
+  path: /adapter/{adapterId}
+  category: adapters
+  summary: Delete an adapter.
+- operationId: get_adapter
+  method: GET
+  path: /adapter/{adapterId}
+  category: adapters
+  summary: Get adapter details.
+- operationId: patch_adapter
+  method: PATCH
+  path: /adapter/{adapterId}
+  category: adapters
+  summary: Partially update an adapter.
+- operationId: update_adapter
+  method: PUT
+  path: /adapter/{adapterId}
+  category: adapters
+  summary: Update an adapter file.
+- operationId: deploy_adapter
+  method: POST
+  path: /adapter/{adapterId}/deploy
+  category: adapters
+  summary: Create plugin with uploaded adapter file.
+- operationId: list_system_defaults
+  method: GET
+  path: /config/defaults
+  category: defaults
+  summary: List system defaults.
+- operationId: update_system_defaults
+  method: PATCH
+  path: /config/defaults
+  category: defaults
+  summary: Update system defaults.
+- operationId: get_system_default
+  method: GET
+  path: /config/defaults/{key}
+  category: defaults
+  summary: Get a system default by key.
+- operationId: update_system_default
+  method: PUT
+  path: /config/defaults/{key}
+  category: defaults
+  summary: Update a system default by key.
+- operationId: http_event_listener
+  method: POST
+  path: /event/http
+  category: event
+  summary: HTTP event listener.
+- operationId: list_event
+  method: GET
+  path: /eventType
+  category: eventType
+  summary: List all event types.
+- operationId: create_event_type
+  method: POST
+  path: /eventType
+  category: eventType
+  summary: Create a new event type.
+- operationId: delete_event_type
+  method: DELETE
+  path: /eventType/{type}/{actionOrKind}
+  category: eventType
+  summary: Delete an event type.
+- operationId: describe_event
+  method: GET
+  path: /eventType/{type}/{actionOrKind}
+  category: eventType
+  summary: Get a specific event type.
+- operationId: manage_event_listener
+  method: POST
+  path: /eventType/{type}/{actionOrKind}
+  category: eventType
+  summary: Manage an event listener.
+- operationId: update_event_type
+  method: PUT
+  path: /eventType/{type}/{actionOrKind}
+  category: eventType
+  summary: Update an existing event type.
+- operationId: list_forms
+  method: GET
+  path: /form
+  category: forms
+  summary: List available forms.
+- operationId: create_form
+  method: POST
+  path: /form
+  category: forms
+  summary: Create a new form.
+- operationId: delete_form
+  method: DELETE
+  path: /form/{formId}
+  category: forms
+  summary: Delete a form.
+- operationId: get_form
+  method: GET
+  path: /form/{formId}
+  category: forms
+  summary: Get a specific form.
+- operationId: update_form
+  method: PATCH
+  path: /form/{formId}
+  category: forms
+  summary: Update a specific form.
+- operationId: export_forms
+  method: POST
+  path: /formExport
+  category: forms
+  summary: Export forms.
+- operationId: import_forms
+  method: POST
+  path: /formImport
+  category: forms
+  summary: Import forms.
+- operationId: list_jobs
+  method: GET
+  path: /job
+  category: jobs
+  summary: List jobs.
+- operationId: execute_job
+  method: POST
+  path: /job
+  category: jobs
+  summary: Execute a job.
+- operationId: job_count
+  method: GET
+  path: /job/count
+  category: jobs
+  summary: Get total job count.
+- operationId: list_job_tags
+  method: GET
+  path: /job/tags
+  category: jobs
+  summary: List job tags.
+- operationId: describe_job
+  method: GET
+  path: /job/{jobId}/runs/{runId}
+  category: jobs
+  summary: Describe a job run.
+- operationId: cancel_job
+  method: POST
+  path: /job/{jobId}/runs/{runId}/cancel
+  category: jobs
+  summary: Cancel a job run.
+- operationId: get_job_history
+  method: GET
+  path: /job/{jobId}/runs/{runId}/events
+  category: jobs
+  summary: Get job execution history.
+- operationId: terminate_job
+  method: POST
+  path: /job/{jobId}/runs/{runId}/terminate
+  category: jobs
+  summary: Terminate a job run.
+- operationId: get_payload_by_key
+  method: GET
+  path: /payload/{key}
+  category: payload
+  summary: Retrieve and decode payload data by key
+- operationId: get_public_key
+  method: GET
+  path: /publicKey
+  category: publicKey
+  summary: List all registered public keys
+- operationId: post_public_key
+  method: POST
+  path: /publicKey
+  category: publicKey
+  summary: Register a new RSA public key
+- operationId: delete_public_key_by_public_key_name
+  method: DELETE
+  path: /publicKey/{publicKeyName}
+  category: publicKey
+  summary: Delete a public key
+- operationId: get_public_key_by_public_key_name
+  method: GET
+  path: /publicKey/{publicKeyName}
+  category: publicKey
+  summary: Retrieve a public key by name
+- operationId: patch_public_key_by_public_key_name
+  method: PATCH
+  path: /publicKey/{publicKeyName}
+  category: publicKey
+  summary: Update an existing public key
+- operationId: list_resources
+  method: GET
+  path: /resource
+  category: resources
+  summary: List all available resources.
+- operationId: create_resource
+  method: POST
+  path: /resource
+  category: resources
+  summary: Create a new resource.
+- operationId: delete_resource
+  method: DELETE
+  path: /resource/{resourceId}
+  category: resources
+  summary: Delete a resource by ID.
+- operationId: get_resource
+  method: GET
+  path: /resource/{resourceId}
+  category: resources
+  summary: Get a specific resource by ID.
+- operationId: update_resource
+  method: PATCH
+  path: /resource/{resourceId}
+  category: resources
+  summary: Update an existing resource by ID.
+- operationId: export_resources
+  method: POST
+  path: /resourceExport
+  category: resources
+  summary: Export all available resources.
+- operationId: import_resources
+  method: POST
+  path: /resourceImport
+  category: resources
+  summary: Import resources into the system.
+- operationId: list_resource_types
+  method: GET
+  path: /resourceType
+  category: resources
+  summary: List all available resource types.
+- operationId: get_resource_type
+  method: GET
+  path: /resourceType/{resourceTypeId}
+  category: resources
+  summary: Get a specific resource type by ID.
+- operationId: list_schedule
+  method: GET
+  path: /schedule
+  category: scheduler
+  summary: List all schedules.
+- operationId: create_schedule
+  method: POST
+  path: /schedule
+  category: scheduler
+  summary: Create a new schedule.
+- operationId: delete_schedule
+  method: DELETE
+  path: /schedule/{scheduleId}
+  category: scheduler
+  summary: Delete a schedule.
+- operationId: Describe_schedule
+  method: GET
+  path: /schedule/{scheduleId}
+  category: scheduler
+  summary: Get a specific schedule.
+- operationId: Update_schedule
+  method: PATCH
+  path: /schedule/{scheduleId}
+  category: scheduler
+  summary: Update a schedule.
+- operationId: list_secrets
+  method: GET
+  path: /secret
+  category: secrets
+  summary: List all secrets.
+- operationId: create_secret
+  method: POST
+  path: /secret
+  category: secrets
+  summary: Add a new secret.
+- operationId: delete_secret
+  method: DELETE
+  path: /secret/{secretId}
+  category: secrets
+  summary: Delete a secret by ID.
+- operationId: get_secret
+  method: GET
+  path: /secret/{secretId}
+  category: secrets
+  summary: Get a specific secret by ID.
+- operationId: update_secret
+  method: PATCH
+  path: /secret/{secretId}
+  category: secrets
+  summary: Update a secret.
+- operationId: list_secret_types
+  method: GET
+  path: /secretType
+  category: secrets
+  summary: List all secret types.
+- operationId: get_secret_type
+  method: GET
+  path: /secretType/{secretTypeId}
+  category: secrets
+  summary: List secrets by secret type.
+- operationId: list_tasks
+  method: GET
+  path: /task
+  category: tasks
+  summary: List all available tasks.
+- operationId: delete_task
+  method: DELETE
+  path: /task/{taskId}
+  category: tasks
+  summary: Delete a task by ID.
+- operationId: get_task
+  method: GET
+  path: /task/{taskId}
+  category: tasks
+  summary: Get a specific task by ID.
+- operationId: list_worker_profiles
+  method: GET
+  path: /workerProfile
+  category: workerProfiles
+  summary: List all worker profiles.
+- operationId: create_worker_profile
+  method: POST
+  path: /workerProfile
+  category: workerProfiles
+  summary: Create a new worker profile.
+- operationId: delete_worker_profile
+  method: DELETE
+  path: /workerProfile/{profileName}
+  category: workerProfiles
+  summary: Delete a worker profile.
+- operationId: get_worker_profile
+  method: GET
+  path: /workerProfile/{profileName}
+  category: workerProfiles
+  summary: Get a specific worker profile.
+- operationId: update_worker_profile
+  method: PATCH
+  path: /workerProfile/{profileName}
+  category: workerProfiles
+  summary: Update a worker profile.
+- operationId: list_workers
+  method: GET
+  path: /worker
+  category: workers
+  summary: List all workers.
+- operationId: create_worker
+  method: POST
+  path: /worker
+  category: workers
+  summary: Create a new worker.
+- operationId: delete_worker
+  method: DELETE
+  path: /worker/{workerName}
+  category: workers
+  summary: Delete a worker.
+- operationId: get_worker
+  method: GET
+  path: /worker/{workerName}
+  category: workers
+  summary: Get a specific worker.
+- operationId: update_worker
+  method: PUT
+  path: /worker/{workerName}
+  category: workers
+  summary: Update a worker.
+- operationId: start_worker
+  method: POST
+  path: /worker/{workerName}/start
+  category: workers
+  summary: Start a worker.
+- operationId: stop_worker
+  method: POST
+  path: /worker/{workerName}/stop
+  category: workers
+  summary: Stop a worker.
+- operationId: list_workflows
+  method: GET
+  path: /workflow
+  category: workflow
+  summary: List workflows.
+- operationId: create_workflow
+  method: POST
+  path: /workflow
+  category: workflow
+  summary: Add a new workflow.
+- operationId: delete_workflow_by_name_version
+  method: DELETE
+  path: /workflow/name/{workflowName}/version/{workflowVersion}
+  category: workflow
+  summary: Delete a workflow by name and version.
+- operationId: get_workflow_by_name_version
+  method: GET
+  path: /workflow/name/{workflowName}/version/{workflowVersion}
+  category: workflow
+  summary: Get a workflow by name and version.
+- operationId: update_workflow_by_name_version
+  method: PUT
+  path: /workflow/name/{workflowName}/version/{workflowVersion}
+  category: workflow
+  summary: Update a workflow by name and version.
+- operationId: validate_workflow_input
+  method: POST
+  path: /workflow/name/{workflowName}/version/{workflowVersion}/validateInputData
+  category: workflow
+  summary: Validate workflow input data.
+- operationId: list_workflow_tags
+  method: GET
+  path: /workflow/tags
+  category: workflow
+  summary: List all workflow tags.
+- operationId: validate_workflow
+  method: POST
+  path: /workflow/validate
+  category: workflow
+  summary: Validate a workflow.
+- operationId: delete_workflow
+  method: DELETE
+  path: /workflow/{workflowId}
+  category: workflow
+  summary: Delete a workflow by UUID.
+- operationId: get_workflow_by_id
+  method: GET
+  path: /workflow/{workflowId}
+  category: workflow
+  summary: Get a workflow by UUID.
+- operationId: update_workflow_by_id
+  method: PUT
+  path: /workflow/{workflowId}
+  category: workflow
+  summary: Update a workflow by UUID.
+- operationId: export_workflows
+  method: POST
+  path: /workflowExport
+  category: workflow
+  summary: Export workflow definitions.
+- operationId: import_workflows
+  method: POST
+  path: /workflowImport
+  category: workflow
+  summary: Import workflow definitions.
+coverage:
+  rest_operations: 88
+  mcp_transport_operations: 2
+  tools_enumerated: 0
+  bound: 0
+  unbound_rest: 88
+  note: 0 of the REST operations are bound to a tool because 0 tools could be enumerated. This is a measurement
+    gap, not a coverage claim.
+checked: '2026-08-19'

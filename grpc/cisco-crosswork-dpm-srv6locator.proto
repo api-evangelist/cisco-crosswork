@@ -1,0 +1,45 @@
+/*****************************************
+* Protobuf message definitions for Performance SRV6LOCATORRecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message SRV6LOCATORRecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Locator ipv6-prefix
+	*/
+	optional string ipv6Prefix = 2;
+
+	/* 
+	Locator ipv6-prefix length
+	*/
+	optional int32 ipv6PrefixLength = 3;
+
+	/* 
+	the sample's interval in milliseconds
+	*/
+	optional int32 sampleDuration = 4;
+
+	repeated AccountingInfo accounting = 5;       
+
+	message AccountingInfo {             
+		string interfaceName = 1; 
+		float outBitRate = 2; 
+	} 
+
+  };
+}
+
+

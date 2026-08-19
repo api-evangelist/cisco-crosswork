@@ -1,0 +1,174 @@
+/*****************************************
+* Protobuf message definitions for Performance CEPMINTERFACERecords message
+*
+* This is auto generated file (MainVelocityGenerator.java)
+* DO NOT CHANGE THAT MANUALLY.
+* Copyright (c) 2023, Cisco Systems. All rights reserved.
+*****************************************/
+syntax = "proto3";
+
+package com.cisco.ems.performance.proto;
+
+
+message CEPMINTERFACERecords{
+
+  repeated Record records = 1;
+  message Record {
+  
+  	uint64 eventtime = 1;
+
+	/* 
+	Interface name
+	*/
+	optional string interfaceName = 2;
+
+	/* 
+	The interface's ifIndex.
+	*/
+	optional int32 ifIndex = 3;
+
+	/* 
+	Interface speed
+	unit: BITS_PER_SECOND
+	*/
+	optional int64 ifSpeed = 4;
+
+	/* 
+	the sample's interval in milli seconds.
+	*/
+	optional int32 interfaceDuration = 5;
+
+	/* 
+	Value is 1 if admin is down else 0. This value should be multiplied by 100 for display
+	unit: PERCENTAGE
+	*/
+	optional int32 ifAdminDown = 6;
+
+	/* 
+	Value is 1 if admin up but oper is down else 0. This value should be multiplied by 100 for display
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional int32 ifAdminUpOperDown = 7;
+
+	/* 
+	Value is 1 if oper is up else 0. This value should be multiplied by 100 for display.
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional int32 ifAdminUpOperUp = 8;
+
+	/* 
+	Received traffic rate.
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float ifInBitsRate = 9;
+
+	/* 
+	Received traffic utilization.
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional float ifInUtilization = 10;
+
+	/* 
+	Received packets rate.
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float ifInPktsRate = 11;
+
+	/* 
+	Received packet drops rate.
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float ifInDiscardsRate = 12;
+
+	/* 
+	Received packet drops.
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional float ifInDiscardsPercent = 13;
+
+	/* 
+	Received packet errors rate.
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float ifInErrorsRate = 14;
+
+	/* 
+	Received packet errors.
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional float ifInErrorsPercent = 15;
+
+	/* 
+	Transmitted traffic rate.
+	unit: BITS_PER_SECOND
+	min: 0
+	*/
+	optional float ifOutBitsRate = 16;
+
+	/* 
+	Transmitted traffic utilization.
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional float ifOutUtilization = 17;
+
+	/* 
+	Transmitted packets rate.
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float ifOutPktsRate = 18;
+
+	/* 
+	Transimitted packet errors rate.
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float ifOutErrorsRate = 19;
+
+	/* 
+	Transimitted packet errors.
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional float ifOutErrorsPercent = 20;
+
+	/* 
+	Transimitted packet drops rate.
+	unit: PACKETS_PER_SECOND
+	min: 0
+	*/
+	optional float ifOutDiscardsRate = 21;
+
+	/* 
+	Transimitted packet drops.
+	unit: PERCENTAGE
+	min: 0
+	max: 100
+	*/
+	optional float ifOutDiscardsPercent = 22;
+
+	/* 
+	Interface IfType (IANAifType)
+	*/
+	optional int32 ifType = 23;
+  };
+}
+
+

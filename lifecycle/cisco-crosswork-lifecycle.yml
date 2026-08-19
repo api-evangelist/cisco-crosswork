@@ -1,0 +1,71 @@
+generated: '2026-08-19'
+method: searched
+source: https://www.cisco.com/c/en/us/support/cloud-systems-management/crosswork-network-controller/model.html
+summary: >-
+  Crosswork is versioned as shipped software, not as a hosted API. There is no API deprecation policy, no Sunset or
+  Deprecation header, and no SLA — the lifecycle contract is Cisco's product end-of-life machinery and the release
+  train, and Cisco publishes a separate API documentation set per train.
+versioning:
+  scheme: product release train plus per-service path version
+  current_releases:
+  - product: Crosswork Network Controller
+    version: 7.2.1
+    release_notes: https://www.cisco.com/c/en/us/td/docs/cloud-systems-management/crosswork-network-controller/7-2-1/Release-Notes/release-notes-for-cisco-crosswork-network-controller-release-7-2-1.html
+  - product: Crosswork Workflow Manager
+    version: 2.1.0
+    source: info.version in Cisco's own published CWM API document
+    docs: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - product: Crosswork Planning
+    version: '7.2'
+    docs: https://developer.cisco.com/docs/crosswork/planning/
+  documented_api_sets:
+  - version: '7.2'
+    url: https://developer.cisco.com/docs/crosswork/network-controller/
+  - version: '7.0 and earlier'
+    url: https://developer.cisco.com/docs/crosswork/network-controller/7-0/getting-started/
+  note: >-
+    Cisco keeps the "7.0 and earlier" API documentation set live alongside 7.2, which is a real, useful signal for
+    integrators still on an older train. It is documentation retention, not a deprecation policy.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: 0
+  evidence: >-
+    Not one of the 99 refined specs marks an operation `deprecated: true`, and no Sunset or Deprecation response
+    header is declared anywhere. Cisco communicates end-of-life through product EoL bulletins on cisco.com, not
+    through the API contract.
+  product_eol: https://www.cisco.com/c/en/us/support/cloud-systems-management/crosswork-network-controller/model.html
+sla:
+  published: false
+  note: >-
+    No API SLA exists and none is expected: Crosswork runs on hardware the customer owns, so availability is the
+    customer's own operational concern. This is a correct absence for an on-premises product, not a gap.
+status_page:
+  published: false
+  note: >-
+    status.cisco.com 302s to www.cisco.com/c/en/us/support/web/cloud-status.html, which reports Cisco's hosted
+    cloud services. Crosswork Network Controller, Data Gateway, ZTP, Optimization Engine and Workflow Manager are
+    customer-deployed and are not reported there. No StatusPage pointer is emitted for this provider, because
+    asserting one would credit Cisco with an availability surface that does not cover this product.
+  probed:
+  - url: https://status.cisco.com/
+    http_status: 302
+  - url: https://www.cisco.com/c/en/us/support/web/cloud-status.html
+    http_status: 403
+    note: Returned 403 to an anonymous fetch, so its service list could not be read either.
+support:
+  url: https://www.cisco.com/support
+  psirt: psirt@cisco.com
+  see: security/cisco-crosswork-vulnerability-disclosure.yml
+spec_maintenance:
+  openapi_repo: https://github.com/CiscoDevNet/crosswork-openapi-spec
+  last_commit: '2022-12-14'
+  note: >-
+    DECAY SIGNAL. The public OpenAPI/Swagger repository has not been touched since December 2022, while Cisco has
+    shipped Crosswork Network Controller 6.0, 6.5, 7.0, 7.1 and 7.2 since. The specs in openapi/_original/ that came
+    from that repository describe the 3.2/4.0 API generation. The Workflow Manager 2.1 contract in this repo is
+    current, but it is only readable by scraping the DevNet documentation renderer — Cisco publishes no downloadable
+    spec file for it.
+checked: '2026-08-19'

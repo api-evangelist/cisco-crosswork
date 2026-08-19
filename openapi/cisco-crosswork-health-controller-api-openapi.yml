@@ -1,0 +1,77 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Health Controller API
+  version: '1.0'
+  description: 'Operations tagged health-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json,
+    cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
+    provider_published: true
+    derived_view: Per-tag view of cisco-crosswork-ncahi-cw-image-service-openapi.json, the provider's source document. Operations
+      and schemas are the provider's, unmodified; only the partition is ours.
+    derived_from: cisco-crosswork-ncahi-cw-image-service-openapi.json
+    operation_coverage: 1/1
+  x-evidence:
+  - type: source
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.2APIs/cw_image_service.swagger.json
+  - type: raw
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.2APIs/cw_image_service.swagger.json
+servers:
+- url: /crosswork/imagesvc/
+security:
+- bearerAuth: []
+tags:
+- name: health-controller
+  description: Health Controller
+paths:
+  /v1/health:
+    get:
+      tags:
+      - health-controller
+      summary: /v1/health
+      operationId: healthcheckUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    servers:
+    - url: /crosswork/imagesvc/
+components:
+  schemas:
+    Status:
+      type: object
+      properties:
+        description:
+          type: string
+        status:
+          type: string
+    Status_2:
+      type: object
+      properties:
+        description:
+          type: string
+        status:
+          type: string
+      title: Status
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+x-refined-from:
+- cisco-crosswork-ncahi-cw-image-service-openapi.json
+- cisco-crosswork-ztp-cw-image-service-openapi.json

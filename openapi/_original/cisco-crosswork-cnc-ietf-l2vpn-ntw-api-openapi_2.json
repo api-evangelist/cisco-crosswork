@@ -1,0 +1,2777 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Crosswork Network Controller IETF L2VPN NM API",
+    "description": "The YANG module defines a generic network configuration\nmodel for Layer 2 VPN services common across all of the\nvendor implementations.\n\nCopyright (c) 2020 IETF Trust and the persons identified as\nauthors of the code.  All rights reserved.\n\nRedistribution and use in source and binary forms, with or\nwithout modification, is permitted pursuant to, and subject to\nthe license terms contained in, the Simplified BSD License set\nforth in Section 4.c of the IETF Trust's Legal Provisions\nRelating to IETF Documents\n(https://trustee.ietf.org/license-info).",
+    "version": "2.0",
+    "x-provenance": {
+      "method": "harvested",
+      "authored_by": "Cisco Crosswork",
+      "harvested_by": "API Evangelist",
+      "harvested_on": "2026-08-19",
+      "first_party": true,
+      "note": "Published by Cisco. Retrieved unmodified except for this x-provenance block.",
+      "provider_published": true
+    },
+    "x-evidence": [
+      {
+        "type": "source",
+        "url": "https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/CNC/2.0APIs/ietf-l2vpn-ntw_api.swagger.json"
+      },
+      {
+        "type": "raw",
+        "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/CNC/2.0APIs/ietf-l2vpn-ntw_api.swagger.json"
+      }
+    ]
+  },
+  "basePath": "/crosswork",
+  "tags": [
+    {
+      "name": "IETF L2VPN NM Retrieval",
+      "description": ""
+    },
+    {
+      "name": "IETF L2VPN NM Provision",
+      "description": ""
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "produces": [
+    "application/yang-data+xml",
+    "application/yang-data+json"
+  ],
+  "consumes": [
+    "application/yang-data+xml",
+    "application/yang-data+json"
+  ],
+  "paths": {
+    "/nbi/cat-inventory/v1/restconf/data/ietf-l2vpn-ntw:l2vpn-ntw/vpn-services/vpn-service={vpn-service-vpn-id}": {
+      "get": {
+        "tags": [
+          "IETF L2VPN NM Retrieval"
+        ],
+        "summary": "",
+        "description": "Container of port configurations",
+        "operationId": "data_ietf_l2vpn_ntw_l2vpn_ntw_vpn_services_vpn_service_vpn_service_vpn_id_get",
+        "parameters": [
+          {
+            "$ref": "#/parameters/vpn-service-vpn-id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Container of port configurations",
+            "schema": {
+              "$ref": "#/definitions/data_ietf-l2vpn-ntw_l2vpn-ntw_vpn-services_vpn-service_vpn-service-vpn-id"
+            }
+          },
+          "204": {
+            "$ref": "#/responses/204"
+          },
+          "400": {
+            "$ref": "#/responses/400"
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          },
+          "404": {
+            "$ref": "#/responses/404"
+          },
+          "405": {
+            "$ref": "#/responses/405"
+          },
+          "409": {
+            "$ref": "#/responses/409"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/nbi/cat-inventory/v1/restconf/data/ietf-l2vpn-ntw:l2vpn-ntw/vpn-services/vpn-service-plan={vpn-service-plan-vpn-id}": {
+      "get": {
+        "tags": [
+          "IETF L2VPN NM Retrieval"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "data_ietf_l2vpn_ntw_l2vpn_ntw_vpn_services_vpn_service_plan_vpn_service_plan_vpn_id_get",
+        "parameters": [
+          {
+            "$ref": "#/parameters/vpn-service-plan-vpn-id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/data_ietf-l2vpn-ntw_l2vpn-ntw_vpn-services_vpn-service-plan_vpn-service-plan-vpn-id"
+            }
+          },
+          "204": {
+            "$ref": "#/responses/204"
+          },
+          "400": {
+            "$ref": "#/responses/400"
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          },
+          "404": {
+            "$ref": "#/responses/404"
+          },
+          "405": {
+            "$ref": "#/responses/405"
+          },
+          "409": {
+            "$ref": "#/responses/409"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/proxy/nso/restconf/data/ietf-l2vpn-ntw:l2vpn-ntw/vpn-services/vpn-service={vpn-service-vpn-id}": {
+      "post": {
+        "tags": [
+          "IETF L2VPN NM Provision"
+        ],
+        "summary": "",
+        "description": "Container of port configurations",
+        "operationId": "data_ietf_l2vpn_ntw_l2vpn_ntw_vpn_services_vpn_service_vpn_service_vpn_id_post",
+        "produces": [],
+        "parameters": [
+          {
+            "$ref": "#/parameters/vpn-service-vpn-id"
+          },
+          {
+            "$ref": "#/parameters/data_ietf-l2vpn-ntw_l2vpn-ntw_vpn-services_vpn-service_vpn-service-vpn-id"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "list vpn-service updated"
+          },
+          "400": {
+            "$ref": "#/responses/400"
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          },
+          "404": {
+            "$ref": "#/responses/404"
+          },
+          "405": {
+            "$ref": "#/responses/405"
+          },
+          "409": {
+            "$ref": "#/responses/409"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "IETF L2VPN NM Provision"
+        ],
+        "summary": "",
+        "description": "Container of port configurations",
+        "operationId": "data_ietf_l2vpn_ntw_l2vpn_ntw_vpn_services_vpn_service_vpn_service_vpn_id_put",
+        "produces": [],
+        "parameters": [
+          {
+            "$ref": "#/parameters/vpn-service-vpn-id"
+          },
+          {
+            "$ref": "#/parameters/data_ietf-l2vpn-ntw_l2vpn-ntw_vpn-services_vpn-service_vpn-service-vpn-id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "list vpn-service created or replaced"
+          },
+          "204": {
+            "$ref": "#/responses/204"
+          },
+          "400": {
+            "$ref": "#/responses/400"
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          },
+          "404": {
+            "$ref": "#/responses/404"
+          },
+          "405": {
+            "$ref": "#/responses/405"
+          },
+          "409": {
+            "$ref": "#/responses/409"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "IETF L2VPN NM Provision"
+        ],
+        "summary": "",
+        "description": "Container of port configurations",
+        "operationId": "data_ietf_l2vpn_ntw_l2vpn_ntw_vpn_services_vpn_service_vpn_service_vpn_id_patch",
+        "produces": [],
+        "parameters": [
+          {
+            "$ref": "#/parameters/vpn-service-vpn-id"
+          },
+          {
+            "$ref": "#/parameters/data_ietf-l2vpn-ntw_l2vpn-ntw_vpn-services_vpn-service_vpn-service-vpn-id"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "list vpn-service updated"
+          },
+          "400": {
+            "$ref": "#/responses/400"
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          },
+          "404": {
+            "$ref": "#/responses/404"
+          },
+          "405": {
+            "$ref": "#/responses/405"
+          },
+          "409": {
+            "$ref": "#/responses/409"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "IETF L2VPN NM Provision"
+        ],
+        "summary": "",
+        "description": "Container of port configurations",
+        "operationId": "data_ietf_l2vpn_ntw_l2vpn_ntw_vpn_services_vpn_service_vpn_service_vpn_id_delete",
+        "produces": [],
+        "parameters": [
+          {
+            "$ref": "#/parameters/vpn-service-vpn-id"
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/responses/204"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "vpn-service-vpn-id": {
+      "name": "vpn-service-vpn-id",
+      "in": "path",
+      "description": "Refers to unique identifier for the L2NM.",
+      "required": true,
+      "type": "string",
+      "format": "string"
+    },
+    "vpn-service-plan-vpn-id": {
+      "name": "vpn-service-plan-vpn-id",
+      "in": "path",
+      "description": "",
+      "required": true,
+      "type": "string",
+      "format": "string"
+    },
+    "data_ietf-l2vpn-ntw_l2vpn-ntw_vpn-services_vpn-service_vpn-service-vpn-id": {
+      "name": "vpn-service",
+      "in": "body",
+      "description": "Container of port configurations",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/data_ietf-l2vpn-ntw_l2vpn-ntw_vpn-services_vpn-service_vpn-service-vpn-id"
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "description": "OK"
+    },
+    "201": {
+      "description": "Created"
+    },
+    "204": {
+      "description": "No Content"
+    },
+    "400": {
+      "description": "Bad Request"
+    },
+    "401": {
+      "description": "Unauthorized"
+    },
+    "404": {
+      "description": "Not Found"
+    },
+    "405": {
+      "description": "Method Not Allowed"
+    },
+    "409": {
+      "description": "Conflict"
+    }
+  },
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "definitions": {
+    "data_ietf-l2vpn-ntw_l2vpn-ntw_vpn-services_vpn-service_vpn-service-vpn-id": {
+      "type": "object",
+      "properties": {
+        "ietf-l2vpn-ntw:vpn-service": {
+          "type": "array",
+          "description": "Container of port configurations (list)",
+          "x-yang": {
+            "type": "list"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "vpn-id": {
+                "description": "Refers to unique identifier for the L2NM. (leaf)",
+                "x-yang": {
+                  "type": "leaf"
+                },
+                "type": "string",
+                "format": "string"
+              },
+              "evi-allocation-data": {
+                "description": "(non-presence)",
+                "type": "object",
+                "x-yang": {
+                  "type": "container",
+                  "is_presence": "false"
+                },
+                "properties": {
+                  "evi-id": {
+                    "description": "evi-id allocated by resource-manager id-allocator (leaf)",
+                    "x-yang": {
+                      "type": "leaf"
+                    },
+                    "type": "string",
+                    "format": "string"
+                  },
+                  "evi-source": {
+                    "description": "evi-source allocated by resource-manager id-allocator (leaf)",
+                    "x-yang": {
+                      "type": "leaf"
+                    },
+                    "type": "string",
+                    "format": "string"
+                  },
+                  "evi-target": {
+                    "description": "evi-target allocated by resource-manager id-allocator (leaf)",
+                    "x-yang": {
+                      "type": "leaf"
+                    },
+                    "type": "string",
+                    "format": "string"
+                  }
+                }
+              },
+              "modified": {
+                "description": "Devices and other services this service has modified directly or\nindirectly (through another service). (non-presence)",
+                "type": "object",
+                "x-yang": {
+                  "type": "container",
+                  "is_presence": "false"
+                },
+                "properties": {
+                  "devices": {
+                    "type": "array",
+                    "x-yang": {
+                      "type": "leaf-list"
+                    },
+                    "items": {
+                      "description": "(leaf-list)",
+                      "type": "string",
+                      "format": "leafref"
+                    }
+                  },
+                  "services": {
+                    "type": "array",
+                    "x-yang": {
+                      "type": "leaf-list"
+                    },
+                    "items": {
+                      "description": "(leaf-list)",
+                      "type": "string",
+                      "format": "instance-identifier"
+                    }
+                  },
+                  "lsa-services": {
+                    "type": "array",
+                    "x-yang": {
+                      "type": "leaf-list"
+                    },
+                    "items": {
+                      "description": "(leaf-list)",
+                      "type": "string",
+                      "format": "instance-identifier"
+                    }
+                  }
+                }
+              },
+              "directly-modified": {
+                "description": "Devices and other services this service has explicitly\nmodified. (non-presence)",
+                "type": "object",
+                "x-yang": {
+                  "type": "container",
+                  "is_presence": "false"
+                },
+                "properties": {
+                  "devices": {
+                    "type": "array",
+                    "x-yang": {
+                      "type": "leaf-list"
+                    },
+                    "items": {
+                      "description": "(leaf-list)",
+                      "type": "string",
+                      "format": "leafref"
+                    }
+                  },
+                  "services": {
+                    "type": "array",
+                    "x-yang": {
+                      "type": "leaf-list"
+                    },
+                    "items": {
+                      "description": "(leaf-list)",
+                      "type": "string",
+                      "format": "instance-identifier"
+                    }
+                  },
+                  "lsa-services": {
+                    "type": "array",
+                    "x-yang": {
+                      "type": "leaf-list"
+                    },
+                    "items": {
+                      "description": "(leaf-list)",
+                      "type": "string",
+                      "format": "instance-identifier"
+                    }
+                  }
+                }
+              },
+              "device-list": {
+                "type": "array",
+                "x-yang": {
+                  "type": "leaf-list"
+                },
+                "items": {
+                  "description": "A list of managed devices this service instance has manipulated.\n\nThis leaf is obsolete. Use 'modified' instead. (leaf-list)",
+                  "type": "string",
+                  "format": "string"
+                }
+              },
+              "used-by-customer-service": {
+                "type": "array",
+                "x-yang": {
+                  "type": "leaf-list"
+                },
+                "items": {
+                  "description": "(leaf-list)",
+                  "type": "string",
+                  "format": "leafref"
+                }
+              },
+              "commit-queue": {
+                "description": "(non-presence)",
+                "type": "object",
+                "x-yang": {
+                  "type": "container",
+                  "is_presence": "false"
+                },
+                "properties": {
+                  "queue-item": {
+                    "type": "array",
+                    "description": "When a service is committed through the commit queue, these\nfields act as references regarding the state of this service\ninstance. In the worst case scenario, a service instance is\nin the 'failed' state. This means that parts of the queued\ncommit failed.\n\nIf a service gets committed through the commit queue and the\ncommit fails, the backpointers in the service data are\nfollowed and the affected service instances are updated and\nset to the 'failed' state.\n\nDepending on the nature of the failure, different techniques\nto reconcile the service can be used.\n\n- Make sure the commit queue is blocked to not interfere\n  with the error recovery procedure.\n  Do a sync-from on the non-completed device(s) and then\n  re-deploy the failed service(s) with the\n  'reconcile' option to reconcile original data,\n  i.e., take control of that data. This option\n  acknowledges other services controlling the same data.\n  The reference count will indicate how many services control\n  the data. Release any queue lock that was created.\n\n- Make sure the commit queue is blocked to not interfere\n  with the error recovery procedure.\n  Use un-deploy with the no-networking option on the\n  service and then do sync-from on the non-completed\n  device(s). Make sure the error is fixed and then\n  re-deploy the failed service(s) with the\n  'reconcile' option. Release any queue lock\n  that was created.\n\nIn the 'failed' state, these fields are reset if a new\ncommit queue transaction is affecting this service, or\nthe service is re-deployed, or these fields are deleted\nusing the specific purge action.\nIn other cases the 'failed' state will remain. (list)",
+                    "x-yang": {
+                      "type": "list"
+                    },
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "description": "If the queue item in the commit queue refers to this service\nthis is the queue number. (leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "integer",
+                          "format": "uint64"
+                        },
+                        "status": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "enumeration",
+                          "default": "waiting",
+                          "enum": [
+                            "waiting",
+                            "executing",
+                            "blocking",
+                            "blocked",
+                            "failed",
+                            "admin-cleared",
+                            "commit-queue-failed"
+                          ]
+                        },
+                        "cleared-by-admin": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "[null]"
+                        },
+                        "no-of-impacted-services": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "integer",
+                          "format": "uint32"
+                        },
+                        "failed-device": {
+                          "type": "array",
+                          "description": "If the 'status' leaf is 'failed', this list contains detailed\ninformation on the devices that were responsible for the\nerror of the commit queue item. (list)",
+                          "x-yang": {
+                            "type": "list"
+                          },
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "description": "(leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "leafref"
+                              },
+                              "time": {
+                                "description": "Time when the failure occured. (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "string"
+                              },
+                              "config-data": {
+                                "description": "The configuration data that was rejected by the device\nin XML format. (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "string"
+                              },
+                              "error": {
+                                "description": "The error returned by the device. (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "private": {
+                "description": "NCS service related internal data stored here. (non-presence)",
+                "type": "object",
+                "x-yang": {
+                  "type": "container",
+                  "is_presence": "false"
+                },
+                "properties": {
+                  "diff-set": {
+                    "description": "Internal node use by NCS service manager to remember\nthe reverse diff for a service instance. This is the\ndata that is used by FastMap (leaf)",
+                    "x-yang": {
+                      "type": "leaf"
+                    },
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "forward-diff-set": {
+                    "description": "Internal node use by NCS service manager to remember\nthe forwards diff for a service instance. This data is\nis used to produce the proper 'get-modifications' output (leaf)",
+                    "x-yang": {
+                      "type": "leaf"
+                    },
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "device-list": {
+                    "type": "array",
+                    "x-yang": {
+                      "type": "leaf-list"
+                    },
+                    "items": {
+                      "description": "A list of managed devices this service instance has manipulated. (leaf-list)",
+                      "type": "string",
+                      "format": "string"
+                    }
+                  },
+                  "ned-id-list": {
+                    "type": "array",
+                    "x-yang": {
+                      "type": "leaf-list"
+                    },
+                    "items": {
+                      "description": "A list of NED identities this service instance has manipulated. (leaf-list)",
+                      "type": "string",
+                      "format": "string"
+                    }
+                  },
+                  "service-list": {
+                    "type": "array",
+                    "x-yang": {
+                      "type": "leaf-list"
+                    },
+                    "items": {
+                      "description": "A list of services this service instance has manipulated. (leaf-list)",
+                      "type": "string",
+                      "format": "instance-identifier"
+                    }
+                  },
+                  "lsa-service-list": {
+                    "type": "array",
+                    "x-yang": {
+                      "type": "leaf-list"
+                    },
+                    "items": {
+                      "description": "A list of LSA services this service instance has manipulated. (leaf-list)",
+                      "type": "string",
+                      "format": "string"
+                    }
+                  },
+                  "property-list": {
+                    "description": "FASTMAP service instance data used by the service implementation. (non-presence)",
+                    "type": "object",
+                    "x-yang": {
+                      "type": "container",
+                      "is_presence": "false"
+                    },
+                    "properties": {
+                      "property": {
+                        "type": "array",
+                        "description": "(list)",
+                        "x-yang": {
+                          "type": "list"
+                        },
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "description": "(leaf)",
+                              "x-yang": {
+                                "type": "leaf"
+                              },
+                              "type": "string",
+                              "format": "string"
+                            },
+                            "value": {
+                              "description": "(leaf)",
+                              "x-yang": {
+                                "type": "leaf"
+                              },
+                              "type": "string",
+                              "format": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "re-deploy-counter": {
+                    "description": "(leaf)",
+                    "x-yang": {
+                      "type": "leaf"
+                    },
+                    "type": "string",
+                    "format": "int32"
+                  },
+                  "latest-commit-params": {
+                    "description": "Latest transactions commit parameters are stored there, these are\nused in reactive-re-deploy actions that must have the same\nparameters as the original service commit. (leaf)",
+                    "x-yang": {
+                      "type": "leaf"
+                    },
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "latest-u-info": {
+                    "description": "Latest transactions user info is stored there, these are\nused in reactive-re-deploy actions that must be performed by\na user with the same user info. (leaf)",
+                    "x-yang": {
+                      "type": "leaf"
+                    },
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "plan-location": {
+                "description": "Location of the service plan. (leaf)",
+                "x-yang": {
+                  "type": "leaf"
+                },
+                "type": "string",
+                "format": "instance-identifier"
+              },
+              "log": {
+                "description": "(non-presence)",
+                "type": "object",
+                "x-yang": {
+                  "type": "container",
+                  "is_presence": "false"
+                },
+                "properties": {
+                  "log-entry": {
+                    "type": "array",
+                    "description": "(list)",
+                    "x-yang": {
+                      "type": "list"
+                    },
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "when": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        },
+                        "type": {
+                          "description": "What type of log entry is this. (leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "identityref"
+                        },
+                        "level": {
+                          "description": "What level this log entry has. (leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "enumeration",
+                          "default": "all",
+                          "enum": [
+                            "all",
+                            "trace",
+                            "debug",
+                            "info",
+                            "warn",
+                            "error"
+                          ]
+                        },
+                        "message": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "custom-template": {
+                "type": "array",
+                "description": "Custom templates to apply when device is ready (list)",
+                "x-yang": {
+                  "type": "list"
+                },
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "description": "Name of template to apply (leaf)",
+                      "x-yang": {
+                        "type": "leaf"
+                      },
+                      "type": "string",
+                      "format": "leafref"
+                    },
+                    "variable": {
+                      "type": "array",
+                      "description": "Variables to bind when applying template one time (list)",
+                      "x-yang": {
+                        "type": "list"
+                      },
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "description": "Name of template variable (leaf)",
+                            "x-yang": {
+                              "type": "leaf"
+                            },
+                            "type": "string",
+                            "format": "leafref"
+                          },
+                          "value": {
+                            "description": "Value of template variable (leaf)",
+                            "x-yang": {
+                              "type": "leaf"
+                            },
+                            "type": "string",
+                            "format": "string"
+                          }
+                        }
+                      }
+                    },
+                    "iteration": {
+                      "type": "array",
+                      "description": "Apply custom template multiple times with iteration (list)",
+                      "x-yang": {
+                        "type": "list"
+                      },
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "number": {
+                            "description": "<1-65535>;;Iteration number (leaf)",
+                            "x-yang": {
+                              "type": "leaf"
+                            },
+                            "type": "integer",
+                            "format": "uint16"
+                          },
+                          "variable": {
+                            "type": "array",
+                            "description": "Variables to bind when applying template in iteration (list)",
+                            "x-yang": {
+                              "type": "list"
+                            },
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "description": "Name of template variable (leaf)",
+                                  "x-yang": {
+                                    "type": "leaf"
+                                  },
+                                  "type": "string",
+                                  "format": "leafref"
+                                },
+                                "value": {
+                                  "description": "Value of template variable (leaf)",
+                                  "x-yang": {
+                                    "type": "leaf"
+                                  },
+                                  "type": "string",
+                                  "format": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "auto-evi-id": {
+                "description": "(leaf)",
+                "x-yang": {
+                  "type": "leaf"
+                },
+                "type": "string",
+                "format": "[null]"
+              },
+              "auto-evi-source": {
+                "description": "(leaf)",
+                "x-yang": {
+                  "type": "leaf"
+                },
+                "type": "string",
+                "format": "[null]"
+              },
+              "auto-evi-target": {
+                "description": "(leaf)",
+                "x-yang": {
+                  "type": "leaf"
+                },
+                "type": "string",
+                "format": "[null]"
+              },
+              "control-word": {
+                "description": "Control Word (leaf)",
+                "x-yang": {
+                  "type": "leaf"
+                },
+                "type": "string",
+                "format": "enumeration",
+                "default": "yes",
+                "enum": [
+                  "yes",
+                  "no"
+                ]
+              },
+              "vpn-svc-type": {
+                "description": "Service type. (leaf)",
+                "x-yang": {
+                  "type": "leaf"
+                },
+                "type": "string",
+                "format": "identityref"
+              },
+              "vpn-nodes": {
+                "description": "List of vpn-svc (non-presence)",
+                "type": "object",
+                "x-yang": {
+                  "type": "container",
+                  "is_presence": "false"
+                },
+                "properties": {
+                  "vpn-node": {
+                    "type": "array",
+                    "description": "Container of VPN Nodes. (list)",
+                    "x-yang": {
+                      "type": "list"
+                    },
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "vpn-node-id": {
+                          "description": "Local or Remote Device (leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        },
+                        "custom-template": {
+                          "type": "array",
+                          "description": "Custom templates to apply when device is ready (list)",
+                          "x-yang": {
+                            "type": "list"
+                          },
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "description": "Name of template to apply (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "leafref"
+                              },
+                              "variable": {
+                                "type": "array",
+                                "description": "Variables to bind when applying template one time (list)",
+                                "x-yang": {
+                                  "type": "list"
+                                },
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "description": "Name of template variable (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "leafref"
+                                    },
+                                    "value": {
+                                      "description": "Value of template variable (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "iteration": {
+                                "type": "array",
+                                "description": "Apply custom template multiple times with iteration (list)",
+                                "x-yang": {
+                                  "type": "list"
+                                },
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "number": {
+                                      "description": "<1-65535>;;Iteration number (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "integer",
+                                      "format": "uint16"
+                                    },
+                                    "variable": {
+                                      "type": "array",
+                                      "description": "Variables to bind when applying template in iteration (list)",
+                                      "x-yang": {
+                                        "type": "list"
+                                      },
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "name": {
+                                            "description": "Name of template variable (leaf)",
+                                            "x-yang": {
+                                              "type": "leaf"
+                                            },
+                                            "type": "string",
+                                            "format": "leafref"
+                                          },
+                                          "value": {
+                                            "description": "Value of template variable (leaf)",
+                                            "x-yang": {
+                                              "type": "leaf"
+                                            },
+                                            "type": "string",
+                                            "format": "string"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "multi-home": {
+                          "description": "(presence)",
+                          "type": "object",
+                          "x-yang": {
+                            "type": "container",
+                            "is_presence": "true"
+                          },
+                          "properties": {
+                            "esi-value": {
+                              "description": "<0-ff>.;;9-octet ESI value (leaf)",
+                              "x-yang": {
+                                "type": "leaf"
+                              },
+                              "type": "string",
+                              "format": "string"
+                            }
+                          }
+                        },
+                        "te-service-mapping": {
+                          "description": "(non-presence)",
+                          "type": "object",
+                          "x-yang": {
+                            "type": "container",
+                            "is_presence": "false"
+                          },
+                          "properties": {
+                            "te-mapping": {
+                              "description": "(non-presence)",
+                              "type": "object",
+                              "x-yang": {
+                                "type": "container",
+                                "is_presence": "false"
+                              },
+                              "properties": {
+                                "sr-policy": {
+                                  "description": "(presence)",
+                                  "type": "object",
+                                  "x-yang": {
+                                    "type": "container",
+                                    "is_presence": "true"
+                                  },
+                                  "properties": {
+                                    "policy": {
+                                      "description": "Name of SR TE policy (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "string"
+                                    },
+                                    "fallback": {
+                                      "description": "Fallback option for preferred path (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "enumeration",
+                                      "default": "disable",
+                                      "enum": [
+                                        "disable"
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "ne-id": {
+                          "description": "Local or Remote Device. (leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        },
+                        "signaling-options": {
+                          "type": "array",
+                          "description": "List of VPN Signaling Option. (list)",
+                          "x-yang": {
+                            "type": "list"
+                          },
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "description": "VPN signaling types. Only one signaling option can be given per VPN node (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "identityref"
+                              },
+                              "evpn-bgp": {
+                                "description": "Container for MP BGP L2VPN (non-presence)",
+                                "type": "object",
+                                "x-yang": {
+                                  "type": "container",
+                                  "is_presence": "false"
+                                },
+                                "properties": {
+                                  "type": {
+                                    "description": "L2VPN types. (leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "identityref"
+                                  }
+                                }
+                              },
+                              "t-ldp-pwe": {
+                                "description": "Container of T-LDP PWE configurations (non-presence)",
+                                "type": "object",
+                                "x-yang": {
+                                  "type": "container",
+                                  "is_presence": "false"
+                                },
+                                "properties": {
+                                  "ac-pw-list": {
+                                    "type": "array",
+                                    "description": "List of AC and PW bindings. (list)",
+                                    "x-yang": {
+                                      "type": "list"
+                                    },
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "peer-addr": {
+                                          "description": "Peer IP address. Only one peer IP can be given. (leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "union"
+                                        },
+                                        "vc-id": {
+                                          "description": "VC label used to identify PW. (leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "string"
+                                        },
+                                        "mpls-label": {
+                                          "description": "<16-1048575> - MPLS Label (leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "integer",
+                                          "format": "uint32"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "vpn-network-accesses": {
+                          "description": "List of VPN Nodes. (non-presence)",
+                          "type": "object",
+                          "x-yang": {
+                            "type": "container",
+                            "is_presence": "false"
+                          },
+                          "properties": {
+                            "vpn-network-access": {
+                              "type": "array",
+                              "description": "VPN Network Accesses. (list)",
+                              "x-yang": {
+                                "type": "list"
+                              },
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "description": "Identifier of network access. Only one VPN id can be given for a VPN node. (leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "string"
+                                  },
+                                  "Interface-mtu": {
+                                    "description": "Interface MTU, it is also known as the maximum\ntransmission unit or maximum frame size. When a\nframe is larger than the MTU, it is broken down,\nor fragmented, into smaller pieces by the\nnetwork protocol to accommodate the MTU of the\nnetwork (leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "integer",
+                                    "format": "uint32"
+                                  },
+                                  "connection": {
+                                    "description": "Container for bearer (non-presence)",
+                                    "type": "object",
+                                    "x-yang": {
+                                      "type": "container",
+                                      "is_presence": "false"
+                                    },
+                                    "properties": {
+                                      "encapsulation-type": {
+                                        "description": "Encapsulation Type. (leaf)",
+                                        "x-yang": {
+                                          "type": "leaf"
+                                        },
+                                        "type": "string",
+                                        "format": "identityref"
+                                      },
+                                      "dot1q-interface": {
+                                        "description": "Container for dot1Q Interface (non-presence)",
+                                        "type": "object",
+                                        "x-yang": {
+                                          "type": "container",
+                                          "is_presence": "false"
+                                        },
+                                        "properties": {
+                                          "l2-access-type": {
+                                            "description": "L2 Access Encapsulation Type. (leaf)",
+                                            "x-yang": {
+                                              "type": "leaf"
+                                            },
+                                            "type": "string",
+                                            "format": "identityref"
+                                          },
+                                          "dot1q": {
+                                            "description": "Qot1q (non-presence)",
+                                            "type": "object",
+                                            "x-yang": {
+                                              "type": "container",
+                                              "is_presence": "false"
+                                            },
+                                            "properties": {
+                                              "physical-inf": {
+                                                "description": "Physical Interface (leaf)",
+                                                "x-yang": {
+                                                  "type": "leaf"
+                                                },
+                                                "type": "string",
+                                                "format": "string"
+                                              },
+                                              "c-vlan-id": {
+                                                "description": "VLAN identifier (leaf)",
+                                                "x-yang": {
+                                                  "type": "leaf"
+                                                },
+                                                "type": "integer",
+                                                "format": "uint32"
+                                              },
+                                              "rewrite": {
+                                                "description": "Tag Rewrite (presence)",
+                                                "type": "object",
+                                                "x-yang": {
+                                                  "type": "container",
+                                                  "is_presence": "true"
+                                                },
+                                                "properties": {
+                                                  "ingress": {
+                                                    "description": "Set the tag rewriting policy for this EFP (presence)",
+                                                    "type": "object",
+                                                    "x-yang": {
+                                                      "type": "container",
+                                                      "is_presence": "true"
+                                                    },
+                                                    "properties": {
+                                                      "pop": {
+                                                        "description": "Remove one or more tags (leaf)",
+                                                        "x-yang": {
+                                                          "type": "leaf"
+                                                        },
+                                                        "type": "string",
+                                                        "format": "enumeration",
+                                                        "default": "1",
+                                                        "enum": [
+                                                          "1",
+                                                          "2"
+                                                        ]
+                                                      },
+                                                      "dot1q": {
+                                                        "description": "<1-4094> - Push a Dot1Q tag (leaf)",
+                                                        "x-yang": {
+                                                          "type": "leaf"
+                                                        },
+                                                        "type": "integer",
+                                                        "format": "uint16"
+                                                      },
+                                                      "mode": {
+                                                        "description": "(leaf)",
+                                                        "x-yang": {
+                                                          "type": "leaf"
+                                                        },
+                                                        "type": "string",
+                                                        "format": "enumeration",
+                                                        "default": "symmetric",
+                                                        "enum": [
+                                                          "symmetric"
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "untagged-interface": {
+                                        "description": "Container for untagged Interface (non-presence)",
+                                        "type": "object",
+                                        "x-yang": {
+                                          "type": "container",
+                                          "is_presence": "false"
+                                        },
+                                        "properties": {
+                                          "l2-access-type": {
+                                            "description": "L2 Access Encapsulation Type. (leaf)",
+                                            "x-yang": {
+                                              "type": "leaf"
+                                            },
+                                            "type": "string",
+                                            "format": "identityref"
+                                          },
+                                          "untagged": {
+                                            "description": "Untagged (non-presence)",
+                                            "type": "object",
+                                            "x-yang": {
+                                              "type": "container",
+                                              "is_presence": "false"
+                                            },
+                                            "properties": {
+                                              "physical-inf": {
+                                                "description": "Physical Interface (leaf)",
+                                                "x-yang": {
+                                                  "type": "leaf"
+                                                },
+                                                "type": "string",
+                                                "format": "string"
+                                              },
+                                              "sub-if-id": {
+                                                "description": "Sub Interface Id (leaf)",
+                                                "x-yang": {
+                                                  "type": "leaf"
+                                                },
+                                                "type": "integer",
+                                                "format": "uint32"
+                                              },
+                                              "rewrite": {
+                                                "description": "Tag Rewrite (presence)",
+                                                "type": "object",
+                                                "x-yang": {
+                                                  "type": "container",
+                                                  "is_presence": "true"
+                                                },
+                                                "properties": {
+                                                  "ingress": {
+                                                    "description": "Set the tag rewriting policy for this EFP (presence)",
+                                                    "type": "object",
+                                                    "x-yang": {
+                                                      "type": "container",
+                                                      "is_presence": "true"
+                                                    },
+                                                    "properties": {
+                                                      "pop": {
+                                                        "description": "Remove one or more tags (leaf)",
+                                                        "x-yang": {
+                                                          "type": "leaf"
+                                                        },
+                                                        "type": "string",
+                                                        "format": "enumeration",
+                                                        "default": "1",
+                                                        "enum": [
+                                                          "1",
+                                                          "2"
+                                                        ]
+                                                      },
+                                                      "dot1q": {
+                                                        "description": "<1-4094> - Push a Dot1Q tag (leaf)",
+                                                        "x-yang": {
+                                                          "type": "leaf"
+                                                        },
+                                                        "type": "integer",
+                                                        "format": "uint16"
+                                                      },
+                                                      "mode": {
+                                                        "description": "(leaf)",
+                                                        "x-yang": {
+                                                          "type": "leaf"
+                                                        },
+                                                        "type": "string",
+                                                        "format": "enumeration",
+                                                        "default": "symmetric",
+                                                        "enum": [
+                                                          "symmetric"
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "data_ietf-l2vpn-ntw_l2vpn-ntw_vpn-services_vpn-service-plan_vpn-service-plan-vpn-id": {
+      "type": "object",
+      "properties": {
+        "ietf-l2vpn-ntw:vpn-service-plan": {
+          "type": "array",
+          "description": "(list)",
+          "x-yang": {
+            "type": "list"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "vpn-id": {
+                "description": "(leaf)",
+                "x-yang": {
+                  "type": "leaf"
+                },
+                "type": "string",
+                "format": "string"
+              },
+              "plan": {
+                "description": "(non-presence)",
+                "type": "object",
+                "x-yang": {
+                  "type": "container",
+                  "is_presence": "false"
+                },
+                "properties": {
+                  "component": {
+                    "type": "array",
+                    "description": "A component has a type and a list of states.  It is required\nthat the first plan component is of type ncs:self.  It is\nalso required that the first state of a component is ncs:init\nand the last state is ncs:ready.  A service can in addition\nto the 'self' component have any number of components. These\nadditional components will have types that are defined by\nuser specified YANG identities. (list)",
+                    "x-yang": {
+                      "type": "list"
+                    },
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        },
+                        "type": {
+                          "description": "The plan component type is defined by an YANG identity.\nIt is used to identify the characteristics of a certain component.\nTherefore, if two components in the same service are of the same\ntype they should be identical with respect to number, type and order\nof their contained states. (leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "identityref"
+                        },
+                        "state": {
+                          "type": "array",
+                          "description": "A plan state represents a certain step or stage that a service needs\nto execute and/or reach. It is identified as an YANG identity.\nThere are two predefined states ncs:init and ncs:ready which is the\nfirst respectively last state of a plan component. (list)",
+                          "x-yang": {
+                            "type": "list"
+                          },
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "description": "(leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "identityref"
+                              },
+                              "status": {
+                                "description": "A plan state is always in one of three states 'not-reached' when\nthe state has not been executed, 'reached' when the state has been\nexecuted and 'failed' it the state execution failed. (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "enumeration",
+                                "default": "not-reached",
+                                "enum": [
+                                  "not-reached",
+                                  "reached",
+                                  "failed"
+                                ]
+                              },
+                              "when": {
+                                "description": "The time this state was successfully reached or failed. (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "string"
+                              },
+                              "service-reference": {
+                                "description": "If this component reflects the state of some other data, e.g\nan instantiated RFS, an instantiated CFS or something else, this\noptional field can be set to point to that instance (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "instance-identifier"
+                              },
+                              "create-cb": {
+                                "description": "indicate if a create callback should be registered\nfor this state (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "boolean"
+                              },
+                              "create-force-commit": {
+                                "description": "Indicate if the current transaction should be commited before\nrunning any later states. (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "boolean"
+                              },
+                              "delete-cb": {
+                                "description": "indicate if a delete callback should be registered\nfor this state (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "boolean"
+                              },
+                              "delete-force-commit": {
+                                "description": "Indicate if the current transaction should be commited before\nrunning any later states. (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "boolean"
+                              },
+                              "pre-conditions": {
+                                "description": "Pre-conditions for a state controls whether or not a\nstate should be executed. There are separate conditions\nfor the 'create' and 'delete' case. At create the\ncreate conditions checked and if possible executed with\nthe ultimate goal for the state of having status\n'reached'. At the 'delete' case the delete conditions\ncontrol whether the state changes should be deleted\nwith the ultimate goal of the state having status\n'not-reached' (presence)",
+                                "type": "object",
+                                "x-yang": {
+                                  "type": "container",
+                                  "is_presence": "true"
+                                },
+                                "properties": {
+                                  "create-monitor": {
+                                    "description": "(leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "string"
+                                  },
+                                  "create-trigger-expr": {
+                                    "description": "(leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "string"
+                                  },
+                                  "delete-monitor": {
+                                    "description": "(leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "string"
+                                  },
+                                  "delete-trigger-expr": {
+                                    "description": "(leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "string"
+                                  }
+                                }
+                              },
+                              "post-actions": {
+                                "description": "Post-actions are called after successful execution of a\nstate.  These are optional and there are separate\naction that can be set for the 'create' and 'delete'\ncase respectively.\n\nThese actions are put as requests in the\nside-effect-queue and are executed asynchronously with\nrespect to the original service transaction. (presence)",
+                                "type": "object",
+                                "x-yang": {
+                                  "type": "container",
+                                  "is_presence": "true"
+                                },
+                                "properties": {
+                                  "create-action-node": {
+                                    "description": "This leaf identifies the node on which a specified\naction resides. This action is called after this state\nas got a 'reached' status. (leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "string"
+                                  },
+                                  "create-action-name": {
+                                    "description": "The name of the action. (leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "string"
+                                  },
+                                  "create-action-result-expr": {
+                                    "description": "An action responds with a structured result. A certain\nvalue could indicate an error or a successful result, e.g.\n'result true'.\n\nThis statement describes an XPath expression to\nevaluate the result of the action so that the\nside-effect-queue can indicate action errors.\n\nThe result of the expression is converted to a boolean using\nthe standard XPath rules.  If the result is 'true' the action\nis reported as successful, otherwise as failed.\n\nThe context for evaluating this expression is the\nresulting xml tree of the action.\n\nThe set of namespace declarations are all available namespaces,\nwith the prefixes defined in the modules. (leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "string"
+                                  },
+                                  "create-action-async": {
+                                    "description": "(leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "[null]"
+                                  },
+                                  "delete-action-node": {
+                                    "description": "This leaf identifies the node on which a specified\naction resides. This action is called after this state\nas got a 'not-reached' status. (leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "string"
+                                  },
+                                  "delete-action-name": {
+                                    "description": "The name of the action. (leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "string"
+                                  },
+                                  "delete-action-result-expr": {
+                                    "description": "An action responds with a structured result. A certain\nvalue could indicate an error or a successful result, e.g.\n'result true'.\n\nThis statement describes an XPath expression to evaluate the\nresult of the action so that the side-effect-queue can\nindicate action errors.\n\nThe result of the expression is converted to a boolean using\nthe standard XPath rules.  If the result is 'true' the action\nis reported as successful, otherwise as failed.\n\nThe context for evaluating this expression is the\nresulting xml tree of the action.\n\nThe set of namespace declarations are all available namespaces,\nwith the prefixes defined in the modules. (leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "string"
+                                  },
+                                  "delete-action-async": {
+                                    "description": "(leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "[null]"
+                                  }
+                                }
+                              },
+                              "post-action-status": {
+                                "description": "This leaf is initially set to 'not-reached'.\n\nIf a post-action was specified, and returned\nsuccessfully, this leaf will be set to 'create-reached'\nif the component is not back-tracking, and\n'delete-reached' if it is back-tracking.\n\nIf the post-action did not return successfully, this\nleaf is set to 'failed'. (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "enumeration",
+                                "default": "not-reached",
+                                "enum": [
+                                  "not-reached",
+                                  "create-reached",
+                                  "delete-reached",
+                                  "failed",
+                                  "create-init",
+                                  "delete-init"
+                                ]
+                              },
+                              "modified": {
+                                "description": "Devices and other services this service has modified directly or\nindirectly (through another service). (non-presence)",
+                                "type": "object",
+                                "x-yang": {
+                                  "type": "container",
+                                  "is_presence": "false"
+                                },
+                                "properties": {
+                                  "devices": {
+                                    "type": "array",
+                                    "x-yang": {
+                                      "type": "leaf-list"
+                                    },
+                                    "items": {
+                                      "description": "(leaf-list)",
+                                      "type": "string",
+                                      "format": "leafref"
+                                    }
+                                  },
+                                  "services": {
+                                    "type": "array",
+                                    "x-yang": {
+                                      "type": "leaf-list"
+                                    },
+                                    "items": {
+                                      "description": "(leaf-list)",
+                                      "type": "string",
+                                      "format": "instance-identifier"
+                                    }
+                                  },
+                                  "lsa-services": {
+                                    "type": "array",
+                                    "x-yang": {
+                                      "type": "leaf-list"
+                                    },
+                                    "items": {
+                                      "description": "(leaf-list)",
+                                      "type": "string",
+                                      "format": "instance-identifier"
+                                    }
+                                  }
+                                }
+                              },
+                              "directly-modified": {
+                                "description": "Devices and other services this service has explicitly\nmodified. (non-presence)",
+                                "type": "object",
+                                "x-yang": {
+                                  "type": "container",
+                                  "is_presence": "false"
+                                },
+                                "properties": {
+                                  "devices": {
+                                    "type": "array",
+                                    "x-yang": {
+                                      "type": "leaf-list"
+                                    },
+                                    "items": {
+                                      "description": "(leaf-list)",
+                                      "type": "string",
+                                      "format": "leafref"
+                                    }
+                                  },
+                                  "services": {
+                                    "type": "array",
+                                    "x-yang": {
+                                      "type": "leaf-list"
+                                    },
+                                    "items": {
+                                      "description": "(leaf-list)",
+                                      "type": "string",
+                                      "format": "instance-identifier"
+                                    }
+                                  },
+                                  "lsa-services": {
+                                    "type": "array",
+                                    "x-yang": {
+                                      "type": "leaf-list"
+                                    },
+                                    "items": {
+                                      "description": "(leaf-list)",
+                                      "type": "string",
+                                      "format": "instance-identifier"
+                                    }
+                                  }
+                                }
+                              },
+                              "private": {
+                                "description": "NCS service related internal data stored here. (non-presence)",
+                                "type": "object",
+                                "x-yang": {
+                                  "type": "container",
+                                  "is_presence": "false"
+                                },
+                                "properties": {
+                                  "diff-set": {
+                                    "description": "Internal node use by NCS service manager to remember\nthe reverse diff for a service instance. This is the\ndata that is used by FASTMAP (leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "binary"
+                                  },
+                                  "forward-diff-set": {
+                                    "description": "Internal node use by NCS service manager to remember\nthe forwards diff for a service instance. This data is\nis used to produce the proper 'get-modifications' output (leaf)",
+                                    "x-yang": {
+                                      "type": "leaf"
+                                    },
+                                    "type": "string",
+                                    "format": "binary"
+                                  },
+                                  "device-list": {
+                                    "type": "array",
+                                    "x-yang": {
+                                      "type": "leaf-list"
+                                    },
+                                    "items": {
+                                      "description": "A list of managed devices this state has manipulated. (leaf-list)",
+                                      "type": "string",
+                                      "format": "string"
+                                    }
+                                  },
+                                  "ned-id-list": {
+                                    "type": "array",
+                                    "x-yang": {
+                                      "type": "leaf-list"
+                                    },
+                                    "items": {
+                                      "description": "A list of NED identities this service instance has\nmanipulated. (leaf-list)",
+                                      "type": "string",
+                                      "format": "string"
+                                    }
+                                  },
+                                  "service-list": {
+                                    "type": "array",
+                                    "x-yang": {
+                                      "type": "leaf-list"
+                                    },
+                                    "items": {
+                                      "description": "A list of services this state has manipulated. (leaf-list)",
+                                      "type": "string",
+                                      "format": "instance-identifier"
+                                    }
+                                  },
+                                  "lsa-service-list": {
+                                    "type": "array",
+                                    "x-yang": {
+                                      "type": "leaf-list"
+                                    },
+                                    "items": {
+                                      "description": "A list of LSA services this service instance has manipulated. (leaf-list)",
+                                      "type": "string",
+                                      "format": "instance-identifier"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "private": {
+                          "description": "NCS service related internal data stored here. (non-presence)",
+                          "type": "object",
+                          "x-yang": {
+                            "type": "container",
+                            "is_presence": "false"
+                          },
+                          "properties": {
+                            "property-list": {
+                              "description": "FASTMAP service component instance data used by the\nservice implementation. (non-presence)",
+                              "type": "object",
+                              "x-yang": {
+                                "type": "container",
+                                "is_presence": "false"
+                              },
+                              "properties": {
+                                "property": {
+                                  "type": "array",
+                                  "description": "(list)",
+                                  "x-yang": {
+                                    "type": "list"
+                                  },
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "description": "(leaf)",
+                                        "x-yang": {
+                                          "type": "leaf"
+                                        },
+                                        "type": "string",
+                                        "format": "string"
+                                      },
+                                      "value": {
+                                        "description": "(leaf)",
+                                        "x-yang": {
+                                          "type": "leaf"
+                                        },
+                                        "type": "string",
+                                        "format": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "back-track": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "boolean"
+                        },
+                        "back-track-goal": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "identityref"
+                        },
+                        "status-code": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        }
+                      }
+                    }
+                  },
+                  "commit-queue": {
+                    "description": "(presence)",
+                    "type": "object",
+                    "x-yang": {
+                      "type": "container",
+                      "is_presence": "true"
+                    },
+                    "properties": {
+                      "queue-item": {
+                        "type": "array",
+                        "description": "(list)",
+                        "x-yang": {
+                          "type": "list"
+                        },
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "If the queue item in the commit queue refers to this service\nthis is the queue number. (leaf)",
+                              "x-yang": {
+                                "type": "leaf"
+                              },
+                              "type": "integer",
+                              "format": "uint64"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "failed": {
+                    "description": "(leaf)",
+                    "x-yang": {
+                      "type": "leaf"
+                    },
+                    "type": "string",
+                    "format": "[null]"
+                  },
+                  "error-info": {
+                    "description": "(presence)",
+                    "type": "object",
+                    "x-yang": {
+                      "type": "container",
+                      "is_presence": "true"
+                    },
+                    "properties": {
+                      "message": {
+                        "description": "An explanatory message for the failing plan. (leaf)",
+                        "x-yang": {
+                          "type": "leaf"
+                        },
+                        "type": "string",
+                        "format": "string"
+                      },
+                      "log-entry": {
+                        "description": "Reference to a service log entry with additional information. (leaf)",
+                        "x-yang": {
+                          "type": "leaf"
+                        },
+                        "type": "string",
+                        "format": "instance-identifier"
+                      }
+                    }
+                  },
+                  "deleting": {
+                    "description": "(leaf)",
+                    "x-yang": {
+                      "type": "leaf"
+                    },
+                    "type": "string",
+                    "format": "[null]"
+                  },
+                  "service-location": {
+                    "description": "(leaf)",
+                    "x-yang": {
+                      "type": "leaf"
+                    },
+                    "type": "string",
+                    "format": "instance-identifier"
+                  },
+                  "status-code-detail": {
+                    "type": "array",
+                    "description": "Status Codes (list)",
+                    "x-yang": {
+                      "type": "list"
+                    },
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "identityref"
+                        },
+                        "name": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        },
+                        "code": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        },
+                        "context": {
+                          "type": "array",
+                          "description": "(list)",
+                          "x-yang": {
+                            "type": "list"
+                          },
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "context-name": {
+                                "description": "(leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "string"
+                              },
+                              "context-msg": {
+                                "description": "(leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "string"
+                              }
+                            }
+                          }
+                        },
+                        "severity": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "enumeration",
+                          "default": "INFO",
+                          "enum": [
+                            "INFO",
+                            "WARNING",
+                            "ERROR",
+                            "FATAL",
+                            "NONE"
+                          ]
+                        },
+                        "recommended-action": {
+                          "description": "Recommended action to recover in case of error (leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "plan-history": {
+                "description": "(non-presence)",
+                "type": "object",
+                "x-yang": {
+                  "type": "container",
+                  "is_presence": "false"
+                },
+                "properties": {
+                  "plan": {
+                    "type": "array",
+                    "description": "Every time the plan changes its structure, i.e., a\nplan component is added or deleted, or a state is added or\ndeleted in a plan component, a copy of the old plan is stored\nin the plan history list. (list)",
+                    "x-yang": {
+                      "type": "list"
+                    },
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        },
+                        "component": {
+                          "type": "array",
+                          "description": "A component has a type and a list of states.  It is required\nthat the first plan component is of type ncs:self.  It is\nalso required that the first state of a component is ncs:init\nand the last state is ncs:ready.  A service can in addition\nto the 'self' component have any number of components. These\nadditional components will have types that are defined by\nuser specified YANG identities. (list)",
+                          "x-yang": {
+                            "type": "list"
+                          },
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "description": "(leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "string"
+                              },
+                              "type": {
+                                "description": "The plan component type is defined by an YANG identity.\nIt is used to identify the characteristics of a certain component.\nTherefore, if two components in the same service are of the same\ntype they should be identical with respect to number, type and order\nof their contained states. (leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "identityref"
+                              },
+                              "state": {
+                                "type": "array",
+                                "description": "A plan state represents a certain step or stage that a service needs\nto execute and/or reach. It is identified as an YANG identity.\nThere are two predefined states ncs:init and ncs:ready which is the\nfirst respectively last state of a plan component. (list)",
+                                "x-yang": {
+                                  "type": "list"
+                                },
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "description": "(leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "identityref"
+                                    },
+                                    "status": {
+                                      "description": "A plan state is always in one of three states 'not-reached' when\nthe state has not been executed, 'reached' when the state has been\nexecuted and 'failed' it the state execution failed. (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "enumeration",
+                                      "default": "not-reached",
+                                      "enum": [
+                                        "not-reached",
+                                        "reached",
+                                        "failed"
+                                      ]
+                                    },
+                                    "when": {
+                                      "description": "The time this state was successfully reached or failed. (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "string"
+                                    },
+                                    "service-reference": {
+                                      "description": "If this component reflects the state of some other data, e.g\nan instantiated RFS, an instantiated CFS or something else, this\noptional field can be set to point to that instance (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "instance-identifier"
+                                    },
+                                    "create-cb": {
+                                      "description": "indicate if a create callback should be registered\nfor this state (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "boolean"
+                                    },
+                                    "create-force-commit": {
+                                      "description": "Indicate if the current transaction should be commited before\nrunning any later states. (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "boolean"
+                                    },
+                                    "delete-cb": {
+                                      "description": "indicate if a delete callback should be registered\nfor this state (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "boolean"
+                                    },
+                                    "delete-force-commit": {
+                                      "description": "Indicate if the current transaction should be commited before\nrunning any later states. (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "boolean"
+                                    },
+                                    "pre-conditions": {
+                                      "description": "Pre-conditions for a state controls whether or not a\nstate should be executed. There are separate conditions\nfor the 'create' and 'delete' case. At create the\ncreate conditions checked and if possible executed with\nthe ultimate goal for the state of having status\n'reached'. At the 'delete' case the delete conditions\ncontrol whether the state changes should be deleted\nwith the ultimate goal of the state having status\n'not-reached' (presence)",
+                                      "type": "object",
+                                      "x-yang": {
+                                        "type": "container",
+                                        "is_presence": "true"
+                                      },
+                                      "properties": {
+                                        "create-monitor": {
+                                          "description": "(leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "string"
+                                        },
+                                        "create-trigger-expr": {
+                                          "description": "(leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "string"
+                                        },
+                                        "delete-monitor": {
+                                          "description": "(leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "string"
+                                        },
+                                        "delete-trigger-expr": {
+                                          "description": "(leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "string"
+                                        }
+                                      }
+                                    },
+                                    "post-actions": {
+                                      "description": "Post-actions are called after successful execution of a\nstate.  These are optional and there are separate\naction that can be set for the 'create' and 'delete'\ncase respectively.\n\nThese actions are put as requests in the\nside-effect-queue and are executed asynchronously with\nrespect to the original service transaction. (presence)",
+                                      "type": "object",
+                                      "x-yang": {
+                                        "type": "container",
+                                        "is_presence": "true"
+                                      },
+                                      "properties": {
+                                        "create-action-node": {
+                                          "description": "This leaf identifies the node on which a specified\naction resides. This action is called after this state\nas got a 'reached' status. (leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "string"
+                                        },
+                                        "create-action-name": {
+                                          "description": "The name of the action. (leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "string"
+                                        },
+                                        "create-action-result-expr": {
+                                          "description": "An action responds with a structured result. A certain\nvalue could indicate an error or a successful result, e.g.\n'result true'.\n\nThis statement describes an XPath expression to\nevaluate the result of the action so that the\nside-effect-queue can indicate action errors.\n\nThe result of the expression is converted to a boolean using\nthe standard XPath rules.  If the result is 'true' the action\nis reported as successful, otherwise as failed.\n\nThe context for evaluating this expression is the\nresulting xml tree of the action.\n\nThe set of namespace declarations are all available namespaces,\nwith the prefixes defined in the modules. (leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "string"
+                                        },
+                                        "create-action-async": {
+                                          "description": "(leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "[null]"
+                                        },
+                                        "delete-action-node": {
+                                          "description": "This leaf identifies the node on which a specified\naction resides. This action is called after this state\nas got a 'not-reached' status. (leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "string"
+                                        },
+                                        "delete-action-name": {
+                                          "description": "The name of the action. (leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "string"
+                                        },
+                                        "delete-action-result-expr": {
+                                          "description": "An action responds with a structured result. A certain\nvalue could indicate an error or a successful result, e.g.\n'result true'.\n\nThis statement describes an XPath expression to evaluate the\nresult of the action so that the side-effect-queue can\nindicate action errors.\n\nThe result of the expression is converted to a boolean using\nthe standard XPath rules.  If the result is 'true' the action\nis reported as successful, otherwise as failed.\n\nThe context for evaluating this expression is the\nresulting xml tree of the action.\n\nThe set of namespace declarations are all available namespaces,\nwith the prefixes defined in the modules. (leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "string"
+                                        },
+                                        "delete-action-async": {
+                                          "description": "(leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "[null]"
+                                        }
+                                      }
+                                    },
+                                    "post-action-status": {
+                                      "description": "This leaf is initially set to 'not-reached'.\n\nIf a post-action was specified, and returned\nsuccessfully, this leaf will be set to 'create-reached'\nif the component is not back-tracking, and\n'delete-reached' if it is back-tracking.\n\nIf the post-action did not return successfully, this\nleaf is set to 'failed'. (leaf)",
+                                      "x-yang": {
+                                        "type": "leaf"
+                                      },
+                                      "type": "string",
+                                      "format": "enumeration",
+                                      "default": "not-reached",
+                                      "enum": [
+                                        "not-reached",
+                                        "create-reached",
+                                        "delete-reached",
+                                        "failed",
+                                        "create-init",
+                                        "delete-init"
+                                      ]
+                                    },
+                                    "modified": {
+                                      "description": "Devices and other services this service has modified directly or\nindirectly (through another service). (non-presence)",
+                                      "type": "object",
+                                      "x-yang": {
+                                        "type": "container",
+                                        "is_presence": "false"
+                                      },
+                                      "properties": {
+                                        "devices": {
+                                          "type": "array",
+                                          "x-yang": {
+                                            "type": "leaf-list"
+                                          },
+                                          "items": {
+                                            "description": "(leaf-list)",
+                                            "type": "string",
+                                            "format": "leafref"
+                                          }
+                                        },
+                                        "services": {
+                                          "type": "array",
+                                          "x-yang": {
+                                            "type": "leaf-list"
+                                          },
+                                          "items": {
+                                            "description": "(leaf-list)",
+                                            "type": "string",
+                                            "format": "instance-identifier"
+                                          }
+                                        },
+                                        "lsa-services": {
+                                          "type": "array",
+                                          "x-yang": {
+                                            "type": "leaf-list"
+                                          },
+                                          "items": {
+                                            "description": "(leaf-list)",
+                                            "type": "string",
+                                            "format": "instance-identifier"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "directly-modified": {
+                                      "description": "Devices and other services this service has explicitly\nmodified. (non-presence)",
+                                      "type": "object",
+                                      "x-yang": {
+                                        "type": "container",
+                                        "is_presence": "false"
+                                      },
+                                      "properties": {
+                                        "devices": {
+                                          "type": "array",
+                                          "x-yang": {
+                                            "type": "leaf-list"
+                                          },
+                                          "items": {
+                                            "description": "(leaf-list)",
+                                            "type": "string",
+                                            "format": "leafref"
+                                          }
+                                        },
+                                        "services": {
+                                          "type": "array",
+                                          "x-yang": {
+                                            "type": "leaf-list"
+                                          },
+                                          "items": {
+                                            "description": "(leaf-list)",
+                                            "type": "string",
+                                            "format": "instance-identifier"
+                                          }
+                                        },
+                                        "lsa-services": {
+                                          "type": "array",
+                                          "x-yang": {
+                                            "type": "leaf-list"
+                                          },
+                                          "items": {
+                                            "description": "(leaf-list)",
+                                            "type": "string",
+                                            "format": "instance-identifier"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "private": {
+                                      "description": "NCS service related internal data stored here. (non-presence)",
+                                      "type": "object",
+                                      "x-yang": {
+                                        "type": "container",
+                                        "is_presence": "false"
+                                      },
+                                      "properties": {
+                                        "diff-set": {
+                                          "description": "Internal node use by NCS service manager to remember\nthe reverse diff for a service instance. This is the\ndata that is used by FASTMAP (leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "binary"
+                                        },
+                                        "forward-diff-set": {
+                                          "description": "Internal node use by NCS service manager to remember\nthe forwards diff for a service instance. This data is\nis used to produce the proper 'get-modifications' output (leaf)",
+                                          "x-yang": {
+                                            "type": "leaf"
+                                          },
+                                          "type": "string",
+                                          "format": "binary"
+                                        },
+                                        "device-list": {
+                                          "type": "array",
+                                          "x-yang": {
+                                            "type": "leaf-list"
+                                          },
+                                          "items": {
+                                            "description": "A list of managed devices this state has manipulated. (leaf-list)",
+                                            "type": "string",
+                                            "format": "string"
+                                          }
+                                        },
+                                        "ned-id-list": {
+                                          "type": "array",
+                                          "x-yang": {
+                                            "type": "leaf-list"
+                                          },
+                                          "items": {
+                                            "description": "A list of NED identities this service instance has\nmanipulated. (leaf-list)",
+                                            "type": "string",
+                                            "format": "string"
+                                          }
+                                        },
+                                        "service-list": {
+                                          "type": "array",
+                                          "x-yang": {
+                                            "type": "leaf-list"
+                                          },
+                                          "items": {
+                                            "description": "A list of services this state has manipulated. (leaf-list)",
+                                            "type": "string",
+                                            "format": "instance-identifier"
+                                          }
+                                        },
+                                        "lsa-service-list": {
+                                          "type": "array",
+                                          "x-yang": {
+                                            "type": "leaf-list"
+                                          },
+                                          "items": {
+                                            "description": "A list of LSA services this service instance has manipulated. (leaf-list)",
+                                            "type": "string",
+                                            "format": "instance-identifier"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "private": {
+                                "description": "NCS service related internal data stored here. (non-presence)",
+                                "type": "object",
+                                "x-yang": {
+                                  "type": "container",
+                                  "is_presence": "false"
+                                },
+                                "properties": {
+                                  "property-list": {
+                                    "description": "FASTMAP service component instance data used by the\nservice implementation. (non-presence)",
+                                    "type": "object",
+                                    "x-yang": {
+                                      "type": "container",
+                                      "is_presence": "false"
+                                    },
+                                    "properties": {
+                                      "property": {
+                                        "type": "array",
+                                        "description": "(list)",
+                                        "x-yang": {
+                                          "type": "list"
+                                        },
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "name": {
+                                              "description": "(leaf)",
+                                              "x-yang": {
+                                                "type": "leaf"
+                                              },
+                                              "type": "string",
+                                              "format": "string"
+                                            },
+                                            "value": {
+                                              "description": "(leaf)",
+                                              "x-yang": {
+                                                "type": "leaf"
+                                              },
+                                              "type": "string",
+                                              "format": "string"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "back-track": {
+                                "description": "(leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "boolean"
+                              },
+                              "back-track-goal": {
+                                "description": "(leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "identityref"
+                              },
+                              "status-code": {
+                                "description": "(leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "status-code-detail": {
+                    "type": "array",
+                    "description": "Status Codes (list)",
+                    "x-yang": {
+                      "type": "list"
+                    },
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "identityref"
+                        },
+                        "name": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        },
+                        "code": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        },
+                        "context": {
+                          "type": "array",
+                          "description": "(list)",
+                          "x-yang": {
+                            "type": "list"
+                          },
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "context-name": {
+                                "description": "(leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "string"
+                              },
+                              "context-msg": {
+                                "description": "(leaf)",
+                                "x-yang": {
+                                  "type": "leaf"
+                                },
+                                "type": "string",
+                                "format": "string"
+                              }
+                            }
+                          }
+                        },
+                        "severity": {
+                          "description": "(leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "enumeration",
+                          "default": "INFO",
+                          "enum": [
+                            "INFO",
+                            "WARNING",
+                            "ERROR",
+                            "FATAL",
+                            "NONE"
+                          ]
+                        },
+                        "recommended-action": {
+                          "description": "Recommended action to recover in case of error (leaf)",
+                          "x-yang": {
+                            "type": "leaf"
+                          },
+                          "type": "string",
+                          "format": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
