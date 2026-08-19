@@ -1,0 +1,50 @@
+aid: cisco-crosswork
+name: Cisco Crosswork
+description: 'Cisco Crosswork is Cisco''s service-provider network automation portfolio — Crosswork Network Controller,
+  Data Gateway, Zero Touch Provisioning, Optimization Engine and Network Change Automation. Unusually for Cisco,
+  the specifications are published openly: the CiscoDevNet/crosswork-openapi-spec repository carries more than a
+  hundred Swagger documents across the CNC, CDG, ZTP, COE and NCAHI components and multiple product versions, including
+  IETF L2VPN/L3VPN and traffic-engineering service models.'
+url: https://raw.githubusercontent.com/api-evangelist/cisco-crosswork/refs/heads/main/apis.yml
+type: Index
+access: 3rd-Party
+position: Consumer
+x-type: company
+x-source: cisco-family-buildout:2026-08-19
+x-parent: cisco
+x-relationship: product
+x-contract-status: real
+x-contract-note: Cisco publishes a fetchable first-party specification for this API. Harvested into openapi/_original/
+  with an x-provenance stamp.
+specificationVersion: '0.23'
+created: '2026-08-19'
+modified: '2026-08-19'
+tags:
+- Network Automation
+- Service Provider
+- Orchestration
+- Networking
+- Assurance
+- Telecom
+apis: []
+common:
+- type: Portal
+  url: https://developer.cisco.com/docs/crosswork/
+- type: Documentation
+  url: https://developer.cisco.com/docs/crosswork/
+- type: APIReference
+  url: https://developer.cisco.com/docs/crosswork/
+- type: ParentCompany
+  url: https://apis.io/providers/cisco/
+  name: Cisco
+- type: OpenAPI Source
+  url: https://github.com/CiscoDevNet/crosswork-openapi-spec
+- type: SDKs
+  url: https://github.com/CiscoDevNet/Crosswork-SDK
+- type: Portal
+  url: https://developer.cisco.com/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
