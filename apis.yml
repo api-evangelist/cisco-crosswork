@@ -26,17 +26,696 @@ tags:
 - Networking
 - Assurance
 - Telecom
-apis: []
+apis:
+- aid: cisco-crosswork:cisco-crosswork-add-credentials-api
+  name: Cisco Crosswork Add Credentials API
+  description: The Add Credentials API from Cisco Crosswork — 1 operation(s) for add credentials.
+  tags:
+  - Add Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-add-credentials-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-add-data-gateway-enrollments-api
+  name: Cisco Crosswork Add Data Gateway Enrollments API
+  description: The  Add Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for  add data gateway
+    enrollments.
+  tags:
+  - ' Add Data Gateway Enrollments'
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-add-data-gateway-enrollments-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-add-destinations-api
+  name: Cisco Crosswork Add Destinations API
+  description: The Add Destinations API from Cisco Crosswork — 1 operation(s) for add destinations.
+  tags:
+  - Add Destinations
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-add-destinations-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-add-nodes-devices-api
+  name: Cisco Crosswork Add Nodes/Devices API
+  description: The Add Nodes/Devices API from Cisco Crosswork — 1 operation(s) for add nodes/devices.
+  tags:
+  - Add Nodes/Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-add-nodes-devices-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-add-policies-api
+  name: Cisco Crosswork Add Policies API
+  description: The Add Policies API from Cisco Crosswork — 1 operation(s) for add policies.
+  tags:
+  - Add Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-add-policies-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-add-providers-api
+  name: Cisco Crosswork Add Providers API
+  description: The Add Providers API from Cisco Crosswork — 1 operation(s) for add providers.
+  tags:
+  - Add Providers
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-add-providers-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-add-tags-api
+  name: Cisco Crosswork Add Tags API
+  description: The Add Tags API from Cisco Crosswork — 1 operation(s) for add tags.
+  tags:
+  - Add Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-add-tags-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-add-via-csv-file-api
+  name: Cisco Crosswork Add via CSV file API
+  description: The Add via CSV file API from Cisco Crosswork — 1 operation(s) for add via csv file.
+  tags:
+  - Add via CSV file
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-add-via-csv-file-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-alarms-api
+  name: Cisco Crosswork Alarms API
+  description: The Alarms API from Cisco Crosswork — 9 operation(s) for alarms.
+  tags:
+  - Alarms
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-alarms-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-alert-api-api
+  name: Cisco Crosswork Alert API API
+  description: APIs to get the Alerts of Crosswork HTTPS Cert expiry and update
+  tags:
+  - Alert API
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-alert-api-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-api-controller-api
+  name: Cisco Crosswork API Controller API
+  description: API Controller
+  tags:
+  - api-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-api-controller-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-authconfig-api
+  name: Cisco Crosswork Authconfig API
+  description: The authconfig API from Cisco Crosswork — 2 operation(s) for authconfig.
+  tags:
+  - authconfig
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-authconfig-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-backupservices-api
+  name: Cisco Crosswork Backup Services API
+  description: The BackupServices API from Cisco Crosswork — 13 operation(s) for backupservices.
+  tags:
+  - BackupServices
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-backupservices-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-clustermanager-api
+  name: Cisco Crosswork Cluster Manager API
+  description: The ClusterManager API from Cisco Crosswork — 26 operation(s) for clustermanager.
+  tags:
+  - ClusterManager
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-clustermanager-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-collectionservice-api
+  name: Cisco Crosswork Collection Service API
+  description: The CollectionService API from Cisco Crosswork — 9 operation(s) for collectionservice.
+  tags:
+  - CollectionService
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-collectionservice-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-command-api
+  name: Cisco Crosswork Command API
+  description: The Command API from Cisco Crosswork — 3 operation(s) for command.
+  tags:
+  - Command
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-command-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-crosswork-health-api-api
+  name: Cisco Crosswork Crosswork Health API API
+  description: APIs to get the Health of Crosswork Applications and their dependent services
+  tags:
+  - Crosswork Health API
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-crosswork-health-api-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-custom-files-api
+  name: Cisco Crosswork Custom Files API
+  description: The Custom Files API from Cisco Crosswork — 4 operation(s) for custom files.
+  tags:
+  - Custom Files
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-custom-files-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-cwvmmangager-api
+  name: Cisco Crosswork Cw Vm Mangager API
+  description: The CwVmMangager API from Cisco Crosswork — 19 operation(s) for cwvmmangager.
+  tags:
+  - CwVmMangager
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-cwvmmangager-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-cwztpdevice-api
+  name: Cisco Crosswork Cwztpdevice API
+  description: The cwztpdevice API from Cisco Crosswork — 8 operation(s) for cwztpdevice.
+  tags:
+  - cwztpdevice
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-cwztpdevice-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-cwztpdynamicconfigs-api
+  name: Cisco Crosswork Cwztpdynamicconfigs API
+  description: The cwztpdynamicconfigs API from Cisco Crosswork — 1 operation(s) for cwztpdynamicconfigs.
+  tags:
+  - cwztpdynamicconfigs
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-cwztpdynamicconfigs-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-cwztpprofile-api
+  name: Cisco Crosswork Cwztpprofile API
+  description: The cwztpprofile API from Cisco Crosswork — 2 operation(s) for cwztpprofile.
+  tags:
+  - cwztpprofile
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-cwztpprofile-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-data-api
+  name: Cisco Crosswork Data API
+  description: data resources
+  tags:
+  - data
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-data-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-delete-credentials-api
+  name: Cisco Crosswork Delete Credentials API
+  description: The Delete Credentials API from Cisco Crosswork — 1 operation(s) for delete credentials.
+  tags:
+  - Delete Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-delete-credentials-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-delete-data-gateway-enrollments-api
+  name: Cisco Crosswork Delete Data Gateway Enrollments API
+  description: The Delete Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for delete data gateway
+    enrollments.
+  tags:
+  - Delete Data Gateway Enrollments
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-delete-data-gateway-enrollments-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-delete-destinations-api
+  name: Cisco Crosswork Delete Destinations API
+  description: The Delete Destinations API from Cisco Crosswork — 1 operation(s) for delete destinations.
+  tags:
+  - Delete Destinations
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-delete-destinations-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-delete-nodes-devices-api
+  name: Cisco Crosswork Delete Nodes/Devices API
+  description: The Delete Nodes/Devices API from Cisco Crosswork — 1 operation(s) for delete nodes/devices.
+  tags:
+  - Delete Nodes/Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-delete-nodes-devices-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-delete-policies-api
+  name: Cisco Crosswork Delete Policies API
+  description: The Delete Policies API from Cisco Crosswork — 1 operation(s) for delete policies.
+  tags:
+  - Delete Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-delete-policies-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-delete-providers-api
+  name: Cisco Crosswork Delete Providers API
+  description: The Delete Providers API from Cisco Crosswork — 1 operation(s) for delete providers.
+  tags:
+  - Delete Providers
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-delete-providers-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-delete-tags-api
+  name: Cisco Crosswork Delete Tags API
+  description: The Delete Tags API from Cisco Crosswork — 1 operation(s) for delete tags.
+  tags:
+  - Delete Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-delete-tags-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-delete-via-csv-file-api
+  name: Cisco Crosswork Delete via CSV file API
+  description: The Delete via CSV file API from Cisco Crosswork — 1 operation(s) for delete via csv file.
+  tags:
+  - Delete via CSV file
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-delete-via-csv-file-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-file-controller-api
+  name: Cisco Crosswork File Controller API
+  description: File Controller
+  tags:
+  - file-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-file-controller-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-flat-l2vpn-provision-api
+  name: Cisco Crosswork Flat L2VPN Provision API
+  description: The Flat L2VPN Provision API from Cisco Crosswork — 1 operation(s) for flat l2vpn provision.
+  tags:
+  - Flat L2VPN Provision
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-flat-l2vpn-provision-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-flat-l2vpn-retrieval-api
+  name: Cisco Crosswork Flat L2VPN Retrieval API
+  description: The Flat L2VPN Retrieval API from Cisco Crosswork — 2 operation(s) for flat l2vpn retrieval.
+  tags:
+  - Flat L2VPN Retrieval
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-flat-l2vpn-retrieval-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-flat-l3vpn-provision-api
+  name: Cisco Crosswork Flat L3VPN Provision API
+  description: The Flat L3VPN Provision API from Cisco Crosswork — 1 operation(s) for flat l3vpn provision.
+  tags:
+  - Flat L3VPN Provision
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-flat-l3vpn-provision-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-flat-l3vpn-retrieval-api
+  name: Cisco Crosswork Flat L3VPN Retrieval API
+  description: The Flat L3VPN Retrieval API from Cisco Crosswork — 2 operation(s) for flat l3vpn retrieval.
+  tags:
+  - Flat L3VPN Retrieval
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-flat-l3vpn-retrieval-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-get-api
+  name: Cisco Crosswork Get API
+  description: get resources
+  tags:
+  - get
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-get-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-get-credentials-api
+  name: Cisco Crosswork Get Credentials API
+  description: The Get Credentials API from Cisco Crosswork — 1 operation(s) for get credentials.
+  tags:
+  - Get Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-get-credentials-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-get-data-gateway-enrollments-api
+  name: Cisco Crosswork Get Data Gateway Enrollments API
+  description: The Get Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for get data gateway enrollments.
+  tags:
+  - Get Data Gateway Enrollments
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-get-data-gateway-enrollments-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-get-destinations-api
+  name: Cisco Crosswork Get Destinations API
+  description: The Get Destinations API from Cisco Crosswork — 1 operation(s) for get destinations.
+  tags:
+  - Get Destinations
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-get-destinations-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-get-inventory-jobs-api
+  name: Cisco Crosswork Get Inventory Jobs API
+  description: The Get Inventory Jobs API from Cisco Crosswork — 1 operation(s) for get inventory jobs.
+  tags:
+  - Get Inventory Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-get-inventory-jobs-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-get-nodes-count-api
+  name: Cisco Crosswork Get Nodes Count API
+  description: The Get Nodes Count API from Cisco Crosswork — 1 operation(s) for get nodes count.
+  tags:
+  - Get Nodes Count
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-get-nodes-count-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-get-nodes-devices-api
+  name: Cisco Crosswork Get Nodes/Devices API
+  description: The Get Nodes/Devices API from Cisco Crosswork — 1 operation(s) for get nodes/devices.
+  tags:
+  - Get Nodes/Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-get-nodes-devices-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-get-nodes-summary-api
+  name: Cisco Crosswork Get Nodes Summary API
+  description: The Get Nodes Summary API from Cisco Crosswork — 1 operation(s) for get nodes summary.
+  tags:
+  - Get Nodes Summary
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-get-nodes-summary-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-get-policies-api
+  name: Cisco Crosswork Get Policies API
+  description: The Get Policies API from Cisco Crosswork — 1 operation(s) for get policies.
+  tags:
+  - Get Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-get-policies-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-get-providers-api
+  name: Cisco Crosswork Get Providers API
+  description: The Get Providers API from Cisco Crosswork — 1 operation(s) for get providers.
+  tags:
+  - Get Providers
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-get-providers-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-get-tags-api
+  name: Cisco Crosswork Get Tags API
+  description: The Get Tags API from Cisco Crosswork — 1 operation(s) for get tags.
+  tags:
+  - Get Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-get-tags-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-health-controller-api
+  name: Cisco Crosswork Health Controller API
+  description: Health Controller
+  tags:
+  - health-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-health-controller-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-ietf-l2vpn-nm-provision-api
+  name: Cisco Crosswork IETF L2VPN NM Provision API
+  description: The IETF L2VPN NM Provision API from Cisco Crosswork — 1 operation(s) for ietf l2vpn nm provision.
+  tags:
+  - IETF L2VPN NM Provision
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-ietf-l2vpn-nm-provision-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-ietf-l2vpn-nm-retrieval-api
+  name: Cisco Crosswork IETF L2VPN NM Retrieval API
+  description: The IETF L2VPN NM Retrieval API from Cisco Crosswork — 2 operation(s) for ietf l2vpn nm retrieval.
+  tags:
+  - IETF L2VPN NM Retrieval
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-ietf-l2vpn-nm-retrieval-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-ietf-te-provision-api
+  name: Cisco Crosswork IETF-TE Provision API
+  description: The IETF-TE Provision API from Cisco Crosswork — 1 operation(s) for ietf-te provision.
+  tags:
+  - IETF-TE Provision
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-ietf-te-provision-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-ietf-te-retrieval-api
+  name: Cisco Crosswork IETF-TE Retrieval API
+  description: The IETF-TE Retrieval API from Cisco Crosswork — 2 operation(s) for ietf-te retrieval.
+  tags:
+  - IETF-TE Retrieval
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-ietf-te-retrieval-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-image-controller-api
+  name: Cisco Crosswork Image Controller API
+  description: Image Controller
+  tags:
+  - image-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-image-controller-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-image-platform-controller-api
+  name: Cisco Crosswork Image Platform Controller API
+  description: Image Platform Controller
+  tags:
+  - image-platform-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-image-platform-controller-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-l2vpn-route-policy-provision-api
+  name: Cisco Crosswork L2VPN Route Policy Provision API
+  description: The L2VPN Route Policy Provision API from Cisco Crosswork — 1 operation(s) for l2vpn route policy
+    provision.
+  tags:
+  - L2VPN Route Policy Provision
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-l2vpn-route-policy-provision-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-l2vpn-route-policy-retrieval-api
+  name: Cisco Crosswork L2VPN Route Policy Retrieval API
+  description: The L2VPN Route Policy Retrieval API from Cisco Crosswork — 1 operation(s) for l2vpn route policy
+    retrieval.
+  tags:
+  - L2VPN Route Policy Retrieval
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-l2vpn-route-policy-retrieval-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-l3vpn-route-policy-provision-api
+  name: Cisco Crosswork L3VPN Route Policy Provision API
+  description: The L3VPN Route Policy Provision API from Cisco Crosswork — 1 operation(s) for l3vpn route policy
+    provision.
+  tags:
+  - L3VPN Route Policy Provision
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-l3vpn-route-policy-provision-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-l3vpn-route-policy-retrieval-api
+  name: Cisco Crosswork L3VPN Route Policy Retrieval API
+  description: The L3VPN Route Policy Retrieval API from Cisco Crosswork — 1 operation(s) for l3vpn route policy
+    retrieval.
+  tags:
+  - L3VPN Route Policy Retrieval
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-l3vpn-route-policy-retrieval-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-log-controller-api
+  name: Cisco Crosswork Log Controller API
+  description: Log Controller
+  tags:
+  - log-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-log-controller-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-map-or-unmap-devices-to-a-data-gateway-api
+  name: Cisco Crosswork Map or Unmap Devices to a Data Gateway API
+  description: The Map or Unmap Devices to a Data Gateway API from Cisco Crosswork — 1 operation(s) for map or unmap
+    devices to a data gateway.
+  tags:
+  - Map or Unmap Devices to a Data Gateway
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-map-or-unmap-devices-to-a-data-gateway-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-misc-api
+  name: Cisco Crosswork Misc API
+  description: The Misc API from Cisco Crosswork — 2 operation(s) for misc.
+  tags:
+  - Misc
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-misc-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-operations-api
+  name: Cisco Crosswork Operations API
+  description: operations resources
+  tags:
+  - operations
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-operations-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-password-api
+  name: Cisco Crosswork Password API
+  description: The password API from Cisco Crosswork — 1 operation(s) for password.
+  tags:
+  - password
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-password-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-post-api
+  name: Cisco Crosswork Post API
+  description: post resources
+  tags:
+  - post
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-post-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-put-replace-destinations-api
+  name: Cisco Crosswork Put/Replace destinations API
+  description: The Put/Replace destinations API from Cisco Crosswork — 1 operation(s) for put/replace destinations.
+  tags:
+  - Put/Replace destinations
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-put-replace-destinations-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-put-replace-providers-api
+  name: Cisco Crosswork Put/Replace Providers API
+  description: The Put/Replace Providers API from Cisco Crosswork — 1 operation(s) for put/replace providers.
+  tags:
+  - Put/Replace Providers
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-put-replace-providers-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-rbac-api
+  name: Cisco Crosswork Rbac API
+  description: The rbac API from Cisco Crosswork — 6 operation(s) for rbac.
+  tags:
+  - rbac
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-rbac-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-remove-tags-from-nodes-devices-api
+  name: Cisco Crosswork Remove Tags from Nodes/Devices API
+  description: The Remove Tags from Nodes/Devices API from Cisco Crosswork — 1 operation(s) for remove tags from
+    nodes/devices.
+  tags:
+  - Remove Tags from Nodes/Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-remove-tags-from-nodes-devices-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-replaces-credentials-api
+  name: Cisco Crosswork Replaces Credentials API
+  description: The Replaces Credentials API from Cisco Crosswork — 1 operation(s) for replaces credentials.
+  tags:
+  - Replaces Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-replaces-credentials-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-replaces-nodes-devices-api
+  name: Cisco Crosswork Replaces Nodes/Devices API
+  description: The Replaces Nodes/Devices API from Cisco Crosswork — 1 operation(s) for replaces nodes/devices.
+  tags:
+  - Replaces Nodes/Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-replaces-nodes-devices-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-root-api
+  name: Cisco Crosswork Root API
+  description: root resources
+  tags:
+  - root
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-root-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-tlsmanager-api
+  name: Cisco Crosswork TLS Manager API
+  description: The TLSManager API from Cisco Crosswork — 11 operation(s) for tlsmanager.
+  tags:
+  - TLSManager
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-tlsmanager-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-troubleshooting-api-api
+  name: Cisco Crosswork Troubleshooting API API
+  description: Collect Logs, metrics and other details for the Tech-support to debug the Crosswork issues
+  tags:
+  - Troubleshooting API
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-troubleshooting-api-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-two-phase-commit-runner-api
+  name: Cisco Crosswork Two Phase Commit Runner API
+  description: Two Phase Commit Runner
+  tags:
+  - two-phase-commit-runner
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-two-phase-commit-runner-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-update-credentials-api
+  name: Cisco Crosswork Update Credentials API
+  description: The Update Credentials API from Cisco Crosswork — 1 operation(s) for update credentials.
+  tags:
+  - Update Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-update-credentials-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-update-data-gateway-enrollments-api
+  name: Cisco Crosswork Update Data Gateway Enrollments API
+  description: The Update Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for update data gateway
+    enrollments.
+  tags:
+  - Update Data Gateway Enrollments
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-update-data-gateway-enrollments-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-update-destinations-api
+  name: Cisco Crosswork Update destinations API
+  description: The Update destinations API from Cisco Crosswork — 1 operation(s) for update destinations.
+  tags:
+  - Update destinations
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-update-destinations-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-update-nodes-devices-api
+  name: Cisco Crosswork Update Nodes/Devices API
+  description: The Update Nodes/Devices API from Cisco Crosswork — 1 operation(s) for update nodes/devices.
+  tags:
+  - Update Nodes/Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-update-nodes-devices-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-update-policies-api
+  name: Cisco Crosswork Update Policies API
+  description: The Update Policies API from Cisco Crosswork — 1 operation(s) for update policies.
+  tags:
+  - Update Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-update-policies-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-update-providers-api
+  name: Cisco Crosswork Update Providers API
+  description: The Update Providers API from Cisco Crosswork — 1 operation(s) for update providers.
+  tags:
+  - Update Providers
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-update-providers-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-update-via-csv-file-api
+  name: Cisco Crosswork Update via CSV file API
+  description: The Update via CSV file API from Cisco Crosswork — 1 operation(s) for update via csv file.
+  tags:
+  - Update via CSV file
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-update-via-csv-file-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-version-api-api
+  name: Cisco Crosswork Version API API
+  description: API to retrieve Crosswork version
+  tags:
+  - Version API
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-version-api-api-openapi.yml
+- aid: cisco-crosswork:cisco-crosswork-yang-library-version-api
+  name: Cisco Crosswork Yang Library Version API
+  description: The yang-library-version API from Cisco Crosswork — 1 operation(s) for yang-library-version.
+  tags:
+  - yang-library-version
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-yang-library-version-api-openapi.yml
 common:
+- type: DomainSecurity
+  url: security/cisco-crosswork-domain-security.yml
+- type: Authentication
+  url: authentication/cisco-crosswork-authentication.yml
+- type: ParentCompany
+  url: https://apis.io/providers/cisco/
+  name: Cisco
+  x-relationship: product
+  x-generated-by: cisco-family:2026-08-19
 - type: Portal
   url: https://developer.cisco.com/docs/crosswork/
 - type: Documentation
   url: https://developer.cisco.com/docs/crosswork/
 - type: APIReference
   url: https://developer.cisco.com/docs/crosswork/
-- type: ParentCompany
-  url: https://apis.io/providers/cisco/
-  name: Cisco
 - type: OpenAPI Source
   url: https://github.com/CiscoDevNet/crosswork-openapi-spec
 - type: SDKs
