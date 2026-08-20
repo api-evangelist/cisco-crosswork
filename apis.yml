@@ -34,6 +34,21 @@ tags:
 - RESTCONF
 - YANG
 - Zero Touch Provisioning
+- Workflow-Automation
+- Traffic Engineering
+- MCP
+- Telemetry
+- On-Premises
+tags_raw:
+- Network Automation
+- Service Provider
+- Orchestration
+- Networking
+- Assurance
+- Telecom
+- RESTCONF
+- YANG
+- Zero Touch Provisioning
 - Workflow Automation
 - Traffic Engineering
 - Model Context Protocol
@@ -56,6 +71,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Add Data Gateway Enrollments
+  tags_raw:
   - ' Add Data Gateway Enrollments'
   properties:
   - type: OpenAPI
@@ -266,6 +283,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/nbi/optima/v1/restconf
   tags:
+  - Data
+  tags_raw:
   - data
   properties:
   - type: OpenAPI
@@ -406,7 +425,8 @@ apis:
   description: get resources
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/nbi/optima/v1/restconf
-  tags:
+  tags: []
+  tags_raw:
   - get
   properties:
   - type: OpenAPI
@@ -637,7 +657,8 @@ apis:
     devices to a data gateway.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
-  tags:
+  tags: []
+  tags_raw:
   - Map or Unmap Devices to a Data Gateway
   properties:
   - type: OpenAPI
@@ -647,7 +668,8 @@ apis:
   description: The Misc API from Cisco Crosswork — 2 operation(s) for misc.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/dg-manager
-  tags:
+  tags: []
+  tags_raw:
   - Misc
   properties:
   - type: OpenAPI
@@ -657,7 +679,8 @@ apis:
   description: operations resources
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/nbi/optima/v1/restconf
-  tags:
+  tags: []
+  tags_raw:
   - operations
   properties:
   - type: OpenAPI
@@ -668,6 +691,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/password
   tags:
+  - Password
+  tags_raw:
   - password
   properties:
   - type: OpenAPI
@@ -677,7 +702,8 @@ apis:
   description: post resources
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/nbi/optima/v1/restconf
-  tags:
+  tags: []
+  tags_raw:
   - post
   properties:
   - type: OpenAPI
@@ -708,6 +734,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/aaa
   tags:
+  - RBAC
+  tags_raw:
   - rbac
   properties:
   - type: OpenAPI
@@ -748,6 +776,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/nbi/optima/v1/restconf
   tags:
+  - Root
+  tags_raw:
   - root
   properties:
   - type: OpenAPI
@@ -881,6 +911,9 @@ apis:
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
   - Crosswork Workflow Manager
+  - Adapters
+  tags_raw:
+  - Crosswork Workflow Manager
   - adapters
   properties:
   - type: OpenAPI
@@ -891,6 +924,9 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
+  - Crosswork Workflow Manager
+  - Defaults
+  tags_raw:
   - Crosswork Workflow Manager
   - defaults
   properties:
@@ -904,6 +940,9 @@ apis:
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
   - Crosswork Workflow Manager
+  - Event
+  tags_raw:
+  - Crosswork Workflow Manager
   - event
   properties:
   - type: OpenAPI
@@ -915,6 +954,9 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
+  - Crosswork Workflow Manager
+  - Event Type
+  tags_raw:
   - Crosswork Workflow Manager
   - eventType
   properties:
@@ -928,6 +970,9 @@ apis:
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
   - Crosswork Workflow Manager
+  - Forms
+  tags_raw:
+  - Crosswork Workflow Manager
   - forms
   properties:
   - type: OpenAPI
@@ -940,6 +985,9 @@ apis:
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
   - Crosswork Workflow Manager
+  - Job
+  tags_raw:
+  - Crosswork Workflow Manager
   - jobs
   properties:
   - type: OpenAPI
@@ -951,6 +999,9 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
+  - Crosswork Workflow Manager
+  - MCP
+  tags_raw:
   - Crosswork Workflow Manager
   - mcp
   properties:
@@ -967,6 +1018,9 @@ apis:
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
   - Crosswork Workflow Manager
+  - Payload
+  tags_raw:
+  - Crosswork Workflow Manager
   - payload
   properties:
   - type: OpenAPI
@@ -978,6 +1032,9 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
+  - Crosswork Workflow Manager
+  - Public Key
+  tags_raw:
   - Crosswork Workflow Manager
   - publicKey
   properties:
@@ -991,6 +1048,9 @@ apis:
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
   - Crosswork Workflow Manager
+  - Resources
+  tags_raw:
+  - Crosswork Workflow Manager
   - resources
   properties:
   - type: OpenAPI
@@ -1002,6 +1062,9 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
+  - Crosswork Workflow Manager
+  - Scheduler
+  tags_raw:
   - Crosswork Workflow Manager
   - scheduler
   properties:
@@ -1015,6 +1078,9 @@ apis:
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
   - Crosswork Workflow Manager
+  - Secrets
+  tags_raw:
+  - Crosswork Workflow Manager
   - secrets
   properties:
   - type: OpenAPI
@@ -1025,6 +1091,9 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
+  - Crosswork Workflow Manager
+  - Task
+  tags_raw:
   - Crosswork Workflow Manager
   - tasks
   properties:
@@ -1038,6 +1107,8 @@ apis:
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
   - Crosswork Workflow Manager
+  tags_raw:
+  - Crosswork Workflow Manager
   - workerProfiles
   properties:
   - type: OpenAPI
@@ -1048,6 +1119,9 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
+  - Crosswork Workflow Manager
+  - Workers
+  tags_raw:
   - Crosswork Workflow Manager
   - workers
   properties:
@@ -1060,6 +1134,9 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
   baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
   tags:
+  - Crosswork Workflow Manager
+  - Workflows
+  tags_raw:
   - Crosswork Workflow Manager
   - workflow
   properties:
