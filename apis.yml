@@ -67,7 +67,9 @@ apis:
     url: openapi/cisco-crosswork-add-credentials-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-add-data-gateway-enrollments-api
   name: Cisco Crosswork Add Data Gateway Enrollments API
-  description: The  Add Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for  add data gateway enrollments.
+  description: >-
+    The  Add Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for  add data gateway
+    enrollments.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -259,7 +261,8 @@ apis:
     url: openapi/cisco-crosswork-cwztpdevice-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-cwztpdynamicconfigs-api
   name: Cisco Crosswork Cwztpdynamicconfigs API
-  description: The cwztpdynamicconfigs API from Cisco Crosswork — 1 operation(s) for cwztpdynamicconfigs.
+  description: >-
+    The cwztpdynamicconfigs API from Cisco Crosswork — 1 operation(s) for cwztpdynamicconfigs.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}
   tags:
@@ -301,7 +304,8 @@ apis:
     url: openapi/cisco-crosswork-delete-credentials-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-delete-data-gateway-enrollments-api
   name: Cisco Crosswork Delete Data Gateway Enrollments API
-  description: The Delete Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for delete data gateway
+  description: >-
+    The Delete Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for delete data gateway
     enrollments.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
@@ -312,7 +316,8 @@ apis:
     url: openapi/cisco-crosswork-delete-data-gateway-enrollments-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-delete-destinations-api
   name: Cisco Crosswork Delete Destinations API
-  description: The Delete Destinations API from Cisco Crosswork — 1 operation(s) for delete destinations.
+  description: >-
+    The Delete Destinations API from Cisco Crosswork — 1 operation(s) for delete destinations.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -322,7 +327,8 @@ apis:
     url: openapi/cisco-crosswork-delete-destinations-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-delete-nodes-devices-api
   name: Cisco Crosswork Delete Nodes/Devices API
-  description: The Delete Nodes/Devices API from Cisco Crosswork — 1 operation(s) for delete nodes/devices.
+  description: >-
+    The Delete Nodes/Devices API from Cisco Crosswork — 1 operation(s) for delete nodes/devices.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -362,7 +368,8 @@ apis:
     url: openapi/cisco-crosswork-delete-tags-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-delete-via-csv-file-api
   name: Cisco Crosswork Delete via CSV file API
-  description: The Delete via CSV file API from Cisco Crosswork — 1 operation(s) for delete via csv file.
+  description: >-
+    The Delete via CSV file API from Cisco Crosswork — 1 operation(s) for delete via csv file.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -382,7 +389,8 @@ apis:
     url: openapi/cisco-crosswork-file-controller-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-flat-l2vpn-provision-api
   name: Cisco Crosswork Flat L2VPN Provision API
-  description: The Flat L2VPN Provision API from Cisco Crosswork — 1 operation(s) for flat l2vpn provision.
+  description: >-
+    The Flat L2VPN Provision API from Cisco Crosswork — 1 operation(s) for flat l2vpn provision.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork
   tags:
@@ -392,7 +400,8 @@ apis:
     url: openapi/cisco-crosswork-flat-l2vpn-provision-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-flat-l2vpn-retrieval-api
   name: Cisco Crosswork Flat L2VPN Retrieval API
-  description: The Flat L2VPN Retrieval API from Cisco Crosswork — 2 operation(s) for flat l2vpn retrieval.
+  description: >-
+    The Flat L2VPN Retrieval API from Cisco Crosswork — 2 operation(s) for flat l2vpn retrieval.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork
   tags:
@@ -402,7 +411,8 @@ apis:
     url: openapi/cisco-crosswork-flat-l2vpn-retrieval-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-flat-l3vpn-provision-api
   name: Cisco Crosswork Flat L3VPN Provision API
-  description: The Flat L3VPN Provision API from Cisco Crosswork — 1 operation(s) for flat l3vpn provision.
+  description: >-
+    The Flat L3VPN Provision API from Cisco Crosswork — 1 operation(s) for flat l3vpn provision.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork
   tags:
@@ -412,7 +422,8 @@ apis:
     url: openapi/cisco-crosswork-flat-l3vpn-provision-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-flat-l3vpn-retrieval-api
   name: Cisco Crosswork Flat L3VPN Retrieval API
-  description: The Flat L3VPN Retrieval API from Cisco Crosswork — 2 operation(s) for flat l3vpn retrieval.
+  description: >-
+    The Flat L3VPN Retrieval API from Cisco Crosswork — 2 operation(s) for flat l3vpn retrieval.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork
   tags:
@@ -443,7 +454,8 @@ apis:
     url: openapi/cisco-crosswork-get-credentials-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-get-data-gateway-enrollments-api
   name: Cisco Crosswork Get Data Gateway Enrollments API
-  description: The Get Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for get data gateway enrollments.
+  description: >-
+    The Get Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for get data gateway enrollments.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -543,7 +555,8 @@ apis:
     url: openapi/cisco-crosswork-health-controller-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-ietf-l2vpn-nm-provision-api
   name: Cisco Crosswork IETF L2VPN NM Provision API
-  description: The IETF L2VPN NM Provision API from Cisco Crosswork — 1 operation(s) for ietf l2vpn nm provision.
+  description: >-
+    The IETF L2VPN NM Provision API from Cisco Crosswork — 1 operation(s) for ietf l2vpn nm provision.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork
   tags:
@@ -553,7 +566,8 @@ apis:
     url: openapi/cisco-crosswork-ietf-l2vpn-nm-provision-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-ietf-l2vpn-nm-retrieval-api
   name: Cisco Crosswork IETF L2VPN NM Retrieval API
-  description: The IETF L2VPN NM Retrieval API from Cisco Crosswork — 2 operation(s) for ietf l2vpn nm retrieval.
+  description: >-
+    The IETF L2VPN NM Retrieval API from Cisco Crosswork — 2 operation(s) for ietf l2vpn nm retrieval.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork
   tags:
@@ -603,7 +617,9 @@ apis:
     url: openapi/cisco-crosswork-image-platform-controller-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-l2vpn-route-policy-provision-api
   name: Cisco Crosswork L2VPN Route Policy Provision API
-  description: The L2VPN Route Policy Provision API from Cisco Crosswork — 1 operation(s) for l2vpn route policy provision.
+  description: >-
+    The L2VPN Route Policy Provision API from Cisco Crosswork — 1 operation(s) for l2vpn route policy
+    provision.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork
   tags:
@@ -613,7 +629,9 @@ apis:
     url: openapi/cisco-crosswork-l2vpn-route-policy-provision-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-l2vpn-route-policy-retrieval-api
   name: Cisco Crosswork L2VPN Route Policy Retrieval API
-  description: The L2VPN Route Policy Retrieval API from Cisco Crosswork — 1 operation(s) for l2vpn route policy retrieval.
+  description: >-
+    The L2VPN Route Policy Retrieval API from Cisco Crosswork — 1 operation(s) for l2vpn route policy
+    retrieval.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork
   tags:
@@ -623,7 +641,9 @@ apis:
     url: openapi/cisco-crosswork-l2vpn-route-policy-retrieval-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-l3vpn-route-policy-provision-api
   name: Cisco Crosswork L3VPN Route Policy Provision API
-  description: The L3VPN Route Policy Provision API from Cisco Crosswork — 1 operation(s) for l3vpn route policy provision.
+  description: >-
+    The L3VPN Route Policy Provision API from Cisco Crosswork — 1 operation(s) for l3vpn route policy
+    provision.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork
   tags:
@@ -633,7 +653,9 @@ apis:
     url: openapi/cisco-crosswork-l3vpn-route-policy-provision-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-l3vpn-route-policy-retrieval-api
   name: Cisco Crosswork L3VPN Route Policy Retrieval API
-  description: The L3VPN Route Policy Retrieval API from Cisco Crosswork — 1 operation(s) for l3vpn route policy retrieval.
+  description: >-
+    The L3VPN Route Policy Retrieval API from Cisco Crosswork — 1 operation(s) for l3vpn route policy
+    retrieval.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork
   tags:
@@ -653,7 +675,8 @@ apis:
     url: openapi/cisco-crosswork-log-controller-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-map-or-unmap-devices-to-a-data-gateway-api
   name: Cisco Crosswork Map or Unmap Devices to a Data Gateway API
-  description: The Map or Unmap Devices to a Data Gateway API from Cisco Crosswork — 1 operation(s) for map or unmap
+  description: >-
+    The Map or Unmap Devices to a Data Gateway API from Cisco Crosswork — 1 operation(s) for map or unmap
     devices to a data gateway.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
@@ -710,7 +733,8 @@ apis:
     url: openapi/cisco-crosswork-post-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-put-replace-destinations-api
   name: Cisco Crosswork Put/Replace destinations API
-  description: The Put/Replace destinations API from Cisco Crosswork — 1 operation(s) for put/replace destinations.
+  description: >-
+    The Put/Replace destinations API from Cisco Crosswork — 1 operation(s) for put/replace destinations.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -720,7 +744,8 @@ apis:
     url: openapi/cisco-crosswork-put-replace-destinations-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-put-replace-providers-api
   name: Cisco Crosswork Put/Replace Providers API
-  description: The Put/Replace Providers API from Cisco Crosswork — 1 operation(s) for put/replace providers.
+  description: >-
+    The Put/Replace Providers API from Cisco Crosswork — 1 operation(s) for put/replace providers.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -742,7 +767,9 @@ apis:
     url: openapi/cisco-crosswork-rbac-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-remove-tags-from-nodes-devices-api
   name: Cisco Crosswork Remove Tags from Nodes/Devices API
-  description: The Remove Tags from Nodes/Devices API from Cisco Crosswork — 1 operation(s) for remove tags from nodes/devices.
+  description: >-
+    The Remove Tags from Nodes/Devices API from Cisco Crosswork — 1 operation(s) for remove tags from
+    nodes/devices.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -752,7 +779,8 @@ apis:
     url: openapi/cisco-crosswork-remove-tags-from-nodes-devices-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-replaces-credentials-api
   name: Cisco Crosswork Replaces Credentials API
-  description: The Replaces Credentials API from Cisco Crosswork — 1 operation(s) for replaces credentials.
+  description: >-
+    The Replaces Credentials API from Cisco Crosswork — 1 operation(s) for replaces credentials.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -762,7 +790,8 @@ apis:
     url: openapi/cisco-crosswork-replaces-credentials-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-replaces-nodes-devices-api
   name: Cisco Crosswork Replaces Nodes/Devices API
-  description: The Replaces Nodes/Devices API from Cisco Crosswork — 1 operation(s) for replaces nodes/devices.
+  description: >-
+    The Replaces Nodes/Devices API from Cisco Crosswork — 1 operation(s) for replaces nodes/devices.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -794,7 +823,8 @@ apis:
     url: openapi/cisco-crosswork-tlsmanager-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-troubleshooting-api-api
   name: Cisco Crosswork Troubleshooting API API
-  description: Collect Logs, metrics and other details for the Tech-support to debug the Crosswork issues
+  description: >-
+    Collect Logs, metrics and other details for the Tech-support to debug the Crosswork issues
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/platform
   tags:
@@ -824,7 +854,8 @@ apis:
     url: openapi/cisco-crosswork-update-credentials-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-update-data-gateway-enrollments-api
   name: Cisco Crosswork Update Data Gateway Enrollments API
-  description: The Update Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for update data gateway
+  description: >-
+    The Update Data Gateway Enrollments API from Cisco Crosswork — 1 operation(s) for update data gateway
     enrollments.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
@@ -835,7 +866,8 @@ apis:
     url: openapi/cisco-crosswork-update-data-gateway-enrollments-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-update-destinations-api
   name: Cisco Crosswork Update destinations API
-  description: The Update destinations API from Cisco Crosswork — 1 operation(s) for update destinations.
+  description: >-
+    The Update destinations API from Cisco Crosswork — 1 operation(s) for update destinations.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -845,7 +877,8 @@ apis:
     url: openapi/cisco-crosswork-update-destinations-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-update-nodes-devices-api
   name: Cisco Crosswork Update Nodes/Devices API
-  description: The Update Nodes/Devices API from Cisco Crosswork — 1 operation(s) for update nodes/devices.
+  description: >-
+    The Update Nodes/Devices API from Cisco Crosswork — 1 operation(s) for update nodes/devices.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -875,7 +908,8 @@ apis:
     url: openapi/cisco-crosswork-update-providers-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-update-via-csv-file-api
   name: Cisco Crosswork Update via CSV file API
-  description: The Update via CSV file API from Cisco Crosswork — 1 operation(s) for update via csv file.
+  description: >-
+    The Update via CSV file API from Cisco Crosswork — 1 operation(s) for update via csv file.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
@@ -895,7 +929,8 @@ apis:
     url: openapi/cisco-crosswork-version-api-api-openapi.yml
 - aid: cisco-crosswork:cisco-crosswork-yang-library-version-api
   name: Cisco Crosswork Yang Library Version API
-  description: The yang-library-version API from Cisco Crosswork — 1 operation(s) for yang-library-version.
+  description: >-
+    The yang-library-version API from Cisco Crosswork — 1 operation(s) for yang-library-version.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/nbi/optima/v1/restconf
   tags:
@@ -903,245 +938,198 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/cisco-crosswork-yang-library-version-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-adapters-api
-  name: Cisco Crosswork Workflow Manager Adapters API
-  description: Upload, deploy, update and delete Crosswork Workflow Manager adapters, and read the activities each adapter
-    exposes to workflows.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+- aid: cisco-crosswork:cisco-crosswork-adapters-api
+  name: Cisco Crosswork Adapters API
+  description: The adapters API from Cisco Crosswork — 3 operation(s) for adapters.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Adapters
-  tags_raw:
-  - Crosswork Workflow Manager
   - adapters
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-adapters-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-defaults-api
-  name: Cisco Crosswork Workflow Manager Config Defaults API
-  description: Read and update the Crosswork Workflow Manager system default configuration values.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-adapters-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-defaults-api
+  name: Cisco Crosswork Defaults API
+  description: The defaults API from Cisco Crosswork — 2 operation(s) for defaults.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Defaults
-  tags_raw:
-  - Crosswork Workflow Manager
   - defaults
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-defaults-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-event-api
-  name: Cisco Crosswork Workflow Manager Events API
-  description: The Crosswork Workflow Manager HTTP event listener — the endpoint external systems POST events to so that
-    a workflow can be started in response.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-defaults-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-event-api
+  name: Cisco Crosswork Event API
+  description: The event API from Cisco Crosswork — 1 operation(s) for event.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Event
-  tags_raw:
-  - Crosswork Workflow Manager
   - event
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-event-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-event-type-api
-  name: Cisco Crosswork Workflow Manager Event Types API
-  description: Register, read, update and delete Crosswork Workflow Manager event types, and start or stop the listener
-    for a given event type and kind.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-event-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-eventtype-api
+  name: Cisco Crosswork Event Type API
+  description: The eventType API from Cisco Crosswork — 2 operation(s) for eventtype.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Event Type
-  tags_raw:
-  - Crosswork Workflow Manager
   - eventType
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-event-type-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-forms-api
-  name: Cisco Crosswork Workflow Manager Forms API
-  description: Create, read, update, delete, import and export the Crosswork Workflow Manager forms that collect workflow
-    input.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-eventtype-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-forms-api
+  name: Cisco Crosswork Forms API
+  description: The forms API from Cisco Crosswork — 4 operation(s) for forms.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Forms
-  tags_raw:
-  - Crosswork Workflow Manager
   - forms
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-forms-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-jobs-api
-  name: Cisco Crosswork Workflow Manager Jobs API
-  description: Execute Crosswork Workflow Manager jobs, list and count them, describe a run, read its event history,
-    and cancel or terminate it.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-forms-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-jobs-api
+  name: Cisco Crosswork Jobs API
+  description: The jobs API from Cisco Crosswork — 7 operation(s) for jobs.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Job
-  tags_raw:
-  - Crosswork Workflow Manager
   - jobs
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-jobs-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-mcp-api
-  name: Cisco Crosswork Workflow Manager MCP API
-  description: The Crosswork Workflow Manager Model Context Protocol endpoint — MCP over JSON-RPC 2.0, supporting initialize,
-    tools/list, tools/call, ping, notifications/initialized and logging/setLevel.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-jobs-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-mcp-api
+  name: Cisco Crosswork MCP API
+  description: The mcp API from Cisco Crosswork — 1 operation(s) for mcp.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - MCP
-  tags_raw:
-  - Crosswork Workflow Manager
   - mcp
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-mcp-api-openapi.yml
-  - type: MCPServer
-    url: mcp/cisco-crosswork-mcp.yml
+    url: openapi/cisco-crosswork-mcp-api-openapi.yml
   - type: ToolCrosswalk
     url: mcp/cisco-crosswork-tool-crosswalk.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-payload-api
-  name: Cisco Crosswork Workflow Manager Payload API
-  description: Retrieve and decode Crosswork Workflow Manager payload data by key.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+- aid: cisco-crosswork:cisco-crosswork-payload-api
+  name: Cisco Crosswork Payload API
+  description: The payload API from Cisco Crosswork — 1 operation(s) for payload.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Payload
-  tags_raw:
-  - Crosswork Workflow Manager
   - payload
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-payload-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-public-key-api
-  name: Cisco Crosswork Workflow Manager Public Keys API
-  description: Register, list, retrieve, update and delete the RSA public keys Crosswork Workflow Manager uses to verify
-    signed artifacts.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-payload-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-publickey-api
+  name: Cisco Crosswork Public Key API
+  description: The publicKey API from Cisco Crosswork — 2 operation(s) for publickey.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Public Key
-  tags_raw:
-  - Crosswork Workflow Manager
   - publicKey
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-public-key-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-resources-api
-  name: Cisco Crosswork Workflow Manager Resources API
-  description: Create, read, update, delete, import and export the Crosswork Workflow Manager resources that adapters
-    connect through, and read the resource types that define their shape.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-publickey-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-resources-api
+  name: Cisco Crosswork Resources API
+  description: The resources API from Cisco Crosswork — 6 operation(s) for resources.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Resources
-  tags_raw:
-  - Crosswork Workflow Manager
   - resources
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-resources-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-scheduler-api
-  name: Cisco Crosswork Workflow Manager Scheduler API
-  description: Create, read, update and delete the Crosswork Workflow Manager schedules that run workflows on a recurring
-    basis.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-resources-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-scheduler-api
+  name: Cisco Crosswork Scheduler API
+  description: The scheduler API from Cisco Crosswork — 2 operation(s) for scheduler.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Scheduler
-  tags_raw:
-  - Crosswork Workflow Manager
   - scheduler
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-scheduler-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-secrets-api
-  name: Cisco Crosswork Workflow Manager Secrets API
-  description: Create, read, update and delete Crosswork Workflow Manager secrets, and read the secret types that define
-    them, so credentials never sit inside a workflow definition.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-scheduler-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-secrets-api
+  name: Cisco Crosswork Secrets API
+  description: The secrets API from Cisco Crosswork — 4 operation(s) for secrets.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Secrets
-  tags_raw:
-  - Crosswork Workflow Manager
   - secrets
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-secrets-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-tasks-api
-  name: Cisco Crosswork Workflow Manager Tasks API
-  description: List, read and delete the tasks Crosswork Workflow Manager workflows are built from.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-secrets-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-tasks-api
+  name: Cisco Crosswork Tasks API
+  description: The tasks API from Cisco Crosswork — 2 operation(s) for tasks.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Task
-  tags_raw:
-  - Crosswork Workflow Manager
   - tasks
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-tasks-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-worker-profiles-api
-  name: Cisco Crosswork Workflow Manager Worker Profiles API
-  description: Create, read, update and delete the Crosswork Workflow Manager worker profiles that shape how workers
-    execute.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-tasks-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-workerprofiles-api
+  name: Cisco Crosswork Worker Profiles API
+  description: The workerProfiles API from Cisco Crosswork — 2 operation(s) for workerprofiles.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  tags_raw:
-  - Crosswork Workflow Manager
   - workerProfiles
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-worker-profiles-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-workers-api
-  name: Cisco Crosswork Workflow Manager Workers API
-  description: Create, read, update, delete, start and stop the Crosswork Workflow Manager workers that execute job runs.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-workerprofiles-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-workers-api
+  name: Cisco Crosswork Workers API
+  description: The workers API from Cisco Crosswork — 4 operation(s) for workers.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Workers
-  tags_raw:
-  - Crosswork Workflow Manager
   - workers
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-workers-api-openapi.yml
-- aid: cisco-crosswork:cisco-crosswork-cwm-workflow-api
-  name: Cisco Crosswork Workflow Manager Workflows API
-  description: List, create, read, update, delete, validate, import and export Crosswork Workflow Manager workflows,
-    addressable either by UUID or by name and version.
-  humanURL: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  baseURL: https://{cwm-host}:{cwm-port}/crosswork/cwm/v2
+    url: openapi/cisco-crosswork-workers-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-workflow-api
+  name: Cisco Crosswork Workflow API
+  description: The workflow API from Cisco Crosswork — 8 operation(s) for workflow.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
-  - Crosswork Workflow Manager
-  - Workflows
-  tags_raw:
-  - Crosswork Workflow Manager
   - workflow
   properties:
   - type: OpenAPI
-    url: openapi/cisco-crosswork-cwm-workflow-api-openapi.yml
+    url: openapi/cisco-crosswork-workflow-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
 common:
 - type: DomainSecurity
   url: security/cisco-crosswork-domain-security.yml
