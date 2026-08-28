@@ -11,6 +11,18 @@ description: 'Cisco Crosswork is Cisco''s service-provider network automation po
 url: https://raw.githubusercontent.com/api-evangelist/cisco-crosswork/refs/heads/main/apis.yml
 type: Index
 access: 3rd-Party
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 position: Consumer
 x-type: company
 x-source: cisco-family-buildout:2026-08-19
