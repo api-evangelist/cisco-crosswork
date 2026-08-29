@@ -1143,6 +1143,9 @@ apis:
   - type: ToolCrosswalk
     url: mcp/cisco-crosswork-tool-crosswalk.yml
 common:
+- type: CapabilityMap
+  url: capabilities/cisco-crosswork-capability-edges.yml
+  name: Cisco Crosswork Business Capability Map
 - type: DomainSecurity
   url: security/cisco-crosswork-domain-security.yml
 - type: Authentication
