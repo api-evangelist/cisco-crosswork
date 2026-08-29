@@ -52,6 +52,22 @@ paths:
         required: true
 components:
   schemas:
+    robotapiRobotNodeTag:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        created_by:
+          type: string
+        creation_time:
+          type: string
+          format: int64
+        devices_tagged:
+          type: integer
+          format: int64
+      description: Device Tag Object
     robotapiRobotFilterData:
       description: Request body with filter options
       type: object
@@ -72,22 +88,6 @@ components:
           format: boolean
         Criteria:
           type: string
-    robotapiRobotNodeTag:
-      type: object
-      properties:
-        name:
-          type: string
-        category:
-          type: string
-        created_by:
-          type: string
-        creation_time:
-          type: string
-          format: int64
-        devices_tagged:
-          type: integer
-          format: int64
-      description: Device Tag Object
     robotapiRobotNodeTagGetReq:
       description: Tage Request Data
       type: object

@@ -128,20 +128,6 @@ components:
       schema:
         type: string
         format: string
-    insert:
-      name: insert
-      in: query
-      description: controlling the order when adding new list elements
-      required: false
-      schema:
-        type: string
-        format: enumeration
-        enum:
-        - first
-        - last
-        - before
-        - after
-        default: first
     data_ietf-te_te_tunnels_tunnel_tunnel-name:
       name: tunnel
       in: body
@@ -157,19 +143,33 @@ components:
       schema:
         type: string
         format: string
+    insert:
+      name: insert
+      in: query
+      description: controlling the order when adding new list elements
+      required: false
+      schema:
+        type: string
+        format: enumeration
+        enum:
+        - first
+        - last
+        - before
+        - after
+        default: first
   responses:
-    '405':
-      description: Method Not Allowed
     '404':
       description: Not Found
+    '405':
+      description: Method Not Allowed
     '204':
       description: No Content
     '401':
       description: Unauthorized
-    '409':
-      description: Conflict
     '400':
       description: Bad Request
+    '409':
+      description: Conflict
   schemas:
     data_ietf-te_te_tunnels_tunnel_tunnel-name:
       type: object

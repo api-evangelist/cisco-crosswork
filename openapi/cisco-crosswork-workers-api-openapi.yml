@@ -1,0 +1,481 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager Workers API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+security:
+- Bearer: []
+tags:
+- name: workers
+paths:
+  /worker:
+    get:
+      summary: List all workers.
+      description: Retrieve a list of all workers managed by the system.
+      operationId: list_workers
+      tags:
+      - workers
+      responses:
+        '200':
+          description: Workers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.WorkerSimplified'
+        '503':
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+      security:
+      - Bearer: []
+    post:
+      summary: Create a new worker.
+      description: Create a new worker by connecting to the worker manager via gRPC.
+      operationId: create_worker
+      tags:
+      - workers
+      requestBody:
+        description: Data required to create the worker.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.InRequest'
+      responses:
+        '201':
+          description: Worker created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.InitResponse'
+        '503':
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.InitResponse'
+      security:
+      - Bearer: []
+  /worker/{workerName}:
+    delete:
+      summary: Delete a worker.
+      description: Delete a specific worker from the worker manager.
+      operationId: delete_worker
+      tags:
+      - workers
+      parameters:
+      - name: workerName
+        in: path
+        description: Worker name.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Delete request payload for the worker.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.stopRequest'
+      responses:
+        '200':
+          description: Worker deleted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+        '404':
+          description: Worker not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+        '503':
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+      security:
+      - Bearer: []
+    get:
+      summary: Get a specific worker.
+      description: Retrieve detailed information about a specific worker by its name.
+      operationId: get_worker
+      tags:
+      - workers
+      parameters:
+      - name: workerName
+        in: path
+        description: Worker name.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Worker details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Worker'
+        '404':
+          description: Worker not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+        '503':
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+      security:
+      - Bearer: []
+    put:
+      summary: Update a worker.
+      description: Update the configuration of an existing worker.
+      operationId: update_worker
+      tags:
+      - workers
+      parameters:
+      - name: workerName
+        in: path
+        description: Worker name.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Update request payload for the worker.
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.updateRequest'
+      responses:
+        '200':
+          description: Worker updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+        '404':
+          description: Worker not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+        '503':
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+      security:
+      - Bearer: []
+  /worker/{workerName}/start:
+    post:
+      summary: Start a worker.
+      description: Start a specific worker in the worker manager.
+      operationId: start_worker
+      tags:
+      - workers
+      parameters:
+      - name: workerName
+        in: path
+        description: Name of the worker to start.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Start request payload for the worker.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.startRequest'
+      responses:
+        '200':
+          description: Worker started successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+        '404':
+          description: Worker not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+        '503':
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+      security:
+      - Bearer: []
+  /worker/{workerName}/stop:
+    post:
+      summary: Stop a worker.
+      description: Stop a running worker in the worker manager.
+      operationId: stop_worker
+      tags:
+      - workers
+      parameters:
+      - name: workerName
+        in: path
+        description: Name of the worker to stop.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Stop request payload for the worker.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.stopRequest'
+      responses:
+        '200':
+          description: Worker stopped successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+        '404':
+          description: Worker not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+        '503':
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rpc.GenericResponse'
+      security:
+      - Bearer: []
+components:
+  schemas:
+    models.WorkerStatus:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      x-enum-comments:
+        Deleting: 'todo: support'
+        Stopping: 'todo: support'
+      x-enum-varnames:
+      - Unknown
+      - Initialized
+      - Running
+      - Stopped
+      - Deleted
+      - Failed
+      - Initializing
+      - Stopping
+      - Deleting
+    rpc.GenericResponse:
+      type: object
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/github-hyc_scm_engit_cisco_com_CWM_cwm-x24_services_worker-manager-service-dynamic_rpc.ErrorCode'
+        message:
+          description: Message, returned if ErrorCode not OK
+          type: string
+    github-hyc_scm_engit_cisco_com_CWM_cwm-x24_services_worker-manager-service-dynamic_rpc.ErrorCode:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      x-enum-varnames:
+      - ErrorCode_OK
+      - ErrorCode_UNKNOWN
+      - ErrorCode_INVALID_ARGUMENTS
+      - ErrorCode_NOT_FOUND
+      - ErrorCode_ALREADY_EXISTS
+      - ErrorCode_PERMISSION_DENIED
+      - ErrorCode_UNAUTHENTICATED
+      - ErrorCode_FAILED
+      - ErrorCode_ALREADY_RUNNING
+      - ErrorCode_ALREADY_STOPPED
+      - ErrorCode_TIMED_OUT
+      description: Error Code.
+    server.startRequest:
+      type: object
+      properties:
+        forceReload:
+          type: boolean
+          default: false
+    server.updateRequest:
+      type: object
+      properties:
+        activities:
+          type: array
+          items:
+            type: string
+        forceStop:
+          type: boolean
+          default: false
+        startWorker:
+          type: boolean
+          default: false
+        stopWorkerIfRunning:
+          type: boolean
+          default: false
+    server.InRequest:
+      type: object
+      properties:
+        activities:
+          type: array
+          items:
+            type: string
+        force:
+          type: boolean
+          default: false
+        startWorker:
+          type: boolean
+          default: false
+        workerName:
+          type: string
+        workerProfile:
+          type: string
+          default: default
+    rpc.InitResponse:
+      type: object
+      properties:
+        status:
+          description: status of the worker
+          type: string
+        workerUUID:
+          description: UUID assigned to worker
+          type: string
+    server.ActivitySimplified:
+      type: object
+      properties:
+        adapterId:
+          type: string
+        numOfActivities:
+          type: integer
+    server.WorkerSimplified:
+      type: object
+      properties:
+        activeError:
+          type: string
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/server.ActivitySimplified'
+        adminStatus:
+          type: string
+        createdAt:
+          description: models.WFBase
+          type: string
+        infraJobId:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        updatedAt:
+          type: string
+    server.stopRequest:
+      type: object
+      properties:
+        forceStop:
+          type: boolean
+          default: false
+    models.Worker:
+      type: object
+      properties:
+        activeError:
+          type: string
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.Activity'
+        adminStatus:
+          $ref: '#/components/schemas/models.WorkerStatus'
+        createdAt:
+          type: string
+        cwmVersion:
+          type: string
+        infraJobId:
+          type: string
+        isJobChecked:
+          type: boolean
+        name:
+          type: string
+        status:
+          $ref: '#/components/schemas/models.WorkerStatus'
+        updatedAt:
+          type: string
+        workerProfile:
+          type: string
+    models.Activity:
+      type: object
+      properties:
+        adapterId:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        inputSchema:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+        outputSchema:
+          type: array
+          items:
+            type: integer
+        packageName:
+          type: string
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'

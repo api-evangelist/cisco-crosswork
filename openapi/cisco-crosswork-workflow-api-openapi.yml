@@ -1,0 +1,528 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Manager Workflows Workflow API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+security:
+- Bearer: []
+tags:
+- name: workflow
+paths:
+  /workflow:
+    get:
+      summary: List workflows.
+      description: Retrieve a list of workflows from the application's database, optionally filtered by tags.
+      operationId: list_workflows
+      tags:
+      - workflow
+      parameters:
+      - name: tags
+        in: query
+        description: Tags to filter workflows.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Workflows retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/models.Workflow'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+    post:
+      summary: Add a new workflow.
+      description: Add a new workflow to the application database.
+      operationId: create_workflow
+      tags:
+      - workflow
+      requestBody:
+        description: Workflow details to add.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.WorkflowAttributes'
+      responses:
+        '200':
+          description: Workflow UUID generated successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+  /workflow/name/{workflowName}/version/{workflowVersion}:
+    delete:
+      summary: Delete a workflow by name and version.
+      description: Delete a specific workflow by its name and version from the application database.
+      operationId: delete_workflow_by_name_version
+      tags:
+      - workflow
+      parameters:
+      - name: workflowName
+        in: path
+        description: Workflow name.
+        required: true
+        schema:
+          type: string
+      - name: workflowVersion
+        in: path
+        description: Workflow version.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+    get:
+      summary: Get a workflow by name and version.
+      description: Retrieve a specific workflow by its name and version from the application database.
+      operationId: get_workflow_by_name_version
+      tags:
+      - workflow
+      parameters:
+      - name: workflowName
+        in: path
+        description: Workflow name.
+        required: true
+        schema:
+          type: string
+      - name: workflowVersion
+        in: path
+        description: Workflow version.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.WorkflowGetResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+    put:
+      summary: Update a workflow by name and version.
+      description: Update an existing workflow by its name and version in the application database.
+      operationId: update_workflow_by_name_version
+      tags:
+      - workflow
+      parameters:
+      - name: workflowName
+        in: path
+        description: Workflow name.
+        required: true
+        schema:
+          type: string
+      - name: workflowVersion
+        in: path
+        description: Workflow version.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Updated workflow details.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.WorkflowAttributes'
+      responses:
+        '200':
+          description: Workflow updated successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+  /workflow/name/{workflowName}/version/{workflowVersion}/validateInputData:
+    post:
+      summary: Validate workflow input data.
+      description: Validate whether the input data provided is valid for the specified workflow.
+      operationId: validate_workflow_input
+      tags:
+      - workflow
+      parameters:
+      - name: workflowName
+        in: path
+        description: Workflow name.
+        required: true
+        schema:
+          type: string
+      - name: workflowVersion
+        in: path
+        description: Workflow version.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Input data to validate.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.InputSchemaVadation'
+      responses:
+        '200':
+          description: Input data validation successful.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+  /workflow/tags:
+    get:
+      summary: List all workflow tags.
+      description: Retrieve a list of all workflow tags from the application database.
+      operationId: list_workflow_tags
+      tags:
+      - workflow
+      responses:
+        '200':
+          description: Workflow tags retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+  /workflow/validate:
+    post:
+      summary: Validate a workflow.
+      description: Validate whether a workflow definition is valid.
+      operationId: validate_workflow
+      tags:
+      - workflow
+      requestBody:
+        description: Workflow definition to validate.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.WorkflowDefinition'
+      responses:
+        '200':
+          description: Workflow validation successful.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+  /workflow/{workflowId}:
+    delete:
+      summary: Delete a workflow by UUID.
+      description: Delete a workflow from the application database by its UUID.
+      operationId: delete_workflow
+      tags:
+      - workflow
+      parameters:
+      - name: workflowId
+        in: path
+        description: Workflow UUID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+    get:
+      summary: Get a workflow by UUID.
+      description: Retrieve a workflow from the application database by its UUID.
+      operationId: get_workflow_by_id
+      tags:
+      - workflow
+      parameters:
+      - name: workflowId
+        in: path
+        description: Workflow UUID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.WorkflowGetResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+    put:
+      summary: Update a workflow by UUID.
+      description: Update an existing workflow in the application database by its UUID.
+      operationId: update_workflow_by_id
+      tags:
+      - workflow
+      parameters:
+      - name: workflowId
+        in: path
+        description: Workflow UUID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Updated workflow details.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.WorkflowAttributes'
+      responses:
+        '200':
+          description: Workflow updated successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+  /workflowExport:
+    post:
+      summary: Export workflow definitions.
+      description: Export workflow definitions using name and version. An empty request body exports all workflows.
+      operationId: export_workflows
+      tags:
+      - workflow
+      requestBody:
+        description: Workflow export request details.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/repository.NameVersion'
+      responses:
+        '200':
+          description: Workflows exported successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/models.Workflow'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+  /workflowImport:
+    post:
+      summary: Import workflow definitions.
+      description: Import workflows into the application database.
+      operationId: import_workflows
+      tags:
+      - workflow
+      requestBody:
+        description: Workflow definitions to import.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/server.WorkflowAttributes'
+      responses:
+        '200':
+          description: Workflows imported successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+components:
+  schemas:
+    server.WorkflowDefinition:
+      type: object
+      properties:
+        definition:
+          type: object
+    server.WorkflowAttributes:
+      type: object
+      properties:
+        definition:
+          type: object
+        formId:
+          type: string
+        path:
+          type: string
+        wfTags:
+          type: array
+          items:
+            type: string
+    repository.NameVersion:
+      type: object
+      required:
+      - name
+      - version
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+    server.WorkflowGetResponse:
+      type: object
+      properties:
+        workflow:
+          $ref: '#/components/schemas/models.Workflow'
+    models.Workflow:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        definition:
+          type: object
+        description:
+          type: string
+        formId:
+          type: string
+        hashSum:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        version:
+          type: string
+        wfTags:
+          type: array
+          items:
+            type: string
+        workflowId:
+          type: string
+          format: uuid
+    server.InputSchemaVadation:
+      type: object
+      properties:
+        data:
+          type: object
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'

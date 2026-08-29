@@ -52,60 +52,6 @@ paths:
         required: true
 components:
   schemas:
-    robotapiRobotFilterData:
-      description: Request body with filter options
-      type: object
-      properties:
-        SortBy:
-          type: string
-        PageSize:
-          type: integer
-          format: int64
-        PageNum:
-          type: integer
-          format: int64
-        Descending:
-          type: boolean
-          format: boolean
-        MatchCase:
-          type: boolean
-          format: boolean
-        Criteria:
-          type: string
-    robotapiRobotJobState:
-      description: Various Job Resulting states.
-      type: string
-      enum:
-      - JOB_INVALID
-      - JOB_REJECTED
-      - JOB_ACCEPTED
-      - JOB_DB_UPDATED
-      - JOB_NOTIFICATION_PUBLISHED
-      - JOB_COMPLETED
-      - JOB_FAILED
-      default: JOB_INVALID
-    robotapiRobotNodeJobGetReq:
-      description: Job Request data
-      type: object
-      properties:
-        job_id:
-          type: string
-          description: 'job_id or State would be supported filter
-
-            creation_time would be used for offset and sorting'
-        state:
-          $ref: '#/components/schemas/robotapiRobotJobState'
-        creation_time:
-          type: string
-          format: int64
-        limit:
-          type: integer
-          format: int64
-          description: Page size. Max limit 100 per req
-        filter:
-          $ref: '#/components/schemas/robotapiRobotNodeJob'
-        filterData:
-          $ref: '#/components/schemas/robotapiRobotFilterData'
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -145,6 +91,60 @@ components:
           type: string
         title: Impacted elements list
       description: Every Action related to Inventory will have a Job
+    robotapiRobotFilterData:
+      description: Request body with filter options
+      type: object
+      properties:
+        SortBy:
+          type: string
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
+    robotapiRobotNodeJobGetReq:
+      description: Job Request data
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: 'job_id or State would be supported filter
+
+            creation_time would be used for offset and sorting'
+        state:
+          $ref: '#/components/schemas/robotapiRobotJobState'
+        creation_time:
+          type: string
+          format: int64
+        limit:
+          type: integer
+          format: int64
+          description: Page size. Max limit 100 per req
+        filter:
+          $ref: '#/components/schemas/robotapiRobotNodeJob'
+        filterData:
+          $ref: '#/components/schemas/robotapiRobotFilterData'
+    robotapiRobotJobState:
+      description: Various Job Resulting states.
+      type: string
+      enum:
+      - JOB_INVALID
+      - JOB_REJECTED
+      - JOB_ACCEPTED
+      - JOB_DB_UPDATED
+      - JOB_NOTIFICATION_PUBLISHED
+      - JOB_COMPLETED
+      - JOB_FAILED
+      default: JOB_INVALID
     robotapiRobotNodeJobList:
       type: object
       properties:

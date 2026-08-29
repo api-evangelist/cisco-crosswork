@@ -1,0 +1,230 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager Config Defaults API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+security:
+- Bearer: []
+tags:
+- name: defaults
+paths:
+  /config/defaults:
+    get:
+      summary: List system defaults.
+      description: Retrieve all system default configurations.
+      operationId: list_system_defaults
+      tags:
+      - defaults
+      responses:
+        '200':
+          description: System defaults retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.responseConfigurations'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+    patch:
+      summary: Update system defaults.
+      description: Update system default configurations partially.
+      operationId: update_system_defaults
+      tags:
+      - defaults
+      requestBody:
+        description: Partial configuration to apply.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.requestConfiguration'
+      responses:
+        '200':
+          description: System defaults updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.responseConfigurations'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+  /config/defaults/{key}:
+    get:
+      summary: Get a system default by key.
+      description: Retrieve a system default configuration by its key.
+      operationId: get_system_default
+      tags:
+      - defaults
+      parameters:
+      - name: key
+        in: path
+        description: Key name for the default configuration.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: System default retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+    put:
+      summary: Update a system default by key.
+      description: Set or update a system default configuration by its key.
+      operationId: update_system_default
+      tags:
+      - defaults
+      parameters:
+      - name: key
+        in: path
+        description: Key name for the default configuration.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Value to assign to the default configuration.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: System default updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - Bearer: []
+components:
+  schemas:
+    server.responseConfigurations:
+      type: object
+      properties:
+        actionTimeout:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        auditIncludeData:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        auditMaxDataSize:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        eventTimeout:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        jobRetentionPeriod:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        retryDelay:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        retryDelayMultiplier:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        retryJitter:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        retryMaxAttempts:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        retryMaxDelay:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        stateTimeout:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        systemActivityTimeout:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        workflowTimeout:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+    server.GetSystemDefaultResponse:
+      type: object
+      properties:
+        description:
+          type: string
+        value:
+          type: object
+    server.requestConfiguration:
+      type: object
+      properties:
+        actionTimeout:
+          type: integer
+          default: 60
+        auditIncludeData:
+          type: boolean
+          default: false
+        auditMaxDataSize:
+          type: integer
+          default: 1024
+        eventTimeout:
+          type: integer
+          default: 600
+        jobRetentionPeriod:
+          type: integer
+          default: 30
+        retryDelay:
+          type: integer
+          default: 10
+        retryDelayMultiplier:
+          type: number
+          default: 1.5
+        retryJitter:
+          type: number
+          default: 0.2
+        retryMaxAttempts:
+          type: integer
+          default: 5
+        retryMaxDelay:
+          type: integer
+          default: 300
+        stateTimeout:
+          type: integer
+          default: 300
+        systemActivityTimeout:
+          type: integer
+          default: 10
+        workflowTimeout:
+          type: integer
+          default: 3600
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'

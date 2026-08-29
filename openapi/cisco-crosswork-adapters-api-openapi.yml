@@ -1,0 +1,423 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager Adapters API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+security:
+- Bearer: []
+tags:
+- name: adapters
+paths:
+  /adapter:
+    get:
+      summary: List all uploaded adapters.
+      description: Retrieve a list of all adapters uploaded to the system for use in workflows.
+      operationId: list_adapters
+      tags:
+      - adapters
+      responses:
+        '200':
+          description: Adapters retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/server.listAdaptersAdapterResponse'
+        '204':
+          description: No adapters found.
+          content:
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    post:
+      summary: Upload a new adapter.
+      description: Upload a new adapter file (.tar.gz format) to the system for future deployment as a plugin.
+      operationId: file_upload
+      tags:
+      - adapters
+      requestBody:
+        required: true
+        content:
+          application/x-gzip:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The adapter file to upload (.tar.gz).
+              required:
+              - file
+      responses:
+        '201':
+          description: Adapter uploaded successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /adapter/{adapterId}:
+    delete:
+      summary: Delete an adapter.
+      description: Delete an adapter from the system using its ID.
+      operationId: delete_adapter
+      tags:
+      - adapters
+      parameters:
+      - name: adapterId
+        in: path
+        description: Adapter ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Adapter deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '204':
+          description: No adapter found to delete.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Adapter not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    get:
+      summary: Get adapter details.
+      description: Retrieve details for a specific adapter by ID.
+      operationId: get_adapter
+      tags:
+      - adapters
+      parameters:
+      - name: adapterId
+        in: path
+        description: Adapter ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Adapter details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.getAdapterResponse'
+        '204':
+          description: No adapter found with the specified ID.
+          content:
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    patch:
+      summary: Partially update an adapter.
+      description: Partially update an adapter's configuration using a JSON payload.
+      operationId: patch_adapter
+      tags:
+      - adapters
+      parameters:
+      - name: adapterId
+        in: path
+        description: Adapter ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Partial adapter update payload.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.patchAdapterRequest'
+      responses:
+        '200':
+          description: Adapter partially updated successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Adapter not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    put:
+      summary: Update an adapter file.
+      description: Replace an existing adapter file with a new uploaded version (.tar.gz).
+      operationId: update_adapter
+      tags:
+      - adapters
+      parameters:
+      - name: adapterId
+        in: path
+        description: Adapter ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/x-gzip:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Updated adapter file (.tar.gz).
+              required:
+              - file
+      responses:
+        '200':
+          description: Adapter updated successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Adapter not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /adapter/{adapterId}/deploy:
+    post:
+      summary: Create plugin with uploaded adapter file.
+      description: Creates plugin.
+      operationId: deploy_adapter
+      tags:
+      - adapters
+      parameters:
+      - name: adapterId
+        in: path
+        description: Adapter ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: create worker
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.createPluginsRequest'
+      responses:
+        '201':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+components:
+  schemas:
+    server.patchAdapterRequest:
+      type: object
+      properties:
+        defaultStatus:
+          type: boolean
+    server.getAdapterActivityResponse:
+      type: object
+      properties:
+        adapterId:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        inputSchema:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+        outputSchema:
+          type: array
+          items:
+            type: integer
+        packageName:
+          type: string
+    server.createPluginsRequest:
+      type: object
+      properties:
+        createWorker:
+          type: boolean
+        defaultStatus:
+          type: boolean
+    server.getAdapterResponse:
+      type: object
+      properties:
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/server.getAdapterActivityResponse'
+        adapterId:
+          type: string
+        createdAt:
+          type: string
+        cwmVersionId:
+          type: string
+        defaultStatus:
+          type: boolean
+        deployedStatus:
+          type: boolean
+        description:
+          type: string
+        hashSum:
+          type: string
+        inUseStatus:
+          type: boolean
+        product:
+          type: string
+        resourceTypeId:
+          type: string
+        updatedAt:
+          type: string
+        uploadedStatus:
+          type: boolean
+        vendor:
+          type: string
+        verified:
+          type: boolean
+        version:
+          type: string
+    server.listAdaptersAdapterResponse:
+      type: object
+      properties:
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/server.getAdapterActivityResponse'
+        adapterId:
+          type: string
+        createdAt:
+          type: string
+        cwmVersionId:
+          type: string
+        defaultStatus:
+          type: boolean
+        deployedStatus:
+          type: boolean
+        description:
+          type: string
+        hashSum:
+          type: string
+        inUseStatus:
+          type: boolean
+        product:
+          type: string
+        resourceTypeId:
+          type: string
+        updatedAt:
+          type: string
+        uploadedStatus:
+          type: boolean
+        vendor:
+          type: string
+        verified:
+          type: boolean
+        version:
+          type: string
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'

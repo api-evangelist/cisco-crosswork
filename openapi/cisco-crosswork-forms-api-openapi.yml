@@ -1,0 +1,336 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager Forms API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+security:
+- Bearer: []
+tags:
+- name: forms
+paths:
+  /form:
+    get:
+      summary: List available forms.
+      description: Retrieve a list of all available forms.
+      operationId: list_forms
+      tags:
+      - forms
+      responses:
+        '200':
+          description: Forms retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/models.CallbackForm'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Forms not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    post:
+      summary: Create a new form.
+      description: Create a new form with the specified input data.
+      operationId: create_form
+      tags:
+      - forms
+      requestBody:
+        description: Form input data.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.formSchema'
+      responses:
+        '200':
+          description: Form created successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Forms service not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /form/{formId}:
+    delete:
+      summary: Delete a form.
+      description: Delete a specific form by its ID.
+      operationId: delete_form
+      tags:
+      - forms
+      parameters:
+      - name: formId
+        in: path
+        description: Form ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Form deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Form not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    get:
+      summary: Get a specific form.
+      description: Retrieve a specific form by its ID.
+      operationId: get_form
+      tags:
+      - forms
+      parameters:
+      - name: formId
+        in: path
+        description: Form ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Form retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.CallbackForm'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Form not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    patch:
+      summary: Update a specific form.
+      description: Update an existing form with new data.
+      operationId: update_form
+      tags:
+      - forms
+      parameters:
+      - name: formId
+        in: path
+        description: Form ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Updated form input.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.formSchema'
+      responses:
+        '200':
+          description: Form updated successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Form not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /formExport:
+    post:
+      summary: Export forms.
+      description: Export a list of forms. Providing an empty body exports all available forms.
+      operationId: export_forms
+      tags:
+      - forms
+      requestBody:
+        description: List of form IDs to export.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.FormExport'
+      responses:
+        '200':
+          description: Forms exported successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/models.CallbackForm'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Forms not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /formImport:
+    post:
+      summary: Import forms.
+      description: Import a list of forms into the system.
+      operationId: import_forms
+      tags:
+      - forms
+      requestBody:
+        description: List of form inputs to import.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/server.formSchema'
+      responses:
+        '200':
+          description: Forms imported successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Forms service not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+components:
+  schemas:
+    models.CallbackForm:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        description:
+          type: string
+        dynamicContentSchema:
+          type: array
+          items:
+            type: integer
+        formId:
+          type: string
+        formSchema:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+        updatedAt:
+          type: string
+    server.FormExport:
+      type: object
+      properties:
+        formIds:
+          type: array
+          items:
+            type: string
+    server.formSchema:
+      type: object
+      properties:
+        description:
+          type: string
+        dynamicContentSchema:
+          type: object
+        formId:
+          type: string
+        formSchema:
+          type: object
+        name:
+          type: string
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'

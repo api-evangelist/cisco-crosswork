@@ -2,8 +2,7 @@ openapi: 3.2.0
 info:
   title: Cisco Crosswork Health Controller API
   version: '1.0'
-  description: 'Operations tagged health-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json,
-    cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged health-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json, cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -12,8 +11,7 @@ info:
     first_party: true
     note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
     provider_published: true
-    derived_view: Per-tag view of cisco-crosswork-ncahi-cw-image-service-openapi.json, the provider's source document. Operations
-      and schemas are the provider's, unmodified; only the partition is ours.
+    derived_view: Per-tag view of cisco-crosswork-ncahi-cw-image-service-openapi.json, the provider's source document. Operations and schemas are the provider's, unmodified; only the partition is ours.
     derived_from: cisco-crosswork-ncahi-cw-image-service-openapi.json
     operation_coverage: 1/1
   x-evidence:
@@ -30,6 +28,8 @@ tags:
   description: Health Controller
 paths:
   /v1/health:
+    servers:
+    - url: /crosswork/imagesvc/
     get:
       tags:
       - health-controller
@@ -48,8 +48,6 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-    servers:
-    - url: /crosswork/imagesvc/
 components:
   schemas:
     Status:
@@ -59,14 +57,6 @@ components:
           type: string
         status:
           type: string
-    Status_2:
-      type: object
-      properties:
-        description:
-          type: string
-        status:
-          type: string
-      title: Status
   securitySchemes:
     bearerAuth:
       type: apiKey

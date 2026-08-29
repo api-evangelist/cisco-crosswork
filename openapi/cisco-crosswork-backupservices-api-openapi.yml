@@ -265,15 +265,29 @@ paths:
         required: true
 components:
   schemas:
-    backupGetJobsReqFilter:
+    backupGetTaskResult:
       type: object
       properties:
-        pageSize:
-          type: integer
-          format: int32
-        pageNum:
-          type: integer
-          format: int32
+        taskId:
+          type: string
+        taskName:
+          type: string
+        jobId:
+          type: string
+        timeInitiated:
+          type: string
+        timeCompleted:
+          type: string
+        status:
+          type: string
+    backupMigrationOpReq:
+      type: object
+      properties:
+        filename:
+          type: string
+        force:
+          type: boolean
+          format: boolean
     backupBackupVerifyOpResult:
       type: object
       properties:
@@ -306,6 +320,25 @@ components:
           type: string
         error:
           type: string
+    backupRestoreVerifyOpReq:
+      type: object
+      properties:
+        backupJobName:
+          type: string
+        force:
+          type: boolean
+          format: boolean
+    backupBackUpOpReq:
+      type: object
+      properties:
+        jobName:
+          type: string
+        force:
+          type: boolean
+          format: boolean
+        nsoBackupDisable:
+          type: boolean
+          format: boolean
     backupRequestVMBackupRestoreJobNamesOp:
       type: object
       properties:
@@ -313,9 +346,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/backupRequestVMBackupRestoreJobNameOp'
-    backupRestoreVerifyOpReq:
+    backupGetJobsResult:
       type: object
       properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/backupGetJobResult'
+    backupDisasterRestoreOpReq:
+      type: object
+      properties:
+        filename:
+          type: string
+        force:
+          type: boolean
+          format: boolean
+    backupGetJobsReq:
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/backupGetJobsReqFilter'
+        filterData:
+          $ref: '#/components/schemas/backupGetJobsReqPageFilter'
+    backupRestoreOpReq:
+      type: object
+      properties:
+        jobName:
+          type: string
         backupJobName:
           type: string
         force:
@@ -330,31 +387,6 @@ components:
           type: string
         jobName:
           type: string
-    backupRestoreOpReq:
-      type: object
-      properties:
-        jobName:
-          type: string
-        backupJobName:
-          type: string
-        force:
-          type: boolean
-          format: boolean
-    backupRequestVMBackupRestoreJobNameOp:
-      type: object
-      properties:
-        jobId:
-          type: string
-        jobName:
-          type: string
-    backupMigrationOpReq:
-      type: object
-      properties:
-        filename:
-          type: string
-        force:
-          type: boolean
-          format: boolean
     backupGetTasksResult:
       type: object
       properties:
@@ -362,29 +394,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/backupGetTaskResult'
-    backupDisasterRestoreOpReq:
+    backupGetJobsReqFilter:
       type: object
       properties:
-        filename:
-          type: string
-        force:
-          type: boolean
-          format: boolean
-    backupGetTaskResult:
-      type: object
-      properties:
-        taskId:
-          type: string
-        taskName:
-          type: string
-        jobId:
-          type: string
-        timeInitiated:
-          type: string
-        timeCompleted:
-          type: string
-        status:
-          type: string
+        pageSize:
+          type: integer
+          format: int32
+        pageNum:
+          type: integer
+          format: int32
     backupRequestVMBackupRemoteLocationOp:
       type: object
       properties:
@@ -399,33 +417,15 @@ components:
           type: string
         remotePath:
           type: string
-    backupGetJobsReq:
-      type: object
-      properties:
-        filter:
-          $ref: '#/components/schemas/backupGetJobsReqFilter'
-        filterData:
-          $ref: '#/components/schemas/backupGetJobsReqPageFilter'
-    backupBackUpOpReq:
-      type: object
-      properties:
-        jobName:
-          type: string
-        force:
-          type: boolean
-          format: boolean
-        nsoBackupDisable:
-          type: boolean
-          format: boolean
     backupBackupOpResult:
       type: object
       properties:
         jobId:
           type: string
-    backupGetJobsResult:
+    backupRequestVMBackupRestoreJobNameOp:
       type: object
       properties:
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/backupGetJobResult'
+        jobId:
+          type: string
+        jobName:
+          type: string

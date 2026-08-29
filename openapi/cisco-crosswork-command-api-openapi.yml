@@ -86,31 +86,26 @@ paths:
       - Command
 components:
   schemas:
-    ClientId:
-      title: ClientId
+    Value:
+      title: Value
       example:
-        uuid: d58de587-5da2-4a62-b010-32395acc8dbc
+        str: test1234
       type: object
       properties:
-        uuid:
+        str:
           type: string
       required:
-      - uuid
-    Arg:
-      title: Arg
+      - str
+    Value1:
+      title: Value1
       example:
-        key: passphrase
-        value:
-          str: test1234
+        valueStr: '5065'
       type: object
       properties:
-        key:
+        valueStr:
           type: string
-        value:
-          $ref: '#/components/schemas/Value'
       required:
-      - key
-      - value
+      - valueStr
     SubmitShowtechCommand:
       title: ShowtechCommandPayload
       example:
@@ -139,41 +134,31 @@ components:
       - commandName
       - clientId
       - args
-    ShowtechStatusRequest:
-      title: ShowtechStatusRequest
+    ClientId:
+      title: ClientId
       example:
-        queryParams:
-        - field: CMDID
-          value:
-            valueStr: '5065'
+        uuid: d58de587-5da2-4a62-b010-32395acc8dbc
       type: object
       properties:
-        queryParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryParam'
-      required:
-      - queryParams
-    Value:
-      title: Value
-      example:
-        str: test1234
-      type: object
-      properties:
-        str:
+        uuid:
           type: string
       required:
-      - str
-    Value1:
-      title: Value1
+      - uuid
+    Arg:
+      title: Arg
       example:
-        valueStr: '5065'
+        key: passphrase
+        value:
+          str: test1234
       type: object
       properties:
-        valueStr:
+        key:
           type: string
+        value:
+          $ref: '#/components/schemas/Value'
       required:
-      - valueStr
+      - key
+      - value
     SubmitRebootCommand:
       title: RebootCommandPayload
       example:
@@ -208,6 +193,21 @@ components:
       required:
       - field
       - value
+    ShowtechStatusRequest:
+      title: ShowtechStatusRequest
+      example:
+        queryParams:
+        - field: CMDID
+          value:
+            valueStr: '5065'
+      type: object
+      properties:
+        queryParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryParam'
+      required:
+      - queryParams
   securitySchemes:
     bearerAuth:
       type: apiKey

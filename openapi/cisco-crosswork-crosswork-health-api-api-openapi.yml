@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Crosswork Platform Crosswork Health API API
+  title: Crosswork Platform Crosswork Health API
   version: 1.0.0
   contact:
     name: Crosswork Team, Cisco
@@ -104,6 +104,91 @@ paths:
       - Crosswork Health API
 components:
   schemas:
+    robotctl_apiappInfo:
+      type: object
+      properties:
+        Id:
+          type: string
+          title: Application name
+        State:
+          $ref: '#/components/schemas/robotctl_apiRobotSvcState'
+        Counts:
+          $ref: '#/components/schemas/robotctl_apicountInfo'
+        Issue:
+          type: string
+        Recommendation:
+          type: string
+    robotctl_apicountInfo:
+      type: object
+      properties:
+        Total:
+          type: integer
+          format: int32
+        Running:
+          type: integer
+          format: int32
+        Degraded:
+          type: integer
+          format: int32
+        Down:
+          type: integer
+          format: int32
+        Unknown:
+          type: integer
+          format: int32
+    robotctl_apiHealthAppServices:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
+        Description:
+          type: string
+        ServiceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotctl_apisrvInfo'
+          title: List of service names for the application
+      title: Service detail per app
+    robotctl_apisrvProcessDetail:
+      type: object
+      properties:
+        ProcessName:
+          type: string
+        Pod:
+          type: string
+        State:
+          $ref: '#/components/schemas/robotctl_apiSupervisordState'
+        Pid:
+          type: integer
+          format: int32
+        Uptime:
+          type: string
+        Issue:
+          type: string
+        Recommendation:
+          type: string
+        StatusString:
+          type: string
+        Time:
+          type: string
+    robotctl_apiSupervisordState:
+      type: string
+      enum:
+      - SupRunning
+      - SupFatal
+      - SupRestarting
+      - SupShutdown
+      default: SupRunning
+      title: '- SupRunning: supervisord API codes'
+    robotctl_apiHealthSystem:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
+        Description:
+          type: string
+        AppSummary:
+          $ref: '#/components/schemas/robotctl_apicountInfo'
     robotctl_apiHealthApps:
       type: object
       properties:
@@ -138,24 +223,6 @@ components:
           items:
             type: string
           title: List of pods running the service
-    robotctl_apiSupervisordState:
-      type: string
-      enum:
-      - SupRunning
-      - SupFatal
-      - SupRestarting
-      - SupShutdown
-      default: SupRunning
-      title: '- SupRunning: supervisord API codes'
-    robotctl_apiHealthSystem:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/robotctl_apiResultValue'
-        Description:
-          type: string
-        AppSummary:
-          $ref: '#/components/schemas/robotctl_apicountInfo'
     robotctl_apiRobotSvcState:
       type: string
       enum:
@@ -167,58 +234,6 @@ components:
       - Failed
       default: Unknown
       description: " - Unknown: ROBOT_MSVC_STATE_UNKNOWN defines unknown state. Only used to app-status.\n - Down: ROBOT_MSVC_STATE_DOWN defines when the service/container is non-functional.\n - Running: ROBOT_MSVC_STATE_RUNNING defines when the service/container is completely functional.\n - Degraded: ROBOT_MSVC_STATE_DEGRADED defines when the service/container is not completely functional.\n - Deleted: ROBOT_MSVC_STATE_DELETING defines when the service/container is supposed to be deleted.\n - Failed: ROBOT_MSVC_STATE_FAILED defines when the service/container action failed and is in stale state."
-    robotctl_apiHealthAppServices:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/robotctl_apiResultValue'
-        Description:
-          type: string
-        ServiceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotctl_apisrvInfo'
-          title: List of service names for the application
-      title: Service detail per app
-    robotctl_apicountInfo:
-      type: object
-      properties:
-        Total:
-          type: integer
-          format: int32
-        Running:
-          type: integer
-          format: int32
-        Degraded:
-          type: integer
-          format: int32
-        Down:
-          type: integer
-          format: int32
-        Unknown:
-          type: integer
-          format: int32
-    robotctl_apiResultValue:
-      type: string
-      enum:
-      - NOOP
-      - SUCCESS
-      - FAILURE
-      default: NOOP
-    robotctl_apiappInfo:
-      type: object
-      properties:
-        Id:
-          type: string
-          title: Application name
-        State:
-          $ref: '#/components/schemas/robotctl_apiRobotSvcState'
-        Counts:
-          $ref: '#/components/schemas/robotctl_apicountInfo'
-        Issue:
-          type: string
-        Recommendation:
-          type: string
     robotctl_apiHealthAppSrvProcesses:
       type: object
       properties:
@@ -232,28 +247,13 @@ components:
           items:
             $ref: '#/components/schemas/robotctl_apisrvProcessDetail'
           title: List of processes for the service
-    robotctl_apisrvProcessDetail:
-      type: object
-      properties:
-        ProcessName:
-          type: string
-        Pod:
-          type: string
-        State:
-          $ref: '#/components/schemas/robotctl_apiSupervisordState'
-        Pid:
-          type: integer
-          format: int32
-        Uptime:
-          type: string
-        Issue:
-          type: string
-        Recommendation:
-          type: string
-        StatusString:
-          type: string
-        Time:
-          type: string
+    robotctl_apiResultValue:
+      type: string
+      enum:
+      - NOOP
+      - SUCCESS
+      - FAILURE
+      default: NOOP
   securitySchemes:
     bearerAuth:
       type: apiKey

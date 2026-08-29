@@ -476,39 +476,37 @@ paths:
       - ClusterManager
 components:
   schemas:
-    clusterCollectPubPostReq:
+    clusterNodeReq:
       type: object
       properties:
-        CollectJobId:
+        node_id:
           type: string
-          title: 'MANDATORY: Unique Id of collection job to be published'
-        Protocol:
-          $ref: '#/components/schemas/clusterPublishType'
-          title: 'MANDATORY: Publish protocol (SSH)'
-        SSH_Configuration:
-          $ref: '#/components/schemas/clusterSSH_Config'
-          title: 'MANDATORY: SSH Configuration'
-    clusterAppParameters:
+      title: Node request
+    clusterPublishType:
+      type: string
+      enum:
+      - SSH
+      default: SSH
+    clusterAppReq:
       type: object
       properties:
-        status:
+        app_id:
           type: string
-          title: Status
-        availability:
-          type: string
-          title: High-Availablity status
-        recommendation:
-          type: string
-        description:
-          type: string
-    clusterDCListSummary:
+      title: App request
+    clusterAppDetails:
       type: object
       properties:
-        dc_summary:
-          type: array
-          items:
-            $ref: '#/components/schemas/clusterDCSummary'
-      title: Summary of DC List
+        app_name:
+          type: string
+        app_id:
+          type: string
+        app_parameters:
+          $ref: '#/components/schemas/clusterAppParameters'
+        app_resource:
+          $ref: '#/components/schemas/clusterResource'
+        micro_service_list:
+          $ref: '#/components/schemas/clusterMicroServiceList'
+      title: App Details
     clusterNodeParameters:
       type: object
       properties:
@@ -534,6 +532,29 @@ components:
           title: Network Details
         data_ip:
           type: string
+    clusterOpResult:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/clusterRespValue'
+          description: ResultValue indicates the success/failure for the requested operation.
+        description:
+          type: string
+          title: Additional response information
+        result_map:
+          type: object
+          additionalProperties:
+            type: string
+          title: 'Supplementary keyed response info for the operation (for example: version number, error message)'
+        result_string:
+          type: array
+          items:
+            type: string
+          title: Simple result string
+        id:
+          type: string
+          title: Resource Identifier returned by operation, if any
+      description: 'OpResult is used to indicate whether an operation has been accepted or not. A string or map payload provides the additional response information (for example: version number, error data).'
     clusterCollectPubGetReq:
       type: object
       properties:
@@ -542,6 +563,14 @@ components:
           title: Unique Id of a publish job
         CollectJobId:
           type: string
+    clusterMicroServiceList:
+      type: object
+      properties:
+        micro_service:
+          type: array
+          items:
+            $ref: '#/components/schemas/clusterMicroService'
+      title: List of Microservices
     clusterDCSummary:
       type: object
       properties:
@@ -554,64 +583,19 @@ components:
         dc_id:
           type: string
       title: Summary of DC
-    clusterNodeReq:
+    clusterInfraSummary:
       type: object
       properties:
-        node_id:
+        name:
           type: string
-      title: Node request
-    CollectOpResultcollectJob:
-      type: object
-      properties:
-        Id:
+          title: Name of the Infra Layer
+        health_summary:
+          $ref: '#/components/schemas/clusterHealthSummary'
+          title: Health of the Infra Layer
+        description:
           type: string
-          title: Unique Collect Job Id
-        JobScope:
-          type: string
-        Type:
-          $ref: '#/components/schemas/clusterCollectType'
-        JobStatus:
-          $ref: '#/components/schemas/clusterjobStatus'
-        User:
-          type: string
-        CreationTime:
-          type: string
-        Description:
-          type: string
-          title: Additional information regarding the job
-    clusterNodeListSummary:
-      type: object
-      properties:
-        node_summary:
-          type: array
-          items:
-            $ref: '#/components/schemas/clusterNodeSummary'
-      title: Summary of Crossowork NodeList Summary
-    clusterNodeRecommendation:
-      type: object
-      properties:
-        recommendation:
-          type: string
-    clusterCollectConfReq:
-      type: object
-      properties:
-        Configuration:
-          type: object
-          additionalProperties:
-            type: string
-          description: 'MANDATORY: Configuration key map. Currently only "Timeout" is support as key value.'
-    clusterCollectInfoReq:
-      type: object
-      properties:
-        Id:
-          type: string
-          title: 'OPTIONAL: Collection job identifier. Defaults to all jobs'
-        JobScope:
-          type: string
-          title: 'OPTIONAL: Scope of job, i.e. name of service for which job was run. Defaults to all'
-        Type:
-          $ref: '#/components/schemas/clusterCollectType'
-          title: 'OPTIONAL: Type of show tech collection. Defaults to all'
+          title: Recommendation at this point for this Infra layer
+      title: Summary of Crosswork Infrastructure
     CollectPubResultpublishJob:
       type: object
       properties:
@@ -657,54 +641,105 @@ components:
           $ref: '#/components/schemas/clusterMicroServiceAction'
           title: Actions applicable on this microservice
       title: Microservice
-    clusterOpResult:
+    clusterResourceSummary:
       type: object
       properties:
-        result:
-          $ref: '#/components/schemas/clusterRespValue'
-          description: ResultValue indicates the success/failure for the requested operation.
-        description:
+        current_usage:
           type: string
-          title: Additional response information
-        result_map:
-          type: object
-          additionalProperties:
-            type: string
-          title: 'Supplementary keyed response info for the operation (for example: version number, error message)'
-        result_string:
-          type: array
-          items:
-            type: string
-          title: Simple result string
-        id:
+        used:
           type: string
-          title: Resource Identifier returned by operation, if any
-      description: 'OpResult is used to indicate whether an operation has been accepted or not. A string or map payload provides the additional response information (for example: version number, error data).'
-    clusterCollectPubResult:
+        total:
+          type: string
+        health_state:
+          type: string
+      title: Summary of Crosswork Resources
+    clusterDCReq:
       type: object
       properties:
-        Result:
-          $ref: '#/components/schemas/clusterResultValue'
+        dc_id:
+          type: string
+      title: DC Request
+    clusterAction:
+      type: object
+      properties:
+        action_name:
+          type: string
+        action_id:
+          type: string
+    CollectOpResultcollectJob:
+      type: object
+      properties:
+        Id:
+          type: string
+          title: Unique Collect Job Id
+        JobScope:
+          type: string
+        Type:
+          $ref: '#/components/schemas/clusterCollectType'
+        JobStatus:
+          $ref: '#/components/schemas/clusterjobStatus'
+        User:
+          type: string
+        CreationTime:
+          type: string
         Description:
           type: string
-        Jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectPubResultpublishJob'
-    clusterAppDetails:
+          title: Additional information regarding the job
+    clusterCollectReq:
       type: object
       properties:
-        app_name:
+        JobScope:
           type: string
-        app_id:
+          description: 'OPTIONAL: Scope of collection job, i.e. name of service for which job is to be run. Defaults to all apps and services.'
+        Type:
+          $ref: '#/components/schemas/clusterCollectType'
+          description: 'OPTIONAL: Type of show tech collection (All, Logs, Metrics). Defaults to All.'
+    clusterAppHealthList:
+      type: object
+      properties:
+        app_health_summary:
+          type: array
+          items:
+            $ref: '#/components/schemas/clusterAppHealthSummary'
+      title: Summary of an App Health
+    clusterAppHealthSummary:
+      type: object
+      properties:
+        health_summary:
+          $ref: '#/components/schemas/clusterHealthSummary'
+        recommendation:
           type: string
-        app_parameters:
-          $ref: '#/components/schemas/clusterAppParameters'
-        app_resource:
-          $ref: '#/components/schemas/clusterResource'
-        micro_service_list:
-          $ref: '#/components/schemas/clusterMicroServiceList'
-      title: App Details
+        description:
+          type: string
+      title: Summary of the List of App Health
+    clusterActionResp:
+      type: object
+      properties:
+        resp_value:
+          $ref: '#/components/schemas/clusterRespValue'
+        resp_error:
+          type: string
+    clusterSizeProfile:
+      type: object
+      properties:
+        cpu:
+          type: string
+        memory:
+          type: string
+        disk:
+          type: string
+    clusterCollectInfoReq:
+      type: object
+      properties:
+        Id:
+          type: string
+          title: 'OPTIONAL: Collection job identifier. Defaults to all jobs'
+        JobScope:
+          type: string
+          title: 'OPTIONAL: Scope of job, i.e. name of service for which job was run. Defaults to all'
+        Type:
+          $ref: '#/components/schemas/clusterCollectType'
+          title: 'OPTIONAL: Type of show tech collection. Defaults to all'
     clusterNodeDetails:
       type: object
       properties:
@@ -727,83 +762,57 @@ components:
         vm_state:
           type: string
       title: Node Details
-    clusterDCReq:
+    clusterNodeRecommendation:
       type: object
       properties:
-        dc_id:
+        recommendation:
           type: string
-      title: DC Request
-    clusterInfraSummary:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Name of the Infra Layer
-        health_summary:
-          $ref: '#/components/schemas/clusterHealthSummary'
-          title: Health of the Infra Layer
-        description:
-          type: string
-          title: Recommendation at this point for this Infra layer
-      title: Summary of Crosswork Infrastructure
-    clusterActionResp:
-      type: object
-      properties:
-        resp_value:
-          $ref: '#/components/schemas/clusterRespValue'
-        resp_error:
-          type: string
-    clusterNodeActions:
-      type: object
-      properties:
-        actions:
-          type: object
-          additionalProperties:
-            type: boolean
-            format: boolean
-    clusterHealthSummary:
-      type: object
-      properties:
-        state:
-          $ref: '#/components/schemas/clusterHealthState'
-        total:
-          type: integer
-          format: int32
-        healthy:
-          type: integer
-          format: int32
-        degraded:
-          type: integer
-          format: int32
-        down:
-          type: integer
-          format: int32
-        obj_name:
-          type: string
-        availability:
-          type: string
-      title: Health Summary Message
-    clusterHealthState:
+    clusterSignature:
       type: string
       enum:
-      - Healthy
-      - Degraded
-      - Down
-      - NA
-      - Unknown
-      default: Healthy
-    clusterResourceSummary:
+      - SIGNATURE_UNKNOWN
+      - SIGNATURE_VALID
+      - SIGNATURE_INVALID
+      - SIGNATURE_CORRUPT
+      default: SIGNATURE_UNKNOWN
+    clusterResultValue:
+      type: string
+      enum:
+      - NOOP
+      - SUCCESS
+      - FAILURE
+      default: NOOP
+    clusterResource:
       type: object
       properties:
-        current_usage:
+        cpu_summary:
+          $ref: '#/components/schemas/clusterResourceSummary'
+        memory_summary:
+          $ref: '#/components/schemas/clusterResourceSummary'
+        disk_summary:
+          $ref: '#/components/schemas/clusterResourceSummary'
+        last_updated_time:
           type: string
-        used:
+    clusterSSH_Config:
+      type: object
+      properties:
+        Username:
           type: string
-        total:
+          title: MANDATORY
+        Password:
           type: string
-        health_state:
+          title: MANDATORY
+        Destination:
           type: string
-      title: Summary of Crosswork Resources
+          title: MANDATORY
+        Dest_path:
+          type: string
+          title: MANDATORY - Path on destination host
+        Port:
+          type: integer
+          format: int32
+          title: MANDATORY - SCP Port on destination host
+      title: Configuration for SCP
     clusterClusterSummary:
       type: object
       properties:
@@ -813,6 +822,94 @@ components:
         cluster_id:
           type: string
       title: Summary of Crosswork VM Node Cluster
+    clusterRespValue:
+      type: string
+      enum:
+      - R_NOOP
+      - R_SUCCESS
+      - R_FAILURE
+      default: R_NOOP
+      title: ResultValue
+    clusterVerifyReq:
+      type: object
+      properties:
+        signature:
+          type: string
+          title: Actual Signature from Crosswork
+        checksum:
+          type: string
+          title: Checksum of the Payload that was signed by Crosswork
+    clusterjobStatus:
+      type: string
+      enum:
+      - JobUnknown
+      - JobCreated
+      - JobInProgress
+      - JobCompleted
+      - JobFailed
+      default: JobUnknown
+    clusterCollectType:
+      type: string
+      enum:
+      - _
+      - All
+      - Logs
+      - Metrics
+      default: _
+    clusterverifyResponse:
+      type: object
+      properties:
+        signature_response:
+          $ref: '#/components/schemas/clusterSignature'
+    clusterMicroServiceAction:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/clusterAction'
+      title: Actions that can be done on a Microservice
+    clusterHealthState:
+      type: string
+      enum:
+      - Healthy
+      - Degraded
+      - Down
+      - NA
+      - Unknown
+      default: Healthy
+    clusterDCListSummary:
+      type: object
+      properties:
+        dc_summary:
+          type: array
+          items:
+            $ref: '#/components/schemas/clusterDCSummary'
+      title: Summary of DC List
+    clusterAppParameters:
+      type: object
+      properties:
+        status:
+          type: string
+          title: Status
+        availability:
+          type: string
+          title: High-Availablity status
+        recommendation:
+          type: string
+        description:
+          type: string
+    clusterCollectPubResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/clusterResultValue'
+        Description:
+          type: string
+        Jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectPubResultpublishJob'
     clusterNodeHealthSummary:
       type: object
       properties:
@@ -822,14 +919,72 @@ components:
           type: string
         description:
           type: string
-    clusterAppHealthList:
+    clusterNodeListSummary:
       type: object
       properties:
-        app_health_summary:
+        node_summary:
           type: array
           items:
-            $ref: '#/components/schemas/clusterAppHealthSummary'
-      title: Summary of an App Health
+            $ref: '#/components/schemas/clusterNodeSummary'
+      title: Summary of Crossowork NodeList Summary
+    clusterCollectConfReq:
+      type: object
+      properties:
+        Configuration:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'MANDATORY: Configuration key map. Currently only "Timeout" is support as key value.'
+    clusterBasicReq:
+      type: object
+      properties:
+        req_id:
+          type: string
+    clusterClusterListSummary:
+      type: object
+      properties:
+        cluster_summary:
+          $ref: '#/components/schemas/clusterClusterSummary'
+          title: Health Summary of the Crosswork Node Cluster
+      title: Summary of Crosswork VM Node Cluster List
+    clusterNodeActions:
+      type: object
+      properties:
+        actions:
+          type: object
+          additionalProperties:
+            type: boolean
+            format: boolean
+    clusterClusterReq:
+      type: object
+      properties:
+        cluster_id:
+          type: string
+      title: Cluster request
+    clusterCollectOpResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/clusterResultValue'
+        Description:
+          type: string
+          title: Additional information regarding the response
+        CollectJobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectOpResultcollectJob'
+    clusterCollectPubPostReq:
+      type: object
+      properties:
+        CollectJobId:
+          type: string
+          title: 'MANDATORY: Unique Id of collection job to be published'
+        Protocol:
+          $ref: '#/components/schemas/clusterPublishType'
+          title: 'MANDATORY: Publish protocol (SSH)'
+        SSH_Configuration:
+          $ref: '#/components/schemas/clusterSSH_Config'
+          title: 'MANDATORY: SSH Configuration'
     clusterNodeSummary:
       type: object
       properties:
@@ -857,180 +1012,25 @@ components:
         availability:
           type: string
       title: Summary of Crosswork Node
-    clusterVerifyReq:
+    clusterHealthSummary:
       type: object
       properties:
-        signature:
-          type: string
-          title: Actual Signature from Crosswork
-        checksum:
-          type: string
-          title: Checksum of the Payload that was signed by Crosswork
-    clusterPublishType:
-      type: string
-      enum:
-      - SSH
-      default: SSH
-    clusterMicroServiceAction:
-      type: object
-      properties:
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/clusterAction'
-      title: Actions that can be done on a Microservice
-    clusterResultValue:
-      type: string
-      enum:
-      - NOOP
-      - SUCCESS
-      - FAILURE
-      default: NOOP
-    clusterCollectOpResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/clusterResultValue'
-        Description:
-          type: string
-          title: Additional information regarding the response
-        CollectJobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectOpResultcollectJob'
-    clusterCollectType:
-      type: string
-      enum:
-      - _
-      - All
-      - Logs
-      - Metrics
-      default: _
-    clusterClusterListSummary:
-      type: object
-      properties:
-        cluster_summary:
-          $ref: '#/components/schemas/clusterClusterSummary'
-          title: Health Summary of the Crosswork Node Cluster
-      title: Summary of Crosswork VM Node Cluster List
-    clusterAppReq:
-      type: object
-      properties:
-        app_id:
-          type: string
-      title: App request
-    clusterAction:
-      type: object
-      properties:
-        action_name:
-          type: string
-        action_id:
-          type: string
-    clusterverifyResponse:
-      type: object
-      properties:
-        signature_response:
-          $ref: '#/components/schemas/clusterSignature'
-    clusterBasicReq:
-      type: object
-      properties:
-        req_id:
-          type: string
-    clusterSSH_Config:
-      type: object
-      properties:
-        Username:
-          type: string
-          title: MANDATORY
-        Password:
-          type: string
-          title: MANDATORY
-        Destination:
-          type: string
-          title: MANDATORY
-        Dest_path:
-          type: string
-          title: MANDATORY - Path on destination host
-        Port:
+        state:
+          $ref: '#/components/schemas/clusterHealthState'
+        total:
           type: integer
           format: int32
-          title: MANDATORY - SCP Port on destination host
-      title: Configuration for SCP
-    clusterjobStatus:
-      type: string
-      enum:
-      - JobUnknown
-      - JobCreated
-      - JobInProgress
-      - JobCompleted
-      - JobFailed
-      default: JobUnknown
-    clusterSizeProfile:
-      type: object
-      properties:
-        cpu:
+        healthy:
+          type: integer
+          format: int32
+        degraded:
+          type: integer
+          format: int32
+        down:
+          type: integer
+          format: int32
+        obj_name:
           type: string
-        memory:
+        availability:
           type: string
-        disk:
-          type: string
-    clusterClusterReq:
-      type: object
-      properties:
-        cluster_id:
-          type: string
-      title: Cluster request
-    clusterAppHealthSummary:
-      type: object
-      properties:
-        health_summary:
-          $ref: '#/components/schemas/clusterHealthSummary'
-        recommendation:
-          type: string
-        description:
-          type: string
-      title: Summary of the List of App Health
-    clusterCollectReq:
-      type: object
-      properties:
-        JobScope:
-          type: string
-          description: 'OPTIONAL: Scope of collection job, i.e. name of service for which job is to be run. Defaults to all apps and services.'
-        Type:
-          $ref: '#/components/schemas/clusterCollectType'
-          description: 'OPTIONAL: Type of show tech collection (All, Logs, Metrics). Defaults to All.'
-    clusterResource:
-      type: object
-      properties:
-        cpu_summary:
-          $ref: '#/components/schemas/clusterResourceSummary'
-        memory_summary:
-          $ref: '#/components/schemas/clusterResourceSummary'
-        disk_summary:
-          $ref: '#/components/schemas/clusterResourceSummary'
-        last_updated_time:
-          type: string
-    clusterSignature:
-      type: string
-      enum:
-      - SIGNATURE_UNKNOWN
-      - SIGNATURE_VALID
-      - SIGNATURE_INVALID
-      - SIGNATURE_CORRUPT
-      default: SIGNATURE_UNKNOWN
-    clusterRespValue:
-      type: string
-      enum:
-      - R_NOOP
-      - R_SUCCESS
-      - R_FAILURE
-      default: R_NOOP
-      title: ResultValue
-    clusterMicroServiceList:
-      type: object
-      properties:
-        micro_service:
-          type: array
-          items:
-            $ref: '#/components/schemas/clusterMicroService'
-      title: List of Microservices
+      title: Health Summary Message

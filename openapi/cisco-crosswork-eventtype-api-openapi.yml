@@ -1,0 +1,330 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager Event Types Event Type API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+security:
+- Bearer: []
+tags:
+- name: eventType
+paths:
+  /eventType:
+    get:
+      summary: List all event types.
+      description: Retrieve a list of all registered event types.
+      operationId: list_event
+      tags:
+      - eventType
+      responses:
+        '200':
+          description: Event types retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/server.EventResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+        '404':
+          description: Event type not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+      security:
+      - Bearer: []
+    post:
+      summary: Create a new event type.
+      description: Create a new event type. The 'Kind' field can be either "consumed" or "produced".
+      operationId: create_event_type
+      tags:
+      - eventType
+      requestBody:
+        description: Event type data to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.EventDefinition'
+      responses:
+        '201':
+          description: Event type created successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /eventType/{type}/{actionOrKind}:
+    delete:
+      summary: Delete an event type.
+      description: Delete an existing event type.
+      operationId: delete_event_type
+      tags:
+      - eventType
+      parameters:
+      - name: type
+        in: path
+        description: The event type name.
+        required: true
+        schema:
+          type: string
+      - name: actionOrKind
+        in: path
+        description: The event kind.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Event type deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+        '404':
+          description: Event type not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+      security:
+      - Bearer: []
+    get:
+      summary: Get a specific event type.
+      description: Retrieve detailed information about a specific event type and kind.
+      operationId: describe_event
+      tags:
+      - eventType
+      parameters:
+      - name: type
+        in: path
+        description: The event type name.
+        required: true
+        schema:
+          type: string
+      - name: actionOrKind
+        in: path
+        description: The event kind (consumed or produced).
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Event type retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.EventResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+        '404':
+          description: Event type not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+      security:
+      - Bearer: []
+    post:
+      summary: Manage an event listener.
+      description: Start or stop an event listener for a specific event type.
+      operationId: manage_event_listener
+      tags:
+      - eventType
+      parameters:
+      - name: type
+        in: path
+        description: The event type name.
+        required: true
+        schema:
+          type: string
+      - name: actionOrKind
+        in: path
+        description: The action to perform (start or stop).
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Event listener action performed successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+        '404':
+          description: Event type not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gin.H'
+      security:
+      - Bearer: []
+    put:
+      summary: Update an existing event type.
+      description: Update an existing event type's configuration.
+      operationId: update_event_type
+      tags:
+      - eventType
+      parameters:
+      - name: type
+        in: path
+        description: The event type name.
+        required: true
+        schema:
+          type: string
+      - name: actionOrKind
+        in: path
+        description: The event kind.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Event type data to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.EventDefinition'
+      responses:
+        '200':
+          description: Event type updated successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+components:
+  schemas:
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
+    server.EventResponse:
+      type: object
+      properties:
+        correlationAttrs:
+          type: array
+          items:
+            type: integer
+        createWorkflow:
+          type: boolean
+        endpoint:
+          type: string
+        internallyManagedListener:
+          type: boolean
+          default: false
+        kind:
+          type: string
+        payloadAttrs:
+          type: object
+          additionalProperties:
+            type: string
+        resourceId:
+          type: string
+        source:
+          type: string
+        state:
+          type: boolean
+          default: false
+        type:
+          type: string
+        workflowName:
+          type: string
+        workflowVersion:
+          type: string
+    server.EventDefinition:
+      type: object
+      properties:
+        correlationAttrs:
+          type: array
+          items:
+            type: integer
+        createWorkflow:
+          type: boolean
+        endpoint:
+          type: string
+        kind:
+          type: string
+        payloadAttrs:
+          type: object
+          additionalProperties:
+            type: string
+        resourceId:
+          type: string
+        source:
+          type: string
+        type:
+          type: string
+        workflowName:
+          type: string
+        workflowVersion:
+          type: string
+    gin.H:
+      type: object
+      additionalProperties: {}
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'

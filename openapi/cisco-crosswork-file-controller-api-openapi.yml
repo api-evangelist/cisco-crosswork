@@ -2,8 +2,7 @@ openapi: 3.2.0
 info:
   title: Cisco Crosswork File Controller API
   version: '1.0'
-  description: 'Operations tagged file-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json,
-    cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged file-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json, cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -12,8 +11,7 @@ info:
     first_party: true
     note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
     provider_published: true
-    derived_view: Per-tag view of cisco-crosswork-ztp-cw-image-service-openapi.json, the provider's source document. Operations
-      and schemas are the provider's, unmodified; only the partition is ours.
+    derived_view: Per-tag view of cisco-crosswork-ztp-cw-image-service-openapi.json, the provider's source document. Operations and schemas are the provider's, unmodified; only the partition is ours.
     derived_from: cisco-crosswork-ztp-cw-image-service-openapi.json
     operation_coverage: 3/3
   x-evidence:
@@ -30,6 +28,8 @@ tags:
   description: File Controller
 paths:
   /v1/device/files/{id}:
+    servers:
+    - url: /crosswork/imagesvc/
     get:
       tags:
       - file-controller
@@ -57,9 +57,9 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+  /v1/files/{id}:
     servers:
     - url: /crosswork/imagesvc/
-  /v1/files/{id}:
     get:
       tags:
       - file-controller
@@ -81,9 +81,9 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+  /v1/device/image/download/{token}/{name}:
     servers:
     - url: /crosswork/imagesvc/
-  /v1/device/image/download/{token}/{name}:
     get:
       tags:
       - file-controller
@@ -106,15 +106,11 @@ paths:
         '200':
           description: OK. The request was successful. The result is contained in the response body.
         '401':
-          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for
-            the target resource.
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
         '403':
-          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to
-            perform this request.
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
         '404':
           description: Not Found. The client made a request for a resource that does not exist.
-    servers:
-    - url: /crosswork/imagesvc/
 components:
   securitySchemes:
     bearerAuth:

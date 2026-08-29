@@ -2,9 +2,7 @@ openapi: 3.2.0
 info:
   title: Cisco Crosswork Root API
   version: '2018-02-26'
-  description: 'Operations tagged root across 3 of this provider''s published API definitions: cisco-crosswork-coe-l3-openapi.json,
-    cisco-crosswork-coe-l3-state-openapi.json, cisco-crosswork-coe-network-state-openapi.json. Each path carries the servers
-    of the definition it was published in.'
+  description: 'Operations tagged root across 3 of this provider''s published API definitions: cisco-crosswork-coe-l3-openapi.json, cisco-crosswork-coe-l3-state-openapi.json, cisco-crosswork-coe-network-state-openapi.json. Each path carries the servers of the definition it was published in.'
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -13,8 +11,7 @@ info:
     first_party: true
     note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
     provider_published: true
-    derived_view: Per-tag view of cisco-crosswork-coe-l3-openapi.json, the provider's source document. Operations and schemas
-      are the provider's, unmodified; only the partition is ours.
+    derived_view: Per-tag view of cisco-crosswork-coe-l3-openapi.json, the provider's source document. Operations and schemas are the provider's, unmodified; only the partition is ours.
     derived_from: cisco-crosswork-coe-l3-openapi.json
     operation_coverage: 1/1
   x-evidence:
@@ -29,6 +26,8 @@ tags:
   description: root resources
 paths:
   /:
+    servers:
+    - url: /crosswork/nbi/optima/v1/restconf
     get:
       tags:
       - root
@@ -122,8 +121,6 @@ paths:
           $ref: '#/components/responses/409'
       security:
       - basicAuth: []
-    servers:
-    - url: /crosswork/nbi/optima/v1/restconf
 components:
   schemas:
     root:
@@ -133,8 +130,7 @@ components:
           type: object
           x-yang:
             type: root
-          description: This is the RESTCONF root resource for the RESTCONF datastore and operation resources. See RESTCONF
-            RFC 8040 for further information.
+          description: This is the RESTCONF root resource for the RESTCONF datastore and operation resources. See RESTCONF RFC 8040 for further information.
           properties:
             data:
               type: object
@@ -145,18 +141,18 @@ components:
             yang-library-version:
               type: string
   responses:
-    '405':
-      description: Method Not Allowed
     '404':
       description: Not Found
     '204':
       description: No Content
+    '405':
+      description: Method Not Allowed
     '401':
       description: Unauthorized
-    '409':
-      description: Conflict
     '400':
       description: Bad Request
+    '409':
+      description: Conflict
   securitySchemes:
     basicAuth:
       type: http

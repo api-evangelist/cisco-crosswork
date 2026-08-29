@@ -1,0 +1,421 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager Resources API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+security:
+- Bearer: []
+tags:
+- name: resources
+paths:
+  /resource:
+    get:
+      summary: List all available resources.
+      description: Retrieve a list of all available resources.
+      operationId: list_resources
+      tags:
+      - resources
+      responses:
+        '200':
+          description: Resources retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Resource'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    post:
+      summary: Create a new resource.
+      description: Create a new resource.
+      operationId: create_resource
+      tags:
+      - resources
+      requestBody:
+        description: Resource data to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/validator.Resource'
+      responses:
+        '200':
+          description: Resource created successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /resource/{resourceId}:
+    delete:
+      summary: Delete a resource by ID.
+      description: Delete a specific resource by its ID.
+      operationId: delete_resource
+      tags:
+      - resources
+      parameters:
+      - name: resourceId
+        in: path
+        description: Resource ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resource deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    get:
+      summary: Get a specific resource by ID.
+      description: Retrieve a specific resource by its ID.
+      operationId: get_resource
+      tags:
+      - resources
+      parameters:
+      - name: resourceId
+        in: path
+        description: Resource ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resource retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+    patch:
+      summary: Update an existing resource by ID.
+      description: Update an existing resource by its ID.
+      operationId: update_resource
+      tags:
+      - resources
+      parameters:
+      - name: resourceId
+        in: path
+        description: Resource ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Resource data to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/validator.Resource'
+      responses:
+        '200':
+          description: Resource updated successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /resourceExport:
+    post:
+      summary: Export all available resources.
+      description: Export all available resources from the system.
+      operationId: export_resources
+      tags:
+      - resources
+      requestBody:
+        description: Resource export request details.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.ResourceExport'
+      responses:
+        '200':
+          description: Resources exported successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/models.Resource'
+        '204':
+          description: No content.
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /resourceImport:
+    post:
+      summary: Import resources into the system.
+      description: Import resources into the system.
+      operationId: import_resources
+      tags:
+      - resources
+      parameters:
+      - name: isDryRun
+        in: query
+        description: Dry run mode.
+        required: false
+        schema:
+          type: string
+      - name: isOverride
+        in: query
+        description: Override existing resources mode.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resources imported successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.ResourceImportResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /resourceType:
+    get:
+      summary: List all available resource types.
+      description: Retrieve a list of all available resource types.
+      operationId: list_resource_types
+      tags:
+      - resources
+      responses:
+        '200':
+          description: Resource types retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ResourceType'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+  /resourceType/{resourceTypeId}:
+    get:
+      summary: Get a specific resource type by ID.
+      description: Retrieve a specific resource type by its ID.
+      operationId: get_resource_type
+      tags:
+      - resources
+      parameters:
+      - name: resourceTypeId
+        in: path
+        description: Resource type ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resource type retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ResourceType'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.HTTPError'
+      security:
+      - Bearer: []
+components:
+  schemas:
+    models.ResourceType:
+      type: object
+      properties:
+        description:
+          type: string
+        resourceTypeId:
+          type: string
+        schema:
+          type: object
+    validator.Resource:
+      type: object
+      properties:
+        resource:
+          type: object
+        resourceId:
+          type: string
+        resourceTypeId:
+          type: string
+        secretId:
+          type: string
+    models.Resource:
+      type: object
+      properties:
+        resource:
+          type: object
+        resourceId:
+          type: string
+        resourceTypeId:
+          type: string
+        secretId:
+          type: string
+    server.ResourceExport:
+      type: object
+      properties:
+        resourceId:
+          type: string
+        resourceTypeId:
+          type: string
+        secretId:
+          type: string
+    server.ResourceImportResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        failure:
+          type: array
+          items:
+            type: string
+        isDryRun:
+          type: boolean
+        isOverride:
+          type: boolean
+        success:
+          type: array
+          items:
+            $ref: '#/components/schemas/validator.Resource'
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'

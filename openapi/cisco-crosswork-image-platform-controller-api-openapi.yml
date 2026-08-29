@@ -2,8 +2,7 @@ openapi: 3.2.0
 info:
   title: Cisco Crosswork Image Platform Controller API
   version: '1.0'
-  description: 'Operations tagged image-platform-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json,
-    cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged image-platform-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json, cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -12,8 +11,7 @@ info:
     first_party: true
     note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
     provider_published: true
-    derived_view: Per-tag view of cisco-crosswork-ncahi-cw-image-service-openapi.json, the provider's source document. Operations
-      and schemas are the provider's, unmodified; only the partition is ours.
+    derived_view: Per-tag view of cisco-crosswork-ncahi-cw-image-service-openapi.json, the provider's source document. Operations and schemas are the provider's, unmodified; only the partition is ours.
     derived_from: cisco-crosswork-ncahi-cw-image-service-openapi.json
     operation_coverage: 3/3
   x-evidence:
@@ -30,6 +28,8 @@ tags:
   description: Image Platform Controller
 paths:
   /v1/platforms:
+    servers:
+    - url: /crosswork/imagesvc/
     get:
       tags:
       - image-platform-controller
@@ -48,9 +48,9 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+  /v1/platforms/{platform}/families:
     servers:
     - url: /crosswork/imagesvc/
-  /v1/platforms/{platform}/families:
     get:
       tags:
       - image-platform-controller
@@ -76,9 +76,9 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+  /v1/platforms/{platform}/versions:
     servers:
     - url: /crosswork/imagesvc/
-  /v1/platforms/{platform}/versions:
     get:
       tags:
       - image-platform-controller
@@ -104,8 +104,6 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-    servers:
-    - url: /crosswork/imagesvc/
 components:
   schemas:
     ResponseDto:
@@ -121,20 +119,6 @@ components:
         pageSize:
           type: integer
           format: int32
-    ResponseDto_2:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            type: object
-        pageNumber:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
-      title: ResponseDto
   securitySchemes:
     bearerAuth:
       type: apiKey

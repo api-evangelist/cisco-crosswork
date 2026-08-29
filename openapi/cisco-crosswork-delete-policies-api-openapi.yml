@@ -52,52 +52,6 @@ paths:
         required: true
 components:
   schemas:
-    robotapiRobotUniquePolicyList:
-      type: object
-      properties:
-        policies:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotUniquePolicy'
-        user:
-          type: string
-      title: List of policies used in the api request/response
-    robotapiRobotUniquePolicy:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Unique name
-        invType:
-          $ref: '#/components/schemas/robotapiRobotInventoryType'
-          title: Inventory Type, In 3.1 version, policies are supported only for Nodes
-        fields:
-          type: array
-          items:
-            type: string
-          title: Array of field names on which the uniqueness will be maintained
-        Type:
-          $ref: '#/components/schemas/robotapiUniquePolicyType'
-          title: Combination of all the filed supplied or independent
-    robotapiUniquePolicyType:
-      type: string
-      enum:
-      - UNKNOWN_TYPE
-      - INDEPENDENT
-      - COMBINED
-      default: UNKNOWN_TYPE
-    robotapiRobotJobState:
-      description: Various Job Resulting states.
-      type: string
-      enum:
-      - JOB_INVALID
-      - JOB_REJECTED
-      - JOB_ACCEPTED
-      - JOB_DB_UPDATED
-      - JOB_NOTIFICATION_PUBLISHED
-      - JOB_COMPLETED
-      - JOB_FAILED
-      default: JOB_INVALID
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -137,6 +91,16 @@ components:
           type: string
         title: Impacted elements list
       description: Every Action related to Inventory will have a Job
+    robotapiRobotUniquePolicyList:
+      type: object
+      properties:
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotUniquePolicy'
+        user:
+          type: string
+      title: List of policies used in the api request/response
     robotapiRobotInventoryType:
       description: Supported Inventory Type
       type: string
@@ -147,6 +111,42 @@ components:
       - INV_TYPE_CREDENTIAL
       - INV_TYPE_TAG
       default: INV_TYPE_UNKNOWN
+    robotapiRobotJobState:
+      description: Various Job Resulting states.
+      type: string
+      enum:
+      - JOB_INVALID
+      - JOB_REJECTED
+      - JOB_ACCEPTED
+      - JOB_DB_UPDATED
+      - JOB_NOTIFICATION_PUBLISHED
+      - JOB_COMPLETED
+      - JOB_FAILED
+      default: JOB_INVALID
+    robotapiUniquePolicyType:
+      type: string
+      enum:
+      - UNKNOWN_TYPE
+      - INDEPENDENT
+      - COMBINED
+      default: UNKNOWN_TYPE
+    robotapiRobotUniquePolicy:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Unique name
+        invType:
+          $ref: '#/components/schemas/robotapiRobotInventoryType'
+          title: Inventory Type, In 3.1 version, policies are supported only for Nodes
+        fields:
+          type: array
+          items:
+            type: string
+          title: Array of field names on which the uniqueness will be maintained
+        Type:
+          $ref: '#/components/schemas/robotapiUniquePolicyType'
+          title: Combination of all the filed supplied or independent
   securitySchemes:
     bearerAuth:
       type: apiKey

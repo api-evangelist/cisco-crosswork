@@ -52,6 +52,134 @@ paths:
         required: true
 components:
   schemas:
+    robotapiRobotInetAddressFamily:
+      description: Inet Address Family
+      type: string
+      enum:
+      - ROBOT_INET_ADDR_TYPE_NONE
+      - ROBOT_INET_ADDR_TYPE_v4
+      - ROBOT_INET_ADDR_TYPE_v6
+      default: ROBOT_INET_ADDR_TYPE_NONE
+    robotapiRobotTransport:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/robotapiRobotTransportType'
+          description: Device connectivity type.
+        ipaddrs:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotInetAddr'
+          description: V4/V6 ip address for this connectivity type
+        port:
+          type: integer
+          format: int64
+          description: Port for this connectivity type
+        timeout:
+          type: string
+          format: uint64
+          description: Timeout for this connectivity type
+        reachability_state:
+          $ref: '#/components/schemas/robotapiRobotEntityConnectivityState'
+          description: Reachability Status for Transport Connection
+        reachability_state_upd_time:
+          type: string
+          format: int64
+          description: 'Reachability timestamp. Time when the reach state was updated.
+
+            Unix epoch time in seconds.'
+        error:
+          type: string
+          description: error reason for protocol reachability failure
+    robotapiRobotFilterData:
+      description: Request body with filter options
+      type: object
+      properties:
+        SortBy:
+          type: string
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
+    robotapiSupportedModels:
+      type: object
+      properties:
+        model_prefix:
+          type: string
+          description: Yang model prefix e.g. Cisco-IOS-XR, Cisco-NX-OS, Cisco-IOS-XE
+        model_version:
+          type: string
+          description: Yang model version
+    robotapiRobotInetAddr:
+      description: Inet Address
+      type: object
+      properties:
+        inet_af:
+          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
+        inet_addr:
+          type: string
+        mask:
+          type: string
+    robotapiRobotResponseInfo:
+      type: object
+      properties:
+        code:
+          type: string
+          format: int64
+          description: Typically from an enum defined by the component.
+        desc:
+          type: string
+          description: Description of error. May not be filled for success error codes.
+      description: Generic template for responses
+    robotapiRobotTransportType:
+      type: string
+      enum:
+      - ROBOT_MSVC_TRANS_NONE
+      - ROBOT_MSVC_TRANS_TCP
+      - ROBOT_MSVC_TRANS_UDP
+      - ROBOT_MSVC_TRANS_HTTP
+      - ROBOT_MSVC_TRANS_HTTPS
+      - ROBOT_MSVC_TRANS_GRPC
+      - ROBOT_MSVC_TRANS_SSH
+      - ROBOT_MSVC_TRANS_NETCONF
+      - ROBOT_MSVC_TRANS_TELNET
+      - ROBOT_MSVC_TRANS_SNMP
+      - ROBOT_MSVC_TRANS_TL1
+      - ROBOT_MSVC_TRANS_TL1_SECURE
+      - ROBOT_MSVC_TRANS_ICMP
+      - ROBOT_MSVC_TRANS_KAFKA
+      - ROBOT_MSVC_TRANS_NATS
+      default: ROBOT_MSVC_TRANS_NONE
+      description: Transport types for robot micro-services
+    robotapiRobotEntityConnectivityState:
+      description: Derived reachability state for a device. Cannot be set by user
+      type: string
+      enum:
+      - CONN_STATE_UNKNOWN
+      - CONN_STATE_REACHABLE
+      - CONN_STATE_UNREACHABLE
+      - CONN_STATE_MAX
+      - CONN_STATE_DEGRADED
+      default: CONN_STATE_UNKNOWN
+    robotapiRobotProviderType:
+      type: string
+      enum:
+      - ROBOT_PROVIDER_NONE
+      - ROBOT_PROVIDER_CFG_LOCAL
+      - ROBOT_PROVIDER_INSTALL
+      - ROBOT_PROVIDER_COMPUTE
+      default: ROBOT_PROVIDER_NONE
+      description: Provider types
     robotapiRobotProviderDataGetResp:
       type: object
       properties:
@@ -89,26 +217,6 @@ components:
             supported.'
         filterData:
           $ref: '#/components/schemas/robotapiRobotFilterData'
-    robotapiRobotTransportType:
-      type: string
-      enum:
-      - ROBOT_MSVC_TRANS_NONE
-      - ROBOT_MSVC_TRANS_TCP
-      - ROBOT_MSVC_TRANS_UDP
-      - ROBOT_MSVC_TRANS_HTTP
-      - ROBOT_MSVC_TRANS_HTTPS
-      - ROBOT_MSVC_TRANS_GRPC
-      - ROBOT_MSVC_TRANS_SSH
-      - ROBOT_MSVC_TRANS_NETCONF
-      - ROBOT_MSVC_TRANS_TELNET
-      - ROBOT_MSVC_TRANS_SNMP
-      - ROBOT_MSVC_TRANS_TL1
-      - ROBOT_MSVC_TRANS_TL1_SECURE
-      - ROBOT_MSVC_TRANS_ICMP
-      - ROBOT_MSVC_TRANS_KAFKA
-      - ROBOT_MSVC_TRANS_NATS
-      default: ROBOT_MSVC_TRANS_NONE
-      description: Transport types for robot micro-services
     robotapiRobotProviderDeviceKey:
       type: string
       enum:
@@ -118,96 +226,6 @@ components:
       - ROBOT_PROVDEVKEY_INVENTORY_ID
       default: ROBOT_PROVDEVKEY_NONE
       description: Key types used for generating UUID for Provider
-    robotapiRobotFilterData:
-      description: Request body with filter options
-      type: object
-      properties:
-        SortBy:
-          type: string
-        PageSize:
-          type: integer
-          format: int64
-        PageNum:
-          type: integer
-          format: int64
-        Descending:
-          type: boolean
-          format: boolean
-        MatchCase:
-          type: boolean
-          format: boolean
-        Criteria:
-          type: string
-    robotapiRobotResponseInfo:
-      type: object
-      properties:
-        code:
-          type: string
-          format: int64
-          description: Typically from an enum defined by the component.
-        desc:
-          type: string
-          description: Description of error. May not be filled for success error codes.
-      description: Generic template for responses
-    robotapiRobotTransport:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/robotapiRobotTransportType'
-          description: Device connectivity type.
-        ipaddrs:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotInetAddr'
-          description: V4/V6 ip address for this connectivity type
-        port:
-          type: integer
-          format: int64
-          description: Port for this connectivity type
-        timeout:
-          type: string
-          format: uint64
-          description: Timeout for this connectivity type
-        reachability_state:
-          $ref: '#/components/schemas/robotapiRobotEntityConnectivityState'
-          description: Reachability Status for Transport Connection
-        reachability_state_upd_time:
-          type: string
-          format: int64
-          description: 'Reachability timestamp. Time when the reach state was updated.
-
-            Unix epoch time in seconds.'
-        error:
-          type: string
-          description: error reason for protocol reachability failure
-    robotapiRobotInetAddr:
-      description: Inet Address
-      type: object
-      properties:
-        inet_af:
-          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
-        inet_addr:
-          type: string
-        mask:
-          type: string
-    robotapiSupportedModels:
-      type: object
-      properties:
-        model_prefix:
-          type: string
-          description: Yang model prefix e.g. Cisco-IOS-XR, Cisco-NX-OS, Cisco-IOS-XE
-        model_version:
-          type: string
-          description: Yang model version
-    robotapiRobotProviderType:
-      type: string
-      enum:
-      - ROBOT_PROVIDER_NONE
-      - ROBOT_PROVIDER_CFG_LOCAL
-      - ROBOT_PROVIDER_INSTALL
-      - ROBOT_PROVIDER_COMPUTE
-      default: ROBOT_PROVIDER_NONE
-      description: Provider types
     robotapiRobotProviderFamily:
       type: string
       enum:
@@ -222,24 +240,6 @@ components:
       - ROBOT_PROVIDER_DESTINATION
       default: ROBOT_PROVIDER_UNKNOWN
       description: Provider Family types
-    robotapiRobotEntityConnectivityState:
-      description: Derived reachability state for a device. Cannot be set by user
-      type: string
-      enum:
-      - CONN_STATE_UNKNOWN
-      - CONN_STATE_REACHABLE
-      - CONN_STATE_UNREACHABLE
-      - CONN_STATE_MAX
-      - CONN_STATE_DEGRADED
-      default: CONN_STATE_UNKNOWN
-    robotapiRobotInetAddressFamily:
-      description: Inet Address Family
-      type: string
-      enum:
-      - ROBOT_INET_ADDR_TYPE_NONE
-      - ROBOT_INET_ADDR_TYPE_v4
-      - ROBOT_INET_ADDR_TYPE_v6
-      default: ROBOT_INET_ADDR_TYPE_NONE
     robotapiRobotProviderData:
       type: object
       properties:

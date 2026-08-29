@@ -52,19 +52,6 @@ paths:
         required: true
 components:
   schemas:
-    robotapiRobotUniquePolicyGetResp:
-      type: object
-      properties:
-        return:
-          $ref: '#/components/schemas/robotapiRobotResponseInfo'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotUniquePolicy'
-        total_count:
-          type: integer
-          format: int32
-          title: Number of total providers available at present
     robotapiRobotFilterData:
       description: Request body with filter options
       type: object
@@ -85,23 +72,6 @@ components:
           format: boolean
         Criteria:
           type: string
-    robotapiRobotUniquePolicy:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Unique name
-        invType:
-          $ref: '#/components/schemas/robotapiRobotInventoryType'
-          title: Inventory Type, In 3.1 version, policies are supported only for Nodes
-        fields:
-          type: array
-          items:
-            type: string
-          title: Array of field names on which the uniqueness will be maintained
-        Type:
-          $ref: '#/components/schemas/robotapiUniquePolicyType'
-          title: Combination of all the filed supplied or independent
     robotapiRobotUniquePolicyGetReq:
       type: object
       properties:
@@ -132,13 +102,6 @@ components:
           type: string
           description: Description of error. May not be filled for success error codes.
       description: Generic template for responses
-    robotapiUniquePolicyType:
-      type: string
-      enum:
-      - UNKNOWN_TYPE
-      - INDEPENDENT
-      - COMBINED
-      default: UNKNOWN_TYPE
     robotapiRobotInventoryType:
       description: Supported Inventory Type
       type: string
@@ -149,6 +112,43 @@ components:
       - INV_TYPE_CREDENTIAL
       - INV_TYPE_TAG
       default: INV_TYPE_UNKNOWN
+    robotapiUniquePolicyType:
+      type: string
+      enum:
+      - UNKNOWN_TYPE
+      - INDEPENDENT
+      - COMBINED
+      default: UNKNOWN_TYPE
+    robotapiRobotUniquePolicyGetResp:
+      type: object
+      properties:
+        return:
+          $ref: '#/components/schemas/robotapiRobotResponseInfo'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotUniquePolicy'
+        total_count:
+          type: integer
+          format: int32
+          title: Number of total providers available at present
+    robotapiRobotUniquePolicy:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Unique name
+        invType:
+          $ref: '#/components/schemas/robotapiRobotInventoryType'
+          title: Inventory Type, In 3.1 version, policies are supported only for Nodes
+        fields:
+          type: array
+          items:
+            type: string
+          title: Array of field names on which the uniqueness will be maintained
+        Type:
+          $ref: '#/components/schemas/robotapiUniquePolicyType'
+          title: Combination of all the filed supplied or independent
   securitySchemes:
     bearerAuth:
       type: apiKey

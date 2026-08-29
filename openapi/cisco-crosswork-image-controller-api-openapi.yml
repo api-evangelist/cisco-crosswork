@@ -2,8 +2,7 @@ openapi: 3.2.0
 info:
   title: Cisco Crosswork Image Controller API
   version: '1.0'
-  description: 'Operations tagged image-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json,
-    cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged image-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json, cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -12,8 +11,7 @@ info:
     first_party: true
     note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
     provider_published: true
-    derived_view: Per-tag view of cisco-crosswork-ztp-cw-image-service-openapi.json, the provider's source document. Operations
-      and schemas are the provider's, unmodified; only the partition is ours.
+    derived_view: Per-tag view of cisco-crosswork-ztp-cw-image-service-openapi.json, the provider's source document. Operations and schemas are the provider's, unmodified; only the partition is ours.
     derived_from: cisco-crosswork-ztp-cw-image-service-openapi.json
     operation_coverage: 6/6
   x-evidence:
@@ -30,6 +28,8 @@ tags:
   description: Image Controller
 paths:
   /v1/images:
+    servers:
+    - url: /crosswork/imagesvc/
     get:
       tags:
       - image-controller
@@ -144,9 +144,9 @@ paths:
                 type: string
         description: idList
         required: true
+  /v1/images/{imageId}:
     servers:
     - url: /crosswork/imagesvc/
-  /v1/images/{imageId}:
     get:
       tags:
       - image-controller
@@ -237,9 +237,9 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
+  /v1/images/count:
     servers:
     - url: /crosswork/imagesvc/
-  /v1/images/count:
     get:
       tags:
       - image-controller
@@ -254,17 +254,26 @@ paths:
                 type: integer
                 format: int64
         '401':
-          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for
-            the target resource.
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
         '403':
-          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to
-            perform this request.
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
         '404':
           description: Not Found. The client made a request for a resource that does not exist.
-    servers:
-    - url: /crosswork/imagesvc/
 components:
   schemas:
+    ResponseDto_ImageDto:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageDto'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
     ImageDto:
       type: object
       properties:
@@ -290,59 +299,6 @@ components:
           type: string
         modifiedBy:
           type: string
-    ResponseDto_ImageDto:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ImageDto'
-        pageNumber:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
-    ImageDto_2:
-      type: object
-      properties:
-        createdBy:
-          type: string
-        deviceFamily:
-          type: string
-        downloadURL:
-          type: string
-        id:
-          type: string
-        imageFileName:
-          type: string
-        imagePlatform:
-          type: string
-        imageSource:
-          type: string
-        imageTitle:
-          type: string
-        imageType:
-          type: string
-        imageVersion:
-          type: string
-        modifiedBy:
-          type: string
-      title: ImageDto
-    ResponseDtoOfImageDto:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ImageDto_2'
-        pageNumber:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
-      title: ResponseDtoOfImageDto
   securitySchemes:
     bearerAuth:
       type: apiKey

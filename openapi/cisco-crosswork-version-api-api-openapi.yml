@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Crosswork Platform Version API API
+  title: Crosswork Platform Version API
   version: 1.0.0
   contact:
     name: Crosswork Team, Cisco
@@ -45,13 +45,6 @@ paths:
       - Version API
 components:
   schemas:
-    robotctl_apiResultValue:
-      type: string
-      enum:
-      - NOOP
-      - SUCCESS
-      - FAILURE
-      default: NOOP
     robotctl_apiOpResult:
       type: object
       properties:
@@ -72,6 +65,13 @@ components:
             type: string
           title: Simple result string
       description: 'OpResult is used to indicate whether an operation has been accepted or not. A string or map payload provides the additional response information (for example: version number, error data).'
+    robotctl_apiResultValue:
+      type: string
+      enum:
+      - NOOP
+      - SUCCESS
+      - FAILURE
+      default: NOOP
   securitySchemes:
     bearerAuth:
       type: apiKey

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Crosswork Platform Troubleshooting API API
+  title: Crosswork Platform Troubleshooting API
   version: 1.0.0
   contact:
     name: Crosswork Team, Cisco
@@ -127,18 +127,33 @@ paths:
         required: true
 components:
   schemas:
-    robotctl_apiCollectInfoReq:
+    robotctl_apiCollectType:
+      type: string
+      enum:
+      - _
+      - All
+      - Logs
+      - Metrics
+      default: _
+    robotctl_apiLogLevels:
+      type: string
+      enum:
+      - Info
+      - Debug
+      - Disable
+      default: Info
+    robotctl_apiCollectOpResult:
       type: object
       properties:
-        Id:
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
+        Description:
           type: string
-          title: 'OPTIONAL: Collection job identifier. Defaults to all jobs'
-        JobScope:
-          type: string
-          title: 'OPTIONAL: Scope of job, i.e. name of service for which job was run. Defaults to all'
-        Type:
-          $ref: '#/components/schemas/robotctl_apiCollectType'
-          title: 'OPTIONAL: Type of show tech collection. Defaults to all'
+          title: Additional information regarding the response
+        CollectJobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectOpResultcollectJob'
     robotctl_apiSSH_Config:
       type: object
       properties:
@@ -159,37 +174,22 @@ components:
           format: int32
           title: MANDATORY - SCP Port on destination host
       title: Configuration for SCP
-    CollectPubResultpublishJob:
+    robotctl_apiCollectPubResult:
       type: object
       properties:
-        PublishJobId:
-          type: string
-          title: Id of publish job
-        CollectJobId:
-          type: string
-          title: Id of show tech job
-        Type:
-          $ref: '#/components/schemas/robotctl_apiPublishType'
-        JobStatus:
-          $ref: '#/components/schemas/robotctl_apijobStatus'
-        User:
-          type: string
-        CreationTime:
-          type: string
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
         Description:
           type: string
-        Progress:
-          type: string
-        SSH_Configuration:
-          $ref: '#/components/schemas/robotctl_apiSSH_Config'
-    robotctl_apiCollectType:
+        Jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectPubResultpublishJob'
+    robotctl_apiPublishType:
       type: string
       enum:
-      - _
-      - All
-      - Logs
-      - Metrics
-      default: _
+      - SSH
+      default: SSH
     robotctl_apijobStatus:
       type: string
       enum:
@@ -219,18 +219,6 @@ components:
             type: string
           title: Simple result string
       description: 'OpResult is used to indicate whether an operation has been accepted or not. A string or map payload provides the additional response information (for example: version number, error data).'
-    robotctl_apiCollectOpResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/robotctl_apiResultValue'
-        Description:
-          type: string
-          title: Additional information regarding the response
-        CollectJobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectOpResultcollectJob'
     robotctl_apiLogLevelReq:
       type: object
       properties:
@@ -240,13 +228,18 @@ components:
         LogLevel:
           $ref: '#/components/schemas/robotctl_apiLogLevels'
           title: 'MANDATORY: Log level'
-    robotctl_apiLogLevels:
-      type: string
-      enum:
-      - Info
-      - Debug
-      - Disable
-      default: Info
+    robotctl_apiCollectInfoReq:
+      type: object
+      properties:
+        Id:
+          type: string
+          title: 'OPTIONAL: Collection job identifier. Defaults to all jobs'
+        JobScope:
+          type: string
+          title: 'OPTIONAL: Scope of job, i.e. name of service for which job was run. Defaults to all'
+        Type:
+          $ref: '#/components/schemas/robotctl_apiCollectType'
+          title: 'OPTIONAL: Type of show tech collection. Defaults to all'
     robotctl_apiCollectPubPostReq:
       type: object
       properties:
@@ -259,27 +252,37 @@ components:
         SSH_Configuration:
           $ref: '#/components/schemas/robotctl_apiSSH_Config'
           title: 'MANDATORY: SSH Configuration'
-    robotctl_apiCollectReq:
+    robotctl_apiCollectPubGetReq:
       type: object
       properties:
-        JobScope:
+        PublishJobId:
           type: string
-          description: 'OPTIONAL: Scope of collection job, i.e. name of service for which job is to be run. Defaults to all apps and services.'
+          title: Unique Id of a publish job
+        CollectJobId:
+          type: string
+    CollectPubResultpublishJob:
+      type: object
+      properties:
+        PublishJobId:
+          type: string
+          title: Id of publish job
+        CollectJobId:
+          type: string
+          title: Id of show tech job
         Type:
-          $ref: '#/components/schemas/robotctl_apiCollectType'
-          description: 'OPTIONAL: Type of show tech collection (All, Logs, Metrics). Defaults to All.'
-    robotctl_apiResultValue:
-      type: string
-      enum:
-      - NOOP
-      - SUCCESS
-      - FAILURE
-      default: NOOP
-    robotctl_apiPublishType:
-      type: string
-      enum:
-      - SSH
-      default: SSH
+          $ref: '#/components/schemas/robotctl_apiPublishType'
+        JobStatus:
+          $ref: '#/components/schemas/robotctl_apijobStatus'
+        User:
+          type: string
+        CreationTime:
+          type: string
+        Description:
+          type: string
+        Progress:
+          type: string
+        SSH_Configuration:
+          $ref: '#/components/schemas/robotctl_apiSSH_Config'
     CollectOpResultcollectJob:
       type: object
       properties:
@@ -299,25 +302,22 @@ components:
         Description:
           type: string
           title: Additional information regarding the job
-    robotctl_apiCollectPubGetReq:
+    robotctl_apiResultValue:
+      type: string
+      enum:
+      - NOOP
+      - SUCCESS
+      - FAILURE
+      default: NOOP
+    robotctl_apiCollectReq:
       type: object
       properties:
-        PublishJobId:
+        JobScope:
           type: string
-          title: Unique Id of a publish job
-        CollectJobId:
-          type: string
-    robotctl_apiCollectPubResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/robotctl_apiResultValue'
-        Description:
-          type: string
-        Jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectPubResultpublishJob'
+          description: 'OPTIONAL: Scope of collection job, i.e. name of service for which job is to be run. Defaults to all apps and services.'
+        Type:
+          $ref: '#/components/schemas/robotctl_apiCollectType'
+          description: 'OPTIONAL: Type of show tech collection (All, Logs, Metrics). Defaults to All.'
   securitySchemes:
     bearerAuth:
       type: apiKey

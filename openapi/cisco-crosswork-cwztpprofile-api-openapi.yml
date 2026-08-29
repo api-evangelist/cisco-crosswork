@@ -2,8 +2,7 @@ openapi: 3.2.0
 info:
   title: Cisco Crosswork Cwztpprofile API
   version: '1.0'
-  description: 'Operations tagged cwztpprofile across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-ztp-profile-openapi.json,
-    cisco-crosswork-ztp-cw-ztp-profile-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged cwztpprofile across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-ztp-profile-openapi.json, cisco-crosswork-ztp-cw-ztp-profile-openapi.json. Each path carries the servers of the definition it was published in.'
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -12,8 +11,7 @@ info:
     first_party: true
     note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
     provider_published: true
-    derived_view: Per-tag view of cisco-crosswork-ncahi-cw-ztp-profile-openapi.json, the provider's source document. Operations
-      and schemas are the provider's, unmodified; only the partition is ours.
+    derived_view: Per-tag view of cisco-crosswork-ncahi-cw-ztp-profile-openapi.json, the provider's source document. Operations and schemas are the provider's, unmodified; only the partition is ours.
     derived_from: cisco-crosswork-ncahi-cw-ztp-profile-openapi.json
     operation_coverage: 4/4
   x-evidence:
@@ -26,8 +24,7 @@ tags:
 paths:
   /v1/profiles:
     delete:
-      summary: 'Delete the individual Profiles from Ztp. Pass any valid profile metadata to filter , to identify which profiles
-        to delete.
+      summary: 'Delete the individual Profiles from Ztp. Pass any valid profile metadata to filter , to identify which profiles to delete.
 
         Profile cannot be deleted, if it is associated to ztp device.
 
@@ -104,8 +101,7 @@ paths:
 
         Retrieves a list of profiles. This api returns complete data for each profile.filters can be applied to retrieve
 
-        specific sets of profiles by specifying one or more fields to match. User can filter on combinations of supported
-        fields.
+        specific sets of profiles by specifying one or more fields to match. User can filter on combinations of supported fields.
 
         This api takes ZtpProfileRequest as input, in which the user can specifiy the Filter input.'
       operationId: GetProfileList
@@ -126,29 +122,6 @@ paths:
         required: true
 components:
   schemas:
-    cwztpsvcZtpProfileResponse:
-      type: object
-      properties:
-        ztpProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/cwztpsvcZtpProfile'
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        paginationDetails:
-          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
-    cwztpsvcZtpProfileRequest:
-      type: object
-      properties:
-        filter:
-          $ref: '#/components/schemas/cwztpsvcZtpProfile'
-        criteria:
-          type: string
-        filterData:
-          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
     cwztpsvcZtpProfile:
       type: object
       properties:
@@ -189,6 +162,27 @@ components:
           type: boolean
           format: boolean
           title: flag to check if ZTP Profile is in sync with Config
+    cwztpsvcZtpProfileResponse:
+      type: object
+      properties:
+        ztpProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/cwztpsvcZtpProfile'
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        paginationDetails:
+          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
+    cwztpsvcZtpProfileList:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/cwztpsvcZtpProfile'
     cwztpsvcZtpFilterData:
       type: object
       properties:
@@ -211,77 +205,15 @@ components:
         TotalCount:
           type: integer
           format: int64
-    cwztpsvcZtpProfileList:
+    cwztpsvcZtpProfileRequest:
       type: object
       properties:
-        profiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/cwztpsvcZtpProfile'
-    cwztpsvcZtpProfile_2:
-      type: object
-      properties:
-        profileId:
+        filter:
+          $ref: '#/components/schemas/cwztpsvcZtpProfile'
+        criteria:
           type: string
-          title: Unique ID of Profile
-        profileName:
-          type: string
-          title: Name of the profile
-        profileDescription:
-          type: string
-        osPlatform:
-          type: string
-          description: OS Platform of Image and Config of the image and configuration files associated with this ZTP profile.
-        deviceFamily:
-          type: string
-          description: Device Family of Image and Config of the image and configuration files associated with this ZTP profile.
-        version:
-          type: string
-          description: Version of Image and Config of the image and configuration files associated with this ZTP profile.
-        image:
-          type: string
-          description: The unique ID of the image file associated with this ZTP profile.
-        config:
-          type: string
-          description: The unique ID of the configuration file associated with this ZTP profile.
-        isSecureZtp:
-          type: string
-          title: flag to identify if profile is secure or classic
-        preConfig:
-          type: string
-          description: Unique ID of pre-Config file associated with this ZTP profile.
-        postConfig:
-          type: string
-          description: Unique ID of post-Config file associated with this ZTP profile.
-        profileCategory:
-          type: string
-          title: Category of profile
-        lastUpdated:
-          type: string
-          format: int64
-          title: TimeInMillis when device was last updated/created
-        imageName:
-          type: string
-        configName:
-          type: string
-        preConfigName:
-          type: string
-        postConfigName:
-          type: string
-        isImageInvalid:
-          type: boolean
-          format: boolean
-          description: Flag to check if the ZTP profile is in sync with the associated image.
-        isConfigInvalid:
-          type: boolean
-          format: boolean
-          description: Flag to check if the ZTP profile is in sync with the associated configuration.
-        isPreConfigInvalid:
-          type: boolean
-          format: boolean
-        isPostConfigInvalid:
-          type: boolean
-          format: boolean
+        filterData:
+          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
 x-refined-from:
 - cisco-crosswork-ncahi-cw-ztp-profile-openapi.json
 - cisco-crosswork-ztp-cw-ztp-profile-openapi.json

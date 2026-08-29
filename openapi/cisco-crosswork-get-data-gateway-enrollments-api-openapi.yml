@@ -61,6 +61,33 @@ paths:
         required: true
 components:
   schemas:
+    robotapiRobotDataGatewayGetReq:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+          description: Number of entries requested in the response.
+        sort_by_field:
+          type: string
+          description: 'The field name in RobotDataGateway to use for sorting. If this field
+
+            is omitted, data is sorted by default on name.'
+        last_key:
+          type: string
+          description: Ask for data beyond last_key per the sorted order.
+        filter:
+          $ref: '#/components/schemas/robotapiRobotDataGateway'
+        filterData:
+          $ref: '#/components/schemas/robotapiRobotFilterData'
+    robotapiRobotInetAddressFamily:
+      description: Inet Address Family
+      type: string
+      enum:
+      - ROBOT_INET_ADDR_TYPE_NONE
+      - ROBOT_INET_ADDR_TYPE_v4
+      - ROBOT_INET_ADDR_TYPE_v6
+      default: ROBOT_INET_ADDR_TYPE_NONE
     RobotDataGatewayConfigRole:
       type: string
       enum:
@@ -68,6 +95,119 @@ components:
       - ACTIVE
       - PASSIVE
       default: INVALID_ROLE
+    RobotDataGatewayConfigAdminState:
+      type: string
+      enum:
+      - UNKNOWN_AS
+      - AS_UP
+      - AS_DOWN
+      default: UNKNOWN_AS
+    RobotDataGatewayOperationalComponentState:
+      type: string
+      enum:
+      - CS_UNKNOWN
+      - CS_UP
+      - CS_DOWN
+      default: CS_UNKNOWN
+    robotapiRobotDataGateway:
+      type: object
+      properties:
+        duuid:
+          type: string
+        name:
+          type: string
+        config_data:
+          $ref: '#/components/schemas/robotapiRobotDataGatewayConfig'
+        operational_data:
+          $ref: '#/components/schemas/robotapiRobotDataGatewayOperational'
+      title: Data gateway config and operational data
+    RobotDataGatewayConfigInterface:
+      type: object
+      properties:
+        name:
+          type: string
+        mac:
+          type: string
+        ip_addr:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotInetAddr'
+    robotapiRobotFilterData:
+      description: Request body with filter options
+      type: object
+      properties:
+        SortBy:
+          type: string
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
+    robotapiRobotInetAddr:
+      description: Inet Address
+      type: object
+      properties:
+        inet_af:
+          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
+        inet_addr:
+          type: string
+        mask:
+          type: string
+    robotapiRobotResponseInfo:
+      type: object
+      properties:
+        code:
+          type: string
+          format: int64
+          description: Typically from an enum defined by the component.
+        desc:
+          type: string
+          description: Description of error. May not be filled for success error codes.
+      description: Generic template for responses
+    RobotDataGatewayOperationalOperationalState:
+      type: string
+      enum:
+      - INVALID_OS
+      - OS_UNKNOWN
+      - OS_UP
+      - OS_ERROR
+      - OS_PARTIAL_UP
+      default: INVALID_OS
+    RobotDataGatewayConfigProfile:
+      type: object
+      properties:
+        cpu:
+          type: integer
+          format: int64
+        memory:
+          type: integer
+          format: int64
+        nics:
+          type: integer
+          format: int64
+    RobotDataGatewayOperationalOperationStatusDetails:
+      type: object
+      properties:
+        component_name:
+          type: string
+        state:
+          $ref: '#/components/schemas/RobotDataGatewayOperationalComponentState'
+        state_reason:
+          type: string
+    RobotDataGatewayConfigCert:
+      type: object
+      properties:
+        certificate:
+          type: string
     robotapiRobotDataGatewayGetResp:
       type: object
       properties:
@@ -102,42 +242,6 @@ components:
           $ref: '#/components/schemas/RobotDataGatewayConfigRole'
         admin_state:
           $ref: '#/components/schemas/RobotDataGatewayConfigAdminState'
-    RobotDataGatewayOperationalOperationalState:
-      type: string
-      enum:
-      - INVALID_OS
-      - OS_UNKNOWN
-      - OS_UP
-      - OS_ERROR
-      - OS_PARTIAL_UP
-      default: INVALID_OS
-    RobotDataGatewayOperationalComponentState:
-      type: string
-      enum:
-      - CS_UNKNOWN
-      - CS_UP
-      - CS_DOWN
-      default: CS_UNKNOWN
-    robotapiRobotFilterData:
-      description: Request body with filter options
-      type: object
-      properties:
-        SortBy:
-          type: string
-        PageSize:
-          type: integer
-          format: int64
-        PageNum:
-          type: integer
-          format: int64
-        Descending:
-          type: boolean
-          format: boolean
-        MatchCase:
-          type: boolean
-          format: boolean
-        Criteria:
-          type: string
     robotapiRobotDataGatewayOperational:
       type: object
       properties:
@@ -152,110 +256,6 @@ components:
           format: int64
         last_updated_time:
           type: string
-          format: int64
-    robotapiRobotResponseInfo:
-      type: object
-      properties:
-        code:
-          type: string
-          format: int64
-          description: Typically from an enum defined by the component.
-        desc:
-          type: string
-          description: Description of error. May not be filled for success error codes.
-      description: Generic template for responses
-    RobotDataGatewayConfigInterface:
-      type: object
-      properties:
-        name:
-          type: string
-        mac:
-          type: string
-        ip_addr:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotInetAddr'
-    RobotDataGatewayConfigAdminState:
-      type: string
-      enum:
-      - UNKNOWN_AS
-      - AS_UP
-      - AS_DOWN
-      default: UNKNOWN_AS
-    RobotDataGatewayConfigCert:
-      type: object
-      properties:
-        certificate:
-          type: string
-    robotapiRobotInetAddr:
-      description: Inet Address
-      type: object
-      properties:
-        inet_af:
-          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
-        inet_addr:
-          type: string
-        mask:
-          type: string
-    robotapiRobotDataGatewayGetReq:
-      type: object
-      properties:
-        limit:
-          type: integer
-          format: int64
-          description: Number of entries requested in the response.
-        sort_by_field:
-          type: string
-          description: 'The field name in RobotDataGateway to use for sorting. If this field
-
-            is omitted, data is sorted by default on name.'
-        last_key:
-          type: string
-          description: Ask for data beyond last_key per the sorted order.
-        filter:
-          $ref: '#/components/schemas/robotapiRobotDataGateway'
-        filterData:
-          $ref: '#/components/schemas/robotapiRobotFilterData'
-    robotapiRobotDataGateway:
-      type: object
-      properties:
-        duuid:
-          type: string
-        name:
-          type: string
-        config_data:
-          $ref: '#/components/schemas/robotapiRobotDataGatewayConfig'
-        operational_data:
-          $ref: '#/components/schemas/robotapiRobotDataGatewayOperational'
-      title: Data gateway config and operational data
-    RobotDataGatewayOperationalOperationStatusDetails:
-      type: object
-      properties:
-        component_name:
-          type: string
-        state:
-          $ref: '#/components/schemas/RobotDataGatewayOperationalComponentState'
-        state_reason:
-          type: string
-    robotapiRobotInetAddressFamily:
-      description: Inet Address Family
-      type: string
-      enum:
-      - ROBOT_INET_ADDR_TYPE_NONE
-      - ROBOT_INET_ADDR_TYPE_v4
-      - ROBOT_INET_ADDR_TYPE_v6
-      default: ROBOT_INET_ADDR_TYPE_NONE
-    RobotDataGatewayConfigProfile:
-      type: object
-      properties:
-        cpu:
-          type: integer
-          format: int64
-        memory:
-          type: integer
-          format: int64
-        nics:
-          type: integer
           format: int64
   securitySchemes:
     bearerAuth:

@@ -1,0 +1,115 @@
+openapi: 3.2.0
+info:
+  title: Cisco Crosswork Workflow Manager Payload API
+  description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
+  version: 2.1.0
+  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  contact:
+    name: API Support
+    url: https://www.cisco.com/support
+  x-provenance:
+    method: harvested
+    authored_by: Cisco Crosswork
+    harvested_by: API Evangelist
+    harvested_on: '2026-08-19'
+    first_party: true
+    provider_published: true
+    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
+  x-evidence:
+  - type: source
+    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+  - type: raw
+    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+servers:
+- url: /crosswork/cwm/v2
+  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
+security:
+- Bearer: []
+tags:
+- name: payload
+paths:
+  /payload/{key}:
+    get:
+      summary: Retrieve and decode payload data by key
+      description: Fetches encoded payload data by key from the configured namespace, automatically decodes base64 encoding, and decrypts encrypted data when detected. Returns the raw decoded data.
+      operationId: get_payload_by_key
+      tags:
+      - payload
+      parameters:
+      - name: key
+        in: path
+        description: Payload key
+        required: true
+        schema:
+          type: string
+      - name: decrypt
+        in: query
+        description: 'Attempt to decrypt data if encrypted (default: true)'
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Successfully retrieved and decoded payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/server.DecodedPayloadResponse'
+        '400':
+          description: Bad request - invalid payload key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.InternalAPIError'
+        '404':
+          description: Payload not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.InternalAPIError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors.InternalAPIError'
+      security:
+      - Bearer: []
+components:
+  schemas:
+    errors.InternalAPIError:
+      type: object
+      properties:
+        code:
+          type: integer
+        details:
+          type: string
+        err: {}
+        message:
+          type: string
+    server.DecodedPayloadResponse:
+      type: object
+      properties:
+        data:
+          description: actual decoded data (JSON object/array/string/number)
+        decoded:
+          description: whether data was successfully decoded
+          type: boolean
+          example: true
+        encrypted:
+          description: whether data appears to be encrypted
+          type: boolean
+          example: false
+        raw_data:
+          description: base64 encoded raw data if decoding fails
+          type: string
+        size:
+          description: size in bytes
+          type: integer
+          example: 11
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'

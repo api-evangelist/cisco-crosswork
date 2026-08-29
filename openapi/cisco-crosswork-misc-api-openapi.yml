@@ -8,9 +8,7 @@ info:
     name: Cisco Software License Agreement
     url: http://www.cisco.com/public/sw-license-agreement.html
   version: '1.0'
-  description: 'Operations tagged Misc across 2 of this provider''s published API definitions: cisco-crosswork-cdg-cdg-health-api-openapi.json,
-    cisco-crosswork-cdg-cdg-outage-history-api-openapi.json. Each path carries the servers of the definition it was published
-    in.'
+  description: 'Operations tagged Misc across 2 of this provider''s published API definitions: cisco-crosswork-cdg-cdg-health-api-openapi.json, cisco-crosswork-cdg-cdg-outage-history-api-openapi.json. Each path carries the servers of the definition it was published in.'
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -19,8 +17,7 @@ info:
     first_party: true
     note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
     provider_published: true
-    derived_view: Per-tag view of cisco-crosswork-cdg-cdg-health-api-openapi.json, the provider's source document. Operations
-      and schemas are the provider's, unmodified; only the partition is ours.
+    derived_view: Per-tag view of cisco-crosswork-cdg-cdg-health-api-openapi.json, the provider's source document. Operations and schemas are the provider's, unmodified; only the partition is ours.
     derived_from: cisco-crosswork-cdg-cdg-health-api-openapi.json
     operation_coverage: 1/2
   x-evidence:
@@ -37,9 +34,10 @@ tags:
 - name: Misc
 paths:
   /v1/vitals/query:
+    servers:
+    - url: /crosswork/dg-manager
     post:
-      description: Displays the vitals info for given Data Gateway.Replaces earlier GET /crosswork/dg-manager/device/vitals/
-        API
+      description: Displays the vitals info for given Data Gateway.Replaces earlier GET /crosswork/dg-manager/device/vitals/ API
       summary: Displays the vitals info for given Data Gateway
       tags:
       - Misc
@@ -56,9 +54,9 @@ paths:
             schema:
               $ref: '#/components/schemas/GetHealthOfDG'
         required: true
-    servers:
-    - url: /crosswork/dg-manager
   /v1/device/outage-history/query:
+    servers:
+    - url: https://example.com/crosswork/dg-manager
     post:
       description: Query Outage History records with Virtual/Physical Data Gateway ID
       summary: Query Outage History
@@ -92,10 +90,43 @@ paths:
             schema:
               $ref: '#/components/schemas/GetOutageHistoryForVDGRequest'
         required: true
-    servers:
-    - url: https://example.com/crosswork/dg-manager
 components:
   schemas:
+    Value:
+      title: Value
+      example:
+        valueStr: 6ddad364-77d1-4f3a-b3b8-2371789436a3
+      type: object
+      properties:
+        valueStr:
+          type: string
+      required:
+      - valueStr
+    QueryParam_2:
+      title: QueryParam
+      example:
+        field: DGID
+        value:
+          valueStr: ''
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          $ref: '#/components/schemas/Value_2'
+      required:
+      - field
+      - value
+    Value_2:
+      title: Value
+      example:
+        valueStr: ''
+      type: object
+      properties:
+        valueStr:
+          type: string
+      required:
+      - valueStr
     GetHealthOfDG:
       title: GetHealthOfDG
       example:
@@ -126,16 +157,6 @@ components:
       required:
       - field
       - value
-    Value:
-      title: Value
-      example:
-        valueStr: 6ddad364-77d1-4f3a-b3b8-2371789436a3
-      type: object
-      properties:
-        valueStr:
-          type: string
-      required:
-      - valueStr
     GetOutageHistoryForVDGRequest:
       title: GetOutageHistoryForVDGRequest
       example:
@@ -157,31 +178,6 @@ components:
             $ref: '#/components/schemas/QueryParam_2'
       required:
       - queryParams
-    QueryParam_2:
-      title: QueryParam
-      example:
-        field: DGID
-        value:
-          valueStr: ''
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          $ref: '#/components/schemas/Value_2'
-      required:
-      - field
-      - value
-    Value_2:
-      title: Value
-      example:
-        valueStr: ''
-      type: object
-      properties:
-        valueStr:
-          type: string
-      required:
-      - valueStr
   securitySchemes:
     bearerAuth:
       type: apiKey
