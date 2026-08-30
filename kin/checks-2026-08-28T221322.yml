@@ -2,18 +2,20 @@
 kin_checks:
   slug: cisco-crosswork
   schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T140727
+  scored_at: '2026-08-28'
+  run_ts: 2026-08-28T221322
   note: Actionable checks only (missed + partial). earned/na are every other check
     in rubric/scoring-0.15.1.yml; counts below let you verify that.
   counts:
     total: 130
     earned: 42
-    partial: 19
-    missed: 49
+    partial: 18
+    missed: 50
     na: 20
   checks:
   - id: maintainer_present
+    status: missed
+  - id: human_url_per_api
     status: missed
   - id: base_url_per_api
     status: missed
@@ -25,12 +27,12 @@ kin_checks:
     status: missed
   - id: openapi_3_1
     status: missed
-    detail: 0 of 98 openapi documents pass
+    detail: 0 of 99 openapi documents pass
   - id: servers_resolvable
     status: missed
   - id: webhooks_or_callbacks
     status: missed
-    detail: 0 of 98 openapi documents pass
+    detail: 0 of 99 openapi documents pass
   - id: json_schema_present
     status: missed
   - id: json_schema_per_resource
@@ -113,49 +115,45 @@ kin_checks:
     status: missed
   - id: agentic_commerce
     status: missed
-  - id: openapi_3_0
-    status: partial
-    earned: 2.54
-    detail: 83 of 98 openapi documents pass
   - id: info_complete
     status: partial
-    earned: 3.06
-    detail: 75 of 98 openapi documents pass
+    earned: 3.07
+    detail: 76 of 99 openapi documents pass
   - id: servers_defined
     status: partial
-    earned: 2.69
-    detail: 88 of 98 openapi documents pass
+    earned: 2.7
+    detail: 89 of 99 openapi documents pass
   - id: operations_summary_coverage
     status: partial
-    earned: 5.14
-    detail: 84 of 98 openapi documents pass
+    earned: 5.15
+    detail: 85 of 99 openapi documents pass
   - id: operations_description_coverage
     status: partial
-    earned: 2.27
-    detail: 37 of 98 openapi documents pass
+    earned: 2.3
+    detail: 38 of 99 openapi documents pass
   - id: operations_operation_ids
     status: partial
-    earned: 2.57
-    detail: 63 of 98 openapi documents pass
+    earned: 2.59
+    detail: 64 of 99 openapi documents pass
   - id: error_responses_documented
     status: partial
     earned: 3.27
-    detail: 80 of 98 openapi documents pass
+    detail: 81 of 99 openapi documents pass
   - id: examples_present
     status: partial
     earned: 0.02
   - id: components_reuse
     status: partial
-    earned: 1.68
-    detail: 55 of 98 openapi documents pass
+    earned: 1.7
+    detail: 56 of 99 openapi documents pass
   - id: security_schemes_defined
     status: partial
-    earned: 3.51
-    detail: 86 of 98 openapi documents pass
+    earned: 3.52
+    detail: 87 of 99 openapi documents pass
   - id: security_applied
     status: partial
-    earned: 2.63
-    detail: 86 of 98 openapi documents pass
+    earned: 2.64
+    detail: 87 of 99 openapi documents pass
   - id: github_org_present
     status: partial
     earned: 1.0
