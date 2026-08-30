@@ -726,7 +726,7 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/password
   tags:
-  - Password
+  - password
   tags_raw:
   - password
   properties:
@@ -771,7 +771,7 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/aaa
   tags:
-  - RBAC
+  - rbac
   tags_raw:
   - rbac
   properties:
@@ -956,6 +956,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Adapters
+  tags_raw:
   - adapters
   properties:
   - type: OpenAPI
@@ -968,6 +970,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Defaults
+  tags_raw:
   - defaults
   properties:
   - type: OpenAPI
@@ -980,6 +984,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Event
+  tags_raw:
   - event
   properties:
   - type: OpenAPI
@@ -992,6 +998,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Event Type
+  tags_raw:
   - eventType
   properties:
   - type: OpenAPI
@@ -1004,6 +1012,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Forms
+  tags_raw:
   - forms
   properties:
   - type: OpenAPI
@@ -1016,6 +1026,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Job
+  tags_raw:
   - jobs
   properties:
   - type: OpenAPI
@@ -1028,6 +1040,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - MCP
+  tags_raw:
   - mcp
   properties:
   - type: OpenAPI
@@ -1040,6 +1054,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Payload
+  tags_raw:
   - payload
   properties:
   - type: OpenAPI
@@ -1052,6 +1068,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Public Key
+  tags_raw:
   - publicKey
   properties:
   - type: OpenAPI
@@ -1064,6 +1082,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Resources
+  tags_raw:
   - resources
   properties:
   - type: OpenAPI
@@ -1076,6 +1096,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Scheduler
+  tags_raw:
   - scheduler
   properties:
   - type: OpenAPI
@@ -1088,6 +1110,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Secrets
+  tags_raw:
   - secrets
   properties:
   - type: OpenAPI
@@ -1100,6 +1124,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Task
+  tags_raw:
   - tasks
   properties:
   - type: OpenAPI
@@ -1111,7 +1137,8 @@ apis:
   description: The workerProfiles API from Cisco Crosswork — 2 operation(s) for workerprofiles.
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
-  tags:
+  tags: []
+  tags_raw:
   - workerProfiles
   properties:
   - type: OpenAPI
@@ -1124,6 +1151,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Workers
+  tags_raw:
   - workers
   properties:
   - type: OpenAPI
@@ -1136,6 +1165,8 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
   tags:
+  - Workflows
+  tags_raw:
   - workflow
   properties:
   - type: OpenAPI
