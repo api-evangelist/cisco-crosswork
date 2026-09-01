@@ -726,7 +726,7 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/password
   tags:
-  - password
+  - Password
   tags_raw:
   - password
   properties:
@@ -771,7 +771,7 @@ apis:
   humanURL: https://developer.cisco.com/docs/crosswork/
   baseURL: https://{crosswork-host}:{port}/crosswork/aaa
   tags:
-  - rbac
+  - RBAC
   tags_raw:
   - rbac
   properties:
