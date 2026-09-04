@@ -23,7 +23,22 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
-position: Consumer
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source:
+  - authentication
+  - rate-limits
+  - security
+  - sandbox
+  generated: '2026-09-03'
+  method: derived
+position: Consuming
 x-type: company
 x-source: cisco-family-buildout:2026-08-19
 x-parent: cisco
