@@ -1189,6 +1189,8 @@ apis:
   - type: ToolCrosswalk
     url: mcp/cisco-crosswork-tool-crosswalk.yml
 common:
+- type: Website
+  url: https://www.cisco.com/
 - type: CapabilityMap
   url: capabilities/cisco-crosswork-capability-edges.yml
   name: Cisco Crosswork Business Capability Map
