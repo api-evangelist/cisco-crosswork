@@ -986,20 +986,6 @@ apis:
     url: openapi/cisco-crosswork-event-api-openapi.yml
   - type: ToolCrosswalk
     url: mcp/cisco-crosswork-tool-crosswalk.yml
-- aid: cisco-crosswork:cisco-crosswork-eventtype-api
-  name: Cisco Crosswork Event Type API
-  description: The eventType API from Cisco Crosswork — 2 operation(s) for eventtype.
-  humanURL: https://developer.cisco.com/docs/crosswork/
-  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
-  tags:
-  - Event Type
-  tags_raw:
-  - eventType
-  properties:
-  - type: OpenAPI
-    url: openapi/cisco-crosswork-eventtype-api-openapi.yml
-  - type: ToolCrosswalk
-    url: mcp/cisco-crosswork-tool-crosswalk.yml
 - aid: cisco-crosswork:cisco-crosswork-forms-api
   name: Cisco Crosswork Forms API
   description: The forms API from Cisco Crosswork — 4 operation(s) for forms.
@@ -1054,20 +1040,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/cisco-crosswork-payload-api-openapi.yml
-  - type: ToolCrosswalk
-    url: mcp/cisco-crosswork-tool-crosswalk.yml
-- aid: cisco-crosswork:cisco-crosswork-publickey-api
-  name: Cisco Crosswork Public Key API
-  description: The publicKey API from Cisco Crosswork — 2 operation(s) for publickey.
-  humanURL: https://developer.cisco.com/docs/crosswork/
-  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
-  tags:
-  - Public Key
-  tags_raw:
-  - publicKey
-  properties:
-  - type: OpenAPI
-    url: openapi/cisco-crosswork-publickey-api-openapi.yml
   - type: ToolCrosswalk
     url: mcp/cisco-crosswork-tool-crosswalk.yml
 - aid: cisco-crosswork:cisco-crosswork-resources-api
@@ -1165,6 +1137,30 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/cisco-crosswork-workflow-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-event-type-api
+  name: Cisco Crosswork Event Type API
+  description: The Event Type API from Cisco Crosswork — 2 operation(s) for event type.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
+  tags:
+  - Event Type
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-event-type-api-openapi.yml
+  - type: ToolCrosswalk
+    url: mcp/cisco-crosswork-tool-crosswalk.yml
+- aid: cisco-crosswork:cisco-crosswork-public-key-api
+  name: Cisco Crosswork Public Key API
+  description: The Public Key API from Cisco Crosswork — 2 operation(s) for public key.
+  humanURL: https://developer.cisco.com/docs/crosswork/
+  baseURL: https://{crosswork-host}:{port}/crosswork/inventory/
+  tags:
+  - Public Key
+  properties:
+  - type: OpenAPI
+    url: openapi/cisco-crosswork-public-key-api-openapi.yml
   - type: ToolCrosswalk
     url: mcp/cisco-crosswork-tool-crosswalk.yml
 common:
