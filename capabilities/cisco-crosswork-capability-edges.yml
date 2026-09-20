@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 24
+edge_count: 40
 edges:
 - tag: Get Nodes/Devices
   spec_file: cisco-crosswork-get-nodes-devices-api-openapi.yml
@@ -60,6 +60,17 @@ edges:
   evidence: POST /v1/nodes/querybrief — "Retrieves a list of nodes"; schemas robotapiRobotNodeType, robotapiRobotNodeOperationalState
   reason: Brief listing of network nodes with type, admin and operational state is querying the network
     inventory record of physical/logical resources.
+- tag: IETF-TE Provision
+  spec_file: cisco-crosswork-ietf-te-provision-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: PUT/PATCH/DELETE /proxy/nso/restconf/data/ietf-te:te/tunnels/tunnel={tunnel-name}; "Crosswork
+    Network Controller IETF-TE Tunnel APIs"
+  reason: Provisioning of traffic-engineering tunnels in the transport network is configuration of network
+    infrastructure.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Replaces Nodes/Devices
   spec_file: cisco-crosswork-replaces-nodes-devices-api-openapi.yml
   capability_id: BC-2600.40
@@ -80,6 +91,27 @@ edges:
     robotapiRobotNodeAdminState
   reason: Updating the managed device records of a service-provider network controller is network inventory
     management.
+- tag: L2VPN Route Policy Provision
+  spec_file: cisco-crosswork-l2vpn-route-policy-provision-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.82
+  evidence: POST/PUT/PATCH/DELETE /proxy/nso/restconf/data/cisco-flat-L2vpn-fp:l2vpn-route-policy={l2vpn-route-policy-name}
+  reason: Routing policy objects attached to L2VPN services — device/network configuration, so IT infrastructure
+    (network) management, not enterprise policy management.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: L3VPN Route Policy Provision
+  spec_file: cisco-crosswork-l3vpn-route-policy-provision-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.82
+  evidence: POST/PUT/PATCH/DELETE /proxy/nso/restconf/data/cisco-flat-L3vpn-fp:l3vpn-route-policy={l3vpn-route-policy-name};
+    schema l3vpn-route-policy
+  reason: Lifecycle of L3VPN routing policies on the network — configuration of network infrastructure
+    via the Crosswork Network Controller.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Add Nodes/Devices
   spec_file: cisco-crosswork-add-nodes-devices-api-openapi.yml
   capability_id: BC-2600.40
@@ -112,6 +144,39 @@ edges:
     Credentials, Providers and Devices"
   reason: Counting network nodes held in the Crosswork inventory database is a read over the authoritative
     record of network resources — network inventory management.
+- tag: IETF L2VPN NM Retrieval
+  spec_file: cisco-crosswork-ietf-l2vpn-nm-retrieval-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: GET /nbi/cat-inventory/v1/restconf/data/ietf-l2vpn-ntw:l2vpn-ntw/vpn-services/vpn-service={vpn-service-vpn-id};
+    "network configuration model for Layer 2 VPN services"
+  reason: Read of provisioned L2VPN network service configuration/state from the network controller inventory
+    — network infrastructure management.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: IETF-TE Retrieval
+  spec_file: cisco-crosswork-ietf-te-retrieval-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: GET /nbi/cat-inventory/v1/restconf/data/ietf-te:te/tunnels/tunnel={tunnel-name}; "IETF-TE
+    Tunnel APIs"
+  reason: Retrieval of TE tunnel and tunnel-plan state from the network controller — network infrastructure
+    inventory/configuration.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: Map or Unmap Devices to a Data Gateway
+  spec_file: cisco-crosswork-map-or-unmap-devices-to-a-data-gateway-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: PUT /v1/dg/devicemapping — "Maps or Unmaps a Data Gateway to devices. It will return a Job
+    response of success or failure."
+  reason: Associates managed network devices with a Crosswork Data Gateway collector, an infrastructure
+    topology/management operation on network elements.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: authconfig
   spec_file: cisco-crosswork-authconfig-api-openapi.yml
   capability_id: BC-620.20
@@ -137,6 +202,25 @@ edges:
   reason: Exposes IETF network-state / L3 unicast topology models — nodes, links, termination points,
     ISIS/OSPF/SR attributes — i.e. the authoritative record of logical network resources and their relationships.
     Reads as network inventory/topology rather than performance or fault.
+- tag: L2VPN Route Policy Retrieval
+  spec_file: cisco-crosswork-l2vpn-route-policy-retrieval-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.78
+  evidence: GET /nbi/cat-inventory/v1/restconf/data/cisco-flat-L2vpn-fp:l2vpn-route-policy={l2vpn-route-policy-name}
+  reason: Read of L2VPN route-policy network configuration; a routing construct, mapped to network infrastructure
+    management.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: L3VPN Route Policy Retrieval
+  spec_file: cisco-crosswork-l3vpn-route-policy-retrieval-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.78
+  evidence: GET /nbi/cat-inventory/v1/restconf/data/cisco-flat-L3vpn-fp:l3vpn-route-policy={l3vpn-route-policy-name}
+  reason: Read-only retrieval of L3VPN route-policy network configuration — network infrastructure management.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Remove Tags from Nodes/Devices
   spec_file: cisco-crosswork-remove-tags-from-nodes-devices-api-openapi.yml
   capability_id: BC-2600.40
@@ -147,6 +231,35 @@ edges:
     spec is used to "onboard and manage Device Groups(Tags), Credentials, Providers and Devices"
   reason: Tags here are device groupings within the Crosswork network device inventory; the operation
     maintains the authoritative record of network nodes and their grouping, i.e. network inventory management.
+- tag: ClusterManager
+  spec_file: cisco-crosswork-clustermanager-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: GetAppHealthSummary; GetNodeDetails  Get the Crosswork Cluster Details; Initiate collection
+    of data for troubleshooting Crosswork Platform applications
+  reason: Cluster node, microservice and app health management for the platform — IT infrastructure/operations
+    management.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: Flat L2VPN Retrieval
+  spec_file: cisco-crosswork-flat-l2vpn-retrieval-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: GET "/nbi/cat-inventory/v1/restconf/data/cisco-flat-L2vpn-fp:flat-L2vpn={flat-L2vpn-name}"
+  reason: Read-side of L2VPN network service configuration/inventory; network infrastructure management.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: Flat L3VPN Retrieval
+  spec_file: cisco-crosswork-flat-l3vpn-retrieval-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: GET "/nbi/cat-inventory/v1/restconf/data/cisco-flat-L3vpn-fp:flat-L3vpn-plan={flat-L3vpn-plan-name}"
+  reason: Retrieval of L3VPN network service state/plan; network infrastructure management.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: cwztpdevice
   spec_file: cisco-crosswork-cwztpdevice-api-openapi.yml
   capability_id: BC-2600
@@ -199,6 +312,29 @@ edges:
   evidence: POST /v1/tags "Create the tags in CrossWork to be associated with the nodes."; schema robotapiRobotNodeTag
   reason: Tags are device-group labels attached to network nodes in the Crosswork inventory, so this is
     classification/grouping within the network inventory record.
+- tag: BackupServices
+  spec_file: cisco-crosswork-backupservices-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: RequestVMBackup; RequestVMDisasterRestore; RequestVMRestore
+  reason: VM backup/restore and disaster restore jobs for the platform — IT operations; could also be
+    read as disaster recovery, but this is platform-level backup tooling.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: CollectionService
+  spec_file: cisco-crosswork-collectionservice-api-openapi.yml
+  capability_id: BC-600.40
+  capability_id_l1: BC-600
+  capability_name: IT Operations Management
+  confidence: 0.7
+  evidence: '"control collection jobs across different collection types on a device or a device group
+    within Crosswork" ... "CreateCollectionJob"'
+  reason: Network telemetry collection jobs (MDT, SNMP, CLI) against devices — IT operations monitoring/automation
+    of network infrastructure. Could arguably be observability, but this is enterprise network device
+    operations rather than SaaS product observability, so Cross-Industry IT Operations Management is the
+    honest fit.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Crosswork Health API
   spec_file: cisco-crosswork-crosswork-health-api-api-openapi.yml
   capability_id: BC-600.40
@@ -209,6 +345,41 @@ edges:
     "Get a health summary for all applications running on the Crosswork platform"'
   reason: Health/status monitoring of the platform's own applications and services is IT operations monitoring
     of the software platform, not telecom service assurance.
+- tag: Delete via CSV file
+  spec_file: cisco-crosswork-delete-via-csv-file-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: '"Delete operation via CSV file upload... Can be applied to Credentials, Tags, Providers and
+    Devices" in "Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags),
+    Credentials, Providers and Devices"'
+  reason: Bulk deletion of network device inventory records — IT infrastructure (network device) management.
+    Sub-capability choice is somewhat uncertain between IT Operations and IT Infrastructure Management.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: Get Data Gateway Enrollments
+  spec_file: cisco-crosswork-get-data-gateway-enrollments-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: '"Retrieves a list of DG enrollments. This api returns RobotDataGateway" with schemas "RobotDataGatewayConfigInterface",
+    "RobotDataGatewayOperationalOperationalState"'
+  reason: Enrollment and state of Crosswork Data Gateway appliances — management of network infrastructure
+    components.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: Get Providers
+  spec_file: cisco-crosswork-get-providers-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: POST /v1/providers/query "Retrieves a list of providers."; schemas robotapiRobotProviderData,
+    robotapiRobotTransportType, robotapiRobotEntityConnectivityState
+  reason: '''Providers'' here are network element/controller providers registered in Crosswork inventory
+    (transport, connectivity state), i.e. network infrastructure management — not suppliers or service
+    vendors in a procurement sense.'
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Update via CSV file
   spec_file: cisco-crosswork-update-via-csv-file-api-openapi.yml
   capability_id: BC-2600.40
