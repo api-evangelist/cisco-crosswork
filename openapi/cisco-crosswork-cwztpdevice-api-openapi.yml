@@ -1,8 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Cwztpdevice API
-  version: '1.0'
-  description: 'Operations tagged cwztpdevice across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-ztp-device-openapi.json, cisco-crosswork-ztp-cw-ztp-device-openapi.json. Each path carries the servers of the definition it was published in.'
+  title: proto/cw_ztp_device.proto Cwztpdevice API
+  version: 2.0.0
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -11,24 +10,17 @@ info:
     first_party: true
     note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
     provider_published: true
-    derived_view: Per-tag view of cisco-crosswork-ztp-cw-ztp-device-openapi.json, the provider's source document. Operations and schemas are the provider's, unmodified; only the partition is ours.
-    derived_from: cisco-crosswork-ztp-cw-ztp-device-openapi.json
-    operation_coverage: 11/11
   x-evidence:
   - type: source
     url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/ZTP/2.0APIs/cw_ztp_device.swagger.json
   - type: raw
     url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/ZTP/2.0APIs/cw_ztp_device.swagger.json
-servers:
-- url: /crosswork/ztp/
 tags:
 - name: cwztpdevice
 paths:
   /v1/devices:
-    servers:
-    - url: /crosswork/ztp/
     delete:
-      summary: "Delete the bulk of devices from ZTP. Pass UUID of each device, to identify which devices to delete.\nDevices with valid UUIDs will be deleted\nResponse message will give information about devices which are not deleted.\nRequest Body: ZtpDeviceList\n  - Mandatory: Valid \"UUID\", to delete a device\nResponse Body: ZtpDeviceResponse"
+      summary: Delete ZTP devices in bulk.
       operationId: DeleteDevice
       responses:
         '200':
@@ -46,7 +38,7 @@ paths:
               $ref: '#/components/schemas/cwztpsvcZtpDeviceList'
         required: true
     post:
-      summary: "PostDevices API\nAdd the bulk of Ztp devices. Either all Ztp devices would be added or none.\nRequest Body: ZtpDeviceList\n  - Mandatory: Valid \"Host Name\"/\"Serial Number\"/\"Credential Profile\", to add a device\nResponse Body: ZtpDeviceResponse\nDEPRECATED Attribute : providerDeviceKey"
+      summary: Add ZTP devices in bulk.
       operationId: SetDevices
       responses:
         '200':
@@ -64,7 +56,7 @@ paths:
               $ref: '#/components/schemas/cwztpsvcZtpDeviceList'
         required: true
     put:
-      summary: "Update the device, if the device status is in unprovisioned status.\nRequest Body: ZtpDevice\n  - Mandatory: Valid \"Host Name\"/\"Serial Number\"/\"uuid\", to update device\nResponse Body: ZtpDeviceResponse\nDEPRECATED Attribute : providerDeviceKey"
+      summary: Update a specified ZTP device when the device status is \"unprovisioned\" only.
       operationId: UpdateDevice
       responses:
         '200':
@@ -82,7 +74,7 @@ paths:
               $ref: '#/components/schemas/cwztpsvcZtpDevice'
         required: true
     patch:
-      summary: "Update the device ,if the device status is in inprogress/provisioned/provisioningError/onboardingError status.\nRequest Body: ZtpDevice\n  - Mandatory: Valid \"Serial Number\"/\"uuid\", to update device status\nResponse Body: ZtpDeviceResponse\nDEPRECATED Attribute : providerDeviceKey"
+      summary: Update a specified ZTP device when the device status is \"inprogress\"…
       operationId: UpdateDeviceStatus
       responses:
         '200':
@@ -100,14 +92,8 @@ paths:
               $ref: '#/components/schemas/cwztpsvcZtpDevice'
         required: true
   /v1/devices/csvtemplate:
-    servers:
-    - url: /crosswork/ztp/
     post:
-      summary: 'get the device headers with sample data in csv
-
-        Request Body: ZtpDevice.Pass empty device like  "{}"
-
-        Response Body: ZtpDeviceResponse'
+      summary: Get the ZTP device headers with sample data in CSV format.
       operationId: ZtpsampleService
       responses:
         '200':
@@ -125,14 +111,8 @@ paths:
               $ref: '#/components/schemas/cwztpsvcZtpDevice'
         required: true
   /v1/devices/export:
-    servers:
-    - url: /crosswork/ztp/
     post:
-      summary: 'ztp devices Export API.Export List of ztp devices in csv form.
-
-        Request Body: ZtpDeviceExportReq.pass list of deviceids to export specific devices,pass empty device list to export all devices.
-
-        Response Body: ZtpDeviceResponse'
+      summary: Export the list of ZTP devices in CSV form.
       operationId: ExportDevice
       responses:
         '200':
@@ -150,16 +130,8 @@ paths:
               $ref: '#/components/schemas/cwztpsvcZtpDeviceExportReq'
         required: true
   /v1/devices/import:
-    servers:
-    - url: /crosswork/ztp/
     post:
-      summary: 'Import csv to add devices in bulk.
-
-        Request Body: ZtpImport contains encode base64 content of csv.
-
-        Response Body: ZtpDeviceResponse
-
-        DEPRECATED Attribute : providerDeviceKey'
+      summary: Add ZTP devices in bulk by importing a CSV file.
       operationId: ImportDevices
       responses:
         '200':
@@ -177,16 +149,8 @@ paths:
               $ref: '#/components/schemas/cwztpsvcZtpImport'
         required: true
   /v1/devices/policies/query:
-    servers:
-    - url: /crosswork/ztp/
     post:
-      summary: 'Get DevicePolices API
-
-        Retrieves a list of policies that apply on ztp devices.
-
-        Request Body: ZtpDevicePolicyRequest.Pass empty device like  "{}"
-
-        Response Body: ZtpDevicePolicyResponse'
+      summary: Retrieves a list of policies that apply on ZTP devices.
       operationId: GetDevicesPolicies
       responses:
         '200':
@@ -204,16 +168,8 @@ paths:
               $ref: '#/components/schemas/cwztpsvcZtpDevicePolicyRequest'
         required: true
   /v1/devices/query:
-    servers:
-    - url: /crosswork/ztp/
     post:
-      summary: 'GetDevices API
-
-        Retrieves a list of devices. This api returns complete data for each device.filters can be applied to retrieve
-
-        specific sets of devices by specifying one or more fields to match. User can filter on combinations of supported fields.
-
-        This api takes ZtpDeviceRequest as input, in which the user can specifiy the Filter input.'
+      summary: Retrieves a list of ZTP devices.
       operationId: GetDevices
       responses:
         '200':
@@ -231,10 +187,8 @@ paths:
               $ref: '#/components/schemas/cwztpsvcZtpDeviceRequest'
         required: true
   /v1/onboarding:
-    servers:
-    - url: /crosswork/ztp/
     post:
-      summary: "Onboarding API\nFor onboarding of individual Device from ZTP to DLM on ztp process provisioned\nRequest Body: ZtpDevice\n  - Mandatory: Valid \"Serial Number\"/\"uuid\"/\"Host Name\", to onboard ztp device to DLM\nResponse Body: ZtpDeviceResponse\nDEPRECATED Attribute : providerDeviceKey"
+      summary: Onboards a specified device from ZTP to Crosswork Device Lifecycle Management…
       operationId: OnboardDevice
       responses:
         '200':
@@ -253,7 +207,7 @@ paths:
         required: true
   /v1/query/count:
     post:
-      summary: 'Get the total number of devices, profiles and devices with respective status. Pass an empty device like  \"{}\". Request Body: ZtpDevice. Response Body: ZtpCountResponse.'
+      summary: Get the total number of devices, profiles and devices with respective status.
       operationId: GetZtpCount
       responses:
         '200':
@@ -268,10 +222,51 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/cwztpsvcZtpDevice_2'
+              $ref: '#/components/schemas/cwztpsvcZtpDevice'
         required: true
 components:
   schemas:
+    cwztpsvcZtpImport:
+      type: object
+      properties:
+        b64Content:
+          type: string
+          title: encoded base64 content
+        isDryRun:
+          type: boolean
+          format: boolean
+          title: validate only device fields
+    cwztpsvcZtpFilterData:
+      type: object
+      properties:
+        SortBy:
+          type: string
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
+        TotalCount:
+          type: integer
+          format: int64
+    cwztpsvcProviderInfo:
+      type: object
+      properties:
+        providerName:
+          type: string
+          title: The name of the Crosswork Provider. Should be unique
+        providerDeviceKey:
+          type: string
+          title: Deprecated attribute from Crosswork 3.2.2 release
     cwztpsvcZtpDeviceRequest:
       type: object
       properties:
@@ -287,93 +282,45 @@ components:
         page:
           type: integer
           format: int32
-    cwztpsvcZtpImport:
+    cwztpsvcZtpDevicePolicyResponse:
       type: object
       properties:
-        b64Content:
-          type: string
-          title: encoded base64 content
-        isDryRun:
-          type: boolean
-          format: boolean
-          title: validate only device fields
-    cwztpsvcZtpDevice:
-      type: object
-      properties:
-        uuid:
-          type: string
-          title: Unique device identifier,If uuid not passed, its randomly generated by crossworks
-        hostName:
-          type: string
-          description: Device Host name.
-        serialNumber:
-          type: string
-          description: Device Serial Number.
-        credentialProfile:
-          type: string
-          description: 'MUST FIELD.
-
-            Credential Profile applicable to this device.'
-        ipAddress:
-          $ref: '#/components/schemas/cwztpsvcZtpInetAddr'
-        macAddress:
-          type: string
-          description: Chassis backplane Mac address.
-        osPlatform:
-          type: string
-          title: OS Platform of Image and Config
-        deviceFamily:
-          type: string
-          title: Device Family of Image and Config
-        image:
-          type: string
-          title: unique ID of Image
-        config:
-          type: string
-          title: unique ID of Config
-        version:
-          type: string
-          title: Version of Image and Config
-        profileName:
-          type: string
-          title: device profile name
-        status:
-          type: string
-          title: Device status.supported status  - Unprovisioned,InProgress,Provisioned,ProvisioningError,Onboarded,OnboardingError
-        providerInfo:
-          $ref: '#/components/schemas/cwztpsvcProviderInfo'
-          title: provider data
-        connectivityDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/cwztpsvcConnectivityDetail'
-          title: List of device Connections
+        policydata:
+          $ref: '#/components/schemas/cwztpsvcZtpDevicePolicy'
+        code:
+          type: integer
+          format: int32
         message:
           type: string
-          title: device onboaed status messages
-        lastUpdated:
-          type: string
-          format: int64
-        imageName:
-          type: string
-        configName:
-          type: string
-        isImageInvalid:
-          type: boolean
-          format: boolean
-          title: flag to check if ZTP device is in sync with Image
-        isConfigInvalid:
-          type: boolean
-          format: boolean
-          title: flag to check if ZTP device is in sync with Config
-        additionalAttributes:
+    cwztpsvcZtpCountResponse:
+      type: object
+      properties:
+        totalprofilecount:
+          type: integer
+          format: int32
+          description: Total number of ZTP profiles.
+        totaldevicecount:
+          type: integer
+          format: int32
+          description: Total number of ZTP devices.
+        totalsztpdevicecount:
+          type: integer
+          format: int32
+          description: Total number of secure ZTP devices.
+        totalnonsztpdevicecount:
+          type: integer
+          format: int32
+          description: Total number of non secure ZTP devices.
+        statuscountmap:
           type: object
           additionalProperties:
-            type: string
-          description: map of device attributes that are added as part of policy data.
-        inventoryId:
-          type: string
-          title: Device Inventory Id.Supported from 3.2.2 release
+            type: integer
+            format: int32
+          description: A map of status and respective count of devices.
+        code:
+          type: integer
+          format: int32
+      title: ZTP response for Device and Profile count
     cwztpsvcSecureZtpInfo:
       type: object
       properties:
@@ -399,30 +346,13 @@ components:
           type: string
           description: Flag to check if ZTP device is data should be encrypted.
       title: Secure ZTP info
-    cwztpsvcZtpDevicePolicyRequest:
+    cwztpsvcZtpDeviceExportReq:
       type: object
       properties:
-        filter:
-          $ref: '#/components/schemas/cwztpsvcZtpDevicePolicy'
-        filterData:
-          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
-        criteria:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        page:
-          type: integer
-          format: int32
-    cwztpsvcProviderInfo_2:
-      type: object
-      properties:
-        providerName:
-          type: string
-          title: The name of the Crosswork Provider. Should be unique
-        providerDeviceKey:
-          type: string
-          title: Deprecated attribute from Crosswork 3.2.2 release
+        deviceId:
+          type: array
+          items:
+            type: string
     cwztpsvcZtpDeviceResponse:
       type: object
       properties:
@@ -437,6 +367,19 @@ components:
           type: string
         paginationDetails:
           $ref: '#/components/schemas/cwztpsvcZtpFilterData'
+    cwztpsvcZtpInetAddr:
+      type: object
+      properties:
+        inetAddressFamily:
+          type: string
+        ipaddrs:
+          type: string
+        mask:
+          type: integer
+          format: int32
+        type:
+          type: string
+      title: device ip address
     cwztpsvcZtpDeviceList:
       type: object
       properties:
@@ -444,6 +387,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/cwztpsvcZtpDevice'
+    cwztpsvcConnectivityDetail:
+      type: object
+      properties:
+        protocol:
+          type: string
+          description: The protocol for this connectivity type.
+        inetAddr:
+          type: array
+          items:
+            $ref: '#/components/schemas/cwztpsvcZtpInetAddr'
+          description: The IPv4/IPv6 address for this connectivity type.
+        port:
+          type: integer
+          format: int64
+          description: The port for this connectivity type.
+        timeout:
+          type: integer
+          format: int64
+          description: The timeout for this connectivity type.
     cwztpsvcZtpDevicePolicy:
       type: object
       properties:
@@ -466,36 +428,7 @@ components:
           additionalProperties:
             type: string
           title: policy attributes that are added to ztp
-    cwztpsvcZtpDevicePolicyResponse:
-      type: object
-      properties:
-        policydata:
-          $ref: '#/components/schemas/cwztpsvcZtpDevicePolicy'
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    cwztpsvcConnectivityDetail:
-      type: object
-      properties:
-        protocol:
-          type: string
-          description: Device connectivity type protocol.
-        inetAddr:
-          type: array
-          items:
-            $ref: '#/components/schemas/cwztpsvcZtpInetAddr'
-          title: V4/V6 ip address for this connectivity type
-        port:
-          type: integer
-          format: int64
-          title: Port for this connectivity type
-        timeout:
-          type: string
-          format: uint64
-          title: Timeout for this connectivity type
-    cwztpsvcZtpDevice_2:
+    cwztpsvcZtpDevice:
       type: object
       properties:
         uuid:
@@ -540,12 +473,12 @@ components:
           type: string
           title: The ZTP device status. Supported status values are \"Unprovisioned\", \"InProgress\", \"Provisioned\", \"ProvisioningError\", \"ZtpError\", \"Onboarded\", and \"OnboardingError\"
         providerInfo:
-          $ref: '#/components/schemas/cwztpsvcProviderInfo_2'
+          $ref: '#/components/schemas/cwztpsvcProviderInfo'
           description: Data for the Crosswork Provider.
         connectivityDetails:
           type: array
           items:
-            $ref: '#/components/schemas/cwztpsvcConnectivityDetail_2'
+            $ref: '#/components/schemas/cwztpsvcConnectivityDetail'
           description: List of device connectivity types.
         message:
           type: string
@@ -593,105 +526,18 @@ components:
           title: Location identifier params
         circuitId:
           type: string
-    cwztpsvcZtpDeviceExportReq:
+    cwztpsvcZtpDevicePolicyRequest:
       type: object
       properties:
-        deviceId:
-          type: array
-          items:
-            type: string
-    cwztpsvcZtpCountResponse:
-      type: object
-      properties:
-        totalprofilecount:
+        filter:
+          $ref: '#/components/schemas/cwztpsvcZtpDevicePolicy'
+        filterData:
+          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
+        criteria:
+          type: string
+        limit:
           type: integer
           format: int32
-          description: Total number of ZTP profiles.
-        totaldevicecount:
+        page:
           type: integer
           format: int32
-          description: Total number of ZTP devices.
-        totalsztpdevicecount:
-          type: integer
-          format: int32
-          description: Total number of secure ZTP devices.
-        totalnonsztpdevicecount:
-          type: integer
-          format: int32
-          description: Total number of non secure ZTP devices.
-        statuscountmap:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int32
-          description: A map of status and respective count of devices.
-        code:
-          type: integer
-          format: int32
-      title: ZTP response for Device and Profile count
-    cwztpsvcZtpInetAddr:
-      type: object
-      properties:
-        inetAddressFamily:
-          type: string
-        ipaddrs:
-          type: string
-        mask:
-          type: integer
-          format: int32
-        type:
-          type: string
-      title: device ip address
-    cwztpsvcConnectivityDetail_2:
-      type: object
-      properties:
-        protocol:
-          type: string
-          description: The protocol for this connectivity type.
-        inetAddr:
-          type: array
-          items:
-            $ref: '#/components/schemas/cwztpsvcZtpInetAddr'
-          description: The IPv4/IPv6 address for this connectivity type.
-        port:
-          type: integer
-          format: int64
-          description: The port for this connectivity type.
-        timeout:
-          type: integer
-          format: int64
-          description: The timeout for this connectivity type.
-    cwztpsvcZtpFilterData:
-      type: object
-      properties:
-        SortBy:
-          type: string
-        PageSize:
-          type: integer
-          format: int64
-        PageNum:
-          type: integer
-          format: int64
-        Descending:
-          type: boolean
-          format: boolean
-        MatchCase:
-          type: boolean
-          format: boolean
-        Criteria:
-          type: string
-        TotalCount:
-          type: integer
-          format: int64
-    cwztpsvcProviderInfo:
-      type: object
-      properties:
-        providerName:
-          type: string
-          title: Name of Provider. Should be unique
-        providerDeviceKey:
-          type: string
-          title: Deprecated attribute from 3.2.2 release
-x-refined-from:
-- cisco-crosswork-ncahi-cw-ztp-device-openapi.json
-- cisco-crosswork-ztp-cw-ztp-device-openapi.json

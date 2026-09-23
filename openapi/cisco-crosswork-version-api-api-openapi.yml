@@ -32,7 +32,7 @@ tags:
 paths:
   /v1/version/show:
     get:
-      summary: Get the Crosswork Platform software version.
+      summary: Get the Crosswork Platform software version
       operationId: GetVersion
       responses:
         '200':

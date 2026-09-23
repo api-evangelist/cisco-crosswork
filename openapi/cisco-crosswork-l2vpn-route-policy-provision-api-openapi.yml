@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Crosswork Network Controller Flat L2VPN Service L2VPN Route Policy Provision API
+  title: Crosswork Network Controller Flat L2VPN Service L2VPN Route…
   description: This document contains details of the Crosswork Network Controller Flat L2VPN Service APIs
   version: '2.0'
   contact:
@@ -31,7 +31,7 @@ paths:
     post:
       tags:
       - L2VPN Route Policy Provision
-      summary: ''
+      summary: Data cisco flat l2vpn fp l2vpn route policy l2vpn route policy name post
       description: Route policy
       operationId: data_cisco_flat_L2vpn_fp_l2vpn_route_policy_l2vpn_route_policy_name_post
       parameters:
@@ -52,10 +52,11 @@ paths:
           $ref: '#/components/responses/409'
       security:
       - basicAuth: []
+      x-summary-source: derived
     put:
       tags:
       - L2VPN Route Policy Provision
-      summary: ''
+      summary: Data cisco flat l2vpn fp l2vpn route policy l2vpn route policy name put
       description: Route policy
       operationId: data_cisco_flat_L2vpn_fp_l2vpn_route_policy_l2vpn_route_policy_name_put
       parameters:
@@ -78,10 +79,11 @@ paths:
           $ref: '#/components/responses/409'
       security:
       - basicAuth: []
+      x-summary-source: derived
     patch:
       tags:
       - L2VPN Route Policy Provision
-      summary: ''
+      summary: Data cisco flat l2vpn fp l2vpn route policy l2vpn route policy name patch
       description: Route policy
       operationId: data_cisco_flat_L2vpn_fp_l2vpn_route_policy_l2vpn_route_policy_name_patch
       parameters:
@@ -102,10 +104,11 @@ paths:
           $ref: '#/components/responses/409'
       security:
       - basicAuth: []
+      x-summary-source: derived
     delete:
       tags:
       - L2VPN Route Policy Provision
-      summary: ''
+      summary: Data cisco flat l2vpn fp l2vpn route policy l2vpn route policy name delete
       description: Route policy
       operationId: data_cisco_flat_L2vpn_fp_l2vpn_route_policy_l2vpn_route_policy_name_delete
       parameters:
@@ -123,36 +126,21 @@ paths:
           $ref: '#/components/responses/405'
       security:
       - basicAuth: []
+      x-summary-source: derived
 components:
   responses:
-    '404':
-      description: Not Found. The client made a request for a resource that does not exist.
-    '204':
-      description: No Content. The request was successful and there is no additional content in the response body.
-    '401':
-      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
-    '405':
-      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
-    '400':
-      description: Bad Request. The request is malformed in some way and the server cannot process it.
     '409':
       description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
-  parameters:
-    l2vpn-route-policy-name:
-      name: l2vpn-route-policy-name
-      in: path
-      description: Route-Policy name
-      required: true
-      schema:
-        type: string
-        format: string
-    l2vpn-route-policy:
-      name: l2vpn-route-policy
-      in: body
-      description: Route policy definition
-      required: true
-      schema:
-        $ref: '#/components/schemas/data_cisco-flat-L2vpn-fp_l2vpn-route-policy_l2vpn-route-policy-name'
+    '204':
+      description: No Content. The request was successful and there is no additional content in the response body.
+    '404':
+      description: Not Found. The client made a request for a resource that does not exist.
+    '400':
+      description: Bad Request. The request is malformed in some way and the server cannot process it.
+    '405':
+      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
+    '401':
+      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
   schemas:
     data_cisco-flat-L2vpn-fp_l2vpn-route-policy_l2vpn-route-policy-name:
       type: object
@@ -215,6 +203,22 @@ components:
                             description: ASN:nn or IPV4-address:nn,VPN Route Distinguisher (leaf-list)
                             type: string
                             format: string
+  parameters:
+    l2vpn-route-policy:
+      name: l2vpn-route-policy
+      in: body
+      description: Route policy definition
+      required: true
+      schema:
+        $ref: '#/components/schemas/data_cisco-flat-L2vpn-fp_l2vpn-route-policy_l2vpn-route-policy-name'
+    l2vpn-route-policy-name:
+      name: l2vpn-route-policy-name
+      in: path
+      description: Route-Policy name
+      required: true
+      schema:
+        type: string
+        format: string
   securitySchemes:
     basicAuth:
       type: http

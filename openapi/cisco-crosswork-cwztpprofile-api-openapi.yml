@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Cwztpprofile API
+  title: Crosswork ZTP Profile Cwztpprofile API
   version: '1.0'
-  description: 'Operations tagged cwztpprofile across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-ztp-profile-openapi.json, cisco-crosswork-ztp-cw-ztp-profile-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: Crosswork ZTP Device APIs
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -11,9 +11,6 @@ info:
     first_party: true
     note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
     provider_published: true
-    derived_view: Per-tag view of cisco-crosswork-ncahi-cw-ztp-profile-openapi.json, the provider's source document. Operations and schemas are the provider's, unmodified; only the partition is ours.
-    derived_from: cisco-crosswork-ncahi-cw-ztp-profile-openapi.json
-    operation_coverage: 4/4
   x-evidence:
   - type: source
     url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.2APIs/cw_ztp_profile.swagger.json
@@ -24,13 +21,7 @@ tags:
 paths:
   /v1/profiles:
     delete:
-      summary: 'Delete the individual Profiles from Ztp. Pass any valid profile metadata to filter , to identify which profiles to delete.
-
-        Profile cannot be deleted, if it is associated to ztp device.
-
-        Request Body: ZtpProfileRequest
-
-        Response Body: ZtpProfileResponse'
+      summary: Delete the individual Profiles from Ztp.
       operationId: DeleteProfile
       responses:
         '200':
@@ -48,13 +39,7 @@ paths:
               $ref: '#/components/schemas/cwztpsvcZtpProfileRequest'
         required: true
     post:
-      summary: 'PostProfiles API
-
-        Add the bulk of Ztp profiles
-
-        Request Body: ZtpProfileList
-
-        Response Body: ZtpProfileResponse'
+      summary: 'PostProfiles API Add the bulk of Ztp profiles Request Body: ZtpProfileList…'
       operationId: SetProfiles
       responses:
         '200':
@@ -72,13 +57,7 @@ paths:
               $ref: '#/components/schemas/cwztpsvcZtpProfileList'
         required: true
     put:
-      summary: 'Update the individual profile.
-
-        profile cannot be updated, if it is associated to ztp device with the status other than "unprovisioned".
-
-        Request Body: ZtpProfile
-
-        Response Body: ZtpProfileResponse'
+      summary: Update the individual profile.
       operationId: UpdateProfile
       responses:
         '200':
@@ -97,13 +76,7 @@ paths:
         required: true
   /v1/profiles/query:
     post:
-      summary: 'GetProfile API
-
-        Retrieves a list of profiles. This api returns complete data for each profile.filters can be applied to retrieve
-
-        specific sets of profiles by specifying one or more fields to match. User can filter on combinations of supported fields.
-
-        This api takes ZtpProfileRequest as input, in which the user can specifiy the Filter input.'
+      summary: GetProfile API Retrieves a list of profiles.
       operationId: GetProfileList
       responses:
         '200':
@@ -122,6 +95,28 @@ paths:
         required: true
 components:
   schemas:
+    cwztpsvcZtpFilterData:
+      type: object
+      properties:
+        SortBy:
+          type: string
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
+        TotalCount:
+          type: integer
+          format: int64
     cwztpsvcZtpProfile:
       type: object
       properties:
@@ -162,6 +157,22 @@ components:
           type: boolean
           format: boolean
           title: flag to check if ZTP Profile is in sync with Config
+    cwztpsvcZtpProfileRequest:
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/cwztpsvcZtpProfile'
+        criteria:
+          type: string
+        filterData:
+          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
+    cwztpsvcZtpProfileList:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/cwztpsvcZtpProfile'
     cwztpsvcZtpProfileResponse:
       type: object
       properties:
@@ -176,44 +187,3 @@ components:
           type: string
         paginationDetails:
           $ref: '#/components/schemas/cwztpsvcZtpFilterData'
-    cwztpsvcZtpProfileList:
-      type: object
-      properties:
-        profiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/cwztpsvcZtpProfile'
-    cwztpsvcZtpFilterData:
-      type: object
-      properties:
-        SortBy:
-          type: string
-        PageSize:
-          type: integer
-          format: int64
-        PageNum:
-          type: integer
-          format: int64
-        Descending:
-          type: boolean
-          format: boolean
-        MatchCase:
-          type: boolean
-          format: boolean
-        Criteria:
-          type: string
-        TotalCount:
-          type: integer
-          format: int64
-    cwztpsvcZtpProfileRequest:
-      type: object
-      properties:
-        filter:
-          $ref: '#/components/schemas/cwztpsvcZtpProfile'
-        criteria:
-          type: string
-        filterData:
-          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
-x-refined-from:
-- cisco-crosswork-ncahi-cw-ztp-profile-openapi.json
-- cisco-crosswork-ztp-cw-ztp-profile-openapi.json

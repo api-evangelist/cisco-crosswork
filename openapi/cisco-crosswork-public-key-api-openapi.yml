@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Workflow Manager Public Keys Public Key API
   description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
-  version: 2.1.0
-  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  title: Cisco Crosswork Workflow Manager Public Key API
+  termsOfService: www.cisco.com
   contact:
     name: API Support
     url: https://www.cisco.com/support
+  version: 2.1.0
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -14,38 +14,27 @@ info:
     harvested_on: '2026-08-19'
     first_party: true
     provider_published: true
-    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
-  x-evidence:
-  - type: source
-    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  - type: raw
-    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+    note: 'Reconstructed verbatim from the per-operation Swagger 2.0 JSON fragments Cisco serves for the Crosswork Workflow Manager API reference at developer.cisco.com/docs/crosswork/workflow-manager/. info, basePath and securityDefinitions are Cisco''s own meta block; each path/method object is Cisco''s own spec object, unmodified except that inline schemas carrying the swagger-ui $$ref marker were hoisted back into #/definitions and replaced with a real $ref.'
 servers:
 - url: /crosswork/cwm/v2
-  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
-security:
-- Bearer: []
 tags:
-- name: publicKey
+- name: Public Key
 paths:
   /publicKey:
     get:
-      summary: List all registered public keys
       description: Retrieves all public keys in the system with optional filtering by author and enabled status.
-      operationId: get_public_key
       tags:
-      - publicKey
+      - Public Key
+      summary: List all registered public keys
       parameters:
-      - name: author
+      - description: Filter by author
+        name: author
         in: query
-        description: Filter by author
-        required: false
         schema:
           type: string
-      - name: enabled
+      - description: Filter by enabled status (true/false)
+        name: enabled
         in: query
-        description: Filter by enabled status (true/false)
-        required: false
         schema:
           type: string
       responses:
@@ -63,21 +52,15 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      method: get
+      path: /publicKey
+      operationId: getPublicKey
+      x-operation-id-source: derived
     post:
-      summary: Register a new RSA public key
       description: Adds a new RSA public key to the system for encryption and signature verification. Supports PKCS#1 (RSA PUBLIC KEY) and PKCS#8 (PUBLIC KEY) PEM formats.
-      operationId: post_public_key
       tags:
-      - publicKey
-      requestBody:
-        description: Public Key to add
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.PublicKeyCreateRequest'
+      - Public Key
+      summary: Register a new RSA public key
       responses:
         '201':
           description: Created
@@ -103,19 +86,27 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      method: post
+      path: /publicKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.PublicKeyCreateRequest'
+        description: Public Key to add
+        required: true
+      operationId: postPublicKey
+      x-operation-id-source: derived
   /publicKey/{publicKeyName}:
     delete:
-      summary: Delete a public key
       description: Permanently removes a public key from the system by its unique name.
-      operationId: delete_public_key_by_public_key_name
       tags:
-      - publicKey
+      - Public Key
+      summary: Delete a public key
       parameters:
-      - name: publicKeyName
+      - description: Public Key Name
+        name: publicKeyName
         in: path
-        description: Public Key Name
         required: true
         schema:
           type: string
@@ -140,18 +131,19 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      method: delete
+      path: /publicKey/{publicKeyName}
+      operationId: deletePublicKeyByPublicKeyName
+      x-operation-id-source: derived
     get:
-      summary: Retrieve a public key by name
       description: Fetches a public key's complete details including PEM format, key type, and metadata by its unique name.
-      operationId: get_public_key_by_public_key_name
       tags:
-      - publicKey
+      - Public Key
+      summary: Retrieve a public key by name
       parameters:
-      - name: publicKeyName
+      - description: Public Key Name
+        name: publicKeyName
         in: path
-        description: Public Key Name
         required: true
         schema:
           type: string
@@ -174,28 +166,22 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      method: get
+      path: /publicKey/{publicKeyName}
+      operationId: getPublicKeyByPublicKeyName
+      x-operation-id-source: derived
     patch:
-      summary: Update an existing public key
       description: Modifies an existing public key's properties including the PEM key itself, author, or enabled status.
-      operationId: patch_public_key_by_public_key_name
       tags:
-      - publicKey
+      - Public Key
+      summary: Update an existing public key
       parameters:
-      - name: publicKeyName
+      - description: Public Key Name
+        name: publicKeyName
         in: path
-        description: Public Key Name
         required: true
         schema:
           type: string
-      requestBody:
-        description: Public Key updates
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.PublicKeyUpdateRequest'
       responses:
         '200':
           description: OK
@@ -227,8 +213,17 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      method: patch
+      path: /publicKey/{publicKeyName}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.PublicKeyUpdateRequest'
+        description: Public Key updates
+        required: true
+      operationId: patchPublicKeyByPublicKeyName
+      x-operation-id-source: derived
 components:
   schemas:
     server.PublicKeyUpdateRequest:
@@ -282,3 +277,9 @@ components:
       name: Authorization
       in: header
       description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+x-evidence:
+- type: reference
+  url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+- type: fragment-index
+  url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+  count: 90

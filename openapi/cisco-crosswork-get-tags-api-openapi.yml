@@ -8,7 +8,7 @@ info:
   license:
     name: Cisco Software License Agreement
     url: http://www.cisco.com/public/sw-license-agreement.html
-  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  description: This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -50,24 +50,25 @@ paths:
             schema:
               $ref: '#/components/schemas/robotapiRobotNodeTagGetReq'
         required: true
+      operationId: postV1TagsQuery
+      x-operation-id-source: derived
 components:
   schemas:
-    robotapiRobotNodeTag:
+    robotapiRobotNodeTagList:
+      description: List of Tags
       type: object
       properties:
-        name:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotNodeTag'
+          description: List of Tags
+        user:
           type: string
-        category:
-          type: string
-        created_by:
-          type: string
-        creation_time:
-          type: string
-          format: int64
-        devices_tagged:
+        total_count:
           type: integer
-          format: int64
-      description: Device Tag Object
+          format: int32
+          description: Number of total tags available at present
     robotapiRobotFilterData:
       description: Request body with filter options
       type: object
@@ -88,6 +89,22 @@ components:
           format: boolean
         Criteria:
           type: string
+    robotapiRobotNodeTag:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        created_by:
+          type: string
+        creation_time:
+          type: string
+          format: int64
+        devices_tagged:
+          type: integer
+          format: int64
+      description: Device Tag Object
     robotapiRobotNodeTagGetReq:
       description: Tage Request Data
       type: object
@@ -101,21 +118,6 @@ components:
           format: int64
         next_from:
           type: string
-    robotapiRobotNodeTagList:
-      description: List of Tags
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotNodeTag'
-          description: List of Tags
-        user:
-          type: string
-        total_count:
-          type: integer
-          format: int32
-          description: Number of total tags available at present
   securitySchemes:
     bearerAuth:
       type: apiKey

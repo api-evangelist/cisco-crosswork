@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Workflow Manager Worker Profiles API
   description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
-  version: 2.1.0
-  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  title: Cisco Crosswork Workflow Manager Worker Profiles API
+  termsOfService: www.cisco.com
   contact:
     name: API Support
     url: https://www.cisco.com/support
+  version: 2.1.0
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -14,27 +14,19 @@ info:
     harvested_on: '2026-08-19'
     first_party: true
     provider_published: true
-    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
-  x-evidence:
-  - type: source
-    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  - type: raw
-    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+    note: 'Reconstructed verbatim from the per-operation Swagger 2.0 JSON fragments Cisco serves for the Crosswork Workflow Manager API reference at developer.cisco.com/docs/crosswork/workflow-manager/. info, basePath and securityDefinitions are Cisco''s own meta block; each path/method object is Cisco''s own spec object, unmodified except that inline schemas carrying the swagger-ui $$ref marker were hoisted back into #/definitions and replaced with a real $ref.'
 servers:
 - url: /crosswork/cwm/v2
-  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
-security:
-- Bearer: []
 tags:
 - name: workerProfiles
 paths:
   /workerProfile:
     get:
-      summary: List all worker profiles.
       description: Retrieve a list of all worker profiles defined in the system.
-      operationId: list_worker_profiles
       tags:
       - workerProfiles
+      summary: List all worker profiles
+      operationId: list_worker_profiles
       responses:
         '200':
           description: Worker profiles retrieved successfully.
@@ -56,21 +48,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: list-worker-profiles
+      method: get
+      path: /workerProfile
     post:
-      summary: Create a new worker profile.
       description: Create a new worker profile with CPU and memory values to be assigned to workers.
-      operationId: create_worker_profile
       tags:
       - workerProfiles
-      requestBody:
-        description: Worker profile input details.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.WorkerProfile'
+      summary: Create a new worker profile
+      operationId: create_worker_profile
       responses:
         '200':
           description: Worker profile created successfully.
@@ -90,19 +76,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: create-worker-profile
+      method: post
+      path: /workerProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.WorkerProfile'
+        description: Worker profile input details.
+        required: true
   /workerProfile/{profileName}:
     delete:
-      summary: Delete a worker profile.
       description: Delete a specific worker profile identified by its name.
-      operationId: delete_worker_profile
       tags:
       - workerProfiles
+      summary: Delete a worker profile
+      operationId: delete_worker_profile
       parameters:
-      - name: profileName
+      - description: Profile name.
+        name: profileName
         in: path
-        description: Profile name.
         required: true
         schema:
           type: string
@@ -125,18 +119,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: delete-worker-profile
+      method: delete
+      path: /workerProfile/{profileName}
     get:
-      summary: Get a specific worker profile.
       description: Retrieve a specific worker profile by its name.
-      operationId: get_worker_profile
       tags:
       - workerProfiles
+      summary: Get a specific worker profile
+      operationId: get_worker_profile
       parameters:
-      - name: profileName
+      - description: Profile name.
+        name: profileName
         in: path
-        description: Profile name.
         required: true
         schema:
           type: string
@@ -159,28 +154,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: get-worker-profile
+      method: get
+      path: /workerProfile/{profileName}
     patch:
-      summary: Update a worker profile.
       description: Update an existing worker profile's CPU and memory settings. Updates will not apply to workers already created. To set CPUMax or MemMax to nil, provide an empty string.
-      operationId: update_worker_profile
       tags:
       - workerProfiles
+      summary: Update a worker profile
+      operationId: update_worker_profile
       parameters:
-      - name: profileName
+      - description: Profile name.
+        name: profileName
         in: path
-        description: Profile name.
         required: true
         schema:
           type: string
-      requestBody:
-        description: Worker profile update payload.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.WorkerProfileUpdate'
       responses:
         '200':
           description: Worker profile updated successfully.
@@ -200,21 +189,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: update-worker-profile
+      method: patch
+      path: /workerProfile/{profileName}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.WorkerProfileUpdate'
+        description: Worker profile update payload.
+        required: true
 components:
   schemas:
-    server.WorkerProfileUpdate:
+    server.HTTPError:
       type: object
       properties:
-        cpuMax:
+        code:
+          type: integer
+          example: 400
+        message:
           type: string
-        cpuMin:
-          type: string
-        memMax:
-          type: string
-        memMin:
-          type: string
+          example: status bad request
     server.WorkerProfile:
       type: object
       properties:
@@ -228,18 +223,26 @@ components:
           type: string
         profileName:
           type: string
-    server.HTTPError:
+    server.WorkerProfileUpdate:
       type: object
       properties:
-        code:
-          type: integer
-          example: 400
-        message:
+        cpuMax:
           type: string
-          example: status bad request
+        cpuMin:
+          type: string
+        memMax:
+          type: string
+        memMin:
+          type: string
   securitySchemes:
     Bearer:
       type: apiKey
       name: Authorization
       in: header
       description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+x-evidence:
+- type: reference
+  url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+- type: fragment-index
+  url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+  count: 90

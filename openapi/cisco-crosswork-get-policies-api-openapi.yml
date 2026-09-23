@@ -8,7 +8,7 @@ info:
   license:
     name: Cisco Software License Agreement
     url: http://www.cisco.com/public/sw-license-agreement.html
-  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  description: This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -32,7 +32,7 @@ paths:
   /v1/policies/query:
     parameters: []
     post:
-      summary: 'Retrieves a list of policies. '
+      summary: Retrieves a list of policies
       responses:
         '200':
           description: A successful response.
@@ -50,6 +50,8 @@ paths:
             schema:
               $ref: '#/components/schemas/robotapiRobotUniquePolicyGetReq'
         required: true
+      operationId: postV1PoliciesQuery
+      x-operation-id-source: derived
 components:
   schemas:
     robotapiRobotFilterData:
@@ -72,6 +74,26 @@ components:
           format: boolean
         Criteria:
           type: string
+    robotapiRobotUniquePolicyGetResp:
+      type: object
+      properties:
+        return:
+          $ref: '#/components/schemas/robotapiRobotResponseInfo'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotUniquePolicy'
+        total_count:
+          type: integer
+          format: int32
+          title: Number of total providers available at present
+    robotapiUniquePolicyType:
+      type: string
+      enum:
+      - UNKNOWN_TYPE
+      - INDEPENDENT
+      - COMBINED
+      default: UNKNOWN_TYPE
     robotapiRobotUniquePolicyGetReq:
       type: object
       properties:
@@ -112,26 +134,6 @@ components:
       - INV_TYPE_CREDENTIAL
       - INV_TYPE_TAG
       default: INV_TYPE_UNKNOWN
-    robotapiUniquePolicyType:
-      type: string
-      enum:
-      - UNKNOWN_TYPE
-      - INDEPENDENT
-      - COMBINED
-      default: UNKNOWN_TYPE
-    robotapiRobotUniquePolicyGetResp:
-      type: object
-      properties:
-        return:
-          $ref: '#/components/schemas/robotapiRobotResponseInfo'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotUniquePolicy'
-        total_count:
-          type: integer
-          format: int32
-          title: Number of total providers available at present
     robotapiRobotUniquePolicy:
       type: object
       properties:

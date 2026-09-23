@@ -8,7 +8,7 @@ info:
   license:
     name: Cisco Software License Agreement
     url: http://www.cisco.com/public/sw-license-agreement.html
-  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  description: This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -32,7 +32,7 @@ paths:
   /v1/policies:
     parameters: []
     post:
-      summary: Adds policy information in the CrossWork.
+      summary: Adds policy information in the CrossWork
       responses:
         '200':
           description: A successful response.
@@ -50,8 +50,29 @@ paths:
             schema:
               $ref: '#/components/schemas/robotapiRobotUniquePolicyList'
         required: true
+      operationId: postV1Policies
+      x-operation-id-source: derived
 components:
   schemas:
+    robotapiRobotJobState:
+      description: Various Job Resulting states.
+      type: string
+      enum:
+      - JOB_INVALID
+      - JOB_REJECTED
+      - JOB_ACCEPTED
+      - JOB_DB_UPDATED
+      - JOB_NOTIFICATION_PUBLISHED
+      - JOB_COMPLETED
+      - JOB_FAILED
+      default: JOB_INVALID
+    robotapiUniquePolicyType:
+      type: string
+      enum:
+      - UNKNOWN_TYPE
+      - INDEPENDENT
+      - COMBINED
+      default: UNKNOWN_TYPE
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -91,16 +112,6 @@ components:
           type: string
         title: Impacted elements list
       description: Every Action related to Inventory will have a Job
-    robotapiRobotUniquePolicyList:
-      type: object
-      properties:
-        policies:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotUniquePolicy'
-        user:
-          type: string
-      title: List of policies used in the api request/response
     robotapiRobotInventoryType:
       description: Supported Inventory Type
       type: string
@@ -111,25 +122,6 @@ components:
       - INV_TYPE_CREDENTIAL
       - INV_TYPE_TAG
       default: INV_TYPE_UNKNOWN
-    robotapiRobotJobState:
-      description: Various Job Resulting states.
-      type: string
-      enum:
-      - JOB_INVALID
-      - JOB_REJECTED
-      - JOB_ACCEPTED
-      - JOB_DB_UPDATED
-      - JOB_NOTIFICATION_PUBLISHED
-      - JOB_COMPLETED
-      - JOB_FAILED
-      default: JOB_INVALID
-    robotapiUniquePolicyType:
-      type: string
-      enum:
-      - UNKNOWN_TYPE
-      - INDEPENDENT
-      - COMBINED
-      default: UNKNOWN_TYPE
     robotapiRobotUniquePolicy:
       type: object
       properties:
@@ -147,6 +139,16 @@ components:
         Type:
           $ref: '#/components/schemas/robotapiUniquePolicyType'
           title: Combination of all the filed supplied or independent
+    robotapiRobotUniquePolicyList:
+      type: object
+      properties:
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotUniquePolicy'
+        user:
+          type: string
+      title: List of policies used in the api request/response
   securitySchemes:
     bearerAuth:
       type: apiKey

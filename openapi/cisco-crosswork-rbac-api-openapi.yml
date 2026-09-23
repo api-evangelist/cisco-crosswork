@@ -27,11 +27,11 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: rbac
+- name: RBAC
 paths:
   /v1/api:
     get:
-      summary: Get the list of secured APIs.
+      summary: Get the list of secured APIs
       operationId: GetAuthorizedAPIs
       responses:
         '200':
@@ -43,7 +43,7 @@ paths:
         '403':
           description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
       tags:
-      - rbac
+      - RBAC
   /v2/api:
     get:
       summary: Get names and IDs of the secured APIs grouped by the feature they belong to
@@ -58,7 +58,7 @@ paths:
         '403':
           description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
       tags:
-      - rbac
+      - RBAC
   /v1/role:
     get:
       summary: Get Roles
@@ -73,7 +73,7 @@ paths:
         '403':
           description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
       tags:
-      - rbac
+      - RBAC
     post:
       summary: Create Role
       operationId: CreateRole
@@ -87,7 +87,7 @@ paths:
         '403':
           description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
       tags:
-      - rbac
+      - RBAC
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -116,7 +116,7 @@ paths:
         schema:
           type: string
       tags:
-      - rbac
+      - RBAC
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -146,10 +146,10 @@ paths:
         schema:
           type: string
       tags:
-      - rbac
+      - RBAC
   /v1/user:
     get:
-      summary: Query all users from the local authentication store.
+      summary: Query all users from the local authentication store
       operationId: GetUsers
       responses:
         '200':
@@ -161,9 +161,9 @@ paths:
         '403':
           description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
       tags:
-      - rbac
+      - RBAC
     post:
-      summary: Create a user on the local authentication store.
+      summary: Create a user on the local authentication store
       operationId: CreateUser
       responses:
         '201':
@@ -175,7 +175,7 @@ paths:
         '403':
           description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
       tags:
-      - rbac
+      - RBAC
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -184,7 +184,7 @@ paths:
         required: true
   /v1/user/{Username}:
     put:
-      summary: Update the user on the local authentication store.
+      summary: Update the user on the local authentication store
       description: This API allows updates to the user's PolicyId, FirstName, and LastName only. Updating the user's password is done via the password change API.
       operationId: UpdateUser
       responses:
@@ -204,7 +204,7 @@ paths:
         schema:
           type: string
       tags:
-      - rbac
+      - RBAC
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -213,7 +213,7 @@ paths:
         description: Updated values for the attributes of the user
         required: true
     delete:
-      summary: Delete a user on the local authentication store.
+      summary: Delete a user on the local authentication store
       operationId: DeleteUser
       responses:
         '204':
@@ -234,40 +234,57 @@ paths:
         schema:
           type: string
       tags:
-      - rbac
+      - RBAC
 components:
   schemas:
-    rbacPolicyPartitions:
+    rbacSessionProviderMeta:
+      type: object
+    rbacEventHandlerMetaConfig:
+      type: object
+    rbacRole:
       type: object
       properties:
-        quota:
-          type: boolean
-          format: boolean
-        rate_limit:
-          type: boolean
-          format: boolean
-        acl:
-          type: boolean
-          format: boolean
-    rbacCORS:
-      type: object
-    rbacAccessSpec:
-      type: object
-      properties:
-        url:
+        id:
           type: string
-        methods:
+        org_id:
+          type: string
+        rate:
+          type: number
+          format: float
+        per:
+          type: number
+          format: float
+        quota_max:
+          type: string
+          format: int64
+        quota_renewal_rate:
+          type: string
+          format: int64
+        access_rights:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/rbacAccessDefinition'
+        hmac_enabled:
+          type: boolean
+          format: boolean
+        active:
+          type: boolean
+          format: boolean
+        is_inactive:
+          type: boolean
+          format: boolean
+        tags:
           type: array
           items:
             type: string
-    rbacNotificationsManager:
-      type: object
-    rbacProxy:
-      type: object
-    rbacUptimeTests:
-      type: object
-    rbacAuth:
-      type: object
+        key_expires_in:
+          type: string
+          format: int64
+        partitions:
+          $ref: '#/components/schemas/rbacPolicyPartitions'
+        last_updated:
+          type: string
+      title: Role represents a collection of security options, such as access rights to APIs, which are deployed on the system.
     rbacSecuredAPIsByFeature:
       example:
         Change Automations:
@@ -332,6 +349,10 @@ components:
         T-SDN:
         - api_id: NSO
           name: NSO proxy api
+    rbacOpenIDOptions:
+      type: object
+    rbacOauth2Meta:
+      type: object
     rbacRoles:
       type: object
       additionalProperties:
@@ -863,58 +884,22 @@ components:
             rate_limit: false
             acl: false
           last_updated: ''
-    rbacobject:
-      type: object
-    rbacSessionProviderMeta:
+    rbacProxy:
       type: object
     rbacAuthProviderMeta:
       type: object
-    rbacEmpty:
+    rbacGlobalRateLimit:
       type: object
-    rbacRole:
+    rbacBasicAuth:
       type: object
-      properties:
-        id:
-          type: string
-        org_id:
-          type: string
-        rate:
-          type: number
-          format: float
-        per:
-          type: number
-          format: float
-        quota_max:
-          type: string
-          format: int64
-        quota_renewal_rate:
-          type: string
-          format: int64
-        access_rights:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/rbacAccessDefinition'
-        hmac_enabled:
-          type: boolean
-          format: boolean
-        active:
-          type: boolean
-          format: boolean
-        is_inactive:
-          type: boolean
-          format: boolean
-        tags:
-          type: array
-          items:
-            type: string
-        key_expires_in:
-          type: string
-          format: int64
-        partitions:
-          $ref: '#/components/schemas/rbacPolicyPartitions'
-        last_updated:
-          type: string
-      title: Role represents a collection of security options, such as access rights to APIs, which are deployed on the system.
+    rbacResponseProcessor:
+      type: object
+    rbacVersionData:
+      type: object
+    rbacUptimeTests:
+      type: object
+    rbacobject:
+      type: object
     rbacAccessDefinition:
       type: object
       properties:
@@ -930,12 +915,213 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/rbacAccessSpec'
-    rbacOpenIDOptions:
+    rbacUpdateUserReq:
       type: object
-    rbacBasicAuth:
+      properties:
+        PolicyId:
+          type: string
+        FirstName:
+          type: string
+        LastName:
+          type: string
+      example:
+        PolicyId: UpdatedPolicyId
+        FirstName: UpdatedFirstName
+        LastName: UpdatedLastName
+      title: Update user request
+    rbacNotificationsManager:
       type: object
     rbacAuthTypeEnum:
       type: string
+    rbacAuth:
+      type: object
+    rbacUser:
+      type: object
+      properties:
+        Username:
+          type: string
+        Password:
+          type: string
+        PolicyId:
+          type: string
+        FirstName:
+          type: string
+        LastName:
+          type: string
+      title: User represents a user account created on a local authentication store.
+    rbacEmpty:
+      type: object
+    rbacAccessSpec:
+      type: object
+      properties:
+        url:
+          type: string
+        methods:
+          type: array
+          items:
+            type: string
+    rbacSecuredAPI:
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        api_id:
+          type: string
+        org_id:
+          type: string
+        use_keyless:
+          type: boolean
+          format: boolean
+        use_oauth2:
+          type: boolean
+          format: boolean
+        use_openid:
+          type: boolean
+          format: boolean
+        openid_options:
+          $ref: '#/components/schemas/rbacOpenIDOptions'
+        oauth_meta:
+          $ref: '#/components/schemas/rbacOauth2Meta'
+        auth:
+          $ref: '#/components/schemas/rbacAuth'
+        use_basic_auth:
+          type: boolean
+          format: boolean
+        basic_auth:
+          $ref: '#/components/schemas/rbacBasicAuth'
+        use_mutual_tls_auth:
+          type: boolean
+          format: boolean
+        client_certificates:
+          type: array
+          items:
+            type: string
+        upstream_certificates:
+          type: object
+          additionalProperties:
+            type: string
+        pinned_public_keys:
+          type: object
+          additionalProperties:
+            type: string
+        enable_jwt:
+          type: boolean
+          format: boolean
+        use_standard_auth:
+          type: boolean
+          format: boolean
+        enable_coprocess_auth:
+          type: boolean
+          format: boolean
+        jwt_signing_method:
+          type: string
+        jwt_identit_base_field:
+          type: string
+        jwt_client_base_field:
+          type: string
+        jwt_policy_field_name:
+          type: string
+        jwt_issued_at_validation_skew:
+          type: string
+          format: uint64
+        jwt_expires_at_validation_skew:
+          type: string
+          format: uint64
+        jwt_not_before_validation_skew:
+          type: string
+          format: uint64
+        jwt_skip_kid:
+          type: boolean
+          format: boolean
+        notifications:
+          $ref: '#/components/schemas/rbacNotificationsManager'
+        enable_signature_checking:
+          type: boolean
+          format: boolean
+        hmac_allowed_clock_skew:
+          type: number
+          format: double
+        base_identity_provided_by:
+          $ref: '#/components/schemas/rbacAuthTypeEnum'
+        definition:
+          $ref: '#/components/schemas/rbacVersionDefinition'
+        version_data:
+          $ref: '#/components/schemas/rbacVersionData'
+        uptime_tests:
+          $ref: '#/components/schemas/rbacUptimeTests'
+        proxy:
+          $ref: '#/components/schemas/rbacProxy'
+        disable_rate_limit:
+          type: boolean
+          format: boolean
+        disable_quota:
+          type: boolean
+          format: boolean
+        custom_middleware:
+          $ref: '#/components/schemas/rbacMiddlewareSection'
+        custom_middleware_bundle:
+          type: string
+        cache_options:
+          $ref: '#/components/schemas/rbacCacheOptions'
+        session_lifetime:
+          type: string
+          format: int64
+        active:
+          type: boolean
+          format: boolean
+        auth_provider:
+          $ref: '#/components/schemas/rbacAuthProviderMeta'
+        session_provider:
+          $ref: '#/components/schemas/rbacSessionProviderMeta'
+        event_handlers:
+          $ref: '#/components/schemas/rbacEventHandlerMetaConfig'
+        enable_batch_request_support:
+          type: boolean
+          format: boolean
+        allowed_ips:
+          type: array
+          items:
+            type: string
+        dont_set_quota_on_create:
+          type: boolean
+          format: boolean
+        expire_analytics_after:
+          type: string
+          format: int64
+        response_processors:
+          type: array
+          items:
+            $ref: '#/components/schemas/rbacResponseProcessor'
+        CORS:
+          $ref: '#/components/schemas/rbacCORS'
+        domain:
+          type: string
+        do_not_track:
+          type: boolean
+          format: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        enable_context_vars:
+          type: boolean
+          format: boolean
+        config_data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/rbacobject'
+        tag_headers:
+          type: array
+          items:
+            type: string
+        global_rate_limit:
+          $ref: '#/components/schemas/rbacGlobalRateLimit'
+        strip_auth_data:
+          type: boolean
+          format: boolean
+      title: AuthorizedAPI represents the core settings of an API which requires a JWT (JSON Web Token) bearer token to access
     rbacSecuredAPIs:
       type: array
       items:
@@ -7637,46 +7823,20 @@ components:
           rate: 0
           per: 0
         strip_auth_data: false
-    rbacMiddlewareSection:
-      type: object
-    rbacResponseProcessor:
-      type: object
-    rbacEventHandlerMetaConfig:
-      type: object
-    rbacOauth2Meta:
-      type: object
-    rbacUser:
+    rbacPolicyPartitions:
       type: object
       properties:
-        Username:
-          type: string
-        Password:
-          type: string
-        PolicyId:
-          type: string
-        FirstName:
-          type: string
-        LastName:
-          type: string
-      title: User represents a user account created on a local authentication store.
-    rbacCacheOptions:
+        quota:
+          type: boolean
+          format: boolean
+        rate_limit:
+          type: boolean
+          format: boolean
+        acl:
+          type: boolean
+          format: boolean
+    rbacVersionDefinition:
       type: object
-    rbacGlobalRateLimit:
-      type: object
-    rbacUpdateUserReq:
-      type: object
-      properties:
-        PolicyId:
-          type: string
-        FirstName:
-          type: string
-        LastName:
-          type: string
-      example:
-        PolicyId: UpdatedPolicyId
-        FirstName: UpdatedFirstName
-        LastName: UpdatedLastName
-      title: Update user request
     rbacUsers:
       type: object
       additionalProperties:
@@ -7688,171 +7848,11 @@ components:
           PolicyId: admin
           FirstName: John
           LastName: Doe
-    rbacVersionDefinition:
+    rbacCacheOptions:
       type: object
-    rbacSecuredAPI:
+    rbacMiddlewareSection:
       type: object
-      properties:
-        name:
-          type: string
-        slug:
-          type: string
-        api_id:
-          type: string
-        org_id:
-          type: string
-        use_keyless:
-          type: boolean
-          format: boolean
-        use_oauth2:
-          type: boolean
-          format: boolean
-        use_openid:
-          type: boolean
-          format: boolean
-        openid_options:
-          $ref: '#/components/schemas/rbacOpenIDOptions'
-        oauth_meta:
-          $ref: '#/components/schemas/rbacOauth2Meta'
-        auth:
-          $ref: '#/components/schemas/rbacAuth'
-        use_basic_auth:
-          type: boolean
-          format: boolean
-        basic_auth:
-          $ref: '#/components/schemas/rbacBasicAuth'
-        use_mutual_tls_auth:
-          type: boolean
-          format: boolean
-        client_certificates:
-          type: array
-          items:
-            type: string
-        upstream_certificates:
-          type: object
-          additionalProperties:
-            type: string
-        pinned_public_keys:
-          type: object
-          additionalProperties:
-            type: string
-        enable_jwt:
-          type: boolean
-          format: boolean
-        use_standard_auth:
-          type: boolean
-          format: boolean
-        enable_coprocess_auth:
-          type: boolean
-          format: boolean
-        jwt_signing_method:
-          type: string
-        jwt_identit_base_field:
-          type: string
-        jwt_client_base_field:
-          type: string
-        jwt_policy_field_name:
-          type: string
-        jwt_issued_at_validation_skew:
-          type: string
-          format: uint64
-        jwt_expires_at_validation_skew:
-          type: string
-          format: uint64
-        jwt_not_before_validation_skew:
-          type: string
-          format: uint64
-        jwt_skip_kid:
-          type: boolean
-          format: boolean
-        notifications:
-          $ref: '#/components/schemas/rbacNotificationsManager'
-        enable_signature_checking:
-          type: boolean
-          format: boolean
-        hmac_allowed_clock_skew:
-          type: number
-          format: double
-        base_identity_provided_by:
-          $ref: '#/components/schemas/rbacAuthTypeEnum'
-        definition:
-          $ref: '#/components/schemas/rbacVersionDefinition'
-        version_data:
-          $ref: '#/components/schemas/rbacVersionData'
-        uptime_tests:
-          $ref: '#/components/schemas/rbacUptimeTests'
-        proxy:
-          $ref: '#/components/schemas/rbacProxy'
-        disable_rate_limit:
-          type: boolean
-          format: boolean
-        disable_quota:
-          type: boolean
-          format: boolean
-        custom_middleware:
-          $ref: '#/components/schemas/rbacMiddlewareSection'
-        custom_middleware_bundle:
-          type: string
-        cache_options:
-          $ref: '#/components/schemas/rbacCacheOptions'
-        session_lifetime:
-          type: string
-          format: int64
-        active:
-          type: boolean
-          format: boolean
-        auth_provider:
-          $ref: '#/components/schemas/rbacAuthProviderMeta'
-        session_provider:
-          $ref: '#/components/schemas/rbacSessionProviderMeta'
-        event_handlers:
-          $ref: '#/components/schemas/rbacEventHandlerMetaConfig'
-        enable_batch_request_support:
-          type: boolean
-          format: boolean
-        allowed_ips:
-          type: array
-          items:
-            type: string
-        dont_set_quota_on_create:
-          type: boolean
-          format: boolean
-        expire_analytics_after:
-          type: string
-          format: int64
-        response_processors:
-          type: array
-          items:
-            $ref: '#/components/schemas/rbacResponseProcessor'
-        CORS:
-          $ref: '#/components/schemas/rbacCORS'
-        domain:
-          type: string
-        do_not_track:
-          type: boolean
-          format: boolean
-        tags:
-          type: array
-          items:
-            type: string
-        enable_context_vars:
-          type: boolean
-          format: boolean
-        config_data:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/rbacobject'
-        tag_headers:
-          type: array
-          items:
-            type: string
-        global_rate_limit:
-          $ref: '#/components/schemas/rbacGlobalRateLimit'
-        strip_auth_data:
-          type: boolean
-          format: boolean
-      title: AuthorizedAPI represents the core settings of an API which requires a JWT (JSON Web Token) bearer token to access
-    rbacVersionData:
+    rbacCORS:
       type: object
   securitySchemes:
     bearerAuth:

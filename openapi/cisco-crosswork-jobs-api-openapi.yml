@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Workflow Manager Jobs API
   description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
-  version: 2.1.0
-  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  title: Cisco Crosswork Workflow Manager Jobs API
+  termsOfService: www.cisco.com
   contact:
     name: API Support
     url: https://www.cisco.com/support
+  version: 2.1.0
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -14,44 +14,33 @@ info:
     harvested_on: '2026-08-19'
     first_party: true
     provider_published: true
-    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
-  x-evidence:
-  - type: source
-    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  - type: raw
-    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+    note: 'Reconstructed verbatim from the per-operation Swagger 2.0 JSON fragments Cisco serves for the Crosswork Workflow Manager API reference at developer.cisco.com/docs/crosswork/workflow-manager/. info, basePath and securityDefinitions are Cisco''s own meta block; each path/method object is Cisco''s own spec object, unmodified except that inline schemas carrying the swagger-ui $$ref marker were hoisted back into #/definitions and replaced with a real $ref.'
 servers:
 - url: /crosswork/cwm/v2
-  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
-security:
-- Bearer: []
 tags:
-- name: jobs
+- name: Jobs
 paths:
   /job:
     get:
-      summary: List jobs.
       description: Retrieve a list of jobs based on query parameters.
-      operationId: list_jobs
       tags:
-      - jobs
+      - Jobs
+      summary: List jobs
+      operationId: list_jobs
       parameters:
-      - name: pageSize
+      - description: Number of jobs to return per page.
+        name: pageSize
         in: query
-        description: Number of jobs to return per page.
-        required: false
         schema:
           type: integer
-      - name: nextPageToken
+      - description: Page token to retrieve the next page of results.
+        name: nextPageToken
         in: query
-        description: Page token to retrieve the next page of results.
-        required: false
         schema:
           type: string
-      - name: query
+      - description: Query string to filter jobs.
+        name: query
         in: query
-        description: Query string to filter jobs.
-        required: false
         schema:
           type: string
       responses:
@@ -73,21 +62,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/gin.H'
-      security:
-      - Bearer: []
+      __originalOperationId: list-jobs
+      method: get
+      path: /job
     post:
-      summary: Execute a job.
       description: Execute a new job using the provided parameters.
-      operationId: execute_job
       tags:
-      - jobs
-      requestBody:
-        description: Job execution parameters.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.TriggerData'
+      - Jobs
+      summary: Execute a job
+      operationId: execute_job
       responses:
         '200':
           description: Job executed successfully.
@@ -107,20 +90,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/gin.H'
-      security:
-      - Bearer: []
+      __originalOperationId: execute-job
+      method: post
+      path: /job
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.TriggerData'
+        description: Job execution parameters.
+        required: true
   /job/count:
     get:
-      summary: Get total job count.
       description: Retrieve the total count of jobs, optionally filtered by a query.
-      operationId: job_count
       tags:
-      - jobs
+      - Jobs
+      summary: Get total job count
+      operationId: job_count
       parameters:
-      - name: query
+      - description: Query to filter the job count.
+        name: query
         in: query
-        description: Query to filter the job count.
-        required: false
         schema:
           type: string
       responses:
@@ -142,15 +132,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/gin.H'
-      security:
-      - Bearer: []
+      __originalOperationId: job-count
+      method: get
+      path: /job/count
   /job/tags:
     get:
-      summary: List job tags.
       description: Retrieve a list of all job tags from the database.
-      operationId: list_job_tags
       tags:
-      - jobs
+      - Jobs
+      summary: List job tags
+      operationId: list_job_tags
       responses:
         '200':
           description: Job tags retrieved successfully.
@@ -166,25 +157,26 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      __originalOperationId: list-job-tags
+      method: get
+      path: /job/tags
   /job/{jobId}/runs/{runId}:
     get:
-      summary: Describe a job run.
       description: Retrieve details of a specific job run by job ID and run ID.
-      operationId: describe_job
       tags:
-      - jobs
+      - Jobs
+      summary: Describe a job run
+      operationId: describe_job
       parameters:
-      - name: jobId
+      - description: Job ID.
+        name: jobId
         in: path
-        description: Job ID.
         required: true
         schema:
           type: string
-      - name: runId
+      - description: Run ID.
+        name: runId
         in: path
-        description: Run ID.
         required: true
         schema:
           type: string
@@ -207,25 +199,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/gin.H'
-      security:
-      - Bearer: []
+      __originalOperationId: describe-job
+      method: get
+      path: /job/{jobId}/runs/{runId}
   /job/{jobId}/runs/{runId}/cancel:
     post:
-      summary: Cancel a job run.
       description: Cancel the execution of a running job.
-      operationId: cancel_job
       tags:
-      - jobs
+      - Jobs
+      summary: Cancel a job run
+      operationId: cancel_job
       parameters:
-      - name: jobId
+      - description: Job ID.
+        name: jobId
         in: path
-        description: Job ID.
         required: true
         schema:
           type: string
-      - name: runId
+      - description: Run ID.
+        name: runId
         in: path
-        description: Run ID.
         required: true
         schema:
           type: string
@@ -248,38 +241,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/gin.H'
-      security:
-      - Bearer: []
+      __originalOperationId: cancel-job
+      method: post
+      path: /job/{jobId}/runs/{runId}/cancel
   /job/{jobId}/runs/{runId}/events:
     get:
-      summary: Get job execution history.
       description: Retrieve the full history of a job execution by job ID and run ID.
-      operationId: get_job_history
       tags:
-      - jobs
+      - Jobs
+      summary: Get job execution history
+      operationId: get_job_history
       parameters:
-      - name: jobId
+      - description: Job ID.
+        name: jobId
         in: path
-        description: Job ID.
         required: true
         schema:
           type: string
-      - name: runId
+      - description: Run ID.
+        name: runId
         in: path
-        description: Run ID.
         required: true
         schema:
           type: string
-      - name: isLongPoll
+      - description: Enable long polling for new events.
+        name: isLongPoll
         in: query
-        description: Enable long polling for new events.
-        required: false
         schema:
           type: boolean
-      - name: filterType
+      - description: Filter event types (e.g., 'all', 'close_event').
+        name: filterType
         in: query
-        description: Filter event types (e.g., 'all', 'close_event').
-        required: false
         schema:
           type: string
       responses:
@@ -303,31 +295,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/gin.H'
-      security:
-      - Bearer: []
+      __originalOperationId: get-job-history
+      method: get
+      path: /job/{jobId}/runs/{runId}/events
   /job/{jobId}/runs/{runId}/terminate:
     post:
-      summary: Terminate a job run.
       description: Forcefully terminate the execution of a running job.
-      operationId: terminate_job
       tags:
-      - jobs
+      - Jobs
+      summary: Terminate a job run
+      operationId: terminate_job
       parameters:
-      - name: jobId
+      - description: Job ID.
+        name: jobId
         in: path
-        description: Job ID.
         required: true
         schema:
           type: string
-      - name: runId
+      - description: Run ID.
+        name: runId
         in: path
-        description: Run ID.
         required: true
         schema:
           type: string
-      - name: reason
+      - description: Reason for terminating the job.
+        name: reason
         in: query
-        description: Reason for terminating the job.
         required: true
         schema:
           type: string
@@ -350,317 +343,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/gin.H'
-      security:
-      - Bearer: []
+      __originalOperationId: terminate-job
+      method: post
+      path: /job/{jobId}/runs/{runId}/terminate
 components:
   schemas:
-    common.SearchAttributes:
-      type: object
-      properties:
-        indexed_fields:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/common.Payload'
-    workflow.RequestIdInfo:
-      type: object
-      properties:
-        buffered:
-          description: 'Indicate if the request is still buffered. If so, the event ID is not known and its value
-
-            will be an invalid event ID.'
-          type: boolean
-        event_id:
-          description: 'The event id of the history event generated by the request. It''s possible the event ID is not
-
-            known (unflushed buffered event). In this case, the value will be zero or a negative value,
-
-            representing an invalid ID.'
-          type: integer
-        event_type:
-          $ref: '#/components/schemas/enums.EventType'
-    common.RetryPolicy:
-      type: object
-      properties:
-        backoff_coefficient:
-          description: 'Coefficient used to calculate the next retry interval.
-
-            The next retry interval is previous interval multiplied by the coefficient.
-
-            Must be 1 or larger.'
-          type: number
-        initial_interval:
-          $ref: '#/components/schemas/durationpb.Duration'
-        maximum_attempts:
-          description: 'Maximum number of attempts. When exceeded the retries stop even if not expired yet.
-
-            1 disables retries. 0 means unlimited (up to the timeouts)'
-          type: integer
-        maximum_interval:
-          $ref: '#/components/schemas/durationpb.Duration'
-        non_retryable_error_types:
-          description: 'Non-Retryable errors types. Will stop retrying if the error type matches this list. Note that
-
-            this is not a substring match, the error *type* (not message) must match exactly.'
-          type: array
-          items:
-            type: string
-    common.WorkflowExecution:
-      type: object
-      properties:
-        run_id:
-          type: string
-        workflow_id:
-          type: string
-      description: "Contains information about the root workflow execution.\nThe root workflow execution is defined as follows:\n1. A workflow without parent workflow is its own root workflow.\n2. A workflow that has a parent workflow has the same root workflow as its parent workflow.\nNote: workflows continued as new or reseted may or may not have parents, check examples below.\n\nExamples:\n\n\tScenario 1: Workflow W1 starts child workflow W2, and W2 starts child workflow W3.\n\t  - The root workflow of all three workflows is W1.\n\tScenario 2: Workflow W1 starts child workflow W2, and W2 continued as new W3.\n\t  - The root workflow of all three workflows is W1.\n\tScenario 3: Workflow W1 continued as new W2.\n\t  - The root workflow of W1 is W1 and the root workflow of W2 is W2.\n\tScenario 4: Workflow W1 starts child workflow W2, and W2 is reseted, creating W3\n\t  - The root workflow of all three workflows is W1.\n\tScenario 5: Workflow W1 is reseted, creating W2.\n\t  - The root workflow of W1 is W1 and the root workflow of W2 is W2."
-    common.Payload:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: integer
-        metadata:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: integer
-      description: "Alternative way to supply `message` and `stack_trace` and possibly other attributes, used for encryption of\nerrors originating in user code which might contain sensitive information.\nThe `encoded_attributes` Payload could represent any serializable object, e.g. JSON object or a `Failure` proto\nmessage.\n\nSDK authors:\n- The SDK should provide a default `encodeFailureAttributes` and `decodeFailureAttributes` implementation that:\n  - Uses a JSON object to represent `{ message, stack_trace }`.\n  - Overwrites the original message with \"Encoded failure\" to indicate that more information could be extracted.\n  - Overwrites the original stack_trace with an empty string.\n  - The resulting JSON object is converted to Payload using the default PayloadConverter and should be processed\n    by the user-provided PayloadCodec\n\n- If there's demand, we could allow overriding the default SDK implementation to encode other opaque Failure attributes.\n(-- api-linter: core::0203::optional=disabled --)"
-    common.Payloads:
-      type: object
-      properties:
-        payloads:
-          type: array
-          items:
-            $ref: '#/components/schemas/common.Payload'
-    workflow.DeploymentVersionTransition:
-      type: object
-      properties:
-        deployment_version:
-          $ref: '#/components/schemas/go_temporal_io_api_deployment_v1.WorkerDeploymentVersion'
-        version:
-          description: 'Deprecated. Use `deployment_version`.
-
-
-            Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
-          type: string
-      description: 'When present, indicates the workflow is transitioning to a different deployment version
-
-        (which may belong to the same deployment name or another). Can indicate one of the following
-
-        transitions: unversioned -> versioned, versioned -> versioned
-
-        on a different deployment version, or versioned -> unversioned.
-
-        Not applicable to workflows with PINNED behavior.
-
-        When a workflow with AUTO_UPGRADE behavior creates a new workflow task, it will automatically
-
-        start a transition to the task queue''s current version if the task queue''s current version is
-
-        different from the workflow''s current deployment version.
-
-        If the AUTO_UPGRADE workflow is stuck due to backlogged activity or workflow tasks, those
-
-        tasks will be redirected to the task queue''s current version. As soon as a poller from
-
-        that deployment version is available to receive the task, the workflow will automatically
-
-        start a transition to that version and continue execution there.
-
-        A version transition can only exist while there is a pending or started workflow task.
-
-        Once the pending workflow task completes on the transition''s target version, the
-
-        transition completes and the workflow''s `behavior`, and `deployment_version` fields are updated per the
-
-        worker''s task completion response.
-
-        Pending activities will not start new attempts during a transition. Once the transition is
-
-        completed, pending activities will start their next attempt on the new version.'
-    common.ActivityType:
-      type: object
-      properties:
-        name:
-          type: string
-    failure.Failure:
-      type: object
-      properties:
-        cause:
-          $ref: '#/components/schemas/failure.Failure'
-        encoded_attributes:
-          $ref: '#/components/schemas/common.Payload'
-        failureInfo:
-          description: "Types that are valid to be assigned to FailureInfo:\n\n\t*Failure_ApplicationFailureInfo\n\t*Failure_TimeoutFailureInfo\n\t*Failure_CanceledFailureInfo\n\t*Failure_TerminatedFailureInfo\n\t*Failure_ServerFailureInfo\n\t*Failure_ResetWorkflowFailureInfo\n\t*Failure_ActivityFailureInfo\n\t*Failure_ChildWorkflowExecutionFailureInfo\n\t*Failure_NexusOperationExecutionFailureInfo\n\t*Failure_NexusHandlerFailureInfo"
-        message:
-          type: string
-        source:
-          description: 'The source this Failure originated in, e.g. TypeScriptSDK / JavaSDK
-
-            In some SDKs this is used to rehydrate the stack trace into an exception object.'
-          type: string
-        stack_trace:
-          type: string
-      description: The last attempt's failure, if any.
-    workflow.NexusOperationCancellationInfo:
+    workflow.CallbackInfo:
       type: object
       properties:
         attempt:
-          description: 'The number of attempts made to deliver the cancel operation request.
+          description: 'The number of attempts made to deliver the callback.
 
-            This number represents a minimum bound since the attempt is incremented after the request completes.'
+            This number represents a minimum bound since the attempt is incremented after the callback request completes.'
           type: integer
         blocked_reason:
           description: If the state is BLOCKED, blocked reason provides additional information.
           type: string
+        callback:
+          $ref: '#/components/schemas/common.Callback'
         last_attempt_complete_time:
           $ref: '#/components/schemas/timestamppb.Timestamp'
         last_attempt_failure:
           $ref: '#/components/schemas/failure.Failure'
         next_attempt_schedule_time:
           $ref: '#/components/schemas/timestamppb.Timestamp'
-        requested_time:
+        registration_time:
           $ref: '#/components/schemas/timestamppb.Timestamp'
         state:
-          $ref: '#/components/schemas/enums.NexusOperationCancellationState'
-    go_temporal_io_api_enums_v1.CallbackState:
-      type: integer
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      x-enum-varnames:
-      - CALLBACK_STATE_UNSPECIFIED
-      - CALLBACK_STATE_STANDBY
-      - CALLBACK_STATE_SCHEDULED
-      - CALLBACK_STATE_BACKING_OFF
-      - CALLBACK_STATE_FAILED
-      - CALLBACK_STATE_SUCCEEDED
-      - CALLBACK_STATE_BLOCKED
-    common.Link:
-      type: object
-      properties:
-        variant:
-          description: "Types that are valid to be assigned to Variant:\n\n\t*Link_WorkflowEvent_\n\t*Link_BatchJob_"
-    workflow.DeploymentTransition:
-      type: object
-      properties:
-        deployment:
-          $ref: '#/components/schemas/deployment.Deployment'
-      description: 'When present, indicates the workflow is transitioning to a different deployment. Can
-
-        indicate one of the following transitions: unversioned -> versioned, versioned -> versioned
-
-        on a different deployment, or versioned -> unversioned.
-
-        Not applicable to workflows with PINNED behavior.
-
-        When a workflow with AUTO_UPGRADE behavior creates a new workflow task, it will automatically
-
-        start a transition to the task queue''s current deployment if the task queue''s current
-
-        deployment is different from the workflow''s deployment.
-
-        If the AUTO_UPGRADE workflow is stuck due to backlogged activity or workflow tasks, those
-
-        tasks will be redirected to the task queue''s current deployment. As soon as a poller from
-
-        that deployment is available to receive the task, the workflow will automatically start a
-
-        transition to that deployment and continue execution there.
-
-        A deployment transition can only exist while there is a pending or started workflow task.
-
-        Once the pending workflow task completes on the transition''s target deployment, the
-
-        transition completes and the workflow''s `deployment` and `behavior` fields are updated per
-
-        the worker''s task completion response.
-
-        Pending activities will not start new attempts during a transition. Once the transition is
-
-        completed, pending activities will start their next attempt on the new deployment.
-
-        Deprecated. Use version_transition.
-
-
-        Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
-    go_temporal_io_api_deployment_v1.WorkerDeploymentVersion:
-      type: object
-      properties:
-        build_id:
-          description: 'A unique identifier for this Version within the Deployment it is a part of.
-
-            Not necessarily unique within the namespace.
-
-            The combination of `deployment_name` and `build_id` uniquely identifies this
-
-            Version within the namespace, because Deployment names are unique within a namespace.'
-          type: string
-        deployment_name:
-          description: Identifies the Worker Deployment this Version is part of.
-          type: string
-      description: 'The Worker Deployment Version that completed the last workflow task of this workflow execution.
-
-        An absent value means no workflow task is completed, or the workflow is unversioned.
-
-        If present, and `behavior` is UNSPECIFIED, the last task of this workflow execution was completed
-
-        by a worker that is not using versioning but _is_ passing Deployment Name and Build ID.
-
-
-        For child workflows of Pinned parents, this will be set to the parent''s Pinned Version when
-
-        the child starts, so that the child''s first workflow task goes to the same Version as the parent.
-
-        Note that if `versioning_override.behavior` is PINNED then `versioning_override.pinned_version`
-
-        will override this value.'
-    workflow.WorkflowExecutionConfig:
-      type: object
-      properties:
-        default_workflow_task_timeout:
-          $ref: '#/components/schemas/durationpb.Duration'
-        task_queue:
-          $ref: '#/components/schemas/taskqueue.TaskQueue'
-        user_metadata:
-          $ref: '#/components/schemas/sdk.UserMetadata'
-        workflow_execution_timeout:
-          $ref: '#/components/schemas/durationpb.Duration'
-        workflow_run_timeout:
-          $ref: '#/components/schemas/durationpb.Duration'
-    enums.PendingActivityState:
-      type: integer
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      x-enum-varnames:
-      - PENDING_ACTIVITY_STATE_UNSPECIFIED
-      - PENDING_ACTIVITY_STATE_SCHEDULED
-      - PENDING_ACTIVITY_STATE_STARTED
-      - PENDING_ACTIVITY_STATE_CANCEL_REQUESTED
-      - PENDING_ACTIVITY_STATE_PAUSED
-      - PENDING_ACTIVITY_STATE_PAUSE_REQUESTED
-    workflowservice.ListWorkflowExecutionsResponse:
-      type: object
-      properties:
-        executions:
-          type: array
-          items:
-            $ref: '#/components/schemas/workflow.WorkflowExecutionInfo'
-        next_page_token:
-          type: array
-          items:
-            type: integer
+          $ref: '#/components/schemas/go_temporal_io_api_enums_v1.CallbackState'
+        trigger:
+          $ref: '#/components/schemas/workflow.CallbackInfo_Trigger'
     workflow.PendingNexusOperationInfo:
       type: object
       properties:
@@ -714,34 +426,169 @@ components:
           type: string
         state:
           $ref: '#/components/schemas/enums.PendingNexusOperationState'
-    workflow.WorkflowExecutionExtendedInfo:
+    workflow.WorkflowExecutionVersioningInfo:
       type: object
       properties:
-        cancel_requested:
-          description: indicates if the workflow received a cancel request
-          type: boolean
-        execution_expiration_time:
-          $ref: '#/components/schemas/timestamppb.Timestamp'
-        last_reset_time:
-          $ref: '#/components/schemas/timestamppb.Timestamp'
-        original_start_time:
-          $ref: '#/components/schemas/timestamppb.Timestamp'
-        request_id_infos:
-          description: 'Request ID information (eg: history event information associated with the request ID).
+        behavior:
+          $ref: '#/components/schemas/enums.VersioningBehavior'
+        deployment:
+          $ref: '#/components/schemas/deployment.Deployment'
+        deployment_transition:
+          $ref: '#/components/schemas/workflow.DeploymentTransition'
+        deployment_version:
+          $ref: '#/components/schemas/go_temporal_io_api_deployment_v1.WorkerDeploymentVersion'
+        version:
+          description: 'Deprecated. Use `deployment_version`.
 
-            Note: It only contains request IDs from StartWorkflowExecution requests, including indirect
 
-            calls (eg: if SignalWithStartWorkflowExecution starts a new workflow, then the request ID is
-
-            used in the StartWorkflowExecution request).'
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/workflow.RequestIdInfo'
-        reset_run_id:
-          description: Reset Run ID points to the new run when this execution is reset. If the execution is reset multiple times, it points to the latest run.
+            Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
           type: string
-        run_expiration_time:
+        version_transition:
+          $ref: '#/components/schemas/workflow.DeploymentVersionTransition'
+        versioning_override:
+          $ref: '#/components/schemas/workflow.VersioningOverride'
+      description: 'Absent value means the workflow execution is not versioned. When present, the execution might
+
+        be versioned or unversioned, depending on `versioning_info.behavior` and `versioning_info.versioning_override`.
+
+        Experimental. Versioning info is experimental and might change in the future.'
+    sdk.UserMetadata:
+      type: object
+      properties:
+        details:
+          $ref: '#/components/schemas/common.Payload'
+        summary:
+          $ref: '#/components/schemas/common.Payload'
+      description: "Metadata on the event. This is often carried over from commands and client calls. Most events\nwon't have this information, and how this information is used is dependent upon the interface\nthat reads it.\n\nCurrent well-known uses:\n  - workflow_execution_started_event_attributes - summary and details from start workflow.\n  - timer_started_event_attributes - summary represents an identifier for the timer for use by\n    user interfaces."
+    workflow.ResetPoints:
+      type: object
+      properties:
+        points:
+          type: array
+          items:
+            $ref: '#/components/schemas/workflow.ResetPointInfo'
+    workflow.VersioningOverride:
+      type: object
+      properties:
+        behavior:
+          $ref: '#/components/schemas/enums.VersioningBehavior'
+        deployment:
+          $ref: '#/components/schemas/deployment.Deployment'
+        override:
+          description: "Indicates whether to override the workflow to be AutoUpgrade or Pinned.\n\nTypes that are valid to be assigned to Override:\n\n\t*VersioningOverride_Pinned\n\t*VersioningOverride_AutoUpgrade"
+        pinned_version:
+          description: 'Required if behavior is `PINNED`. Must be absent if behavior is not `PINNED`.
+
+            Identifies the worker deployment version to pin the workflow to, in the format
+
+            "<deployment_name>.<build_id>".
+
+            Deprecated. Use `override.pinned.version`.
+
+
+            Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
+          type: string
+      description: 'Present if user has set an execution-specific versioning override. This override takes
+
+        precedence over SDK-sent `behavior` (and `version` when override is PINNED). An
+
+        override can be set when starting a new execution, as well as afterwards by calling the
+
+        `UpdateWorkflowExecutionOptions` API.
+
+        Pinned overrides are automatically inherited by child workflows, continue-as-new workflows,
+
+        workflow retries, and cron workflows.'
+    common.WorkflowExecution:
+      type: object
+      properties:
+        run_id:
+          type: string
+        workflow_id:
+          type: string
+      description: "Contains information about the root workflow execution.\nThe root workflow execution is defined as follows:\n1. A workflow without parent workflow is its own root workflow.\n2. A workflow that has a parent workflow has the same root workflow as its parent workflow.\nNote: workflows continued as new or reseted may or may not have parents, check examples below.\n\nExamples:\n\n\tScenario 1: Workflow W1 starts child workflow W2, and W2 starts child workflow W3.\n\t  - The root workflow of all three workflows is W1.\n\tScenario 2: Workflow W1 starts child workflow W2, and W2 continued as new W3.\n\t  - The root workflow of all three workflows is W1.\n\tScenario 3: Workflow W1 continued as new W2.\n\t  - The root workflow of W1 is W1 and the root workflow of W2 is W2.\n\tScenario 4: Workflow W1 starts child workflow W2, and W2 is reseted, creating W3\n\t  - The root workflow of all three workflows is W1.\n\tScenario 5: Workflow W1 is reseted, creating W2.\n\t  - The root workflow of W1 is W1 and the root workflow of W2 is W2."
+    common.RetryPolicy:
+      type: object
+      properties:
+        backoff_coefficient:
+          description: 'Coefficient used to calculate the next retry interval.
+
+            The next retry interval is previous interval multiplied by the coefficient.
+
+            Must be 1 or larger.'
+          type: number
+        initial_interval:
+          $ref: '#/components/schemas/durationpb.Duration'
+        maximum_attempts:
+          description: 'Maximum number of attempts. When exceeded the retries stop even if not expired yet.
+
+            1 disables retries. 0 means unlimited (up to the timeouts)'
+          type: integer
+        maximum_interval:
+          $ref: '#/components/schemas/durationpb.Duration'
+        non_retryable_error_types:
+          description: 'Non-Retryable errors types. Will stop retrying if the error type matches this list. Note that
+
+            this is not a substring match, the error *type* (not message) must match exactly.'
+          type: array
+          items:
+            type: string
+    workflow.PendingActivityInfo_PauseInfo:
+      type: object
+      properties:
+        pause_time:
           $ref: '#/components/schemas/timestamppb.Timestamp'
+        pausedBy:
+          description: "Types that are valid to be assigned to PausedBy:\n\n\t*PendingActivityInfo_PauseInfo_Manual_\n\t*PendingActivityInfo_PauseInfo_Rule_"
+    go_temporal_io_api_enums_v1.CallbackState:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      x-enum-varnames:
+      - CALLBACK_STATE_UNSPECIFIED
+      - CALLBACK_STATE_STANDBY
+      - CALLBACK_STATE_SCHEDULED
+      - CALLBACK_STATE_BACKING_OFF
+      - CALLBACK_STATE_FAILED
+      - CALLBACK_STATE_SUCCEEDED
+      - CALLBACK_STATE_BLOCKED
+    enums.VersioningBehavior:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 2
+      x-enum-varnames:
+      - VERSIONING_BEHAVIOR_UNSPECIFIED
+      - VERSIONING_BEHAVIOR_PINNED
+      - VERSIONING_BEHAVIOR_AUTO_UPGRADE
+      description: 'Versioning behavior determines how the server should treat this execution when workers are
+
+        upgraded. When present it means this workflow execution is versioned; UNSPECIFIED means
+
+        unversioned. See the comments in `VersioningBehavior` enum for more info about different
+
+        behaviors.
+
+        This field is first set after an execution completes its first workflow task on a versioned
+
+        worker, and set again on completion of every subsequent workflow task.
+
+        For child workflows of Pinned parents, this will be set to Pinned (along with `deployment_version`) when
+
+        the the child starts so that child''s first workflow task goes to the same Version as the
+
+        parent. After the first workflow task, it depends on the child workflow itself if it wants
+
+        to stay pinned or become unpinned (according to Versioning Behavior set in the worker).
+
+        Note that `behavior` is overridden by `versioning_override` if the latter is present.'
     enums.EventType:
       type: integer
       enum:
@@ -863,16 +710,166 @@ components:
       - EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUEST_COMPLETED
       - EVENT_TYPE_NEXUS_OPERATION_CANCEL_REQUEST_FAILED
       description: The event type of the history event generated by the request.
-    enums.PendingWorkflowTaskState:
-      type: integer
-      enum:
-      - 0
-      - 1
-      - 2
-      x-enum-varnames:
-      - PENDING_WORKFLOW_TASK_STATE_UNSPECIFIED
-      - PENDING_WORKFLOW_TASK_STATE_SCHEDULED
-      - PENDING_WORKFLOW_TASK_STATE_STARTED
+    deployment.Deployment:
+      type: object
+      properties:
+        build_id:
+          description: 'Build ID changes with each version of the worker when the worker program code and/or config
+
+            changes.'
+          type: string
+        series_name:
+          description: 'Different versions of the same worker service/application are related together by having a
+
+            shared series name.
+
+            Out of all deployments of a series, one can be designated as the current deployment, which
+
+            receives new workflow executions and new tasks of workflows with
+
+            `VERSIONING_BEHAVIOR_AUTO_UPGRADE` versioning behavior.'
+          type: string
+      description: 'The worker deployment that completed the last workflow task of this workflow execution. Must
+
+        be present if `behavior` is set. Absent value means no workflow task is completed, or the
+
+        last workflow task was completed by an unversioned worker. Unversioned workers may still send
+
+        a deployment value which will be stored here, so the right way to check if an execution is
+
+        versioned if an execution is versioned or not is via the `behavior` field.
+
+        Note that `deployment` is overridden by `versioning_override` if the latter is present.
+
+        Deprecated. Use `deployment_version`.
+
+
+        Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
+    failure.Failure:
+      type: object
+      properties:
+        cause:
+          $ref: '#/components/schemas/failure.Failure'
+        encoded_attributes:
+          $ref: '#/components/schemas/common.Payload'
+        failureInfo:
+          description: "Types that are valid to be assigned to FailureInfo:\n\n\t*Failure_ApplicationFailureInfo\n\t*Failure_TimeoutFailureInfo\n\t*Failure_CanceledFailureInfo\n\t*Failure_TerminatedFailureInfo\n\t*Failure_ServerFailureInfo\n\t*Failure_ResetWorkflowFailureInfo\n\t*Failure_ActivityFailureInfo\n\t*Failure_ChildWorkflowExecutionFailureInfo\n\t*Failure_NexusOperationExecutionFailureInfo\n\t*Failure_NexusHandlerFailureInfo"
+        message:
+          type: string
+        source:
+          description: 'The source this Failure originated in, e.g. TypeScriptSDK / JavaSDK
+
+            In some SDKs this is used to rehydrate the stack trace into an exception object.'
+          type: string
+        stack_trace:
+          type: string
+      description: The last attempt's failure, if any.
+    taskqueue.TaskQueue:
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/enums.TaskQueueKind'
+        name:
+          type: string
+        normal_name:
+          description: 'Iff kind == TASK_QUEUE_KIND_STICKY, then this field contains the name of
+
+            the normal task queue that the sticky worker is running on.'
+          type: string
+    common.SearchAttributes:
+      type: object
+      properties:
+        indexed_fields:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/common.Payload'
+    workflow.DeploymentVersionTransition:
+      type: object
+      properties:
+        deployment_version:
+          $ref: '#/components/schemas/go_temporal_io_api_deployment_v1.WorkerDeploymentVersion'
+        version:
+          description: 'Deprecated. Use `deployment_version`.
+
+
+            Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
+          type: string
+      description: 'When present, indicates the workflow is transitioning to a different deployment version
+
+        (which may belong to the same deployment name or another). Can indicate one of the following
+
+        transitions: unversioned -> versioned, versioned -> versioned
+
+        on a different deployment version, or versioned -> unversioned.
+
+        Not applicable to workflows with PINNED behavior.
+
+        When a workflow with AUTO_UPGRADE behavior creates a new workflow task, it will automatically
+
+        start a transition to the task queue''s current version if the task queue''s current version is
+
+        different from the workflow''s current deployment version.
+
+        If the AUTO_UPGRADE workflow is stuck due to backlogged activity or workflow tasks, those
+
+        tasks will be redirected to the task queue''s current version. As soon as a poller from
+
+        that deployment version is available to receive the task, the workflow will automatically
+
+        start a transition to that version and continue execution there.
+
+        A version transition can only exist while there is a pending or started workflow task.
+
+        Once the pending workflow task completes on the transition''s target version, the
+
+        transition completes and the workflow''s `behavior`, and `deployment_version` fields are updated per the
+
+        worker''s task completion response.
+
+        Pending activities will not start new attempts during a transition. Once the transition is
+
+        completed, pending activities will start their next attempt on the new version.'
+    workflow.RequestIdInfo:
+      type: object
+      properties:
+        buffered:
+          description: 'Indicate if the request is still buffered. If so, the event ID is not known and its value
+
+            will be an invalid event ID.'
+          type: boolean
+        event_id:
+          description: 'The event id of the history event generated by the request. It''s possible the event ID is not
+
+            known (unflushed buffered event). In this case, the value will be zero or a negative value,
+
+            representing an invalid ID.'
+          type: integer
+        event_type:
+          $ref: '#/components/schemas/enums.EventType'
+    durationpb.Duration:
+      type: object
+      properties:
+        nanos:
+          description: 'Signed fractions of a second at nanosecond resolution of the span
+
+            of time. Durations less than one second are represented with a 0
+
+            `seconds` field and a positive or negative `nanos` field. For durations
+
+            of one second or more, a non-zero value for the `nanos` field must be
+
+            of the same sign as the `seconds` field. Must be from -999,999,999
+
+            to +999,999,999 inclusive.'
+          type: integer
+        seconds:
+          description: 'Signed seconds of the span of time. Must be from -315,576,000,000
+
+            to +315,576,000,000 inclusive. Note: these bounds are computed from:
+
+            60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years'
+          type: integer
+      description: "Limits time an activity task can stay in a task queue before a worker picks it up. This\ntimeout is always non retryable, as all a retry would achieve is to put it back into the same\nqueue. Defaults to `schedule_to_close_timeout` or workflow execution timeout if not\nspecified.\n\n(-- api-linter: core::0140::prepositions=disabled\n\n\taip.dev/not-precedent: \"to\" is used to indicate interval. --)"
     enums.PendingNexusOperationState:
       type: integer
       enum:
@@ -887,6 +884,11 @@ components:
       - PENDING_NEXUS_OPERATION_STATE_BACKING_OFF
       - PENDING_NEXUS_OPERATION_STATE_STARTED
       - PENDING_NEXUS_OPERATION_STATE_BLOCKED
+    common.Link:
+      type: object
+      properties:
+        variant:
+          description: "Types that are valid to be assigned to Variant:\n\n\t*Link_WorkflowEvent_\n\t*Link_BatchJob_"
     workflow.PendingChildExecutionInfo:
       type: object
       properties:
@@ -900,32 +902,95 @@ components:
           type: string
         workflow_type_name:
           type: string
-    workflow.CallbackInfo:
+    common.ActivityType:
+      type: object
+      properties:
+        name:
+          type: string
+    workflow.ResetPointInfo:
+      type: object
+      properties:
+        binary_checksum:
+          description: 'Deprecated. A worker binary version identifier.
+
+
+            Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
+          type: string
+        build_id:
+          description: Worker build id.
+          type: string
+        create_time:
+          $ref: '#/components/schemas/timestamppb.Timestamp'
+        expire_time:
+          $ref: '#/components/schemas/timestamppb.Timestamp'
+        first_workflow_task_completed_id:
+          description: Event ID of the first WorkflowTaskCompleted event processed by this worker build.
+          type: integer
+        resettable:
+          description: false if the reset point has pending childWFs/reqCancels/signalExternals.
+          type: boolean
+        run_id:
+          description: The first run ID in the execution chain that was touched by this worker build.
+          type: string
+    enums.TaskQueueKind:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 2
+      x-enum-varnames:
+      - TASK_QUEUE_KIND_UNSPECIFIED
+      - TASK_QUEUE_KIND_NORMAL
+      - TASK_QUEUE_KIND_STICKY
+      description: 'Default: TASK_QUEUE_KIND_NORMAL.'
+    history.HistoryEvent:
+      type: object
+      properties:
+        attributes:
+          description: "The event details. The type must match that in `event_type`.\n\nTypes that are valid to be assigned to Attributes:\n\n\t*HistoryEvent_WorkflowExecutionStartedEventAttributes\n\t*HistoryEvent_WorkflowExecutionCompletedEventAttributes\n\t*HistoryEvent_WorkflowExecutionFailedEventAttributes\n\t*HistoryEvent_WorkflowExecutionTimedOutEventAttributes\n\t*HistoryEvent_WorkflowTaskScheduledEventAttributes\n\t*HistoryEvent_WorkflowTaskStartedEventAttributes\n\t*HistoryEvent_WorkflowTaskCompletedEventAttributes\n\t*HistoryEvent_WorkflowTaskTimedOutEventAttributes\n\t*HistoryEvent_WorkflowTaskFailedEventAttributes\n\t*HistoryEvent_ActivityTaskScheduledEventAttributes\n\t*HistoryEvent_ActivityTaskStartedEventAttributes\n\t*HistoryEvent_ActivityTaskCompletedEventAttributes\n\t*HistoryEvent_ActivityTaskFailedEventAttributes\n\t*HistoryEvent_ActivityTaskTimedOutEventAttributes\n\t*HistoryEvent_TimerStartedEventAttributes\n\t*HistoryEvent_TimerFiredEventAttributes\n\t*HistoryEvent_ActivityTaskCancelRequestedEventAttributes\n\t*HistoryEvent_ActivityTaskCanceledEventAttributes\n\t*HistoryEvent_TimerCanceledEventAttributes\n\t*HistoryEvent_MarkerRecordedEventAttributes\n\t*HistoryEvent_WorkflowExecutionSignaledEventAttributes\n\t*HistoryEvent_WorkflowExecutionTerminatedEventAttributes\n\t*HistoryEvent_WorkflowExecutionCancelRequestedEventAttributes\n\t*HistoryEvent_WorkflowExecutionCanceledEventAttributes\n\t*HistoryEvent_RequestCancelExternalWorkflowExecutionInitiatedEventAttributes\n\t*HistoryEvent_RequestCancelExternalWorkflowExecutionFailedEventAttributes\n\t*HistoryEvent_ExternalWorkflowExecutionCancelRequestedEventAttributes\n\t*HistoryEvent_WorkflowExecutionContinuedAsNewEventAttributes\n\t*HistoryEvent_StartChildWorkflowExecutionInitiatedEventAttributes\n\t*HistoryEvent_StartChildWorkflowExecutionFailedEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionStartedEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionCompletedEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionFailedEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionCanceledEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionTimedOutEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionTerminatedEventAttributes\n\t*HistoryEvent_SignalExternalWorkflowExecutionInitiatedEventAttributes\n\t*HistoryEvent_SignalExternalWorkflowExecutionFailedEventAttributes\n\t*HistoryEvent_ExternalWorkflowExecutionSignaledEventAttributes\n\t*HistoryEvent_UpsertWorkflowSearchAttributesEventAttributes\n\t*HistoryEvent_WorkflowExecutionUpdateAcceptedEventAttributes\n\t*HistoryEvent_WorkflowExecutionUpdateRejectedEventAttributes\n\t*HistoryEvent_WorkflowExecutionUpdateCompletedEventAttributes\n\t*HistoryEvent_WorkflowPropertiesModifiedExternallyEventAttributes\n\t*HistoryEvent_ActivityPropertiesModifiedExternallyEventAttributes\n\t*HistoryEvent_WorkflowPropertiesModifiedEventAttributes\n\t*HistoryEvent_WorkflowExecutionUpdateAdmittedEventAttributes\n\t*HistoryEvent_NexusOperationScheduledEventAttributes\n\t*HistoryEvent_NexusOperationStartedEventAttributes\n\t*HistoryEvent_NexusOperationCompletedEventAttributes\n\t*HistoryEvent_NexusOperationFailedEventAttributes\n\t*HistoryEvent_NexusOperationCanceledEventAttributes\n\t*HistoryEvent_NexusOperationTimedOutEventAttributes\n\t*HistoryEvent_NexusOperationCancelRequestedEventAttributes\n\t*HistoryEvent_WorkflowExecutionOptionsUpdatedEventAttributes\n\t*HistoryEvent_NexusOperationCancelRequestCompletedEventAttributes\n\t*HistoryEvent_NexusOperationCancelRequestFailedEventAttributes"
+        event_id:
+          description: Monotonically increasing event number, starts at 1.
+          type: integer
+        event_time:
+          $ref: '#/components/schemas/timestamppb.Timestamp'
+        event_type:
+          $ref: '#/components/schemas/enums.EventType'
+        links:
+          description: Links associated with the event.
+          type: array
+          items:
+            $ref: '#/components/schemas/common.Link'
+        task_id:
+          description: 'TODO: What is this? Appears unused by SDKs'
+          type: integer
+        user_metadata:
+          $ref: '#/components/schemas/sdk.UserMetadata'
+        version:
+          description: 'TODO: What is this? Appears unused by SDKs'
+          type: integer
+        worker_may_ignore:
+          description: 'Set to true when the SDK may ignore the event as it does not impact workflow state or
+
+            information in any way that the SDK need be concerned with. If an SDK encounters an event
+
+            type which it does not understand, it must error unless this is true. If it is true, it''s
+
+            acceptable for the event type and/or attributes to be uninterpretable.'
+          type: boolean
+    workflow.PendingWorkflowTaskInfo:
       type: object
       properties:
         attempt:
-          description: 'The number of attempts made to deliver the callback.
-
-            This number represents a minimum bound since the attempt is incremented after the callback request completes.'
           type: integer
-        blocked_reason:
-          description: If the state is BLOCKED, blocked reason provides additional information.
-          type: string
-        callback:
-          $ref: '#/components/schemas/common.Callback'
-        last_attempt_complete_time:
+        original_scheduled_time:
           $ref: '#/components/schemas/timestamppb.Timestamp'
-        last_attempt_failure:
-          $ref: '#/components/schemas/failure.Failure'
-        next_attempt_schedule_time:
+        scheduled_time:
           $ref: '#/components/schemas/timestamppb.Timestamp'
-        registration_time:
+        started_time:
           $ref: '#/components/schemas/timestamppb.Timestamp'
         state:
-          $ref: '#/components/schemas/go_temporal_io_api_enums_v1.CallbackState'
-        trigger:
-          $ref: '#/components/schemas/workflow.CallbackInfo_Trigger'
-    enums.WorkflowExecutionStatus:
+          $ref: '#/components/schemas/enums.PendingWorkflowTaskState'
+    enums.PendingActivityState:
       type: integer
       enum:
       - 0
@@ -934,60 +999,75 @@ components:
       - 3
       - 4
       - 5
-      - 6
-      - 7
       x-enum-varnames:
-      - WORKFLOW_EXECUTION_STATUS_UNSPECIFIED
-      - WORKFLOW_EXECUTION_STATUS_RUNNING
-      - WORKFLOW_EXECUTION_STATUS_COMPLETED
-      - WORKFLOW_EXECUTION_STATUS_FAILED
-      - WORKFLOW_EXECUTION_STATUS_CANCELED
-      - WORKFLOW_EXECUTION_STATUS_TERMINATED
-      - WORKFLOW_EXECUTION_STATUS_CONTINUED_AS_NEW
-      - WORKFLOW_EXECUTION_STATUS_TIMED_OUT
-    workflowservice.DescribeWorkflowExecutionResponse:
+      - PENDING_ACTIVITY_STATE_UNSPECIFIED
+      - PENDING_ACTIVITY_STATE_SCHEDULED
+      - PENDING_ACTIVITY_STATE_STARTED
+      - PENDING_ACTIVITY_STATE_CANCEL_REQUESTED
+      - PENDING_ACTIVITY_STATE_PAUSED
+      - PENDING_ACTIVITY_STATE_PAUSE_REQUESTED
+    common.Callback:
       type: object
       properties:
-        callbacks:
+        links:
+          description: 'Links associated with the callback. It can be used to link to underlying resources of the
+
+            callback.'
           type: array
           items:
-            $ref: '#/components/schemas/workflow.CallbackInfo'
-        execution_config:
-          $ref: '#/components/schemas/workflow.WorkflowExecutionConfig'
-        pending_activities:
-          type: array
-          items:
-            $ref: '#/components/schemas/workflow.PendingActivityInfo'
-        pending_children:
-          type: array
-          items:
-            $ref: '#/components/schemas/workflow.PendingChildExecutionInfo'
-        pending_nexus_operations:
-          type: array
-          items:
-            $ref: '#/components/schemas/workflow.PendingNexusOperationInfo'
-        pending_workflow_task:
-          $ref: '#/components/schemas/workflow.PendingWorkflowTaskInfo'
-        workflow_execution_info:
-          $ref: '#/components/schemas/workflow.WorkflowExecutionInfo'
-        workflow_extended_info:
-          $ref: '#/components/schemas/workflow.WorkflowExecutionExtendedInfo'
-    activity.ActivityOptions:
+            $ref: '#/components/schemas/common.Link'
+        variant:
+          description: "Types that are valid to be assigned to Variant:\n\n\t*Callback_Nexus_\n\t*Callback_Internal_"
+      description: Information on how this callback should be invoked (e.g. its URL and type).
+    common.WorkerVersionStamp:
       type: object
       properties:
-        heartbeat_timeout:
-          $ref: '#/components/schemas/durationpb.Duration'
-        retry_policy:
-          $ref: '#/components/schemas/common.RetryPolicy'
-        schedule_to_close_timeout:
-          $ref: '#/components/schemas/durationpb.Duration'
-        schedule_to_start_timeout:
-          $ref: '#/components/schemas/durationpb.Duration'
-        start_to_close_timeout:
-          $ref: '#/components/schemas/durationpb.Duration'
-        task_queue:
-          $ref: '#/components/schemas/taskqueue.TaskQueue'
-      description: Current activity options. May be different from the one used to start the activity.
+        build_id:
+          description: 'An opaque whole-worker identifier. Replaces the deprecated `binary_checksum` field when this
+
+            message is included in requests which previously used that.'
+          type: string
+        use_versioning:
+          description: 'If set, the worker is opting in to worker versioning. Otherwise, this is used only as a
+
+            marker for workflow reset points and the BuildIDs search attribute.'
+          type: boolean
+      description: 'If set, the most recent worker version stamp that appeared in a workflow task completion
+
+        Deprecated. This field should be cleaned up when versioning-2 API is removed. [cleanup-experimental-wv]
+
+
+        Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
+    workflowservice.ListWorkflowExecutionsResponse:
+      type: object
+      properties:
+        executions:
+          type: array
+          items:
+            $ref: '#/components/schemas/workflow.WorkflowExecutionInfo'
+        next_page_token:
+          type: array
+          items:
+            type: integer
+    common.WorkflowType:
+      type: object
+      properties:
+        name:
+          type: string
+    common.Payload:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: integer
+        metadata:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: integer
+      description: "Alternative way to supply `message` and `stack_trace` and possibly other attributes, used for encryption of\nerrors originating in user code which might contain sensitive information.\nThe `encoded_attributes` Payload could represent any serializable object, e.g. JSON object or a `Failure` proto\nmessage.\n\nSDK authors:\n- The SDK should provide a default `encodeFailureAttributes` and `decodeFailureAttributes` implementation that:\n  - Uses a JSON object to represent `{ message, stack_trace }`.\n  - Overwrites the original message with \"Encoded failure\" to indicate that more information could be extracted.\n  - Overwrites the original stack_trace with an empty string.\n  - The resulting JSON object is converted to Payload using the default PayloadConverter and should be processed\n    by the user-provided PayloadCodec\n\n- If there's demand, we could allow overriding the default SDK implementation to encode other opaque Failure attributes.\n(-- api-linter: core::0203::optional=disabled --)"
     workflow.PendingActivityInfo:
       type: object
       properties:
@@ -1046,133 +1126,21 @@ components:
           $ref: '#/components/schemas/timestamppb.Timestamp'
         state:
           $ref: '#/components/schemas/enums.PendingActivityState'
-    taskqueue.TaskQueue:
+    server.TriggerData:
       type: object
       properties:
-        kind:
-          $ref: '#/components/schemas/enums.TaskQueueKind'
-        name:
-          type: string
-        normal_name:
-          description: 'Iff kind == TASK_QUEUE_KIND_STICKY, then this field contains the name of
-
-            the normal task queue that the sticky worker is running on.'
-          type: string
-    enums.NexusOperationCancellationState:
-      type: integer
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      x-enum-varnames:
-      - NEXUS_OPERATION_CANCELLATION_STATE_UNSPECIFIED
-      - NEXUS_OPERATION_CANCELLATION_STATE_SCHEDULED
-      - NEXUS_OPERATION_CANCELLATION_STATE_BACKING_OFF
-      - NEXUS_OPERATION_CANCELLATION_STATE_SUCCEEDED
-      - NEXUS_OPERATION_CANCELLATION_STATE_FAILED
-      - NEXUS_OPERATION_CANCELLATION_STATE_TIMED_OUT
-      - NEXUS_OPERATION_CANCELLATION_STATE_BLOCKED
-    common.Memo:
-      type: object
-      properties:
-        fields:
+        data:
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/common.Payload'
-    workflow.VersioningOverride:
-      type: object
-      properties:
-        behavior:
-          $ref: '#/components/schemas/enums.VersioningBehavior'
-        deployment:
-          $ref: '#/components/schemas/deployment.Deployment'
-        override:
-          description: "Indicates whether to override the workflow to be AutoUpgrade or Pinned.\n\nTypes that are valid to be assigned to Override:\n\n\t*VersioningOverride_Pinned\n\t*VersioningOverride_AutoUpgrade"
-        pinned_version:
-          description: 'Required if behavior is `PINNED`. Must be absent if behavior is not `PINNED`.
-
-            Identifies the worker deployment version to pin the workflow to, in the format
-
-            "<deployment_name>.<build_id>".
-
-            Deprecated. Use `override.pinned.version`.
-
-
-            Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
+        jobName:
           type: string
-      description: 'Present if user has set an execution-specific versioning override. This override takes
-
-        precedence over SDK-sent `behavior` (and `version` when override is PINNED). An
-
-        override can be set when starting a new execution, as well as afterwards by calling the
-
-        `UpdateWorkflowExecutionOptions` API.
-
-        Pinned overrides are automatically inherited by child workflows, continue-as-new workflows,
-
-        workflow retries, and cron workflows.'
-    history.HistoryEvent:
-      type: object
-      properties:
-        attributes:
-          description: "The event details. The type must match that in `event_type`.\n\nTypes that are valid to be assigned to Attributes:\n\n\t*HistoryEvent_WorkflowExecutionStartedEventAttributes\n\t*HistoryEvent_WorkflowExecutionCompletedEventAttributes\n\t*HistoryEvent_WorkflowExecutionFailedEventAttributes\n\t*HistoryEvent_WorkflowExecutionTimedOutEventAttributes\n\t*HistoryEvent_WorkflowTaskScheduledEventAttributes\n\t*HistoryEvent_WorkflowTaskStartedEventAttributes\n\t*HistoryEvent_WorkflowTaskCompletedEventAttributes\n\t*HistoryEvent_WorkflowTaskTimedOutEventAttributes\n\t*HistoryEvent_WorkflowTaskFailedEventAttributes\n\t*HistoryEvent_ActivityTaskScheduledEventAttributes\n\t*HistoryEvent_ActivityTaskStartedEventAttributes\n\t*HistoryEvent_ActivityTaskCompletedEventAttributes\n\t*HistoryEvent_ActivityTaskFailedEventAttributes\n\t*HistoryEvent_ActivityTaskTimedOutEventAttributes\n\t*HistoryEvent_TimerStartedEventAttributes\n\t*HistoryEvent_TimerFiredEventAttributes\n\t*HistoryEvent_ActivityTaskCancelRequestedEventAttributes\n\t*HistoryEvent_ActivityTaskCanceledEventAttributes\n\t*HistoryEvent_TimerCanceledEventAttributes\n\t*HistoryEvent_MarkerRecordedEventAttributes\n\t*HistoryEvent_WorkflowExecutionSignaledEventAttributes\n\t*HistoryEvent_WorkflowExecutionTerminatedEventAttributes\n\t*HistoryEvent_WorkflowExecutionCancelRequestedEventAttributes\n\t*HistoryEvent_WorkflowExecutionCanceledEventAttributes\n\t*HistoryEvent_RequestCancelExternalWorkflowExecutionInitiatedEventAttributes\n\t*HistoryEvent_RequestCancelExternalWorkflowExecutionFailedEventAttributes\n\t*HistoryEvent_ExternalWorkflowExecutionCancelRequestedEventAttributes\n\t*HistoryEvent_WorkflowExecutionContinuedAsNewEventAttributes\n\t*HistoryEvent_StartChildWorkflowExecutionInitiatedEventAttributes\n\t*HistoryEvent_StartChildWorkflowExecutionFailedEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionStartedEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionCompletedEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionFailedEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionCanceledEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionTimedOutEventAttributes\n\t*HistoryEvent_ChildWorkflowExecutionTerminatedEventAttributes\n\t*HistoryEvent_SignalExternalWorkflowExecutionInitiatedEventAttributes\n\t*HistoryEvent_SignalExternalWorkflowExecutionFailedEventAttributes\n\t*HistoryEvent_ExternalWorkflowExecutionSignaledEventAttributes\n\t*HistoryEvent_UpsertWorkflowSearchAttributesEventAttributes\n\t*HistoryEvent_WorkflowExecutionUpdateAcceptedEventAttributes\n\t*HistoryEvent_WorkflowExecutionUpdateRejectedEventAttributes\n\t*HistoryEvent_WorkflowExecutionUpdateCompletedEventAttributes\n\t*HistoryEvent_WorkflowPropertiesModifiedExternallyEventAttributes\n\t*HistoryEvent_ActivityPropertiesModifiedExternallyEventAttributes\n\t*HistoryEvent_WorkflowPropertiesModifiedEventAttributes\n\t*HistoryEvent_WorkflowExecutionUpdateAdmittedEventAttributes\n\t*HistoryEvent_NexusOperationScheduledEventAttributes\n\t*HistoryEvent_NexusOperationStartedEventAttributes\n\t*HistoryEvent_NexusOperationCompletedEventAttributes\n\t*HistoryEvent_NexusOperationFailedEventAttributes\n\t*HistoryEvent_NexusOperationCanceledEventAttributes\n\t*HistoryEvent_NexusOperationTimedOutEventAttributes\n\t*HistoryEvent_NexusOperationCancelRequestedEventAttributes\n\t*HistoryEvent_WorkflowExecutionOptionsUpdatedEventAttributes\n\t*HistoryEvent_NexusOperationCancelRequestCompletedEventAttributes\n\t*HistoryEvent_NexusOperationCancelRequestFailedEventAttributes"
-        event_id:
-          description: Monotonically increasing event number, starts at 1.
-          type: integer
-        event_time:
-          $ref: '#/components/schemas/timestamppb.Timestamp'
-        event_type:
-          $ref: '#/components/schemas/enums.EventType'
-        links:
-          description: Links associated with the event.
+        tags:
           type: array
           items:
-            $ref: '#/components/schemas/common.Link'
-        task_id:
-          description: 'TODO: What is this? Appears unused by SDKs'
-          type: integer
-        user_metadata:
-          $ref: '#/components/schemas/sdk.UserMetadata'
-        version:
-          description: 'TODO: What is this? Appears unused by SDKs'
-          type: integer
-        worker_may_ignore:
-          description: 'Set to true when the SDK may ignore the event as it does not impact workflow state or
-
-            information in any way that the SDK need be concerned with. If an SDK encounters an event
-
-            type which it does not understand, it must error unless this is true. If it is true, it''s
-
-            acceptable for the event type and/or attributes to be uninterpretable.'
-          type: boolean
-    durationpb.Duration:
-      type: object
-      properties:
-        nanos:
-          description: 'Signed fractions of a second at nanosecond resolution of the span
-
-            of time. Durations less than one second are represented with a 0
-
-            `seconds` field and a positive or negative `nanos` field. For durations
-
-            of one second or more, a non-zero value for the `nanos` field must be
-
-            of the same sign as the `seconds` field. Must be from -999,999,999
-
-            to +999,999,999 inclusive.'
-          type: integer
-        seconds:
-          description: 'Signed seconds of the span of time. Must be from -315,576,000,000
-
-            to +315,576,000,000 inclusive. Note: these bounds are computed from:
-
-            60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years'
-          type: integer
-      description: "Limits time an activity task can stay in a task queue before a worker picks it up. This\ntimeout is always non retryable, as all a retry would achieve is to put it back into the same\nqueue. Defaults to `schedule_to_close_timeout` or workflow execution timeout if not\nspecified.\n\n(-- api-linter: core::0140::prepositions=disabled\n\n\taip.dev/not-precedent: \"to\" is used to indicate interval. --)"
+            type: string
+        workflowName:
+          type: string
+        workflowVersion:
+          type: string
     common.Priority:
       type: object
       properties:
@@ -1245,40 +1213,267 @@ components:
             default max of 5, and min of 1, that comes out to 3.'
           type: integer
       description: Priority metadata
-    common.Callback:
+    common.Payloads:
       type: object
       properties:
-        links:
-          description: 'Links associated with the callback. It can be used to link to underlying resources of the
-
-            callback.'
+        payloads:
           type: array
           items:
-            $ref: '#/components/schemas/common.Link'
-        variant:
-          description: "Types that are valid to be assigned to Variant:\n\n\t*Callback_Nexus_\n\t*Callback_Internal_"
-      description: Information on how this callback should be invoked (e.g. its URL and type).
+            $ref: '#/components/schemas/common.Payload'
+    workflow.DeploymentTransition:
+      type: object
+      properties:
+        deployment:
+          $ref: '#/components/schemas/deployment.Deployment'
+      description: 'When present, indicates the workflow is transitioning to a different deployment. Can
+
+        indicate one of the following transitions: unversioned -> versioned, versioned -> versioned
+
+        on a different deployment, or versioned -> unversioned.
+
+        Not applicable to workflows with PINNED behavior.
+
+        When a workflow with AUTO_UPGRADE behavior creates a new workflow task, it will automatically
+
+        start a transition to the task queue''s current deployment if the task queue''s current
+
+        deployment is different from the workflow''s deployment.
+
+        If the AUTO_UPGRADE workflow is stuck due to backlogged activity or workflow tasks, those
+
+        tasks will be redirected to the task queue''s current deployment. As soon as a poller from
+
+        that deployment is available to receive the task, the workflow will automatically start a
+
+        transition to that deployment and continue execution there.
+
+        A deployment transition can only exist while there is a pending or started workflow task.
+
+        Once the pending workflow task completes on the transition''s target deployment, the
+
+        transition completes and the workflow''s `deployment` and `behavior` fields are updated per
+
+        the worker''s task completion response.
+
+        Pending activities will not start new attempts during a transition. Once the transition is
+
+        completed, pending activities will start their next attempt on the new deployment.
+
+        Deprecated. Use version_transition.
+
+
+        Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
+    workflowservice.DescribeWorkflowExecutionResponse:
+      type: object
+      properties:
+        callbacks:
+          type: array
+          items:
+            $ref: '#/components/schemas/workflow.CallbackInfo'
+        execution_config:
+          $ref: '#/components/schemas/workflow.WorkflowExecutionConfig'
+        pending_activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/workflow.PendingActivityInfo'
+        pending_children:
+          type: array
+          items:
+            $ref: '#/components/schemas/workflow.PendingChildExecutionInfo'
+        pending_nexus_operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/workflow.PendingNexusOperationInfo'
+        pending_workflow_task:
+          $ref: '#/components/schemas/workflow.PendingWorkflowTaskInfo'
+        workflow_execution_info:
+          $ref: '#/components/schemas/workflow.WorkflowExecutionInfo'
+        workflow_extended_info:
+          $ref: '#/components/schemas/workflow.WorkflowExecutionExtendedInfo'
+    enums.ParentClosePolicy:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      x-enum-varnames:
+      - PARENT_CLOSE_POLICY_UNSPECIFIED
+      - PARENT_CLOSE_POLICY_TERMINATE
+      - PARENT_CLOSE_POLICY_ABANDON
+      - PARENT_CLOSE_POLICY_REQUEST_CANCEL
+      description: 'Default: PARENT_CLOSE_POLICY_TERMINATE.'
+    workflow.NexusOperationCancellationInfo:
+      type: object
+      properties:
+        attempt:
+          description: 'The number of attempts made to deliver the cancel operation request.
+
+            This number represents a minimum bound since the attempt is incremented after the request completes.'
+          type: integer
+        blocked_reason:
+          description: If the state is BLOCKED, blocked reason provides additional information.
+          type: string
+        last_attempt_complete_time:
+          $ref: '#/components/schemas/timestamppb.Timestamp'
+        last_attempt_failure:
+          $ref: '#/components/schemas/failure.Failure'
+        next_attempt_schedule_time:
+          $ref: '#/components/schemas/timestamppb.Timestamp'
+        requested_time:
+          $ref: '#/components/schemas/timestamppb.Timestamp'
+        state:
+          $ref: '#/components/schemas/enums.NexusOperationCancellationState'
+    enums.WorkflowExecutionStatus:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      x-enum-varnames:
+      - WORKFLOW_EXECUTION_STATUS_UNSPECIFIED
+      - WORKFLOW_EXECUTION_STATUS_RUNNING
+      - WORKFLOW_EXECUTION_STATUS_COMPLETED
+      - WORKFLOW_EXECUTION_STATUS_FAILED
+      - WORKFLOW_EXECUTION_STATUS_CANCELED
+      - WORKFLOW_EXECUTION_STATUS_TERMINATED
+      - WORKFLOW_EXECUTION_STATUS_CONTINUED_AS_NEW
+      - WORKFLOW_EXECUTION_STATUS_TIMED_OUT
+    gin.H:
+      type: object
+      additionalProperties: {}
+    common.Memo:
+      type: object
+      properties:
+        fields:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/common.Payload'
     workflow.CallbackInfo_Trigger:
       type: object
       properties:
         variant:
           description: "Types that are valid to be assigned to Variant:\n\n\t*CallbackInfo_Trigger_WorkflowClosed"
       description: Trigger for this callback.
-    server.TriggerData:
+    timestamppb.Timestamp:
       type: object
       properties:
-        data:
+        nanos:
+          description: 'Non-negative fractions of a second at nanosecond resolution. Negative
+
+            second values with fractions must still have non-negative nanos values
+
+            that count forward in time. Must be from 0 to 999,999,999
+
+            inclusive.'
+          type: integer
+        seconds:
+          description: 'Represents seconds of UTC time since Unix epoch
+
+            1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to
+
+            9999-12-31T23:59:59Z inclusive.'
+          type: integer
+      description: 'original_scheduled_time is the scheduled time of the first workflow task during workflow task heartbeat.
+
+        Heartbeat workflow task is done by RespondWorkflowTaskComplete with ForceCreateNewWorkflowTask == true and no command
+
+        In this case, OriginalScheduledTime won''t change. Then when current time - original_scheduled_time exceeds
+
+        some threshold, the workflow task will be forced timeout.'
+    workflow.WorkflowExecutionExtendedInfo:
+      type: object
+      properties:
+        cancel_requested:
+          description: indicates if the workflow received a cancel request
+          type: boolean
+        execution_expiration_time:
+          $ref: '#/components/schemas/timestamppb.Timestamp'
+        last_reset_time:
+          $ref: '#/components/schemas/timestamppb.Timestamp'
+        original_start_time:
+          $ref: '#/components/schemas/timestamppb.Timestamp'
+        request_id_infos:
+          description: 'Request ID information (eg: history event information associated with the request ID).
+
+            Note: It only contains request IDs from StartWorkflowExecution requests, including indirect
+
+            calls (eg: if SignalWithStartWorkflowExecution starts a new workflow, then the request ID is
+
+            used in the StartWorkflowExecution request).'
           type: object
-        jobName:
+          additionalProperties:
+            $ref: '#/components/schemas/workflow.RequestIdInfo'
+        reset_run_id:
+          description: Reset Run ID points to the new run when this execution is reset. If the execution is reset multiple times, it points to the latest run.
           type: string
-        tags:
-          type: array
-          items:
-            type: string
-        workflowName:
+        run_expiration_time:
+          $ref: '#/components/schemas/timestamppb.Timestamp'
+    go_temporal_io_api_deployment_v1.WorkerDeploymentVersion:
+      type: object
+      properties:
+        build_id:
+          description: 'A unique identifier for this Version within the Deployment it is a part of.
+
+            Not necessarily unique within the namespace.
+
+            The combination of `deployment_name` and `build_id` uniquely identifies this
+
+            Version within the namespace, because Deployment names are unique within a namespace.'
           type: string
-        workflowVersion:
+        deployment_name:
+          description: Identifies the Worker Deployment this Version is part of.
           type: string
+      description: 'The Worker Deployment Version that completed the last workflow task of this workflow execution.
+
+        An absent value means no workflow task is completed, or the workflow is unversioned.
+
+        If present, and `behavior` is UNSPECIFIED, the last task of this workflow execution was completed
+
+        by a worker that is not using versioning but _is_ passing Deployment Name and Build ID.
+
+
+        For child workflows of Pinned parents, this will be set to the parent''s Pinned Version when
+
+        the child starts, so that the child''s first workflow task goes to the same Version as the parent.
+
+        Note that if `versioning_override.behavior` is PINNED then `versioning_override.pinned_version`
+
+        will override this value.'
+    workflow.WorkflowExecutionConfig:
+      type: object
+      properties:
+        default_workflow_task_timeout:
+          $ref: '#/components/schemas/durationpb.Duration'
+        task_queue:
+          $ref: '#/components/schemas/taskqueue.TaskQueue'
+        user_metadata:
+          $ref: '#/components/schemas/sdk.UserMetadata'
+        workflow_execution_timeout:
+          $ref: '#/components/schemas/durationpb.Duration'
+        workflow_run_timeout:
+          $ref: '#/components/schemas/durationpb.Duration'
+    activity.ActivityOptions:
+      type: object
+      properties:
+        heartbeat_timeout:
+          $ref: '#/components/schemas/durationpb.Duration'
+        retry_policy:
+          $ref: '#/components/schemas/common.RetryPolicy'
+        schedule_to_close_timeout:
+          $ref: '#/components/schemas/durationpb.Duration'
+        schedule_to_start_timeout:
+          $ref: '#/components/schemas/durationpb.Duration'
+        start_to_close_timeout:
+          $ref: '#/components/schemas/durationpb.Duration'
+        task_queue:
+          $ref: '#/components/schemas/taskqueue.TaskQueue'
+      description: Current activity options. May be different from the one used to start the activity.
     workflow.WorkflowExecutionInfo:
       type: object
       properties:
@@ -1368,238 +1563,43 @@ components:
 
             Experimental. Worker Deployments are experimental and might change in the future.'
           type: string
-    workflow.ResetPointInfo:
-      type: object
-      properties:
-        binary_checksum:
-          description: 'Deprecated. A worker binary version identifier.
-
-
-            Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
-          type: string
-        build_id:
-          description: Worker build id.
-          type: string
-        create_time:
-          $ref: '#/components/schemas/timestamppb.Timestamp'
-        expire_time:
-          $ref: '#/components/schemas/timestamppb.Timestamp'
-        first_workflow_task_completed_id:
-          description: Event ID of the first WorkflowTaskCompleted event processed by this worker build.
-          type: integer
-        resettable:
-          description: false if the reset point has pending childWFs/reqCancels/signalExternals.
-          type: boolean
-        run_id:
-          description: The first run ID in the execution chain that was touched by this worker build.
-          type: string
-    workflow.ResetPoints:
-      type: object
-      properties:
-        points:
-          type: array
-          items:
-            $ref: '#/components/schemas/workflow.ResetPointInfo'
-    workflow.PendingWorkflowTaskInfo:
-      type: object
-      properties:
-        attempt:
-          type: integer
-        original_scheduled_time:
-          $ref: '#/components/schemas/timestamppb.Timestamp'
-        scheduled_time:
-          $ref: '#/components/schemas/timestamppb.Timestamp'
-        started_time:
-          $ref: '#/components/schemas/timestamppb.Timestamp'
-        state:
-          $ref: '#/components/schemas/enums.PendingWorkflowTaskState'
-    enums.VersioningBehavior:
-      type: integer
-      enum:
-      - 0
-      - 1
-      - 2
-      x-enum-varnames:
-      - VERSIONING_BEHAVIOR_UNSPECIFIED
-      - VERSIONING_BEHAVIOR_PINNED
-      - VERSIONING_BEHAVIOR_AUTO_UPGRADE
-      description: 'Versioning behavior determines how the server should treat this execution when workers are
-
-        upgraded. When present it means this workflow execution is versioned; UNSPECIFIED means
-
-        unversioned. See the comments in `VersioningBehavior` enum for more info about different
-
-        behaviors.
-
-        This field is first set after an execution completes its first workflow task on a versioned
-
-        worker, and set again on completion of every subsequent workflow task.
-
-        For child workflows of Pinned parents, this will be set to Pinned (along with `deployment_version`) when
-
-        the the child starts so that child''s first workflow task goes to the same Version as the
-
-        parent. After the first workflow task, it depends on the child workflow itself if it wants
-
-        to stay pinned or become unpinned (according to Versioning Behavior set in the worker).
-
-        Note that `behavior` is overridden by `versioning_override` if the latter is present.'
-    deployment.Deployment:
-      type: object
-      properties:
-        build_id:
-          description: 'Build ID changes with each version of the worker when the worker program code and/or config
-
-            changes.'
-          type: string
-        series_name:
-          description: 'Different versions of the same worker service/application are related together by having a
-
-            shared series name.
-
-            Out of all deployments of a series, one can be designated as the current deployment, which
-
-            receives new workflow executions and new tasks of workflows with
-
-            `VERSIONING_BEHAVIOR_AUTO_UPGRADE` versioning behavior.'
-          type: string
-      description: 'The worker deployment that completed the last workflow task of this workflow execution. Must
-
-        be present if `behavior` is set. Absent value means no workflow task is completed, or the
-
-        last workflow task was completed by an unversioned worker. Unversioned workers may still send
-
-        a deployment value which will be stored here, so the right way to check if an execution is
-
-        versioned if an execution is versioned or not is via the `behavior` field.
-
-        Note that `deployment` is overridden by `versioning_override` if the latter is present.
-
-        Deprecated. Use `deployment_version`.
-
-
-        Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
-    enums.TaskQueueKind:
-      type: integer
-      enum:
-      - 0
-      - 1
-      - 2
-      x-enum-varnames:
-      - TASK_QUEUE_KIND_UNSPECIFIED
-      - TASK_QUEUE_KIND_NORMAL
-      - TASK_QUEUE_KIND_STICKY
-      description: 'Default: TASK_QUEUE_KIND_NORMAL.'
-    common.WorkflowType:
-      type: object
-      properties:
-        name:
-          type: string
-    common.WorkerVersionStamp:
-      type: object
-      properties:
-        build_id:
-          description: 'An opaque whole-worker identifier. Replaces the deprecated `binary_checksum` field when this
-
-            message is included in requests which previously used that.'
-          type: string
-        use_versioning:
-          description: 'If set, the worker is opting in to worker versioning. Otherwise, this is used only as a
-
-            marker for workflow reset points and the BuildIDs search attribute.'
-          type: boolean
-      description: 'If set, the most recent worker version stamp that appeared in a workflow task completion
-
-        Deprecated. This field should be cleaned up when versioning-2 API is removed. [cleanup-experimental-wv]
-
-
-        Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
-    sdk.UserMetadata:
-      type: object
-      properties:
-        details:
-          $ref: '#/components/schemas/common.Payload'
-        summary:
-          $ref: '#/components/schemas/common.Payload'
-      description: "Metadata on the event. This is often carried over from commands and client calls. Most events\nwon't have this information, and how this information is used is dependent upon the interface\nthat reads it.\n\nCurrent well-known uses:\n  - workflow_execution_started_event_attributes - summary and details from start workflow.\n  - timer_started_event_attributes - summary represents an identifier for the timer for use by\n    user interfaces."
-    workflow.PendingActivityInfo_PauseInfo:
-      type: object
-      properties:
-        pause_time:
-          $ref: '#/components/schemas/timestamppb.Timestamp'
-        pausedBy:
-          description: "Types that are valid to be assigned to PausedBy:\n\n\t*PendingActivityInfo_PauseInfo_Manual_\n\t*PendingActivityInfo_PauseInfo_Rule_"
-    timestamppb.Timestamp:
-      type: object
-      properties:
-        nanos:
-          description: 'Non-negative fractions of a second at nanosecond resolution. Negative
-
-            second values with fractions must still have non-negative nanos values
-
-            that count forward in time. Must be from 0 to 999,999,999
-
-            inclusive.'
-          type: integer
-        seconds:
-          description: 'Represents seconds of UTC time since Unix epoch
-
-            1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to
-
-            9999-12-31T23:59:59Z inclusive.'
-          type: integer
-      description: 'original_scheduled_time is the scheduled time of the first workflow task during workflow task heartbeat.
-
-        Heartbeat workflow task is done by RespondWorkflowTaskComplete with ForceCreateNewWorkflowTask == true and no command
-
-        In this case, OriginalScheduledTime won''t change. Then when current time - original_scheduled_time exceeds
-
-        some threshold, the workflow task will be forced timeout.'
-    gin.H:
-      type: object
-      additionalProperties: {}
-    enums.ParentClosePolicy:
+    enums.NexusOperationCancellationState:
       type: integer
       enum:
       - 0
       - 1
       - 2
       - 3
+      - 4
+      - 5
+      - 6
       x-enum-varnames:
-      - PARENT_CLOSE_POLICY_UNSPECIFIED
-      - PARENT_CLOSE_POLICY_TERMINATE
-      - PARENT_CLOSE_POLICY_ABANDON
-      - PARENT_CLOSE_POLICY_REQUEST_CANCEL
-      description: 'Default: PARENT_CLOSE_POLICY_TERMINATE.'
-    workflow.WorkflowExecutionVersioningInfo:
-      type: object
-      properties:
-        behavior:
-          $ref: '#/components/schemas/enums.VersioningBehavior'
-        deployment:
-          $ref: '#/components/schemas/deployment.Deployment'
-        deployment_transition:
-          $ref: '#/components/schemas/workflow.DeploymentTransition'
-        deployment_version:
-          $ref: '#/components/schemas/go_temporal_io_api_deployment_v1.WorkerDeploymentVersion'
-        version:
-          description: 'Deprecated. Use `deployment_version`.
-
-
-            Deprecated: Marked as deprecated in temporal/api/workflow/v1/message.proto.'
-          type: string
-        version_transition:
-          $ref: '#/components/schemas/workflow.DeploymentVersionTransition'
-        versioning_override:
-          $ref: '#/components/schemas/workflow.VersioningOverride'
-      description: 'Absent value means the workflow execution is not versioned. When present, the execution might
-
-        be versioned or unversioned, depending on `versioning_info.behavior` and `versioning_info.versioning_override`.
-
-        Experimental. Versioning info is experimental and might change in the future.'
+      - NEXUS_OPERATION_CANCELLATION_STATE_UNSPECIFIED
+      - NEXUS_OPERATION_CANCELLATION_STATE_SCHEDULED
+      - NEXUS_OPERATION_CANCELLATION_STATE_BACKING_OFF
+      - NEXUS_OPERATION_CANCELLATION_STATE_SUCCEEDED
+      - NEXUS_OPERATION_CANCELLATION_STATE_FAILED
+      - NEXUS_OPERATION_CANCELLATION_STATE_TIMED_OUT
+      - NEXUS_OPERATION_CANCELLATION_STATE_BLOCKED
+    enums.PendingWorkflowTaskState:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 2
+      x-enum-varnames:
+      - PENDING_WORKFLOW_TASK_STATE_UNSPECIFIED
+      - PENDING_WORKFLOW_TASK_STATE_SCHEDULED
+      - PENDING_WORKFLOW_TASK_STATE_STARTED
   securitySchemes:
     Bearer:
       type: apiKey
       name: Authorization
       in: header
       description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+x-evidence:
+- type: reference
+  url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+- type: fragment-index
+  url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+  count: 90

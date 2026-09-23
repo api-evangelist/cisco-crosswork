@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   description: This document contains details of the Crosswork Network Controller nso-connector APIs
   version: '2.0'
-  title: Crosswork Network Controller CAT NSO Connector Log Controller API
+  title: Crosswork Network Controller CAT NSO Connector Log…
   contact:
     name: Crosswork Team, Cisco
     email: support@cisco.com

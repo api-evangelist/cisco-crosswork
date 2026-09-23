@@ -8,7 +8,7 @@ info:
   license:
     name: Cisco Software License Agreement
     url: http://www.cisco.com/public/sw-license-agreement.html
-  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  description: This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -32,7 +32,7 @@ paths:
   /v1/tags:
     parameters: []
     delete:
-      summary: Delete the tags in CrossWork, to be associated with the nodes. A Tag cannot be deleted if it is associated with a Device/Node
+      summary: Delete the tags in CrossWork, to be associated with the nodes.
       responses:
         '200':
           description: A successful response.
@@ -50,36 +50,10 @@ paths:
             schema:
               $ref: '#/components/schemas/robotapiRobotNodeTagList'
         required: true
+      operationId: deleteV1Tags
+      x-operation-id-source: derived
 components:
   schemas:
-    robotapiRobotNodeTag:
-      type: object
-      properties:
-        name:
-          type: string
-        category:
-          type: string
-        created_by:
-          type: string
-        creation_time:
-          type: string
-          format: int64
-        devices_tagged:
-          type: integer
-          format: int64
-      description: Device Tag Object
-    robotapiRobotJobState:
-      description: Various Job Resulting states.
-      type: string
-      enum:
-      - JOB_INVALID
-      - JOB_REJECTED
-      - JOB_ACCEPTED
-      - JOB_DB_UPDATED
-      - JOB_NOTIFICATION_PUBLISHED
-      - JOB_COMPLETED
-      - JOB_FAILED
-      default: JOB_INVALID
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -134,6 +108,34 @@ components:
           type: integer
           format: int32
           description: Number of total tags available at present
+    robotapiRobotNodeTag:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        created_by:
+          type: string
+        creation_time:
+          type: string
+          format: int64
+        devices_tagged:
+          type: integer
+          format: int64
+      description: Device Tag Object
+    robotapiRobotJobState:
+      description: Various Job Resulting states.
+      type: string
+      enum:
+      - JOB_INVALID
+      - JOB_REJECTED
+      - JOB_ACCEPTED
+      - JOB_DB_UPDATED
+      - JOB_NOTIFICATION_PUBLISHED
+      - JOB_COMPLETED
+      - JOB_FAILED
+      default: JOB_INVALID
   securitySchemes:
     bearerAuth:
       type: apiKey

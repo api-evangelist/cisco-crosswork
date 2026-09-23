@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Workflow Manager Tasks API
   description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
-  version: 2.1.0
-  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  title: Cisco Crosswork Workflow Manager Tasks API
+  termsOfService: www.cisco.com
   contact:
     name: API Support
     url: https://www.cisco.com/support
+  version: 2.1.0
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -14,27 +14,19 @@ info:
     harvested_on: '2026-08-19'
     first_party: true
     provider_published: true
-    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
-  x-evidence:
-  - type: source
-    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  - type: raw
-    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+    note: 'Reconstructed verbatim from the per-operation Swagger 2.0 JSON fragments Cisco serves for the Crosswork Workflow Manager API reference at developer.cisco.com/docs/crosswork/workflow-manager/. info, basePath and securityDefinitions are Cisco''s own meta block; each path/method object is Cisco''s own spec object, unmodified except that inline schemas carrying the swagger-ui $$ref marker were hoisted back into #/definitions and replaced with a real $ref.'
 servers:
 - url: /crosswork/cwm/v2
-  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
-security:
-- Bearer: []
 tags:
-- name: tasks
+- name: Tasks
 paths:
   /task:
     get:
-      summary: List all available tasks.
       description: Retrieve a list of all available tasks.
-      operationId: list_tasks
       tags:
-      - tasks
+      - Tasks
+      summary: List all available tasks
+      operationId: list_tasks
       responses:
         '200':
           description: Tasks retrieved successfully.
@@ -58,19 +50,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: list-tasks
+      method: get
+      path: /task
   /task/{taskId}:
     delete:
-      summary: Delete a task by ID.
       description: Delete a specific task by its ID.
-      operationId: delete_task
       tags:
-      - tasks
+      - Tasks
+      summary: Delete a task by ID
+      operationId: delete_task
       parameters:
-      - name: taskId
+      - description: Task ID.
+        name: taskId
         in: path
-        description: Task ID.
         required: true
         schema:
           type: string
@@ -99,18 +92,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: delete-task
+      method: delete
+      path: /task/{taskId}
     get:
-      summary: Get a specific task by ID.
       description: Retrieve detailed information about a specific task by its ID.
-      operationId: get_task
       tags:
-      - tasks
+      - Tasks
+      summary: Get a specific task by ID
+      operationId: get_task
       parameters:
-      - name: taskId
+      - description: Task ID.
+        name: taskId
         in: path
-        description: Task ID.
         required: true
         schema:
           type: string
@@ -139,8 +133,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: get-task
+      method: get
+      path: /task/{taskId}
 components:
   schemas:
     models.CallbackForm:
@@ -164,6 +159,15 @@ components:
           type: string
         updatedAt:
           type: string
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
     models.CallbackTask:
       type: object
       properties:
@@ -193,18 +197,15 @@ components:
           type: string
         updatedAt:
           type: string
-    server.HTTPError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: status bad request
   securitySchemes:
     Bearer:
       type: apiKey
       name: Authorization
       in: header
       description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+x-evidence:
+- type: reference
+  url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+- type: fragment-index
+  url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+  count: 90

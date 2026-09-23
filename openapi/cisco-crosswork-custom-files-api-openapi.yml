@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Crosswork Data Gateway Management Custom Software Custom Files API
+  title: Crosswork Data Gateway Management Custom Software Custom…
   description: APIs to support Cisco Crosswork Data Gateway Management's custom software functionality.
   contact:
     name: Crosswork Team, Cisco
@@ -71,7 +71,7 @@ paths:
       - Custom Files
     put:
       description: Helps in updating the custom-mib-packages.tar.xz MIB package. Update is supported for custom-mib-packages.tar.xz only.
-      summary: Update the custom-mib-packages.tar.xz package.
+      summary: Update the custom-mib-packages.tar.xz package
       operationId: PutUploadMIBPackage
       deprecated: false
       responses:
@@ -111,7 +111,7 @@ paths:
   /v1/custom-files/delete:
     delete:
       description: Deletes one or more custom software packages.
-      summary: Deletes one or more custom software packages.
+      summary: Deletes one or more custom software packages
       operationId: deleteCustomSoftwarePackage
       deprecated: false
       responses:
@@ -131,7 +131,7 @@ paths:
   /v1/custom-files/query:
     post:
       description: Displays all the uploaded custom software files based on a specified range.
-      summary: Displays all the uploaded custom software files based on a specified range.
+      summary: Displays all the uploaded custom software files based on a specified range
       operationId: GetUploadedCustomSoftware
       deprecated: false
       responses:

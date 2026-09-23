@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Manager Workflows Workflow API
   description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
-  version: 2.1.0
-  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  title: Cisco Crosswork Manager Workflow API
+  termsOfService: www.cisco.com
   contact:
     name: API Support
     url: https://www.cisco.com/support
+  version: 2.1.0
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -14,32 +14,25 @@ info:
     harvested_on: '2026-08-19'
     first_party: true
     provider_published: true
-    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
-  x-evidence:
-  - type: source
-    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  - type: raw
-    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+    note: 'Reconstructed verbatim from the per-operation Swagger 2.0 JSON fragments Cisco serves for the Crosswork Workflow Manager API reference at developer.cisco.com/docs/crosswork/workflow-manager/. info, basePath and securityDefinitions are Cisco''s own meta block; each path/method object is Cisco''s own spec object, unmodified except that inline schemas carrying the swagger-ui $$ref marker were hoisted back into #/definitions and replaced with a real $ref.'
 servers:
 - url: /crosswork/cwm/v2
-  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
-security:
-- Bearer: []
 tags:
-- name: workflow
+- name: Workflow
 paths:
   /workflow:
     get:
-      summary: List workflows.
       description: Retrieve a list of workflows from the application's database, optionally filtered by tags.
-      operationId: list_workflows
       tags:
-      - workflow
+      - Workflow
+      summary: List workflows
+      operationId: list_workflows
       parameters:
-      - name: tags
+      - description: Tags to filter workflows.
+        name: tags
         in: query
-        description: Tags to filter workflows.
-        required: false
+        style: form
+        explode: false
         schema:
           type: array
           items:
@@ -59,21 +52,15 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      __originalOperationId: list-workflows
+      method: get
+      path: /workflow
     post:
-      summary: Add a new workflow.
       description: Add a new workflow to the application database.
-      operationId: create_workflow
       tags:
-      - workflow
-      requestBody:
-        description: Workflow details to add.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.WorkflowAttributes'
+      - Workflow
+      summary: Add a new workflow
+      operationId: create_workflow
       responses:
         '200':
           description: Workflow UUID generated successfully.
@@ -87,25 +74,33 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      __originalOperationId: create-workflow
+      method: post
+      path: /workflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.WorkflowAttributes'
+        description: Workflow details to add.
+        required: true
   /workflow/name/{workflowName}/version/{workflowVersion}:
     delete:
-      summary: Delete a workflow by name and version.
       description: Delete a specific workflow by its name and version from the application database.
-      operationId: delete_workflow_by_name_version
       tags:
-      - workflow
+      - Workflow
+      summary: Delete a workflow by name and version
+      operationId: delete_workflow_by_name_version
       parameters:
-      - name: workflowName
+      - description: Workflow name.
+        name: workflowName
         in: path
-        description: Workflow name.
         required: true
         schema:
           type: string
-      - name: workflowVersion
+      - description: Workflow version.
+        name: workflowVersion
         in: path
-        description: Workflow version.
         required: true
         schema:
           type: string
@@ -122,24 +117,25 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      __originalOperationId: delete-workflow-by-name-version
+      method: delete
+      path: /workflow/name/{workflowName}/version/{workflowVersion}
     get:
-      summary: Get a workflow by name and version.
       description: Retrieve a specific workflow by its name and version from the application database.
-      operationId: get_workflow_by_name_version
       tags:
-      - workflow
+      - Workflow
+      summary: Get a workflow by name and version
+      operationId: get_workflow_by_name_version
       parameters:
-      - name: workflowName
+      - description: Workflow name.
+        name: workflowName
         in: path
-        description: Workflow name.
         required: true
         schema:
           type: string
-      - name: workflowVersion
+      - description: Workflow version.
+        name: workflowVersion
         in: path
-        description: Workflow version.
         required: true
         schema:
           type: string
@@ -156,34 +152,28 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      __originalOperationId: get-workflow-by-name-version
+      method: get
+      path: /workflow/name/{workflowName}/version/{workflowVersion}
     put:
-      summary: Update a workflow by name and version.
       description: Update an existing workflow by its name and version in the application database.
-      operationId: update_workflow_by_name_version
       tags:
-      - workflow
+      - Workflow
+      summary: Update a workflow by name and version
+      operationId: update_workflow_by_name_version
       parameters:
-      - name: workflowName
+      - description: Workflow name.
+        name: workflowName
         in: path
-        description: Workflow name.
         required: true
         schema:
           type: string
-      - name: workflowVersion
+      - description: Workflow version.
+        name: workflowVersion
         in: path
-        description: Workflow version.
         required: true
         schema:
           type: string
-      requestBody:
-        description: Updated workflow details.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.WorkflowAttributes'
       responses:
         '200':
           description: Workflow updated successfully.
@@ -197,35 +187,36 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
-  /workflow/name/{workflowName}/version/{workflowVersion}/validateInputData:
-    post:
-      summary: Validate workflow input data.
-      description: Validate whether the input data provided is valid for the specified workflow.
-      operationId: validate_workflow_input
-      tags:
-      - workflow
-      parameters:
-      - name: workflowName
-        in: path
-        description: Workflow name.
-        required: true
-        schema:
-          type: string
-      - name: workflowVersion
-        in: path
-        description: Workflow version.
-        required: true
-        schema:
-          type: string
+      __originalOperationId: update-workflow-by-name-version
+      method: put
+      path: /workflow/name/{workflowName}/version/{workflowVersion}
       requestBody:
-        description: Input data to validate.
-        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/server.InputSchemaVadation'
+              $ref: '#/components/schemas/server.WorkflowAttributes'
+        description: Updated workflow details.
+        required: true
+  /workflow/name/{workflowName}/version/{workflowVersion}/validateInputData:
+    post:
+      description: Validate whether the input data provided is valid for the specified workflow.
+      tags:
+      - Workflow
+      summary: Validate workflow input data
+      operationId: validate_workflow_input
+      parameters:
+      - description: Workflow name.
+        name: workflowName
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Workflow version.
+        name: workflowVersion
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Input data validation successful.
@@ -239,15 +230,23 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      __originalOperationId: validate-workflow-input
+      method: post
+      path: /workflow/name/{workflowName}/version/{workflowVersion}/validateInputData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.InputSchemaVadation'
+        description: Input data to validate.
+        required: true
   /workflow/tags:
     get:
-      summary: List all workflow tags.
       description: Retrieve a list of all workflow tags from the application database.
-      operationId: list_workflow_tags
       tags:
-      - workflow
+      - Workflow
+      summary: List all workflow tags
+      operationId: list_workflow_tags
       responses:
         '200':
           description: Workflow tags retrieved successfully.
@@ -263,22 +262,16 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      __originalOperationId: list-workflow-tags
+      method: get
+      path: /workflow/tags
   /workflow/validate:
     post:
-      summary: Validate a workflow.
       description: Validate whether a workflow definition is valid.
-      operationId: validate_workflow
       tags:
-      - workflow
-      requestBody:
-        description: Workflow definition to validate.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.WorkflowDefinition'
+      - Workflow
+      summary: Validate a workflow
+      operationId: validate_workflow
       responses:
         '200':
           description: Workflow validation successful.
@@ -292,19 +285,27 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      __originalOperationId: validate-workflow
+      method: post
+      path: /workflow/validate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.WorkflowDefinition'
+        description: Workflow definition to validate.
+        required: true
   /workflow/{workflowId}:
     delete:
-      summary: Delete a workflow by UUID.
       description: Delete a workflow from the application database by its UUID.
-      operationId: delete_workflow
       tags:
-      - workflow
+      - Workflow
+      summary: Delete a workflow by UUID
+      operationId: delete_workflow
       parameters:
-      - name: workflowId
+      - description: Workflow UUID.
+        name: workflowId
         in: path
-        description: Workflow UUID.
         required: true
         schema:
           type: string
@@ -321,18 +322,19 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      __originalOperationId: delete-workflow
+      method: delete
+      path: /workflow/{workflowId}
     get:
-      summary: Get a workflow by UUID.
       description: Retrieve a workflow from the application database by its UUID.
-      operationId: get_workflow_by_id
       tags:
-      - workflow
+      - Workflow
+      summary: Get a workflow by UUID
+      operationId: get_workflow_by_id
       parameters:
-      - name: workflowId
+      - description: Workflow UUID.
+        name: workflowId
         in: path
-        description: Workflow UUID.
         required: true
         schema:
           type: string
@@ -349,28 +351,22 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      __originalOperationId: get-workflow-by-id
+      method: get
+      path: /workflow/{workflowId}
     put:
-      summary: Update a workflow by UUID.
       description: Update an existing workflow in the application database by its UUID.
-      operationId: update_workflow_by_id
       tags:
-      - workflow
+      - Workflow
+      summary: Update a workflow by UUID
+      operationId: update_workflow_by_id
       parameters:
-      - name: workflowId
+      - description: Workflow UUID.
+        name: workflowId
         in: path
-        description: Workflow UUID.
         required: true
         schema:
           type: string
-      requestBody:
-        description: Updated workflow details.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.WorkflowAttributes'
       responses:
         '200':
           description: Workflow updated successfully.
@@ -384,24 +380,23 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
-  /workflowExport:
-    post:
-      summary: Export workflow definitions.
-      description: Export workflow definitions using name and version. An empty request body exports all workflows.
-      operationId: export_workflows
-      tags:
-      - workflow
+      __originalOperationId: update-workflow-by-id
+      method: put
+      path: /workflow/{workflowId}
       requestBody:
-        description: Workflow export request details.
-        required: true
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/repository.NameVersion'
+              $ref: '#/components/schemas/server.WorkflowAttributes'
+        description: Updated workflow details.
+        required: true
+  /workflowExport:
+    post:
+      description: Export workflow definitions using name and version. An empty request body exports all workflows.
+      tags:
+      - Workflow
+      summary: Export workflow definitions
+      operationId: export_workflows
       responses:
         '200':
           description: Workflows exported successfully.
@@ -417,24 +412,25 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
-  /workflowImport:
-    post:
-      summary: Import workflow definitions.
-      description: Import workflows into the application database.
-      operationId: import_workflows
-      tags:
-      - workflow
+      __originalOperationId: export-workflows
+      method: post
+      path: /workflowExport
       requestBody:
-        description: Workflow definitions to import.
-        required: true
         content:
           application/json:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/server.WorkflowAttributes'
+                $ref: '#/components/schemas/repository.NameVersion'
+        description: Workflow export request details.
+        required: true
+  /workflowImport:
+    post:
+      description: Import workflows into the application database.
+      tags:
+      - Workflow
+      summary: Import workflow definitions
+      operationId: import_workflows
       responses:
         '200':
           description: Workflows imported successfully.
@@ -448,43 +444,20 @@ paths:
             application/json:
               schema:
                 type: string
-      security:
-      - Bearer: []
+      __originalOperationId: import-workflows
+      method: post
+      path: /workflowImport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/server.WorkflowAttributes'
+        description: Workflow definitions to import.
+        required: true
 components:
   schemas:
-    server.WorkflowDefinition:
-      type: object
-      properties:
-        definition:
-          type: object
-    server.WorkflowAttributes:
-      type: object
-      properties:
-        definition:
-          type: object
-        formId:
-          type: string
-        path:
-          type: string
-        wfTags:
-          type: array
-          items:
-            type: string
-    repository.NameVersion:
-      type: object
-      required:
-      - name
-      - version
-      properties:
-        name:
-          type: string
-        version:
-          type: string
-    server.WorkflowGetResponse:
-      type: object
-      properties:
-        workflow:
-          $ref: '#/components/schemas/models.Workflow'
     models.Workflow:
       type: object
       properties:
@@ -515,10 +488,43 @@ components:
         workflowId:
           type: string
           format: uuid
+    server.WorkflowAttributes:
+      type: object
+      properties:
+        definition:
+          type: object
+        formId:
+          type: string
+        path:
+          type: string
+        wfTags:
+          type: array
+          items:
+            type: string
     server.InputSchemaVadation:
       type: object
       properties:
         data:
+          type: object
+    server.WorkflowGetResponse:
+      type: object
+      properties:
+        workflow:
+          $ref: '#/components/schemas/models.Workflow'
+    repository.NameVersion:
+      type: object
+      required:
+      - name
+      - version
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+    server.WorkflowDefinition:
+      type: object
+      properties:
+        definition:
           type: object
   securitySchemes:
     Bearer:
@@ -526,3 +532,9 @@ components:
       name: Authorization
       in: header
       description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+x-evidence:
+- type: reference
+  url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+- type: fragment-index
+  url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+  count: 90

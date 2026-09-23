@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Crosswork Network Controller Flat L2VPN Service Flat L2VPN Provision API
+  title: Crosswork Network Controller Flat L2VPN Service Flat L2VPN…
   description: This document contains details of the Crosswork Network Controller Flat L2VPN Service APIs
   version: '2.0'
   contact:
@@ -31,7 +31,7 @@ paths:
     post:
       tags:
       - Flat L2VPN Provision
-      summary: ''
+      summary: Data cisco flat l2vpn fp flat l2vpn flat l2vpn name post
       description: Flat L2VPN service
       operationId: data_cisco_flat_L2vpn_fp_flat_L2vpn_flat_L2vpn_name_post
       parameters:
@@ -52,10 +52,11 @@ paths:
           $ref: '#/components/responses/409'
       security:
       - basicAuth: []
+      x-summary-source: derived
     put:
       tags:
       - Flat L2VPN Provision
-      summary: ''
+      summary: Data cisco flat l2vpn fp flat l2vpn flat l2vpn name put
       description: Flat L2VPN service
       operationId: data_cisco_flat_L2vpn_fp_flat_L2vpn_flat_L2vpn_name_put
       parameters:
@@ -78,10 +79,11 @@ paths:
           $ref: '#/components/responses/409'
       security:
       - basicAuth: []
+      x-summary-source: derived
     patch:
       tags:
       - Flat L2VPN Provision
-      summary: ''
+      summary: Data cisco flat l2vpn fp flat l2vpn flat l2vpn name patch
       description: Flat L2VPN service
       operationId: data_cisco_flat_L2vpn_fp_flat_L2vpn_flat_L2vpn_name_patch
       parameters:
@@ -102,10 +104,11 @@ paths:
           $ref: '#/components/responses/409'
       security:
       - basicAuth: []
+      x-summary-source: derived
     delete:
       tags:
       - Flat L2VPN Provision
-      summary: ''
+      summary: Data cisco flat l2vpn fp flat l2vpn flat l2vpn name delete
       description: Flat L2VPN service
       operationId: data_cisco_flat_L2vpn_fp_flat_L2vpn_flat_L2vpn_name_delete
       parameters:
@@ -123,23 +126,21 @@ paths:
           $ref: '#/components/responses/405'
       security:
       - basicAuth: []
+      x-summary-source: derived
 components:
-  parameters:
-    flat-L2vpn:
-      name: flat-L2vpn
-      in: body
-      description: Flat L2VPN Configuration
-      required: true
-      schema:
-        $ref: '#/components/schemas/data_cisco-flat-L2vpn-fp_flat-L2vpn_flat-L2vpn-name'
-    flat-L2vpn-name:
-      name: flat-L2vpn-name
-      in: path
-      description: Unique Service Name for Flat-L2vpn
-      required: true
-      schema:
-        type: string
-        format: string
+  responses:
+    '409':
+      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+    '204':
+      description: No Content. The request was successful and there is no additional content in the response body.
+    '404':
+      description: Not Found. The client made a request for a resource that does not exist.
+    '400':
+      description: Bad Request. The request is malformed in some way and the server cannot process it.
+    '405':
+      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
+    '401':
+      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
   schemas:
     data_cisco-flat-L2vpn-fp_flat-L2vpn_flat-L2vpn-name:
       type: object
@@ -1643,19 +1644,22 @@ components:
                   type: container
                   is_presence: 'false'
                 properties: {}
-  responses:
-    '404':
-      description: Not Found. The client made a request for a resource that does not exist.
-    '204':
-      description: No Content. The request was successful and there is no additional content in the response body.
-    '405':
-      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
-    '401':
-      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
-    '400':
-      description: Bad Request. The request is malformed in some way and the server cannot process it.
-    '409':
-      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+  parameters:
+    flat-L2vpn-name:
+      name: flat-L2vpn-name
+      in: path
+      description: Unique Service Name for Flat-L2vpn
+      required: true
+      schema:
+        type: string
+        format: string
+    flat-L2vpn:
+      name: flat-L2vpn
+      in: body
+      description: Flat L2VPN Configuration
+      required: true
+      schema:
+        $ref: '#/components/schemas/data_cisco-flat-L2vpn-fp_flat-L2vpn_flat-L2vpn-name'
   securitySchemes:
     basicAuth:
       type: http

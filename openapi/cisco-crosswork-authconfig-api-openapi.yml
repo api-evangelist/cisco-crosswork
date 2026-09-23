@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Crosswork Remote Authentication Server Integration Authconfig API
+  title: Crosswork Remote Authentication Server Integration…
   contact:
     name: Crosswork Team, Cisco
     email: support@cisco.com
@@ -117,6 +117,22 @@ paths:
         required: true
 components:
   schemas:
+    authconfigTacacsServers:
+      type: object
+      properties:
+        tacacs_servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/authconfigTacacsServer'
+          example:
+          - host: 1.2.3.4
+            port: 49
+            secret: secret
+            service: raccess
+            priority: 1
+            timeout: 30
+    authconfigEmpty:
+      type: object
     authconfigLdapServer:
       type: object
       required:
@@ -165,41 +181,6 @@ components:
         connectTimeout:
           type: integer
           description: Connection timeout in milliseconds
-    authconfigTacacsServers:
-      type: object
-      properties:
-        tacacs_servers:
-          type: array
-          items:
-            $ref: '#/components/schemas/authconfigTacacsServer'
-          example:
-          - host: 1.2.3.4
-            port: 49
-            secret: secret
-            service: raccess
-            priority: 1
-            timeout: 30
-    authconfigEmpty:
-      type: object
-    authconfigLdapServers:
-      type: object
-      properties:
-        ldap:
-          type: array
-          items:
-            $ref: '#/components/schemas/authconfigLdapServer'
-          example:
-          - name: Ldap-132-24
-            ldapUrl: ldap://10.194.132.24:10389
-            bindDn: cn=admin,dc=example,dc=org
-            bindCredential: admin
-            connectTimeout: 5000
-            baseDn: dc=example,dc=org
-            userFilter: uid={user}
-            dnFormat: uid=%s,dc=example,dc=org
-            principalAttributeId: uid
-            policyId: crossworkPolicyId
-            order: 1
     authconfigTacacsServer:
       type: object
       required:
@@ -231,6 +212,25 @@ components:
         policy-id:
           type: string
           description: Key name for role ID configured on the TACACS server
+    authconfigLdapServers:
+      type: object
+      properties:
+        ldap:
+          type: array
+          items:
+            $ref: '#/components/schemas/authconfigLdapServer'
+          example:
+          - name: Ldap-132-24
+            ldapUrl: ldap://10.194.132.24:10389
+            bindDn: cn=admin,dc=example,dc=org
+            bindCredential: admin
+            connectTimeout: 5000
+            baseDn: dc=example,dc=org
+            userFilter: uid={user}
+            dnFormat: uid=%s,dc=example,dc=org
+            principalAttributeId: uid
+            policyId: crossworkPolicyId
+            order: 1
   securitySchemes:
     bearerAuth:
       type: apiKey

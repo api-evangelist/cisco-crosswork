@@ -50,7 +50,7 @@ paths:
       - Command
   /v1/command/reboot:
     post:
-      summary: Submits reboot command to reboot CDG. Crosswork user with read, write privileges can submit reboot command.
+      summary: Submits reboot command to reboot CDG.
       operationId: SubmitRebootCommand
       deprecated: false
       responses:
@@ -86,16 +86,6 @@ paths:
       - Command
 components:
   schemas:
-    Value:
-      title: Value
-      example:
-        str: test1234
-      type: object
-      properties:
-        str:
-          type: string
-      required:
-      - str
     Value1:
       title: Value1
       example:
@@ -106,6 +96,46 @@ components:
           type: string
       required:
       - valueStr
+    Arg:
+      title: Arg
+      example:
+        key: passphrase
+        value:
+          str: test1234
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          $ref: '#/components/schemas/Value'
+      required:
+      - key
+      - value
+    QueryParam:
+      title: QueryParam
+      example:
+        field: CMDID
+        value:
+          valueStr: '5065'
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          $ref: '#/components/schemas/Value1'
+      required:
+      - field
+      - value
+    Value:
+      title: Value
+      example:
+        str: test1234
+      type: object
+      properties:
+        str:
+          type: string
+      required:
+      - str
     SubmitShowtechCommand:
       title: ShowtechCommandPayload
       example:
@@ -134,6 +164,21 @@ components:
       - commandName
       - clientId
       - args
+    ShowtechStatusRequest:
+      title: ShowtechStatusRequest
+      example:
+        queryParams:
+        - field: CMDID
+          value:
+            valueStr: '5065'
+      type: object
+      properties:
+        queryParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryParam'
+      required:
+      - queryParams
     ClientId:
       title: ClientId
       example:
@@ -144,21 +189,6 @@ components:
           type: string
       required:
       - uuid
-    Arg:
-      title: Arg
-      example:
-        key: passphrase
-        value:
-          str: test1234
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          $ref: '#/components/schemas/Value'
-      required:
-      - key
-      - value
     SubmitRebootCommand:
       title: RebootCommandPayload
       example:
@@ -178,36 +208,6 @@ components:
       - id
       - commandName
       - clientId
-    QueryParam:
-      title: QueryParam
-      example:
-        field: CMDID
-        value:
-          valueStr: '5065'
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          $ref: '#/components/schemas/Value1'
-      required:
-      - field
-      - value
-    ShowtechStatusRequest:
-      title: ShowtechStatusRequest
-      example:
-        queryParams:
-        - field: CMDID
-          value:
-            valueStr: '5065'
-      type: object
-      properties:
-        queryParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryParam'
-      required:
-      - queryParams
   securitySchemes:
     bearerAuth:
       type: apiKey

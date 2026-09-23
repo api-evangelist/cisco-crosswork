@@ -81,7 +81,7 @@ artifacts:
   grpc/cisco-crosswork-dpm-srv6locator.proto:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-08-28T221322.yml:
+  kin/checks-2026-09-05T072335.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-08-19T114122.yml:
@@ -138,6 +138,57 @@ artifacts:
   kin/score-2026-08-28T221322.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-29T213958.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-29T230545.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-30T203505.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-30T220315.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-31T223420.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-01T063623.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-01T210448.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-01T222808.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-02T211804.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-02T224043.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-03T161828.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-03T174231.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-04T062714.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-04T212454.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-04T224856.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T055819.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T072335.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/cisco-crosswork-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -150,6 +201,156 @@ artifacts:
   mcp/cisco-crosswork-tool-crosswalk.yml:
     method: derived
     evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cdg-cdg-custom-files-api-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-cdg-cdg-health-api-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-cdg-cdg-outage-history-api-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-cdg-cdg-troubleshooting-api-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-cnc-cat-fp-deployment-manager-service-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-cnc-cisco-flat-l2vpn-fp-api-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-cnc-cisco-flat-l3vpn-fp-api-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-cnc-ietf-l2vpn-ntw-api-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-cnc-ietf-te-api-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-cnc-nso-connector-service-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-coe-l3-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-coe-l3-state-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-coe-network-state-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-coe-oe-operations-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-coe-sr-operations-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-cwm-adapters-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-defaults-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-event-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-event-type-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-forms-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-jobs-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-mcp-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-payload-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-public-key-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-resources-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-scheduler-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-secrets-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-tasks-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-worker-profiles-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-workers-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-workflow-api-openapi.yml:
+    method: harvested
+    evidence: declared in the artifact
+  openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-alarms-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-authremote-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-backup-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-cluster-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-collection-service-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-cw-image-service-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-cw-ztp-device-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-cw-ztp-profile-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-inventory-api-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-password-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-platform-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-rbac-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-tls-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ncahi-vm-install-api-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ztp-cw-image-service-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ztp-cw-ztp-device-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ztp-cw-ztp-dynamic-config-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/cisco-crosswork-ztp-cw-ztp-profile-openapi.json:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
   openapi/cisco-crosswork-adapters-api-openapi.yml:
     method: harvested
     evidence: declared in the artifact

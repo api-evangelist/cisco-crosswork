@@ -8,7 +8,7 @@ info:
   license:
     name: Cisco Software License Agreement
     url: http://www.cisco.com/public/sw-license-agreement.html
-  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  description: This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -32,7 +32,7 @@ paths:
   /v1/destinations:
     parameters: []
     patch:
-      summary: 'Updates destinations information. '
+      summary: Updates destinations information
       responses:
         '200':
           description: A successful response.
@@ -50,125 +50,10 @@ paths:
             schema:
               $ref: '#/components/schemas/robotapiRobotProviderDataList'
         required: true
+      operationId: patchV1Destinations
+      x-operation-id-source: derived
 components:
   schemas:
-    robotapiRobotInetAddressFamily:
-      description: Inet Address Family
-      type: string
-      enum:
-      - ROBOT_INET_ADDR_TYPE_NONE
-      - ROBOT_INET_ADDR_TYPE_v4
-      - ROBOT_INET_ADDR_TYPE_v6
-      default: ROBOT_INET_ADDR_TYPE_NONE
-    robotapiRobotNodeJob:
-      type: object
-      properties:
-        job_id:
-          type: string
-          description: Job id
-        inst_id:
-          type: string
-          description: Server instance identifier
-        state:
-          $ref: '#/components/schemas/robotapiRobotJobState'
-          description: Current State of the Job
-        type:
-          type: string
-          description: Job type. Debug purpose
-        error:
-          type: string
-          description: If any error
-        completion_time:
-          type: string
-          format: int64
-          description: Remaining time to complete
-        creation_time:
-          type: string
-          format: int64
-          description: Job creation time in epoch seconds
-        created_by:
-          type: string
-          description: User
-        impacted_count:
-          type: integer
-          format: int64
-          description: Impacted nodes/tags, provider or profiles
-      impacted:
-        type: array
-        items:
-          type: string
-        title: Impacted elements list
-      description: Every Action related to Inventory will have a Job
-    robotapiRobotTransport:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/robotapiRobotTransportType'
-          description: Device connectivity type.
-        ipaddrs:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotInetAddr'
-          description: V4/V6 ip address for this connectivity type
-        port:
-          type: integer
-          format: int64
-          description: Port for this connectivity type
-        timeout:
-          type: string
-          format: uint64
-          description: Timeout for this connectivity type
-        reachability_state:
-          $ref: '#/components/schemas/robotapiRobotEntityConnectivityState'
-          description: Reachability Status for Transport Connection
-        reachability_state_upd_time:
-          type: string
-          format: int64
-          description: 'Reachability timestamp. Time when the reach state was updated.
-
-            Unix epoch time in seconds.'
-        error:
-          type: string
-          description: error reason for protocol reachability failure
-    robotapiSupportedModels:
-      type: object
-      properties:
-        model_prefix:
-          type: string
-          description: Yang model prefix e.g. Cisco-IOS-XR, Cisco-NX-OS, Cisco-IOS-XE
-        model_version:
-          type: string
-          description: Yang model version
-    robotapiRobotInetAddr:
-      description: Inet Address
-      type: object
-      properties:
-        inet_af:
-          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
-        inet_addr:
-          type: string
-        mask:
-          type: string
-    robotapiRobotTransportType:
-      type: string
-      enum:
-      - ROBOT_MSVC_TRANS_NONE
-      - ROBOT_MSVC_TRANS_TCP
-      - ROBOT_MSVC_TRANS_UDP
-      - ROBOT_MSVC_TRANS_HTTP
-      - ROBOT_MSVC_TRANS_HTTPS
-      - ROBOT_MSVC_TRANS_GRPC
-      - ROBOT_MSVC_TRANS_SSH
-      - ROBOT_MSVC_TRANS_NETCONF
-      - ROBOT_MSVC_TRANS_TELNET
-      - ROBOT_MSVC_TRANS_SNMP
-      - ROBOT_MSVC_TRANS_TL1
-      - ROBOT_MSVC_TRANS_TL1_SECURE
-      - ROBOT_MSVC_TRANS_ICMP
-      - ROBOT_MSVC_TRANS_KAFKA
-      - ROBOT_MSVC_TRANS_NATS
-      default: ROBOT_MSVC_TRANS_NONE
-      description: Transport types for robot micro-services
     robotapiRobotJobState:
       description: Various Job Resulting states.
       type: string
@@ -181,58 +66,6 @@ components:
       - JOB_COMPLETED
       - JOB_FAILED
       default: JOB_INVALID
-    robotapiRobotEntityConnectivityState:
-      description: Derived reachability state for a device. Cannot be set by user
-      type: string
-      enum:
-      - CONN_STATE_UNKNOWN
-      - CONN_STATE_REACHABLE
-      - CONN_STATE_UNREACHABLE
-      - CONN_STATE_MAX
-      - CONN_STATE_DEGRADED
-      default: CONN_STATE_UNKNOWN
-    robotapiRobotProviderType:
-      type: string
-      enum:
-      - ROBOT_PROVIDER_NONE
-      - ROBOT_PROVIDER_CFG_LOCAL
-      - ROBOT_PROVIDER_INSTALL
-      - ROBOT_PROVIDER_COMPUTE
-      default: ROBOT_PROVIDER_NONE
-      description: Provider types
-    robotapiRobotProviderDeviceKey:
-      type: string
-      enum:
-      - ROBOT_PROVDEVKEY_NONE
-      - ROBOT_PROVDEVKEY_HOST_NAME
-      - ROBOT_PROVDEVKEY_NODE_IP
-      - ROBOT_PROVDEVKEY_INVENTORY_ID
-      default: ROBOT_PROVDEVKEY_NONE
-      description: Key types used for generating UUID for Provider
-    robotapiRobotProviderDataList:
-      description: List of providers
-      type: object
-      properties:
-        providers:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotProviderData'
-        user:
-          type: string
-    robotapiRobotProviderFamily:
-      type: string
-      enum:
-      - ROBOT_PROVIDER_UNKNOWN
-      - ROBOT_PROVIDER_EPNM
-      - ROBOT_PROVIDER_NSO
-      - ROBOT_PROVIDER_WAE
-      - ROBOT_PROVIDER_CSM
-      - ROBOT_PROVIDER_XTC
-      - ROBOT_PROVIDER_SYSLOG_STORAGE
-      - ROBOT_PROVIDER_SR_PCE
-      - ROBOT_PROVIDER_DESTINATION
-      default: ROBOT_PROVIDER_UNKNOWN
-      description: Provider Family types
     robotapiRobotProviderData:
       type: object
       properties:
@@ -281,6 +114,175 @@ components:
         properties:
           type: object
           description: map to configure provider specific properties as key, value pairs
+    robotapiRobotProviderDataList:
+      description: List of providers
+      type: object
+      properties:
+        providers:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotProviderData'
+        user:
+          type: string
+    robotapiRobotProviderDeviceKey:
+      type: string
+      enum:
+      - ROBOT_PROVDEVKEY_NONE
+      - ROBOT_PROVDEVKEY_HOST_NAME
+      - ROBOT_PROVDEVKEY_NODE_IP
+      - ROBOT_PROVDEVKEY_INVENTORY_ID
+      default: ROBOT_PROVDEVKEY_NONE
+      description: Key types used for generating UUID for Provider
+    robotapiRobotTransport:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/robotapiRobotTransportType'
+          description: Device connectivity type.
+        ipaddrs:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotInetAddr'
+          description: V4/V6 ip address for this connectivity type
+        port:
+          type: integer
+          format: int64
+          description: Port for this connectivity type
+        timeout:
+          type: string
+          format: uint64
+          description: Timeout for this connectivity type
+        reachability_state:
+          $ref: '#/components/schemas/robotapiRobotEntityConnectivityState'
+          description: Reachability Status for Transport Connection
+        reachability_state_upd_time:
+          type: string
+          format: int64
+          description: 'Reachability timestamp. Time when the reach state was updated.
+
+            Unix epoch time in seconds.'
+        error:
+          type: string
+          description: error reason for protocol reachability failure
+    robotapiRobotProviderFamily:
+      type: string
+      enum:
+      - ROBOT_PROVIDER_UNKNOWN
+      - ROBOT_PROVIDER_EPNM
+      - ROBOT_PROVIDER_NSO
+      - ROBOT_PROVIDER_WAE
+      - ROBOT_PROVIDER_CSM
+      - ROBOT_PROVIDER_XTC
+      - ROBOT_PROVIDER_SYSLOG_STORAGE
+      - ROBOT_PROVIDER_SR_PCE
+      - ROBOT_PROVIDER_DESTINATION
+      default: ROBOT_PROVIDER_UNKNOWN
+      description: Provider Family types
+    robotapiSupportedModels:
+      type: object
+      properties:
+        model_prefix:
+          type: string
+          description: Yang model prefix e.g. Cisco-IOS-XR, Cisco-NX-OS, Cisco-IOS-XE
+        model_version:
+          type: string
+          description: Yang model version
+    robotapiRobotProviderType:
+      type: string
+      enum:
+      - ROBOT_PROVIDER_NONE
+      - ROBOT_PROVIDER_CFG_LOCAL
+      - ROBOT_PROVIDER_INSTALL
+      - ROBOT_PROVIDER_COMPUTE
+      default: ROBOT_PROVIDER_NONE
+      description: Provider types
+    robotapiRobotTransportType:
+      type: string
+      enum:
+      - ROBOT_MSVC_TRANS_NONE
+      - ROBOT_MSVC_TRANS_TCP
+      - ROBOT_MSVC_TRANS_UDP
+      - ROBOT_MSVC_TRANS_HTTP
+      - ROBOT_MSVC_TRANS_HTTPS
+      - ROBOT_MSVC_TRANS_GRPC
+      - ROBOT_MSVC_TRANS_SSH
+      - ROBOT_MSVC_TRANS_NETCONF
+      - ROBOT_MSVC_TRANS_TELNET
+      - ROBOT_MSVC_TRANS_SNMP
+      - ROBOT_MSVC_TRANS_TL1
+      - ROBOT_MSVC_TRANS_TL1_SECURE
+      - ROBOT_MSVC_TRANS_ICMP
+      - ROBOT_MSVC_TRANS_KAFKA
+      - ROBOT_MSVC_TRANS_NATS
+      default: ROBOT_MSVC_TRANS_NONE
+      description: Transport types for robot micro-services
+    robotapiRobotInetAddr:
+      description: Inet Address
+      type: object
+      properties:
+        inet_af:
+          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
+        inet_addr:
+          type: string
+        mask:
+          type: string
+    robotapiRobotNodeJob:
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: Job id
+        inst_id:
+          type: string
+          description: Server instance identifier
+        state:
+          $ref: '#/components/schemas/robotapiRobotJobState'
+          description: Current State of the Job
+        type:
+          type: string
+          description: Job type. Debug purpose
+        error:
+          type: string
+          description: If any error
+        completion_time:
+          type: string
+          format: int64
+          description: Remaining time to complete
+        creation_time:
+          type: string
+          format: int64
+          description: Job creation time in epoch seconds
+        created_by:
+          type: string
+          description: User
+        impacted_count:
+          type: integer
+          format: int64
+          description: Impacted nodes/tags, provider or profiles
+      impacted:
+        type: array
+        items:
+          type: string
+        title: Impacted elements list
+      description: Every Action related to Inventory will have a Job
+    robotapiRobotEntityConnectivityState:
+      description: Derived reachability state for a device. Cannot be set by user
+      type: string
+      enum:
+      - CONN_STATE_UNKNOWN
+      - CONN_STATE_REACHABLE
+      - CONN_STATE_UNREACHABLE
+      - CONN_STATE_MAX
+      - CONN_STATE_DEGRADED
+      default: CONN_STATE_UNKNOWN
+    robotapiRobotInetAddressFamily:
+      description: Inet Address Family
+      type: string
+      enum:
+      - ROBOT_INET_ADDR_TYPE_NONE
+      - ROBOT_INET_ADDR_TYPE_v4
+      - ROBOT_INET_ADDR_TYPE_v6
+      default: ROBOT_INET_ADDR_TYPE_NONE
   securitySchemes:
     bearerAuth:
       type: apiKey

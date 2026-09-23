@@ -1,8 +1,14 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Image Platform Controller API
-  version: '1.0'
-  description: 'Operations tagged image-platform-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json, cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
+  title: Crosswork ZTP Image Service Image Platform Controller API
+  version: 2.0.0
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  description: This document details the Crosswork REST APIs that you can use to manage software image files for Zero Touch Provisioning (ZTP) devices.
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -11,14 +17,11 @@ info:
     first_party: true
     note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
     provider_published: true
-    derived_view: Per-tag view of cisco-crosswork-ncahi-cw-image-service-openapi.json, the provider's source document. Operations and schemas are the provider's, unmodified; only the partition is ours.
-    derived_from: cisco-crosswork-ncahi-cw-image-service-openapi.json
-    operation_coverage: 3/3
   x-evidence:
   - type: source
-    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/NCAHI/3.2APIs/cw_image_service.swagger.json
+    url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/ZTP/2.0APIs/cw_image_service.swagger.json
   - type: raw
-    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/NCAHI/3.2APIs/cw_image_service.swagger.json
+    url: https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/master/ZTP/2.0APIs/cw_image_service.swagger.json
 servers:
 - url: /crosswork/imagesvc/
 security:
@@ -28,33 +31,37 @@ tags:
   description: Image Platform Controller
 paths:
   /v1/platforms:
-    servers:
-    - url: /crosswork/imagesvc/
     get:
       tags:
       - image-platform-controller
-      summary: getPlatforms
+      summary: Retrieves all supported platforms
       operationId: getPlatformsUsingGET
+      parameters:
+      - name: fetchCustomData
+        in: query
+        description: fetchCustomData
+        required: false
+        schema:
+          type: boolean
+          default: false
       responses:
         '200':
-          description: OK
+          description: OK. The request was successful. The result is contained in the response body.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseDto'
         '401':
-          description: Unauthorized
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
         '403':
-          description: Forbidden
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
         '404':
-          description: Not Found
+          description: Not Found. The client made a request for a resource that does not exist.
   /v1/platforms/{platform}/families:
-    servers:
-    - url: /crosswork/imagesvc/
     get:
       tags:
       - image-platform-controller
-      summary: getFamiliesByPlatform
+      summary: Retrieves all supported families, for a specific platform
       operationId: getFamiliesByPlatformUsingGET
       parameters:
       - name: platform
@@ -63,26 +70,31 @@ paths:
         required: true
         schema:
           type: string
+      - name: fetchCustomData
+        in: query
+        description: Retrieve all custom configured device families based on device OS platform
+        required: false
+        schema:
+          type: boolean
+          default: false
       responses:
         '200':
-          description: OK
+          description: OK. The request was successful. The result is contained in the response body.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseDto'
         '401':
-          description: Unauthorized
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
         '403':
-          description: Forbidden
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
         '404':
-          description: Not Found
+          description: Not Found. The client made a request for a resource that does not exist.
   /v1/platforms/{platform}/versions:
-    servers:
-    - url: /crosswork/imagesvc/
     get:
       tags:
       - image-platform-controller
-      summary: getVersionsByPlatform
+      summary: Retrieves all supported versions, for a specific platform
       operationId: getVersionsByPlatformUsingGET
       parameters:
       - name: platform
@@ -91,19 +103,33 @@ paths:
         required: true
         schema:
           type: string
+      - name: fetchCustomData
+        in: query
+        description: Retrieves all custom configured image software versions based on OS platform
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: secured
+        in: query
+        description: secured
+        required: false
+        schema:
+          type: boolean
+          default: false
       responses:
         '200':
-          description: OK
+          description: OK. The request was successful. The result is contained in the response body.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseDto'
         '401':
-          description: Unauthorized
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
         '403':
-          description: Forbidden
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
         '404':
-          description: Not Found
+          description: Not Found. The client made a request for a resource that does not exist.
 components:
   schemas:
     ResponseDto:
@@ -119,11 +145,9 @@ components:
         pageSize:
           type: integer
           format: int32
+      title: ResponseDto
   securitySchemes:
     bearerAuth:
       type: apiKey
       name: Authorization
       in: header
-x-refined-from:
-- cisco-crosswork-ncahi-cw-image-service-openapi.json
-- cisco-crosswork-ztp-cw-image-service-openapi.json

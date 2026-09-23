@@ -45,15 +45,13 @@ paths:
       - Alert API
 components:
   schemas:
-    robotctl_apiAlertResponse:
+    robotctl_apiAlertList:
       type: object
       properties:
-        count:
-          $ref: '#/components/schemas/robotctl_apiAlertCount'
-        AlertMap:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/robotctl_apiAlertList'
+        List:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotctl_apiAlertMsg'
     robotctl_apiAlertMsg:
       type: object
       properties:
@@ -68,13 +66,6 @@ components:
           type: string
         Priority:
           $ref: '#/components/schemas/robotctl_apiAlertPriority'
-    robotctl_apiAlertPriority:
-      type: string
-      enum:
-      - MINOR
-      - MAJOR
-      - CRITICAL
-      default: MINOR
     robotctl_apiAlertCount:
       type: object
       properties:
@@ -87,13 +78,22 @@ components:
         Critical:
           type: integer
           format: int32
-    robotctl_apiAlertList:
+    robotctl_apiAlertPriority:
+      type: string
+      enum:
+      - MINOR
+      - MAJOR
+      - CRITICAL
+      default: MINOR
+    robotctl_apiAlertResponse:
       type: object
       properties:
-        List:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotctl_apiAlertMsg'
+        count:
+          $ref: '#/components/schemas/robotctl_apiAlertCount'
+        AlertMap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/robotctl_apiAlertList'
   securitySchemes:
     bearerAuth:
       type: apiKey

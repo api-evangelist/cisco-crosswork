@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   description: This document contains details of the cat-fp-deployment-manager service APIs
   version: '2.0'
-  title: Crosswork Network Controller CAT FP Deployment Manager Two Phase Commit Runner API
+  title: Crosswork Network Controller CAT FP Deployment Manager Two…
   contact:
     name: Crosswork Team, Cisco
     email: support@cisco.com
@@ -53,7 +53,7 @@ paths:
     get:
       tags:
       - two-phase-commit-runner
-      summary: Get function pack deployment active consumers and nodes.
+      summary: Get function pack deployment active consumers and nodes
       operationId: getConsumersUsingGET
       responses:
         '200':

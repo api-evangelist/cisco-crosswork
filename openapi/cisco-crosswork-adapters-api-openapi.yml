@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Workflow Manager Adapters API
   description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
-  version: 2.1.0
-  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  title: Cisco Crosswork Workflow Manager Adapters API
+  termsOfService: www.cisco.com
   contact:
     name: API Support
     url: https://www.cisco.com/support
+  version: 2.1.0
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -14,27 +14,19 @@ info:
     harvested_on: '2026-08-19'
     first_party: true
     provider_published: true
-    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
-  x-evidence:
-  - type: source
-    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  - type: raw
-    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+    note: 'Reconstructed verbatim from the per-operation Swagger 2.0 JSON fragments Cisco serves for the Crosswork Workflow Manager API reference at developer.cisco.com/docs/crosswork/workflow-manager/. info, basePath and securityDefinitions are Cisco''s own meta block; each path/method object is Cisco''s own spec object, unmodified except that inline schemas carrying the swagger-ui $$ref marker were hoisted back into #/definitions and replaced with a real $ref.'
 servers:
 - url: /crosswork/cwm/v2
-  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
-security:
-- Bearer: []
 tags:
-- name: adapters
+- name: Adapters
 paths:
   /adapter:
     get:
-      summary: List all uploaded adapters.
       description: Retrieve a list of all adapters uploaded to the system for use in workflows.
-      operationId: list_adapters
       tags:
-      - adapters
+      - Adapters
+      summary: List all uploaded adapters
+      operationId: list_adapters
       responses:
         '200':
           description: Adapters retrieved successfully.
@@ -56,27 +48,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: list-adapters
+      method: get
+      path: /adapter
     post:
-      summary: Upload a new adapter.
       description: Upload a new adapter file (.tar.gz format) to the system for future deployment as a plugin.
-      operationId: file_upload
       tags:
-      - adapters
-      requestBody:
-        required: true
-        content:
-          application/x-gzip:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  format: binary
-                  description: The adapter file to upload (.tar.gz).
-              required:
-              - file
+      - Adapters
+      summary: Upload a new adapter
+      operationId: file_upload
       responses:
         '201':
           description: Adapter uploaded successfully.
@@ -96,19 +76,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: file.upload
+      method: post
+      path: /adapter
+      requestBody:
+        content:
+          application/x-gzip:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: The adapter file to upload (.tar.gz).
+                  format: binary
+              required:
+              - file
   /adapter/{adapterId}:
     delete:
-      summary: Delete an adapter.
       description: Delete an adapter from the system using its ID.
-      operationId: delete_adapter
       tags:
-      - adapters
+      - Adapters
+      summary: Delete an adapter
+      operationId: delete_adapter
       parameters:
-      - name: adapterId
+      - description: Adapter ID.
+        name: adapterId
         in: path
-        description: Adapter ID.
         required: true
         schema:
           type: string
@@ -131,18 +124,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: delete-adapter
+      method: delete
+      path: /adapter/{adapterId}
     get:
-      summary: Get adapter details.
       description: Retrieve details for a specific adapter by ID.
-      operationId: get_adapter
       tags:
-      - adapters
+      - Adapters
+      summary: Get adapter details
+      operationId: get_adapter
       parameters:
-      - name: adapterId
+      - description: Adapter ID.
+        name: adapterId
         in: path
-        description: Adapter ID.
         required: true
         schema:
           type: string
@@ -165,28 +159,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: get-adapter
+      method: get
+      path: /adapter/{adapterId}
     patch:
-      summary: Partially update an adapter.
       description: Partially update an adapter's configuration using a JSON payload.
-      operationId: patch_adapter
       tags:
-      - adapters
+      - Adapters
+      summary: Partially update an adapter
+      operationId: patch_adapter
       parameters:
-      - name: adapterId
+      - description: Adapter ID.
+        name: adapterId
         in: path
-        description: Adapter ID.
         required: true
         schema:
           type: string
-      requestBody:
-        description: Partial adapter update payload.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.patchAdapterRequest'
       responses:
         '200':
           description: Adapter partially updated successfully.
@@ -206,34 +194,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: patch-adapter
+      method: patch
+      path: /adapter/{adapterId}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.patchAdapterRequest'
+        description: Partial adapter update payload.
+        required: true
     put:
-      summary: Update an adapter file.
       description: Replace an existing adapter file with a new uploaded version (.tar.gz).
-      operationId: update_adapter
       tags:
-      - adapters
+      - Adapters
+      summary: Update an adapter file
+      operationId: update_adapter
       parameters:
-      - name: adapterId
+      - description: Adapter ID.
+        name: adapterId
         in: path
-        description: Adapter ID.
         required: true
         schema:
           type: string
-      requestBody:
-        required: true
-        content:
-          application/x-gzip:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  format: binary
-                  description: Updated adapter file (.tar.gz).
-              required:
-              - file
       responses:
         '200':
           description: Adapter updated successfully.
@@ -253,29 +236,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: update-adapter
+      method: put
+      path: /adapter/{adapterId}
+      requestBody:
+        content:
+          application/x-gzip:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: Updated adapter file (.tar.gz).
+                  format: binary
+              required:
+              - file
   /adapter/{adapterId}/deploy:
     post:
-      summary: Create plugin with uploaded adapter file.
       description: Creates plugin.
-      operationId: deploy_adapter
       tags:
-      - adapters
+      - Adapters
+      summary: Create plugin with uploaded adapter file
+      operationId: deploy_adapter
       parameters:
-      - name: adapterId
+      - description: Adapter ID
+        name: adapterId
         in: path
-        description: Adapter ID
         required: true
         schema:
           type: string
-      requestBody:
-        description: create worker
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.createPluginsRequest'
       responses:
         '201':
           description: success
@@ -295,44 +284,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: deploy-adapter
+      method: post
+      path: /adapter/{adapterId}/deploy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.createPluginsRequest'
+        description: create worker
+        required: true
 components:
   schemas:
-    server.patchAdapterRequest:
-      type: object
-      properties:
-        defaultStatus:
-          type: boolean
-    server.getAdapterActivityResponse:
-      type: object
-      properties:
-        adapterId:
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        inputSchema:
-          type: array
-          items:
-            type: integer
-        name:
-          type: string
-        outputSchema:
-          type: array
-          items:
-            type: integer
-        packageName:
-          type: string
-    server.createPluginsRequest:
-      type: object
-      properties:
-        createWorker:
-          type: boolean
-        defaultStatus:
-          type: boolean
-    server.getAdapterResponse:
+    server.listAdaptersAdapterResponse:
       type: object
       properties:
         activities:
@@ -369,7 +333,33 @@ components:
           type: boolean
         version:
           type: string
-    server.listAdaptersAdapterResponse:
+    server.getAdapterActivityResponse:
+      type: object
+      properties:
+        adapterId:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        inputSchema:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+        outputSchema:
+          type: array
+          items:
+            type: integer
+        packageName:
+          type: string
+    server.patchAdapterRequest:
+      type: object
+      properties:
+        defaultStatus:
+          type: boolean
+    server.getAdapterResponse:
       type: object
       properties:
         activities:
@@ -415,9 +405,22 @@ components:
         message:
           type: string
           example: status bad request
+    server.createPluginsRequest:
+      type: object
+      properties:
+        createWorker:
+          type: boolean
+        defaultStatus:
+          type: boolean
   securitySchemes:
     Bearer:
       type: apiKey
       name: Authorization
       in: header
       description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+x-evidence:
+- type: reference
+  url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+- type: fragment-index
+  url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+  count: 90

@@ -20,13 +20,7 @@ tags:
 paths:
   /v1/query/config:
     post:
-      summary: 'GetDynamicConfigs API
-
-        Retrieves a list of config attributes.
-
-        This api takes dynamicConfigRequest as input, in which user can specifiy either one of configID or profile name as filter, or can specify both.
-
-        Response Body: dynamicConfigResponse'
+      summary: GetDynamicConfigs API Retrieves a list of config attributes.
       operationId: GetDynamicConfigs
       responses:
         '200':
@@ -45,13 +39,6 @@ paths:
         required: true
 components:
   schemas:
-    cwztpsvcdynamicConfigRequest:
-      type: object
-      properties:
-        configId:
-          type: string
-        profileName:
-          type: string
     cwztpsvcdynamicConfigResponse:
       type: object
       properties:
@@ -67,4 +54,11 @@ components:
           type: integer
           format: int32
         message:
+          type: string
+    cwztpsvcdynamicConfigRequest:
+      type: object
+      properties:
+        configId:
+          type: string
+        profileName:
           type: string

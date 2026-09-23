@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Workflow Manager Resources API
   description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
-  version: 2.1.0
-  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  title: Cisco Crosswork Workflow Manager Resources API
+  termsOfService: www.cisco.com
   contact:
     name: API Support
     url: https://www.cisco.com/support
+  version: 2.1.0
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -14,27 +14,19 @@ info:
     harvested_on: '2026-08-19'
     first_party: true
     provider_published: true
-    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
-  x-evidence:
-  - type: source
-    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  - type: raw
-    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+    note: 'Reconstructed verbatim from the per-operation Swagger 2.0 JSON fragments Cisco serves for the Crosswork Workflow Manager API reference at developer.cisco.com/docs/crosswork/workflow-manager/. info, basePath and securityDefinitions are Cisco''s own meta block; each path/method object is Cisco''s own spec object, unmodified except that inline schemas carrying the swagger-ui $$ref marker were hoisted back into #/definitions and replaced with a real $ref.'
 servers:
 - url: /crosswork/cwm/v2
-  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
-security:
-- Bearer: []
 tags:
-- name: resources
+- name: Resources
 paths:
   /resource:
     get:
-      summary: List all available resources.
       description: Retrieve a list of all available resources.
-      operationId: list_resources
       tags:
-      - resources
+      - Resources
+      summary: List all available resources
+      operationId: list_resources
       responses:
         '200':
           description: Resources retrieved successfully.
@@ -54,21 +46,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: list-resources
+      method: get
+      path: /resource
     post:
-      summary: Create a new resource.
       description: Create a new resource.
-      operationId: create_resource
       tags:
-      - resources
-      requestBody:
-        description: Resource data to create.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/validator.Resource'
+      - Resources
+      summary: Create a new resource
+      operationId: create_resource
       responses:
         '200':
           description: Resource created successfully.
@@ -88,19 +74,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: create-resource
+      method: post
+      path: /resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/validator.Resource'
+        description: Resource data to create.
+        required: true
   /resource/{resourceId}:
     delete:
-      summary: Delete a resource by ID.
       description: Delete a specific resource by its ID.
-      operationId: delete_resource
       tags:
-      - resources
+      - Resources
+      summary: Delete a resource by ID
+      operationId: delete_resource
       parameters:
-      - name: resourceId
+      - description: Resource ID.
+        name: resourceId
         in: path
-        description: Resource ID.
         required: true
         schema:
           type: string
@@ -123,18 +117,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: delete-resource
+      method: delete
+      path: /resource/{resourceId}
     get:
-      summary: Get a specific resource by ID.
       description: Retrieve a specific resource by its ID.
-      operationId: get_resource
       tags:
-      - resources
+      - Resources
+      summary: Get a specific resource by ID
+      operationId: get_resource
       parameters:
-      - name: resourceId
+      - description: Resource ID.
+        name: resourceId
         in: path
-        description: Resource ID.
         required: true
         schema:
           type: string
@@ -157,28 +152,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: get-resource
+      method: get
+      path: /resource/{resourceId}
     patch:
-      summary: Update an existing resource by ID.
       description: Update an existing resource by its ID.
-      operationId: update_resource
       tags:
-      - resources
+      - Resources
+      summary: Update an existing resource by ID
+      operationId: update_resource
       parameters:
-      - name: resourceId
+      - description: Resource ID.
+        name: resourceId
         in: path
-        description: Resource ID.
         required: true
         schema:
           type: string
-      requestBody:
-        description: Resource data to update.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/validator.Resource'
       responses:
         '200':
           description: Resource updated successfully.
@@ -198,22 +187,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
-  /resourceExport:
-    post:
-      summary: Export all available resources.
-      description: Export all available resources from the system.
-      operationId: export_resources
-      tags:
-      - resources
+      __originalOperationId: update-resource
+      method: patch
+      path: /resource/{resourceId}
       requestBody:
-        description: Resource export request details.
-        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/server.ResourceExport'
+              $ref: '#/components/schemas/validator.Resource'
+        description: Resource data to update.
+        required: true
+  /resourceExport:
+    post:
+      description: Export all available resources from the system.
+      tags:
+      - Resources
+      summary: Export all available resources
+      operationId: export_resources
       responses:
         '200':
           description: Resources exported successfully.
@@ -237,26 +227,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: export-resources
+      method: post
+      path: /resourceExport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.ResourceExport'
+        description: Resource export request details.
+        required: true
   /resourceImport:
     post:
-      summary: Import resources into the system.
       description: Import resources into the system.
-      operationId: import_resources
       tags:
-      - resources
+      - Resources
+      summary: Import resources into the system
+      operationId: import_resources
       parameters:
-      - name: isDryRun
+      - description: Dry run mode.
+        name: isDryRun
         in: query
-        description: Dry run mode.
-        required: false
         schema:
           type: string
-      - name: isOverride
+      - description: Override existing resources mode.
+        name: isOverride
         in: query
-        description: Override existing resources mode.
-        required: false
         schema:
           type: string
       responses:
@@ -278,15 +274,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: import-resources
+      method: post
+      path: /resourceImport
   /resourceType:
     get:
-      summary: List all available resource types.
       description: Retrieve a list of all available resource types.
-      operationId: list_resource_types
       tags:
-      - resources
+      - Resources
+      summary: List all available resource types
+      operationId: list_resource_types
       responses:
         '200':
           description: Resource types retrieved successfully.
@@ -306,19 +303,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: list-resource-types
+      method: get
+      path: /resourceType
   /resourceType/{resourceTypeId}:
     get:
-      summary: Get a specific resource type by ID.
       description: Retrieve a specific resource type by its ID.
-      operationId: get_resource_type
       tags:
-      - resources
+      - Resources
+      summary: Get a specific resource type by ID
+      operationId: get_resource_type
       parameters:
-      - name: resourceTypeId
+      - description: Resource type ID.
+        name: resourceTypeId
         in: path
-        description: Resource type ID.
         required: true
         schema:
           type: string
@@ -341,30 +339,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: get-resource-type
+      method: get
+      path: /resourceType/{resourceTypeId}
 components:
   schemas:
-    models.ResourceType:
-      type: object
-      properties:
-        description:
-          type: string
-        resourceTypeId:
-          type: string
-        schema:
-          type: object
-    validator.Resource:
-      type: object
-      properties:
-        resource:
-          type: object
-        resourceId:
-          type: string
-        resourceTypeId:
-          type: string
-        secretId:
-          type: string
     models.Resource:
       type: object
       properties:
@@ -379,6 +358,17 @@ components:
     server.ResourceExport:
       type: object
       properties:
+        resourceId:
+          type: string
+        resourceTypeId:
+          type: string
+        secretId:
+          type: string
+    validator.Resource:
+      type: object
+      properties:
+        resource:
+          type: object
         resourceId:
           type: string
         resourceTypeId:
@@ -404,6 +394,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/validator.Resource'
+    models.ResourceType:
+      type: object
+      properties:
+        description:
+          type: string
+        resourceTypeId:
+          type: string
+        schema:
+          type: object
     server.HTTPError:
       type: object
       properties:
@@ -419,3 +418,9 @@ components:
       name: Authorization
       in: header
       description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+x-evidence:
+- type: reference
+  url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+- type: fragment-index
+  url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+  count: 90

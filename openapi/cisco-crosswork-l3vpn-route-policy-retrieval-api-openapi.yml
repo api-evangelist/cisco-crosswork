@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Crosswork Network Controller L3VPN Service L3VPN Route Policy Retrieval API
+  title: Crosswork Network Controller L3VPN Service L3VPN Route…
   description: This document contains details of the Crosswork Network Controller L3VPN Service APIs
   version: '1.0'
   contact:
@@ -31,7 +31,7 @@ paths:
     get:
       tags:
       - L3VPN Route Policy Retrieval
-      summary: ''
+      summary: Data cisco flat l3vpn fp l3vpn route policy l3vpn route policy name get
       description: Route policy
       operationId: data_cisco_flat_L3vpn_fp_l3vpn_route_policy_l3vpn_route_policy_name_get
       parameters:
@@ -65,7 +65,21 @@ paths:
           $ref: '#/components/responses/409'
       security:
       - basicAuth: []
+      x-summary-source: derived
 components:
+  responses:
+    '409':
+      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+    '204':
+      description: No Content. The request was successful and there is no additional content in the response body.
+    '404':
+      description: Not Found. The client made a request for a resource that does not exist.
+    '400':
+      description: Bad Request. The request is malformed in some way and the server cannot process it.
+    '405':
+      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
+    '401':
+      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
   parameters:
     with-defaults:
       name: with-defaults
@@ -110,14 +124,6 @@ components:
       schema:
         type: string
         format: string
-    depth:
-      name: depth
-      in: query
-      description: Limit the depth of the nodes in the response.
-      required: false
-      schema:
-        type: integer
-        format: uint16
     fields:
       name: fields
       in: query
@@ -126,19 +132,14 @@ components:
       schema:
         type: string
         format: string
-  responses:
-    '404':
-      description: Not Found. The client made a request for a resource that does not exist.
-    '405':
-      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
-    '401':
-      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
-    '204':
-      description: No Content. The request was successful and there is no additional content in the response body.
-    '400':
-      description: Bad Request. The request is malformed in some way and the server cannot process it.
-    '409':
-      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+    depth:
+      name: depth
+      in: query
+      description: Limit the depth of the nodes in the response.
+      required: false
+      schema:
+        type: integer
+        format: uint16
   schemas:
     l3vpn-route-policy:
       type: object

@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Workflow Manager Event Types Event Type API
   description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
-  version: 2.1.0
-  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  title: Cisco Crosswork Workflow Manager Event Type API
+  termsOfService: www.cisco.com
   contact:
     name: API Support
     url: https://www.cisco.com/support
+  version: 2.1.0
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -14,27 +14,19 @@ info:
     harvested_on: '2026-08-19'
     first_party: true
     provider_published: true
-    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
-  x-evidence:
-  - type: source
-    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  - type: raw
-    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+    note: 'Reconstructed verbatim from the per-operation Swagger 2.0 JSON fragments Cisco serves for the Crosswork Workflow Manager API reference at developer.cisco.com/docs/crosswork/workflow-manager/. info, basePath and securityDefinitions are Cisco''s own meta block; each path/method object is Cisco''s own spec object, unmodified except that inline schemas carrying the swagger-ui $$ref marker were hoisted back into #/definitions and replaced with a real $ref.'
 servers:
 - url: /crosswork/cwm/v2
-  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
-security:
-- Bearer: []
 tags:
-- name: eventType
+- name: Event Type
 paths:
   /eventType:
     get:
-      summary: List all event types.
       description: Retrieve a list of all registered event types.
-      operationId: list_event
       tags:
-      - eventType
+      - Event Type
+      summary: List all event types
+      operationId: list_event
       responses:
         '200':
           description: Event types retrieved successfully.
@@ -56,21 +48,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/gin.H'
-      security:
-      - Bearer: []
+      __originalOperationId: list-event
+      method: get
+      path: /eventType
     post:
-      summary: Create a new event type.
       description: Create a new event type. The 'Kind' field can be either "consumed" or "produced".
-      operationId: create_event_type
       tags:
-      - eventType
-      requestBody:
-        description: Event type data to create.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.EventDefinition'
+      - Event Type
+      summary: Create a new event type
+      operationId: create_event_type
       responses:
         '201':
           description: Event type created successfully.
@@ -84,25 +70,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: create-event-type
+      method: post
+      path: /eventType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.EventDefinition'
+        description: Event type data to create.
+        required: true
   /eventType/{type}/{actionOrKind}:
     delete:
-      summary: Delete an event type.
       description: Delete an existing event type.
-      operationId: delete_event_type
       tags:
-      - eventType
+      - Event Type
+      summary: Delete an event type
+      operationId: delete_event_type
       parameters:
-      - name: type
+      - description: The event type name.
+        name: type
         in: path
-        description: The event type name.
         required: true
         schema:
           type: string
-      - name: actionOrKind
+      - description: The event kind.
+        name: actionOrKind
         in: path
-        description: The event kind.
         required: true
         schema:
           type: string
@@ -125,24 +119,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/gin.H'
-      security:
-      - Bearer: []
+      __originalOperationId: delete-event-type
+      method: delete
+      path: /eventType/{type}/{actionOrKind}
     get:
-      summary: Get a specific event type.
       description: Retrieve detailed information about a specific event type and kind.
-      operationId: describe_event
       tags:
-      - eventType
+      - Event Type
+      summary: Get a specific event type
+      operationId: describe_event
       parameters:
-      - name: type
+      - description: The event type name.
+        name: type
         in: path
-        description: The event type name.
         required: true
         schema:
           type: string
-      - name: actionOrKind
+      - description: The event kind (consumed or produced).
+        name: actionOrKind
         in: path
-        description: The event kind (consumed or produced).
         required: true
         schema:
           type: string
@@ -165,24 +160,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/gin.H'
-      security:
-      - Bearer: []
+      __originalOperationId: describe-event
+      method: get
+      path: /eventType/{type}/{actionOrKind}
     post:
-      summary: Manage an event listener.
       description: Start or stop an event listener for a specific event type.
-      operationId: manage_event_listener
       tags:
-      - eventType
+      - Event Type
+      summary: Manage an event listener
+      operationId: manage_event_listener
       parameters:
-      - name: type
+      - description: The event type name.
+        name: type
         in: path
-        description: The event type name.
         required: true
         schema:
           type: string
-      - name: actionOrKind
+      - description: The action to perform (start or stop).
+        name: actionOrKind
         in: path
-        description: The action to perform (start or stop).
         required: true
         schema:
           type: string
@@ -205,34 +201,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/gin.H'
-      security:
-      - Bearer: []
+      __originalOperationId: manage-event-listener
+      method: post
+      path: /eventType/{type}/{actionOrKind}
     put:
-      summary: Update an existing event type.
       description: Update an existing event type's configuration.
-      operationId: update_event_type
       tags:
-      - eventType
+      - Event Type
+      summary: Update an existing event type
+      operationId: update_event_type
       parameters:
-      - name: type
+      - description: The event type name.
+        name: type
         in: path
-        description: The event type name.
         required: true
         schema:
           type: string
-      - name: actionOrKind
+      - description: The event kind.
+        name: actionOrKind
         in: path
-        description: The event kind.
         required: true
         schema:
           type: string
-      requestBody:
-        description: Event type data to update.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.EventDefinition'
       responses:
         '200':
           description: Event type updated successfully.
@@ -246,8 +236,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: update-event-type
+      method: put
+      path: /eventType/{type}/{actionOrKind}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.EventDefinition'
+        description: Event type data to update.
+        required: true
 components:
   schemas:
     server.HTTPError:
@@ -259,6 +257,36 @@ components:
         message:
           type: string
           example: status bad request
+    gin.H:
+      type: object
+      additionalProperties: {}
+    server.EventDefinition:
+      type: object
+      properties:
+        correlationAttrs:
+          type: array
+          items:
+            type: integer
+        createWorkflow:
+          type: boolean
+        endpoint:
+          type: string
+        kind:
+          type: string
+        payloadAttrs:
+          type: object
+          additionalProperties:
+            type: string
+        resourceId:
+          type: string
+        source:
+          type: string
+        type:
+          type: string
+        workflowName:
+          type: string
+        workflowVersion:
+          type: string
     server.EventResponse:
       type: object
       properties:
@@ -292,39 +320,15 @@ components:
           type: string
         workflowVersion:
           type: string
-    server.EventDefinition:
-      type: object
-      properties:
-        correlationAttrs:
-          type: array
-          items:
-            type: integer
-        createWorkflow:
-          type: boolean
-        endpoint:
-          type: string
-        kind:
-          type: string
-        payloadAttrs:
-          type: object
-          additionalProperties:
-            type: string
-        resourceId:
-          type: string
-        source:
-          type: string
-        type:
-          type: string
-        workflowName:
-          type: string
-        workflowVersion:
-          type: string
-    gin.H:
-      type: object
-      additionalProperties: {}
   securitySchemes:
     Bearer:
       type: apiKey
       name: Authorization
       in: header
       description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+x-evidence:
+- type: reference
+  url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+- type: fragment-index
+  url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+  count: 90

@@ -33,7 +33,7 @@ paths:
       - CwVmMangager
   /v1/node-manager/all:
     get:
-      summary: Get All Data Centre, Cluster and VM info.
+      summary: Get All Data Centre, Cluster and VM info
       operationId: GetAll
       responses:
         '200':
@@ -46,7 +46,7 @@ paths:
       - CwVmMangager
   /v1/node-manager/clusters:
     get:
-      summary: Get map of Clusters configured in Crosswork.
+      summary: Get map of Clusters configured in Crosswork
       operationId: GetClusters
       responses:
         '200':
@@ -59,7 +59,7 @@ paths:
       - CwVmMangager
   /v1/node-manager/clusters/{Id}:
     get:
-      summary: Get Cluster identified by Id.
+      summary: Get Cluster identified by Id
       operationId: GetCluster
       responses:
         '200':
@@ -79,7 +79,7 @@ paths:
       - CwVmMangager
   /v1/node-manager/dcs:
     get:
-      summary: Get map of Data Centres configured in Crosswork.
+      summary: Get map of Data Centres configured in Crosswork
       operationId: GetDCs
       responses:
         '200':
@@ -92,7 +92,7 @@ paths:
       - CwVmMangager
   /v1/node-manager/dcs/vcentres/{Id}:
     get:
-      summary: Get Vcentre Data Centre identified by Id configured in Crosswork.
+      summary: Get Vcentre Data Centre identified by Id configured in Crosswork
       operationId: GetVCentre
       responses:
         '200':
@@ -111,7 +111,7 @@ paths:
       tags:
       - CwVmMangager
     patch:
-      summary: Patch Vcentre Data Centre data in Crosswork.
+      summary: Patch Vcentre Data Centre data in Crosswork
       operationId: PatchVCentreDC
       responses:
         '200':
@@ -156,7 +156,7 @@ paths:
         required: true
   /v1/node-manager/inventory/sample:
     get:
-      summary: Request a sample inventory base64 encoded file.
+      summary: Request a sample inventory base64 encoded file
       operationId: GetSampleInventoryFile
       responses:
         '200':
@@ -169,7 +169,7 @@ paths:
       - CwVmMangager
   /v1/node-manager/inventory/{Id}/export:
     post:
-      summary: Export the cluster id inventory as a base64 encoded file.
+      summary: Export the cluster id inventory as a base64 encoded file
       operationId: ExportInventory
       responses:
         '200':
@@ -268,7 +268,7 @@ paths:
       - CwVmMangager
   /v1/node-manager/vms:
     get:
-      summary: Get map of all VMs configured in Crosswork.
+      summary: Get map of all VMs configured in Crosswork
       operationId: GetCwVMs
       responses:
         '200':
@@ -319,7 +319,7 @@ paths:
       tags:
       - CwVmMangager
     delete:
-      summary: Delete the VM identified by Id from the inventory.
+      summary: Delete the VM identified by Id from the inventory
       operationId: DeleteVm
       responses:
         '200':
@@ -384,7 +384,7 @@ paths:
       - CwVmMangager
   /v1/node-manager/vms/{Id}/deploy:
     post:
-      summary: Apply the configuration of the Cw VM identified. Returned Id identifes the install job/task
+      summary: Apply the configuration of the Cw VM identified.
       operationId: ApplyVM
       responses:
         '200':
@@ -404,7 +404,7 @@ paths:
       - CwVmMangager
   /v1/node-manager/vms/{Id}/erase:
     delete:
-      summary: Initiate task to destroy and delete the VM identified by Id from the inventory.
+      summary: Initiate task to destroy and delete the VM identified by Id from the inventory
       operationId: DestroyVm
       responses:
         '200':
@@ -424,7 +424,7 @@ paths:
       - CwVmMangager
   /v1/node-manager/vms/{Id}/remove:
     post:
-      summary: Drain and remove from the cluster the VM identified by its *Management IP address*.
+      summary: Drain and remove from the cluster the VM identified by its *Management IP…
       operationId: DrainRemoveVM
       responses:
         '200':
@@ -444,6 +444,37 @@ paths:
       - CwVmMangager
 components:
   schemas:
+    CwVMDataCentre:
+      type: object
+      properties:
+        DataCentre_Id:
+          type: string
+          title: The VM's DataCentre ID
+        Host:
+          type: string
+          title: Virtualization host name
+        Datastore:
+          type: string
+          title: Datastore name
+        HSDatastore:
+          type: string
+          title: High Speed Datastore name
+    install_apiCwClusterAndActions:
+      type: object
+      properties:
+        CwCluster:
+          $ref: '#/components/schemas/install_apiCwCluster'
+        ClusterActions:
+          $ref: '#/components/schemas/install_apiNodeActions'
+    install_apiNodeActions:
+      type: object
+      properties:
+        Actions:
+          type: object
+          additionalProperties:
+            type: boolean
+            format: boolean
+      title: Node Actions
     install_apiCwCluster:
       type: object
       properties:
@@ -500,109 +531,6 @@ components:
         SchemaVersion:
           type: string
           title: The configuration schema version
-    install_apiVCentreDC:
-      type: object
-      properties:
-        DCname:
-          type: string
-          title: The vCentre DC Name, used as DC id
-        VCentreAddress:
-          type: string
-          title: The vCentre address
-        VCentreUser:
-          type: string
-          title: The vCentre username
-        VCentrePassword:
-          type: string
-          title: The vCentre password
-        MgmtNetworkName:
-          type: string
-          title: The name of the network in vCentre to be used as the Cw VM Management network
-        DataNetworkName:
-          type: string
-          title: The name of the network in vCentre to be used as the Cw VM Data network
-        DCfolder:
-          type: string
-          title: The folder on the vCentre
-        VMs:
-          type: array
-          items:
-            $ref: '#/components/schemas/install_apiVMResource'
-    install_apiDCsResp:
-      type: object
-      properties:
-        VCentres:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/install_apiVCentreDC'
-          description: Map is keyed by VCentre id.
-    install_apiCwVmState:
-      type: string
-      enum:
-      - Initializing
-      - Down
-      - Running
-      - Degraded
-      - Erased
-      - Failed
-      - Suspended
-      - Configuring
-      - Erasing
-      default: Initializing
-      title: "- Initializing: Defines unknown/initialized state.\n - Down: When the VM is non-functional.\n - Running: When the VM is completely functional.\n - Degraded: When the VM is running but suspected not to be completely functional.\n - Erased: When the VM is erased but still in the inventory.\n - Failed: When some unrecoverable error happened\n - Suspended: When the VM is suspended\n - Configuring: When the VM is being configured\n - Erasing: When the VM is being destroyed/erased"
-    install_apiVMMDump:
-      type: object
-      properties:
-        VCentres:
-          $ref: '#/components/schemas/install_apiDCsResp'
-        CwClusters:
-          $ref: '#/components/schemas/install_apiClustersResp'
-        CwVMs:
-          $ref: '#/components/schemas/install_apiVMsResp'
-    install_apiResultValue:
-      type: string
-      enum:
-      - NOOP
-      - SUCCESS
-      - FAILURE
-      default: NOOP
-    install_apiVMMTaskResults:
-      type: object
-      properties:
-        NmTasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/install_apiVMMTask'
-    install_apiVMMTaskTypes:
-      type: string
-      enum:
-      - None
-      - Deploy
-      - Erase
-      - Refresh
-      - Plan
-      - Add
-      - Update
-      - Delete
-      - DrainRemove
-      default: None
-    install_apiVMResource:
-      type: object
-      properties:
-        Host:
-          type: string
-          title: Virtualization host name
-        Datastore:
-          type: string
-          title: Datastore name
-        HSDatastore:
-          type: string
-          title: High Speed Datastore name
-        HostedCwVMs:
-          type: array
-          items:
-            type: string
-          title: List of Cw VMs on this DC
     install_apiVMMTask:
       type: object
       properties:
@@ -638,37 +566,75 @@ components:
           type: string
         ManifestFile:
           type: string
-    install_apiOpResult:
+    install_apiVMMTaskTypes:
+      type: string
+      enum:
+      - None
+      - Deploy
+      - Erase
+      - Refresh
+      - Plan
+      - Add
+      - Update
+      - Delete
+      - DrainRemove
+      default: None
+    install_apiVMResource:
       type: object
       properties:
-        Result:
-          $ref: '#/components/schemas/install_apiResultValue'
-          description: ResultValue indicates the success/failure for the requested operation.
-        Description:
+        Host:
           type: string
-          title: Addional response information
-        ResultMap:
-          type: object
-          additionalProperties:
-            type: string
-          title: 'Supplementary keyed response info for the operation (for example: version number, error message)'
-        ResultString:
+          title: Virtualization host name
+        Datastore:
+          type: string
+          title: Datastore name
+        HSDatastore:
+          type: string
+          title: High Speed Datastore name
+        HostedCwVMs:
           type: array
           items:
             type: string
-          title: Simple result string
-        Id:
-          type: string
-          title: Resource Identifier returned by operation, if any
-      description: 'OpResult is used to indicate whether an operation has been accepted or not. A string or map payload provides the additional response information (for example: version number, error data).'
-    install_apiClustersResp:
+          title: List of Cw VMs on this DC
+    install_apiCwVmState:
+      type: string
+      enum:
+      - Initializing
+      - Down
+      - Running
+      - Degraded
+      - Erased
+      - Failed
+      - Suspended
+      - Configuring
+      - Erasing
+      default: Initializing
+      title: "- Initializing: Defines unknown/initialized state.\n - Down: When the VM is non-functional.\n - Running: When the VM is completely functional.\n - Degraded: When the VM is running but suspected not to be completely functional.\n - Erased: When the VM is erased but still in the inventory.\n - Failed: When some unrecoverable error happened\n - Suspended: When the VM is suspended\n - Configuring: When the VM is being configured\n - Erasing: When the VM is being destroyed/erased"
+    install_apiVCentreReq:
       type: object
       properties:
-        CwClusterAndActions:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/install_apiCwClusterAndActions'
-          description: Map is keyed by cluster id.
+        Id:
+          type: string
+          title: ID as assigned by Crosswork
+        VCentreUser:
+          type: string
+          title: The vCentre username
+        VCentrePassword:
+          type: string
+          title: The vCentre password
+        VCentreAddress:
+          type: string
+          title: The vCentre address
+        DCfolder:
+          type: string
+          title: The folder on the vCentre
+    install_apiVMMTaskResults:
+      type: object
+      properties:
+        NmTasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/install_apiVMMTask'
     install_apiCwVM:
       type: object
       properties:
@@ -698,48 +664,89 @@ components:
         VmSize:
           type: string
           title: VM Size
-    install_apiNodeActions:
-      type: object
-      properties:
-        Actions:
-          type: object
-          additionalProperties:
-            type: boolean
-            format: boolean
-      title: Node Actions
-    install_apiSmallFileChunk:
-      type: object
-      properties:
-        filedata:
-          $ref: '#/components/schemas/install_apiFiledata'
-    install_apiOpStatus:
+    install_apiResultValue:
       type: string
       enum:
-      - CANCELLED
-      - FAILED
-      - SUCCESSFUL
-      - QUEUED
-      - RUNNING
-      - IDLE
-      default: CANCELLED
-    install_apiVCentreReq:
+      - NOOP
+      - SUCCESS
+      - FAILURE
+      default: NOOP
+    install_apiVMMDump:
       type: object
       properties:
-        Id:
+        VCentres:
+          $ref: '#/components/schemas/install_apiDCsResp'
+        CwClusters:
+          $ref: '#/components/schemas/install_apiClustersResp'
+        CwVMs:
+          $ref: '#/components/schemas/install_apiVMsResp'
+    install_apiVCentreDC:
+      type: object
+      properties:
+        DCname:
           type: string
-          title: ID as assigned by Crosswork
+          title: The vCentre DC Name, used as DC id
+        VCentreAddress:
+          type: string
+          title: The vCentre address
         VCentreUser:
           type: string
           title: The vCentre username
         VCentrePassword:
           type: string
           title: The vCentre password
-        VCentreAddress:
+        MgmtNetworkName:
           type: string
-          title: The vCentre address
+          title: The name of the network in vCentre to be used as the Cw VM Management network
+        DataNetworkName:
+          type: string
+          title: The name of the network in vCentre to be used as the Cw VM Data network
         DCfolder:
           type: string
           title: The folder on the vCentre
+        VMs:
+          type: array
+          items:
+            $ref: '#/components/schemas/install_apiVMResource'
+    install_apiOpResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/install_apiResultValue'
+          description: ResultValue indicates the success/failure for the requested operation.
+        Description:
+          type: string
+          title: Addional response information
+        ResultMap:
+          type: object
+          additionalProperties:
+            type: string
+          title: 'Supplementary keyed response info for the operation (for example: version number, error message)'
+        ResultString:
+          type: array
+          items:
+            type: string
+          title: Simple result string
+        Id:
+          type: string
+          title: Resource Identifier returned by operation, if any
+      description: 'OpResult is used to indicate whether an operation has been accepted or not. A string or map payload provides the additional response information (for example: version number, error data).'
+    install_apiDCsResp:
+      type: object
+      properties:
+        VCentres:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/install_apiVCentreDC'
+          description: Map is keyed by VCentre id.
+    install_apiVMsResp:
+      type: object
+      properties:
+        CwVMs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/install_apiCwVM'
+          description: Map is keyed by VM Crosswork assigned id.
     install_apiFiledata:
       type: object
       properties:
@@ -753,33 +760,26 @@ components:
         content:
           type: string
           format: byte
-    install_apiVMsResp:
+    install_apiOpStatus:
+      type: string
+      enum:
+      - CANCELLED
+      - FAILED
+      - SUCCESSFUL
+      - QUEUED
+      - RUNNING
+      - IDLE
+      default: CANCELLED
+    install_apiSmallFileChunk:
       type: object
       properties:
-        CwVMs:
+        filedata:
+          $ref: '#/components/schemas/install_apiFiledata'
+    install_apiClustersResp:
+      type: object
+      properties:
+        CwClusterAndActions:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/install_apiCwVM'
-          description: Map is keyed by VM Crosswork assigned id.
-    CwVMDataCentre:
-      type: object
-      properties:
-        DataCentre_Id:
-          type: string
-          title: The VM's DataCentre ID
-        Host:
-          type: string
-          title: Virtualization host name
-        Datastore:
-          type: string
-          title: Datastore name
-        HSDatastore:
-          type: string
-          title: High Speed Datastore name
-    install_apiCwClusterAndActions:
-      type: object
-      properties:
-        CwCluster:
-          $ref: '#/components/schemas/install_apiCwCluster'
-        ClusterActions:
-          $ref: '#/components/schemas/install_apiNodeActions'
+            $ref: '#/components/schemas/install_apiCwClusterAndActions'
+          description: Map is keyed by cluster id.

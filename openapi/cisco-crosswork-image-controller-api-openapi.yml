@@ -1,8 +1,14 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Image Controller API
-  version: '1.0'
-  description: 'Operations tagged image-controller across 2 of this provider''s published API definitions: cisco-crosswork-ncahi-cw-image-service-openapi.json, cisco-crosswork-ztp-cw-image-service-openapi.json. Each path carries the servers of the definition it was published in.'
+  title: Crosswork ZTP Image Service Image Controller API
+  version: 2.0.0
+  contact:
+    name: Crosswork Team, Cisco
+    email: support@cisco.com
+  license:
+    name: Cisco Software License Agreement
+    url: http://www.cisco.com/public/sw-license-agreement.html
+  description: This document details the Crosswork REST APIs that you can use to manage software image files for Zero Touch Provisioning (ZTP) devices.
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -11,9 +17,6 @@ info:
     first_party: true
     note: Published by Cisco. Retrieved unmodified except for this x-provenance block.
     provider_published: true
-    derived_view: Per-tag view of cisco-crosswork-ztp-cw-image-service-openapi.json, the provider's source document. Operations and schemas are the provider's, unmodified; only the partition is ours.
-    derived_from: cisco-crosswork-ztp-cw-image-service-openapi.json
-    operation_coverage: 6/6
   x-evidence:
   - type: source
     url: https://github.com/CiscoDevNet/crosswork-openapi-spec/blob/master/ZTP/2.0APIs/cw_image_service.swagger.json
@@ -28,8 +31,6 @@ tags:
   description: Image Controller
 paths:
   /v1/images:
-    servers:
-    - url: /crosswork/imagesvc/
     get:
       tags:
       - image-controller
@@ -62,6 +63,12 @@ paths:
         required: false
         schema:
           type: boolean
+      - name: imageId
+        in: query
+        description: imageId
+        required: false
+        schema:
+          type: string
       - name: imageType
         in: query
         description: imageType
@@ -104,37 +111,43 @@ paths:
         required: false
         schema:
           type: string
+      - name: imageFileName
+        in: query
+        description: imageFileName
+        required: false
+        schema:
+          type: string
       responses:
         '200':
-          description: OK
+          description: OK. The request was successful. The result is contained in the response body.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseDto_ImageDto'
+                $ref: '#/components/schemas/ResponseDtoOfImageDto'
         '401':
-          description: Unauthorized
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
         '403':
-          description: Forbidden
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
         '404':
-          description: Not Found
+          description: Not Found. The client made a request for a resource that does not exist.
     delete:
       tags:
       - image-controller
-      summary: Delete images by id list
+      summary: Delete images by a list of IDs
       operationId: deleteImagesByIdListUsingDELETE
       responses:
         '200':
-          description: OK
+          description: OK. The request was successful. The result is contained in the response body.
           content:
             application/json:
               schema:
                 type: object
         '204':
-          description: No Content
+          description: No Content. The request was successful and there is no additional content in the response body.
         '401':
-          description: Unauthorized
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
         '403':
-          description: Forbidden
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
       requestBody:
         content:
           application/json:
@@ -144,102 +157,7 @@ paths:
                 type: string
         description: idList
         required: true
-  /v1/images/{imageId}:
-    servers:
-    - url: /crosswork/imagesvc/
-    get:
-      tags:
-      - image-controller
-      summary: Get image by id
-      operationId: getImageByIdUsingGET
-      parameters:
-      - name: imageId
-        in: path
-        description: imageId
-        required: true
-        schema:
-          type: string
-      - name: X-Real-IP
-        in: header
-        description: X-Real-IP
-        required: false
-        schema:
-          type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ImageDto'
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-    put:
-      tags:
-      - image-controller
-      summary: Update metadata of image
-      operationId: updateImageInfoUsingPUT
-      parameters:
-      - name: imageId
-        in: path
-        description: imageId
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ImageDto'
-        '201':
-          description: Created
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ImageDto'
-        description: imageDto
-        required: true
-    delete:
-      tags:
-      - image-controller
-      summary: Delete image by id
-      operationId: deleteImageByIdUsingDELETE
-      parameters:
-      - name: imageId
-        in: path
-        description: imageId
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-        '204':
-          description: No Content
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
   /v1/images/count:
-    servers:
-    - url: /crosswork/imagesvc/
     get:
       tags:
       - image-controller
@@ -259,21 +177,99 @@ paths:
           description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
         '404':
           description: Not Found. The client made a request for a resource that does not exist.
+  /v1/images/{imageId}:
+    get:
+      tags:
+      - image-controller
+      summary: Get image by ID
+      operationId: getImageByIdUsingGET
+      parameters:
+      - name: imageId
+        in: path
+        description: imageId
+        required: true
+        schema:
+          type: string
+      - name: X-Real-IP
+        in: header
+        description: X-Real-IP
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK. The request was successful. The result is contained in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageDto'
+        '401':
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
+        '403':
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
+        '404':
+          description: Not Found. The client made a request for a resource that does not exist.
+    put:
+      tags:
+      - image-controller
+      summary: Update the image metadata
+      operationId: updateImageInfoUsingPUT
+      parameters:
+      - name: imageId
+        in: path
+        description: imageId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK. The request was successful. The result is contained in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageDto'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
+        '403':
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
+        '404':
+          description: Not Found. The client made a request for a resource that does not exist.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageDto'
+        description: imageDto
+        required: true
+    delete:
+      tags:
+      - image-controller
+      summary: Delete image by ID
+      operationId: deleteImageByIdUsingDELETE
+      parameters:
+      - name: imageId
+        in: path
+        description: imageId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK. The request was successful. The result is contained in the response body.
+          content:
+            application/json:
+              schema:
+                type: object
+        '204':
+          description: No Content. The request was successful and there is no additional content in the response body.
+        '401':
+          description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
+        '403':
+          description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
 components:
   schemas:
-    ResponseDto_ImageDto:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ImageDto'
-        pageNumber:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
     ImageDto:
       type: object
       properties:
@@ -299,11 +295,23 @@ components:
           type: string
         modifiedBy:
           type: string
+      title: ImageDto
+    ResponseDtoOfImageDto:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageDto'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+      title: ResponseDtoOfImageDto
   securitySchemes:
     bearerAuth:
       type: apiKey
       name: Authorization
       in: header
-x-refined-from:
-- cisco-crosswork-ncahi-cw-image-service-openapi.json
-- cisco-crosswork-ztp-cw-image-service-openapi.json

@@ -8,7 +8,7 @@ info:
   license:
     name: Cisco Software License Agreement
     url: http://www.cisco.com/public/sw-license-agreement.html
-  description: ' This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices'
+  description: This document contains details of the Crosswork Inventory RESTful APIs that can be used to onboard and manage Device Groups(Tags), Credentials, Providers and Devices
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -32,7 +32,7 @@ paths:
   /v1/csvupload:
     parameters: []
     put:
-      summary: Update operation via CSV file upload. With this API, the uplaoded list of inventory will be updated in Crossworks. Can be applied to Devices
+      summary: Update operation via CSV file upload.
       responses:
         '200':
           description: A successful response.
@@ -50,30 +50,10 @@ paths:
             schema:
               $ref: '#/components/schemas/robotapiRobotCsvUploadReq'
         required: true
+      operationId: putV1Csvupload
+      x-operation-id-source: derived
 components:
   schemas:
-    robotapiRobotInventoryType:
-      description: Supported Inventory Type
-      type: string
-      enum:
-      - INV_TYPE_UNKNOWN
-      - INV_TYPE_NODE
-      - INV_TYPE_PROVIDER
-      - INV_TYPE_CREDENTIAL
-      - INV_TYPE_TAG
-      default: INV_TYPE_UNKNOWN
-    robotapiRobotJobState:
-      description: Various Job Resulting states.
-      type: string
-      enum:
-      - JOB_INVALID
-      - JOB_REJECTED
-      - JOB_ACCEPTED
-      - JOB_DB_UPDATED
-      - JOB_NOTIFICATION_PUBLISHED
-      - JOB_COMPLETED
-      - JOB_FAILED
-      default: JOB_INVALID
     robotapiRobotCsvUploadReq:
       description: Request body for uploading a CSV file for any inventory type
       type: object
@@ -85,6 +65,16 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/robotapiRobotInventoryType'
+    robotapiRobotInventoryType:
+      description: Supported Inventory Type
+      type: string
+      enum:
+      - INV_TYPE_UNKNOWN
+      - INV_TYPE_NODE
+      - INV_TYPE_PROVIDER
+      - INV_TYPE_CREDENTIAL
+      - INV_TYPE_TAG
+      default: INV_TYPE_UNKNOWN
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -124,6 +114,18 @@ components:
           type: string
         title: Impacted elements list
       description: Every Action related to Inventory will have a Job
+    robotapiRobotJobState:
+      description: Various Job Resulting states.
+      type: string
+      enum:
+      - JOB_INVALID
+      - JOB_REJECTED
+      - JOB_ACCEPTED
+      - JOB_DB_UPDATED
+      - JOB_NOTIFICATION_PUBLISHED
+      - JOB_COMPLETED
+      - JOB_FAILED
+      default: JOB_INVALID
   securitySchemes:
     bearerAuth:
       type: apiKey

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Crosswork Network Controller L3VPN Service Flat L3VPN Provision API
+  title: Crosswork Network Controller L3VPN Service Flat L3VPN…
   description: This document contains details of the Crosswork Network Controller L3VPN Service APIs
   version: '1.0'
   contact:
@@ -31,7 +31,7 @@ paths:
     post:
       tags:
       - Flat L3VPN Provision
-      summary: ''
+      summary: Data cisco flat l3vpn fp flat l3vpn flat l3vpn name post
       description: Flat L3VPN service
       operationId: data_cisco_flat_L3vpn_fp_flat_L3vpn_flat_L3vpn_name_post
       parameters:
@@ -52,10 +52,11 @@ paths:
           $ref: '#/components/responses/409'
       security:
       - basicAuth: []
+      x-summary-source: derived
     put:
       tags:
       - Flat L3VPN Provision
-      summary: ''
+      summary: Data cisco flat l3vpn fp flat l3vpn flat l3vpn name put
       description: Flat L3VPN service
       operationId: data_cisco_flat_L3vpn_fp_flat_L3vpn_flat_L3vpn_name_put
       parameters:
@@ -80,10 +81,11 @@ paths:
           $ref: '#/components/responses/409'
       security:
       - basicAuth: []
+      x-summary-source: derived
     patch:
       tags:
       - Flat L3VPN Provision
-      summary: ''
+      summary: Data cisco flat l3vpn fp flat l3vpn flat l3vpn name patch
       description: Flat L3VPN service
       operationId: data_cisco_flat_L3vpn_fp_flat_L3vpn_flat_L3vpn_name_patch
       parameters:
@@ -104,10 +106,11 @@ paths:
           $ref: '#/components/responses/409'
       security:
       - basicAuth: []
+      x-summary-source: derived
     delete:
       tags:
       - Flat L3VPN Provision
-      summary: ''
+      summary: Data cisco flat l3vpn fp flat l3vpn flat l3vpn name delete
       description: Flat L3VPN service
       operationId: data_cisco_flat_L3vpn_fp_flat_L3vpn_flat_L3vpn_name_delete
       parameters:
@@ -125,8 +128,37 @@ paths:
           $ref: '#/components/responses/405'
       security:
       - basicAuth: []
+      x-summary-source: derived
 components:
+  responses:
+    '409':
+      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+    '204':
+      description: No Content. The request was successful and there is no additional content in the response body.
+    '404':
+      description: Not Found. The client made a request for a resource that does not exist.
+    '400':
+      description: Bad Request. The request is malformed in some way and the server cannot process it.
+    '405':
+      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
+    '401':
+      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
   parameters:
+    flat-L3vpn:
+      name: flat-L3vpn
+      in: body
+      description: Flat L3VPN Configuration
+      required: true
+      schema:
+        $ref: '#/components/schemas/flat-L3vpn'
+    flat-L3vpn-name:
+      name: flat-L3vpn-name
+      in: path
+      description: Service Name for L3VPN
+      required: true
+      schema:
+        type: string
+        format: string
     point:
       name: point
       in: query
@@ -135,13 +167,6 @@ components:
       schema:
         type: string
         format: string
-    flat-L3vpn:
-      name: flat-L3vpn
-      in: body
-      description: Flat L3VPN Configuration
-      required: true
-      schema:
-        $ref: '#/components/schemas/flat-L3vpn'
     insert:
       name: insert
       in: query
@@ -156,14 +181,6 @@ components:
         - before
         - after
         default: first
-    flat-L3vpn-name:
-      name: flat-L3vpn-name
-      in: path
-      description: Service Name for L3VPN
-      required: true
-      schema:
-        type: string
-        format: string
   schemas:
     flat-L3vpn:
       type: object
@@ -979,19 +996,6 @@ components:
           properties: {}
       xml:
         namespace: http://cisco.com/ns/nso/fp/examples/cisco-tsdn-flat-L3vpn
-  responses:
-    '404':
-      description: Not Found. The client made a request for a resource that does not exist.
-    '204':
-      description: No Content. The request was successful and there is no additional content in the response body.
-    '401':
-      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
-    '405':
-      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
-    '400':
-      description: Bad Request. The request is malformed in some way and the server cannot process it.
-    '409':
-      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
   securitySchemes:
     basicAuth:
       type: http

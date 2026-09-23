@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   description: This document contains details of the Crosswork Network Controller nso-connector APIs
   version: '2.0'
-  title: Crosswork Network Controller CAT NSO Connector API Controller API
+  title: Crosswork Network Controller CAT NSO Connector API…
   contact:
     name: Crosswork Team, Cisco
     email: support@cisco.com
@@ -32,7 +32,7 @@ paths:
     post:
       tags:
       - api-controller
-      summary: Performs a full resync for all service types.
+      summary: Performs a full resync for all service types
       description: This is heavy operation, use with caution.
       operationId: fullResyncUsingPOST
       parameters:
@@ -62,8 +62,8 @@ paths:
     post:
       tags:
       - api-controller
-      summary: Resyncs service by service type and name.
-      description: Resyncs the service and  service-plan of this service.
+      summary: Resyncs service by service type and name
+      description: Resyncs the service and service-plan of this service.
       operationId: serviceResyncUsingPOST
       parameters:
       - name: serviceName
@@ -98,7 +98,7 @@ paths:
     get:
       tags:
       - api-controller
-      summary: Retrieves the service status. Use for development and debugging purposes only.
+      summary: Retrieves the service status. Use for development and debugging purposes only
       description: Retrieves the status of the service, which is active/standby (leader/follower).
       operationId: serviceStatusUsingGET
       parameters:
@@ -126,7 +126,7 @@ paths:
     post:
       tags:
       - api-controller
-      summary: Resyncs  by service type.
+      summary: Resyncs by service type
       description: Resyncs the service, service-plan, and resources of this service type.
       operationId: typeResyncUsingPOST
       parameters:

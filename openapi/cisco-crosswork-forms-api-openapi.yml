@@ -1,12 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Cisco Crosswork Workflow Manager Forms API
   description: Cisco Crosswork Workflow Manager (CWM) 2.1 offers RESTful APIs that enable automation engineers and developers to create, deploy, and manage workflows, adapters, jobs, resources, events, and workers within the Cisco CWM platform.
-  version: 2.1.0
-  termsOfService: https://www.cisco.com/c/en/us/about/legal/terms-conditions.html
+  title: Cisco Crosswork Workflow Manager Forms API
+  termsOfService: www.cisco.com
   contact:
     name: API Support
     url: https://www.cisco.com/support
+  version: 2.1.0
   x-provenance:
     method: harvested
     authored_by: Cisco Crosswork
@@ -14,27 +14,19 @@ info:
     harvested_on: '2026-08-19'
     first_party: true
     provider_published: true
-    note: Refined from Cisco's own Crosswork Workflow Manager 2.1 Swagger 2.0 reference (see openapi/_original/cisco-crosswork-cwm-workflow-manager-openapi.json). Converted to OpenAPI 3.2.0 and split by tag; operationIds absent from Cisco's source were synthesised deterministically from method+path.
-  x-evidence:
-  - type: source
-    url: https://developer.cisco.com/docs/crosswork/workflow-manager/
-  - type: raw
-    url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+    note: 'Reconstructed verbatim from the per-operation Swagger 2.0 JSON fragments Cisco serves for the Crosswork Workflow Manager API reference at developer.cisco.com/docs/crosswork/workflow-manager/. info, basePath and securityDefinitions are Cisco''s own meta block; each path/method object is Cisco''s own spec object, unmodified except that inline schemas carrying the swagger-ui $$ref marker were hoisted back into #/definitions and replaced with a real $ref.'
 servers:
 - url: /crosswork/cwm/v2
-  description: Relative to the customer-deployed Crosswork Workflow Manager host (https://{cwm-host}:{port})
-security:
-- Bearer: []
 tags:
-- name: forms
+- name: Forms
 paths:
   /form:
     get:
-      summary: List available forms.
       description: Retrieve a list of all available forms.
-      operationId: list_forms
       tags:
-      - forms
+      - Forms
+      summary: List available forms
+      operationId: list_forms
       responses:
         '200':
           description: Forms retrieved successfully.
@@ -56,21 +48,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: list-forms
+      method: get
+      path: /form
     post:
-      summary: Create a new form.
       description: Create a new form with the specified input data.
-      operationId: create_form
       tags:
-      - forms
-      requestBody:
-        description: Form input data.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.formSchema'
+      - Forms
+      summary: Create a new form
+      operationId: create_form
       responses:
         '200':
           description: Form created successfully.
@@ -90,19 +76,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: create-form
+      method: post
+      path: /form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/server.formSchema'
+        description: Form input data.
+        required: true
   /form/{formId}:
     delete:
-      summary: Delete a form.
       description: Delete a specific form by its ID.
-      operationId: delete_form
       tags:
-      - forms
+      - Forms
+      summary: Delete a form
+      operationId: delete_form
       parameters:
-      - name: formId
+      - description: Form ID.
+        name: formId
         in: path
-        description: Form ID.
         required: true
         schema:
           type: string
@@ -125,18 +119,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: delete-form
+      method: delete
+      path: /form/{formId}
     get:
-      summary: Get a specific form.
       description: Retrieve a specific form by its ID.
-      operationId: get_form
       tags:
-      - forms
+      - Forms
+      summary: Get a specific form
+      operationId: get_form
       parameters:
-      - name: formId
+      - description: Form ID.
+        name: formId
         in: path
-        description: Form ID.
         required: true
         schema:
           type: string
@@ -159,28 +154,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: get-form
+      method: get
+      path: /form/{formId}
     patch:
-      summary: Update a specific form.
       description: Update an existing form with new data.
-      operationId: update_form
       tags:
-      - forms
+      - Forms
+      summary: Update a specific form
+      operationId: update_form
       parameters:
-      - name: formId
+      - description: Form ID.
+        name: formId
         in: path
-        description: Form ID.
         required: true
         schema:
           type: string
-      requestBody:
-        description: Updated form input.
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/server.formSchema'
       responses:
         '200':
           description: Form updated successfully.
@@ -200,22 +189,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
-  /formExport:
-    post:
-      summary: Export forms.
-      description: Export a list of forms. Providing an empty body exports all available forms.
-      operationId: export_forms
-      tags:
-      - forms
+      __originalOperationId: update-form
+      method: patch
+      path: /form/{formId}
       requestBody:
-        description: List of form IDs to export.
-        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/server.FormExport'
+              $ref: '#/components/schemas/server.formSchema'
+        description: Updated form input.
+        required: true
+  /formExport:
+    post:
+      description: Export a list of forms. Providing an empty body exports all available forms.
+      tags:
+      - Forms
+      summary: Export forms
+      operationId: export_forms
       responses:
         '200':
           description: Forms exported successfully.
@@ -237,24 +227,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
-  /formImport:
-    post:
-      summary: Import forms.
-      description: Import a list of forms into the system.
-      operationId: import_forms
-      tags:
-      - forms
+      __originalOperationId: export-forms
+      method: post
+      path: /formExport
       requestBody:
-        description: List of form inputs to import.
-        required: true
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/server.formSchema'
+              $ref: '#/components/schemas/server.FormExport'
+        description: List of form IDs to export.
+        required: true
+  /formImport:
+    post:
+      description: Import a list of forms into the system.
+      tags:
+      - Forms
+      summary: Import forms
+      operationId: import_forms
       responses:
         '200':
           description: Forms imported successfully.
@@ -274,8 +263,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/server.HTTPError'
-      security:
-      - Bearer: []
+      __originalOperationId: import-forms
+      method: post
+      path: /formImport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/server.formSchema'
+        description: List of form inputs to import.
+        required: true
 components:
   schemas:
     models.CallbackForm:
@@ -299,6 +298,15 @@ components:
           type: string
         updatedAt:
           type: string
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
     server.FormExport:
       type: object
       properties:
@@ -319,18 +327,15 @@ components:
           type: object
         name:
           type: string
-    server.HTTPError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: status bad request
   securitySchemes:
     Bearer:
       type: apiKey
       name: Authorization
       in: header
       description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+x-evidence:
+- type: reference
+  url: https://developer.cisco.com/docs/crosswork/workflow-manager/
+- type: fragment-index
+  url: https://pubhub.devnetcloud.com/media/crosswork-workflow-manager-api-document/docs/262737b2-b3c2-32cd-b07b-fdbdcd23918f/apis/
+  count: 90
