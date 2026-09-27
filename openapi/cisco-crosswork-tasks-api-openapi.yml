@@ -138,6 +138,35 @@ paths:
       path: /task/{taskId}
 components:
   schemas:
+    models.CallbackTask:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        form:
+          $ref: '#/components/schemas/models.CallbackForm'
+        formId:
+          type: string
+        id:
+          type: string
+        jobId:
+          type: string
+        jobName:
+          type: string
+        payload:
+          type: array
+          items:
+            type: integer
+        resultSchema:
+          type: array
+          items:
+            type: integer
+        runId:
+          type: string
+        taskName:
+          type: string
+        updatedAt:
+          type: string
     models.CallbackForm:
       type: object
       properties:
@@ -168,35 +197,6 @@ components:
         message:
           type: string
           example: status bad request
-    models.CallbackTask:
-      type: object
-      properties:
-        createdAt:
-          type: string
-        form:
-          $ref: '#/components/schemas/models.CallbackForm'
-        formId:
-          type: string
-        id:
-          type: string
-        jobId:
-          type: string
-        jobName:
-          type: string
-        payload:
-          type: array
-          items:
-            type: integer
-        resultSchema:
-          type: array
-          items:
-            type: integer
-        runId:
-          type: string
-        taskName:
-          type: string
-        updatedAt:
-          type: string
   securitySchemes:
     Bearer:
       type: apiKey

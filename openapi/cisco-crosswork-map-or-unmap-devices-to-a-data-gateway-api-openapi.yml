@@ -45,6 +45,18 @@ paths:
       - Map or Unmap Devices to a Data Gateway
 components:
   schemas:
+    robotapiRobotJobState:
+      description: Various Job Resulting states.
+      type: string
+      enum:
+      - JOB_INVALID
+      - JOB_REJECTED
+      - JOB_ACCEPTED
+      - JOB_DB_UPDATED
+      - JOB_NOTIFICATION_PUBLISHED
+      - JOB_COMPLETED
+      - JOB_FAILED
+      default: JOB_INVALID
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -84,18 +96,6 @@ components:
           type: string
         title: Impacted elements list
       description: Every Action related to Inventory will have a Job
-    robotapiRobotJobState:
-      description: Various Job Resulting states.
-      type: string
-      enum:
-      - JOB_INVALID
-      - JOB_REJECTED
-      - JOB_ACCEPTED
-      - JOB_DB_UPDATED
-      - JOB_NOTIFICATION_PUBLISHED
-      - JOB_COMPLETED
-      - JOB_FAILED
-      default: JOB_INVALID
   securitySchemes:
     bearerAuth:
       type: apiKey

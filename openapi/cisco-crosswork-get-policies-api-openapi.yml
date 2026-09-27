@@ -54,6 +54,25 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    robotapiRobotUniquePolicyGetReq:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+          description: Number of policies requested in the response.
+        sort_by_field:
+          type: string
+          description: 'The field name in RobotUniquePolicy to use for sorting. If this field
+
+            is omitted, data is sorted by default on name.'
+        last_key:
+          type: string
+          description: Ask for data beyond last_key per the sorted order.
+        filter:
+          $ref: '#/components/schemas/robotapiRobotUniquePolicy'
+        filterData:
+          $ref: '#/components/schemas/robotapiRobotFilterData'
     robotapiRobotFilterData:
       description: Request body with filter options
       type: object
@@ -94,46 +113,6 @@ components:
       - INDEPENDENT
       - COMBINED
       default: UNKNOWN_TYPE
-    robotapiRobotUniquePolicyGetReq:
-      type: object
-      properties:
-        limit:
-          type: integer
-          format: int64
-          description: Number of policies requested in the response.
-        sort_by_field:
-          type: string
-          description: 'The field name in RobotUniquePolicy to use for sorting. If this field
-
-            is omitted, data is sorted by default on name.'
-        last_key:
-          type: string
-          description: Ask for data beyond last_key per the sorted order.
-        filter:
-          $ref: '#/components/schemas/robotapiRobotUniquePolicy'
-        filterData:
-          $ref: '#/components/schemas/robotapiRobotFilterData'
-    robotapiRobotResponseInfo:
-      type: object
-      properties:
-        code:
-          type: string
-          format: int64
-          description: Typically from an enum defined by the component.
-        desc:
-          type: string
-          description: Description of error. May not be filled for success error codes.
-      description: Generic template for responses
-    robotapiRobotInventoryType:
-      description: Supported Inventory Type
-      type: string
-      enum:
-      - INV_TYPE_UNKNOWN
-      - INV_TYPE_NODE
-      - INV_TYPE_PROVIDER
-      - INV_TYPE_CREDENTIAL
-      - INV_TYPE_TAG
-      default: INV_TYPE_UNKNOWN
     robotapiRobotUniquePolicy:
       type: object
       properties:
@@ -151,6 +130,27 @@ components:
         Type:
           $ref: '#/components/schemas/robotapiUniquePolicyType'
           title: Combination of all the filed supplied or independent
+    robotapiRobotInventoryType:
+      description: Supported Inventory Type
+      type: string
+      enum:
+      - INV_TYPE_UNKNOWN
+      - INV_TYPE_NODE
+      - INV_TYPE_PROVIDER
+      - INV_TYPE_CREDENTIAL
+      - INV_TYPE_TAG
+      default: INV_TYPE_UNKNOWN
+    robotapiRobotResponseInfo:
+      type: object
+      properties:
+        code:
+          type: string
+          format: int64
+          description: Typically from an enum defined by the component.
+        desc:
+          type: string
+          description: Description of error. May not be filled for success error codes.
+      description: Generic template for responses
   securitySchemes:
     bearerAuth:
       type: apiKey

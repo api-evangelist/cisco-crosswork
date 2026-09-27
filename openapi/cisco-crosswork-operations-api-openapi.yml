@@ -378,16 +378,16 @@ paths:
     - url: /crosswork/nbi/optima/v1/restconf
 components:
   responses:
-    '409':
-      description: Conflict
-    '204':
-      description: No Content
-    '404':
-      description: Not Found
-    '400':
-      description: Bad Request
     '405':
       description: Method Not Allowed
+    '204':
+      description: No Content
+    '409':
+      description: Conflict
+    '400':
+      description: Bad Request
+    '404':
+      description: Not Found
     '401':
       description: Unauthorized
   schemas:
@@ -400,124 +400,6 @@ components:
             type: operations
           description: This resource is a container that provides access to the data-model-specific RPC operations supported by the server. See RESTCONF RFC 8040 for further information.
           properties: {}
-    operations_cisco-crosswork-optimization-engine-operations_sr-policy-routes-post-output:
-      type: object
-      properties:
-        cisco-crosswork-optimization-engine-operations:output:
-          type: object
-          properties:
-            status:
-              description: Enumeration of the request state (leaf)
-              type: string
-              format: enumeration
-              default: error
-              enum:
-              - error
-              - accepted
-              - rejected
-            message:
-              description: The details of status above (leaf)
-              type: string
-              format: string
-            results:
-              type: array
-              description: (list)
-              items:
-                type: object
-                properties:
-                  head-end:
-                    description: The IP address of the SR policy source. (leaf)
-                    type: string
-                    format: union
-                  end-point:
-                    description: The IP address of the SR policy destination. (leaf)
-                    type: string
-                    format: union
-                  color:
-                    description: The color for the SR policy. (leaf)
-                    type: integer
-                    format: uint32
-                  path-computation-status:
-                    description: The IGP path computation status for an SR policy (leaf)
-                    type: string
-                    format: enumeration
-                    default: success
-                    enum:
-                    - success
-                    - failure
-                  path-computation-message:
-                    description: The details of IGP path computation status above (leaf)
-                    type: string
-                    format: string
-                  igp-route:
-                    type: array
-                    description: (list)
-                    items:
-                      type: object
-                      properties:
-                        node:
-                          description: The hostname of the source-node for the interface (leaf)
-                          type: string
-                          format: string
-                        interface:
-                          description: The name of the interface (leaf)
-                          type: string
-                          format: string
-                        interface-use:
-                          description: Route portion using that interface, ranges from 0 to 1 (leaf)
-                          type: number
-                          format: double
-    operations_cisco-crosswork-optimization-engine-operations_sr-policies-on-node-post-output:
-      type: object
-      properties:
-        cisco-crosswork-optimization-engine-operations:output:
-          type: object
-          properties:
-            status:
-              description: Enumeration of the request state (leaf)
-              type: string
-              format: enumeration
-              default: error
-              enum:
-              - error
-              - accepted
-              - rejected
-            message:
-              description: The details of status above (leaf)
-              type: string
-              format: string
-            node-sr-policies:
-              type: array
-              description: (list)
-              items:
-                type: object
-                properties:
-                  node:
-                    description: The hostname of the node (leaf)
-                    type: string
-                    format: string
-                  message:
-                    description: (leaf)
-                    type: string
-                    format: string
-                  sr-policies:
-                    type: array
-                    description: (list)
-                    items:
-                      type: object
-                      properties:
-                        head-end:
-                          description: The IP address of the SR policy source. (leaf)
-                          type: string
-                          format: union
-                        end-point:
-                          description: The IP address of the SR policy destination. (leaf)
-                          type: string
-                          format: union
-                        color:
-                          description: The color for the SR policy. (leaf)
-                          type: integer
-                          format: uint32
     operations_cisco-crosswork-optimization-engine-operations_sr-policies-on-interface-post-input:
       type: object
       properties:
@@ -538,6 +420,32 @@ components:
                     description: The name of the interface (leaf)
                     type: string
                     format: string
+    operations_cisco-crosswork-optimization-engine-operations_sr-policies-on-node-post-input:
+      type: object
+      properties:
+        input:
+          type: object
+          properties:
+            nodes:
+              type: array
+              description: (list)
+              items:
+                type: object
+                properties:
+                  node:
+                    description: The hostname of the node (leaf)
+                    type: string
+                    format: string
+            filter:
+              description: The SR policy filters to apply on the node list above (leaf)
+              type: string
+              format: enumeration
+              default: through-nodes
+              enum:
+              - through-nodes
+              - nodes-as-source
+              - nodes-as-destination
+              - nodes-as-source-or-destination
     operations_cisco-crosswork-optimization-engine-operations_sr-policies-on-interface-post-output:
       type: object
       properties:
@@ -617,13 +525,26 @@ components:
                     description: The color for the SR policy. (leaf)
                     type: integer
                     format: uint32
-    operations_cisco-crosswork-optimization-engine-operations_sr-policies-on-node-post-input:
+    operations_cisco-crosswork-optimization-engine-operations_sr-policies-on-node-post-output:
       type: object
       properties:
-        input:
+        cisco-crosswork-optimization-engine-operations:output:
           type: object
           properties:
-            nodes:
+            status:
+              description: Enumeration of the request state (leaf)
+              type: string
+              format: enumeration
+              default: error
+              enum:
+              - error
+              - accepted
+              - rejected
+            message:
+              description: The details of status above (leaf)
+              type: string
+              format: string
+            node-sr-policies:
               type: array
               description: (list)
               items:
@@ -633,22 +554,47 @@ components:
                     description: The hostname of the node (leaf)
                     type: string
                     format: string
-            filter:
-              description: The SR policy filters to apply on the node list above (leaf)
-              type: string
-              format: enumeration
-              default: through-nodes
-              enum:
-              - through-nodes
-              - nodes-as-source
-              - nodes-as-destination
-              - nodes-as-source-or-destination
-    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-delete-post-output:
+                  message:
+                    description: (leaf)
+                    type: string
+                    format: string
+                  sr-policies:
+                    type: array
+                    description: (list)
+                    items:
+                      type: object
+                      properties:
+                        head-end:
+                          description: The IP address of the SR policy source. (leaf)
+                          type: string
+                          format: union
+                        end-point:
+                          description: The IP address of the SR policy destination. (leaf)
+                          type: string
+                          format: union
+                        color:
+                          description: The color for the SR policy. (leaf)
+                          type: integer
+                          format: uint32
+    operations_cisco-crosswork-optimization-engine-operations_sr-policy-routes-post-output:
       type: object
       properties:
-        cisco-crosswork-optimization-engine-sr-policy-operations:output:
+        cisco-crosswork-optimization-engine-operations:output:
           type: object
           properties:
+            status:
+              description: Enumeration of the request state (leaf)
+              type: string
+              format: enumeration
+              default: error
+              enum:
+              - error
+              - accepted
+              - rejected
+            message:
+              description: The details of status above (leaf)
+              type: string
+              format: string
             results:
               type: array
               description: (list)
@@ -656,147 +602,47 @@ components:
                 type: object
                 properties:
                   head-end:
-                    description: The IP address of the SR policy source (leaf)
+                    description: The IP address of the SR policy source. (leaf)
                     type: string
                     format: union
                   end-point:
-                    description: The IP address of the SR policy destination (leaf)
+                    description: The IP address of the SR policy destination. (leaf)
                     type: string
                     format: union
                   color:
-                    description: The color for the SR policy (leaf)
+                    description: The color for the SR policy. (leaf)
                     type: integer
                     format: uint32
-                  state:
-                    description: The result for a policy create, update or delete operation (leaf)
+                  path-computation-status:
+                    description: The IGP path computation status for an SR policy (leaf)
                     type: string
                     format: enumeration
                     default: success
                     enum:
                     - success
                     - failure
-                    - degraded
-                  message:
-                    description: The details of state above, for failure and degraded (leaf)
+                  path-computation-message:
+                    description: The details of IGP path computation status above (leaf)
                     type: string
                     format: string
-    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-modify-post-output:
-      type: object
-      properties:
-        cisco-crosswork-optimization-engine-sr-policy-operations:output:
-          type: object
-          properties:
-            results:
-              type: array
-              description: (list)
-              items:
-                type: object
-                properties:
-                  head-end:
-                    description: The IP address of the SR policy source (leaf)
-                    type: string
-                    format: union
-                  end-point:
-                    description: The IP address of the SR policy destination (leaf)
-                    type: string
-                    format: union
-                  color:
-                    description: The color for the SR policy (leaf)
-                    type: integer
-                    format: uint32
-                  state:
-                    description: The result for a policy create, update or delete operation (leaf)
-                    type: string
-                    format: enumeration
-                    default: success
-                    enum:
-                    - success
-                    - failure
-                    - degraded
-                  message:
-                    description: The details of state above, for failure and degraded (leaf)
-                    type: string
-                    format: string
-    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-delete-post-input:
-      type: object
-      properties:
-        input:
-          type: object
-          properties:
-            sr-policies:
-              type: array
-              description: (list)
-              items:
-                type: object
-                properties:
-                  head-end:
-                    description: The IP address of the SR policy source (leaf)
-                    type: string
-                    format: union
-                  end-point:
-                    description: The IP address of the SR policy destination (leaf)
-                    type: string
-                    format: union
-                  color:
-                    description: The color for the SR policy (leaf)
-                    type: integer
-                    format: uint32
-    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_dynamic:
-      description: Parameters specific to a Dynamic SR policy path
-      type: object
-      properties:
-        affinities:
-          description: (non-presence)
-          type: object
-          properties:
-            include-any:
-              description: include-any affinity bits combined into an unsigned integer (leaf)
-              type: integer
-              format: uint32
-            include-all:
-              description: include-any affinity bits combined into an unsigned integer (leaf)
-              type: integer
-              format: uint32
-            exclude-any:
-              description: include-any affinity bits combined into an unsigned integer (leaf)
-              type: integer
-              format: uint32
-        disjointness:
-          description: (non-presence)
-          type: object
-          properties:
-            disjointness-type:
-              description: (leaf)
-              type: string
-              format: enumeration
-              default: node
-              enum:
-              - node
-              - circuit
-              - srlg
-              - srlg-node
-            association-group:
-              description: Association group (leaf)
-              type: integer
-              format: uint32
-            association-sub-group:
-              description: Association sub-group (leaf)
-              type: integer
-              format: uint32
-        path-optimization-objective:
-          description: The objective to minimize, igp-metric, te-metric or delay (leaf)
-          type: string
-          format: enumeration
-          default: igp-metric
-          enum:
-          - igp-metric
-          - te-metric
-          - delay
-          - hop-count
-        protected:
-          description: Use protected adjacency SIDs in path computation, defaults to true (leaf)
-          type: string
-          format: boolean
+                  igp-route:
+                    type: array
+                    description: (list)
+                    items:
+                      type: object
+                      properties:
+                        node:
+                          description: The hostname of the source-node for the interface (leaf)
+                          type: string
+                          format: string
+                        interface:
+                          description: The name of the interface (leaf)
+                          type: string
+                          format: string
+                        interface-use:
+                          description: Route portion using that interface, ranges from 0 to 1 (leaf)
+                          type: number
+                          format: double
     operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-dryrun-post-output:
       type: object
       properties:
@@ -859,57 +705,13 @@ components:
                     - node-ipv6
                     - adjacency-ipv6
                     - unknown
-    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_bwod:
-      description: Parameters specific to a BWOD SR policy path
+    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-modify-post-output:
       type: object
       properties:
-        bandwidth:
-          description: The desired bandwidth for the SR policy (leaf)
-          type: number
-          format: double
-        bw-path-optimization-objective:
-          description: The objective to minimize, igp-metric, te-metric or delay (leaf)
-          type: string
-          format: enumeration
-          default: igp-metric
-          enum:
-          - igp-metric
-          - te-metric
-          - delay
-          - hop-count
-    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_explicit:
-      description: Parameters specific to an Explicit SR policy path
-      type: object
-      properties:
-        hops:
-          type: array
-          description: (list)
-          items:
-            type: object
-            properties:
-              step:
-                description: The representation of the hop order in the path (leaf)
-                type: integer
-                format: uint32
-              hop:
-                description: (non-presence)
-                type: object
-                properties:
-                  node-ipv4-sid:
-                    description: The IPv4 node segment identifier (leaf)
-                    type: integer
-                    format: uint32
-                  node-ipv4-address:
-                    description: The IPv4 node address (leaf)
-                    type: string
-                    format: union
-    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-modify-post-input:
-      type: object
-      properties:
-        input:
+        cisco-crosswork-optimization-engine-sr-policy-operations:output:
           type: object
           properties:
-            sr-policies:
+            results:
               type: array
               description: (list)
               items:
@@ -927,50 +729,19 @@ components:
                     description: The color for the SR policy (leaf)
                     type: integer
                     format: uint32
-                  path-name:
-                    description: The path name of the SR policy (leaf)
+                  state:
+                    description: The result for a policy create, update or delete operation (leaf)
+                    type: string
+                    format: enumeration
+                    default: success
+                    enum:
+                    - success
+                    - failure
+                    - degraded
+                  message:
+                    description: The details of state above, for failure and degraded (leaf)
                     type: string
                     format: string
-                  description:
-                    description: The description of the SR policy (leaf)
-                    type: string
-                    format: string
-                  binding-sid:
-                    description: The binding SID for the SR policy (leaf)
-                    type: integer
-                    format: uint32
-                  profile-id:
-                    description: The profile ID for the SR policy (leaf)
-                    type: integer
-                    format: uint32
-                  sr-policy-path:
-                    description: (non-presence)
-                    type: object
-                    oneOf:
-                    - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_explicit'
-                    - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_dynamic'
-                    - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_bwod'
-    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-dryrun-post-input:
-      type: object
-      properties:
-        input:
-          type: object
-          properties:
-            head-end:
-              description: The IP address of the SR policy source (leaf)
-              type: string
-              format: union
-            end-point:
-              description: The IP address of the SR policy destination (leaf)
-              type: string
-              format: union
-            sr-policy-path:
-              description: (non-presence)
-              type: object
-              oneOf:
-              - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_explicit'
-              - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_dynamic'
-              - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_bwod'
     operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-create-post-output:
       type: object
       properties:
@@ -1008,6 +779,48 @@ components:
                     description: The details of state above, for failure and degraded (leaf)
                     type: string
                     format: string
+    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-delete-post-input:
+      type: object
+      properties:
+        input:
+          type: object
+          properties:
+            sr-policies:
+              type: array
+              description: (list)
+              items:
+                type: object
+                properties:
+                  head-end:
+                    description: The IP address of the SR policy source (leaf)
+                    type: string
+                    format: union
+                  end-point:
+                    description: The IP address of the SR policy destination (leaf)
+                    type: string
+                    format: union
+                  color:
+                    description: The color for the SR policy (leaf)
+                    type: integer
+                    format: uint32
+    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_bwod:
+      description: Parameters specific to a BWOD SR policy path
+      type: object
+      properties:
+        bandwidth:
+          description: The desired bandwidth for the SR policy (leaf)
+          type: number
+          format: double
+        bw-path-optimization-objective:
+          description: The objective to minimize, igp-metric, te-metric or delay (leaf)
+          type: string
+          format: enumeration
+          default: igp-metric
+          enum:
+          - igp-metric
+          - te-metric
+          - delay
+          - hop-count
     operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-create-post-input:
       type: object
       properties:
@@ -1055,14 +868,194 @@ components:
                     - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_explicit'
                     - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_dynamic'
                     - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_bwod'
+    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-delete-post-output:
+      type: object
+      properties:
+        cisco-crosswork-optimization-engine-sr-policy-operations:output:
+          type: object
+          properties:
+            results:
+              type: array
+              description: (list)
+              items:
+                type: object
+                properties:
+                  head-end:
+                    description: The IP address of the SR policy source (leaf)
+                    type: string
+                    format: union
+                  end-point:
+                    description: The IP address of the SR policy destination (leaf)
+                    type: string
+                    format: union
+                  color:
+                    description: The color for the SR policy (leaf)
+                    type: integer
+                    format: uint32
+                  state:
+                    description: The result for a policy create, update or delete operation (leaf)
+                    type: string
+                    format: enumeration
+                    default: success
+                    enum:
+                    - success
+                    - failure
+                    - degraded
+                  message:
+                    description: The details of state above, for failure and degraded (leaf)
+                    type: string
+                    format: string
+    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-dryrun-post-input:
+      type: object
+      properties:
+        input:
+          type: object
+          properties:
+            head-end:
+              description: The IP address of the SR policy source (leaf)
+              type: string
+              format: union
+            end-point:
+              description: The IP address of the SR policy destination (leaf)
+              type: string
+              format: union
+            sr-policy-path:
+              description: (non-presence)
+              type: object
+              oneOf:
+              - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_explicit'
+              - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_dynamic'
+              - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_bwod'
+    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-modify-post-input:
+      type: object
+      properties:
+        input:
+          type: object
+          properties:
+            sr-policies:
+              type: array
+              description: (list)
+              items:
+                type: object
+                properties:
+                  head-end:
+                    description: The IP address of the SR policy source (leaf)
+                    type: string
+                    format: union
+                  end-point:
+                    description: The IP address of the SR policy destination (leaf)
+                    type: string
+                    format: union
+                  color:
+                    description: The color for the SR policy (leaf)
+                    type: integer
+                    format: uint32
+                  path-name:
+                    description: The path name of the SR policy (leaf)
+                    type: string
+                    format: string
+                  description:
+                    description: The description of the SR policy (leaf)
+                    type: string
+                    format: string
+                  binding-sid:
+                    description: The binding SID for the SR policy (leaf)
+                    type: integer
+                    format: uint32
+                  profile-id:
+                    description: The profile ID for the SR policy (leaf)
+                    type: integer
+                    format: uint32
+                  sr-policy-path:
+                    description: (non-presence)
+                    type: object
+                    oneOf:
+                    - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_explicit'
+                    - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_dynamic'
+                    - $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_bwod'
+    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_dynamic:
+      description: Parameters specific to a Dynamic SR policy path
+      type: object
+      properties:
+        affinities:
+          description: (non-presence)
+          type: object
+          properties:
+            include-any:
+              description: include-any affinity bits combined into an unsigned integer (leaf)
+              type: integer
+              format: uint32
+            include-all:
+              description: include-any affinity bits combined into an unsigned integer (leaf)
+              type: integer
+              format: uint32
+            exclude-any:
+              description: include-any affinity bits combined into an unsigned integer (leaf)
+              type: integer
+              format: uint32
+        disjointness:
+          description: (non-presence)
+          type: object
+          properties:
+            disjointness-type:
+              description: (leaf)
+              type: string
+              format: enumeration
+              default: node
+              enum:
+              - node
+              - circuit
+              - srlg
+              - srlg-node
+            association-group:
+              description: Association group (leaf)
+              type: integer
+              format: uint32
+            association-sub-group:
+              description: Association sub-group (leaf)
+              type: integer
+              format: uint32
+        path-optimization-objective:
+          description: The objective to minimize, igp-metric, te-metric or delay (leaf)
+          type: string
+          format: enumeration
+          default: igp-metric
+          enum:
+          - igp-metric
+          - te-metric
+          - delay
+          - hop-count
+        protected:
+          description: Use protected adjacency SIDs in path computation, defaults to true (leaf)
+          type: string
+          format: boolean
+    operations_cisco-crosswork-optimization-engine-sr-policy-operations_sr-policy-path_explicit:
+      description: Parameters specific to an Explicit SR policy path
+      type: object
+      properties:
+        hops:
+          type: array
+          description: (list)
+          items:
+            type: object
+            properties:
+              step:
+                description: The representation of the hop order in the path (leaf)
+                type: integer
+                format: uint32
+              hop:
+                description: (non-presence)
+                type: object
+                properties:
+                  node-ipv4-sid:
+                    description: The IPv4 node segment identifier (leaf)
+                    type: integer
+                    format: uint32
+                  node-ipv4-address:
+                    description: The IPv4 node address (leaf)
+                    type: string
+                    format: union
   parameters:
-    operations_cisco-crosswork-optimization-engine-operations_sr-policy-routes-post-input:
-      name: sr-policy-routes
-      in: body
-      description: ''
-      required: true
-      schema:
-        $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-operations_sr-policy-routes-post-input'
     operations_cisco-crosswork-optimization-engine-operations_sr-policies-on-interface-post-input:
       name: sr-policies-on-interface
       in: body
@@ -1070,6 +1063,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-operations_sr-policies-on-interface-post-input'
+    operations_cisco-crosswork-optimization-engine-operations_sr-policy-routes-post-input:
+      name: sr-policy-routes
+      in: body
+      description: ''
+      required: true
+      schema:
+        $ref: '#/components/schemas/operations_cisco-crosswork-optimization-engine-operations_sr-policy-routes-post-input'
     operations_cisco-crosswork-optimization-engine-operations_sr-policies-on-node-post-input:
       name: sr-policies-on-node
       in: body

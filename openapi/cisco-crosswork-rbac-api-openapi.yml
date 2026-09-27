@@ -237,54 +237,52 @@ paths:
       - RBAC
 components:
   schemas:
-    rbacSessionProviderMeta:
-      type: object
-    rbacEventHandlerMetaConfig:
-      type: object
-    rbacRole:
+    rbacAccessSpec:
       type: object
       properties:
-        id:
+        url:
           type: string
-        org_id:
-          type: string
-        rate:
-          type: number
-          format: float
-        per:
-          type: number
-          format: float
-        quota_max:
-          type: string
-          format: int64
-        quota_renewal_rate:
-          type: string
-          format: int64
-        access_rights:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/rbacAccessDefinition'
-        hmac_enabled:
-          type: boolean
-          format: boolean
-        active:
-          type: boolean
-          format: boolean
-        is_inactive:
-          type: boolean
-          format: boolean
-        tags:
+        methods:
           type: array
           items:
             type: string
-        key_expires_in:
+    rbacAuthTypeEnum:
+      type: string
+    rbacUser:
+      type: object
+      properties:
+        Username:
           type: string
-          format: int64
-        partitions:
-          $ref: '#/components/schemas/rbacPolicyPartitions'
-        last_updated:
+        Password:
           type: string
-      title: Role represents a collection of security options, such as access rights to APIs, which are deployed on the system.
+        PolicyId:
+          type: string
+        FirstName:
+          type: string
+        LastName:
+          type: string
+      title: User represents a user account created on a local authentication store.
+    rbacUptimeTests:
+      type: object
+    rbacProxy:
+      type: object
+    rbacobject:
+      type: object
+    rbacUsers:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/rbacUser'
+      example:
+        superuser:
+          Username: superuser
+          Password: default
+          PolicyId: admin
+          FirstName: John
+          LastName: Doe
+    rbacAuthProviderMeta:
+      type: object
+    rbacEventHandlerMetaConfig:
+      type: object
     rbacSecuredAPIsByFeature:
       example:
         Change Automations:
@@ -349,572 +347,64 @@ components:
         T-SDN:
         - api_id: NSO
           name: NSO proxy api
-    rbacOpenIDOptions:
+    rbacEmpty:
       type: object
-    rbacOauth2Meta:
+    rbacCacheOptions:
       type: object
-    rbacRoles:
+    rbacMiddlewareSection:
       type: object
-      additionalProperties:
-        $ref: '#/components/schemas/rbacRole'
-      example:
-        adminRole:
-          _id: ''
-          id: ''
-          org_id: '1'
-          rate: 1000
-          per: 60
-          quota_max: -1
-          quota_renewal_rate: 60
-          access_rights:
-            api_v1_services:
-              api_name: api/v1/services api
-              api_id: api_v1_services
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            api_v1_spans:
-              api_name: api/v1/spans api
-              api_id: api_v1_spans
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            api_v1_trace:
-              api_name: api/v1/trace api
-              api_id: api_v1_trace
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            api_v1_traces:
-              api_name: api/v1/traces api
-              api_id: api_v1_traces
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            auth-apis:
-              api_name: auth-apis api
-              api_id: auth-apis
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            auth-configs:
-              api_name: auth-configs api
-              api_id: auth-configs
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            cwaaa:
-              api_name: Users and Roles api
-              api_id: cwaaa
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            cwauthconfig:
-              api_name: Auth Server Config api
-              api_id: cwauthconfig
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            cwhi:
-              api_name: HI api
-              api_id: cwhi
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            cwinventory:
-              api_name: inventory api
-              api_id: cwinventory
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            cwnca:
-              api_name: NCA api
-              api_id: cwnca
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            cwpassword:
-              api_name: Password Change api
-              api_id: cwpassword
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            cwplatform:
-              api_name: Platform api
-              api_id: cwplatform
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            cwtopology:
-              api_name: Topology api
-              api_id: cwtopology
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            daas:
-              api_name: WAE Design as service api
-              api_id: daas
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            gcp-service:
-              api_name: gcp-service api
-              api_id: gcp-service
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            geoserver:
-              api_name: geoserver api
-              api_id: geoserver
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            grafana.monitoring:
-              api_name: grafana.monitoring api
-              api_id: grafana.monitoring
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            guacamole:
-              api_name: guacamole api
-              api_id: guacamole
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            inode-manager:
-              api_name: inode-manager api
-              api_id: inode-manager
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            kafka-manager:
-              api_name: kafka-manager api
-              api_id: kafka-manager
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            kibana:
-              api_name: kibana api
-              api_id: kibana
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            kubernetes-dashboard.kube-system:
-              api_name: kubernetes-dashboard.kube-system api
-              api_id: kubernetes-dashboard.kube-system
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            nbi_v1_assurance:
-              api_name: nbi/v1/assurance api
-              api_id: nbi_v1_assurance
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            nbi_v1_central-inventory:
-              api_name: nbi/v1/central-inventory api
-              api_id: nbi_v1_central-inventory
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            robot:
-              api_name: Robot_Infra_API_Proxy
-              api_id: robot
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            robot-grafana:
-              api_name: robot-grafana api
-              api_id: robot-grafana
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            robot-logger:
-              api_name: robot-logger api
-              api_id: robot-logger
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            robot-nca:
-              api_name: robot-nca api
-              api_id: robot-nca
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            robot-openbmp-mysql:
-              api_name: robot-openbmp-mysql api
-              api_id: robot-openbmp-mysql
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            robot-pulse:
-              api_name: robot-pulse api
-              api_id: robot-pulse
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            robot-pulsecore:
-              api_name: robot-pulsecore api
-              api_id: robot-pulsecore
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            robot-pycon:
-              api_name: robot-pycon api
-              api_id: robot-pycon
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            robot-telemetry-broker:
-              api_name: robot-telemetry-broker api
-              api_id: robot-telemetry-broker
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            robotctl:
-              api_name: robotctl api
-              api_id: robotctl
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            rpd-service-manager:
-              api_name: rpd-service-manager api
-              api_id: rpd-service-manager
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            rpd-service-manager-socket:
-              api_name: rpd-service-manager-socket api
-              api_id: rpd-service-manager-socket
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            topology:
-              api_name: topology api
-              api_id: topology
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-            zipkin:
-              api_name: zipkin api
-              api_id: zipkin
-              versions:
-              - Default
-              allowed_urls:
-              - url: /.*
-                methods:
-                - GET
-                - POST
-                - PUT
-                - PATCH
-                - DELETE
-          hmac_enabled: false
-          active: true
-          is_inactive: false
-          tags: []
-          key_expires_in: -1
-          partitions:
-            quota: false
-            rate_limit: false
-            acl: false
-          last_updated: ''
-    rbacProxy:
-      type: object
-    rbacAuthProviderMeta:
-      type: object
-    rbacGlobalRateLimit:
-      type: object
-    rbacBasicAuth:
-      type: object
-    rbacResponseProcessor:
-      type: object
-    rbacVersionData:
-      type: object
-    rbacUptimeTests:
-      type: object
-    rbacobject:
-      type: object
-    rbacAccessDefinition:
+    rbacRole:
       type: object
       properties:
-        api_name:
+        id:
           type: string
-        api_id:
+        org_id:
           type: string
-        versions:
+        rate:
+          type: number
+          format: float
+        per:
+          type: number
+          format: float
+        quota_max:
+          type: string
+          format: int64
+        quota_renewal_rate:
+          type: string
+          format: int64
+        access_rights:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/rbacAccessDefinition'
+        hmac_enabled:
+          type: boolean
+          format: boolean
+        active:
+          type: boolean
+          format: boolean
+        is_inactive:
+          type: boolean
+          format: boolean
+        tags:
           type: array
           items:
             type: string
-        allowed_urls:
-          type: array
-          items:
-            $ref: '#/components/schemas/rbacAccessSpec'
+        key_expires_in:
+          type: string
+          format: int64
+        partitions:
+          $ref: '#/components/schemas/rbacPolicyPartitions'
+        last_updated:
+          type: string
+      title: Role represents a collection of security options, such as access rights to APIs, which are deployed on the system.
+    rbacVersionDefinition:
+      type: object
+    rbacBasicAuth:
+      type: object
+    rbacSessionProviderMeta:
+      type: object
+    rbacResponseProcessor:
+      type: object
     rbacUpdateUserReq:
       type: object
       properties:
@@ -929,199 +419,22 @@ components:
         FirstName: UpdatedFirstName
         LastName: UpdatedLastName
       title: Update user request
-    rbacNotificationsManager:
-      type: object
-    rbacAuthTypeEnum:
-      type: string
-    rbacAuth:
-      type: object
-    rbacUser:
+    rbacPolicyPartitions:
       type: object
       properties:
-        Username:
-          type: string
-        Password:
-          type: string
-        PolicyId:
-          type: string
-        FirstName:
-          type: string
-        LastName:
-          type: string
-      title: User represents a user account created on a local authentication store.
-    rbacEmpty:
+        quota:
+          type: boolean
+          format: boolean
+        rate_limit:
+          type: boolean
+          format: boolean
+        acl:
+          type: boolean
+          format: boolean
+    rbacOpenIDOptions:
       type: object
-    rbacAccessSpec:
+    rbacVersionData:
       type: object
-      properties:
-        url:
-          type: string
-        methods:
-          type: array
-          items:
-            type: string
-    rbacSecuredAPI:
-      type: object
-      properties:
-        name:
-          type: string
-        slug:
-          type: string
-        api_id:
-          type: string
-        org_id:
-          type: string
-        use_keyless:
-          type: boolean
-          format: boolean
-        use_oauth2:
-          type: boolean
-          format: boolean
-        use_openid:
-          type: boolean
-          format: boolean
-        openid_options:
-          $ref: '#/components/schemas/rbacOpenIDOptions'
-        oauth_meta:
-          $ref: '#/components/schemas/rbacOauth2Meta'
-        auth:
-          $ref: '#/components/schemas/rbacAuth'
-        use_basic_auth:
-          type: boolean
-          format: boolean
-        basic_auth:
-          $ref: '#/components/schemas/rbacBasicAuth'
-        use_mutual_tls_auth:
-          type: boolean
-          format: boolean
-        client_certificates:
-          type: array
-          items:
-            type: string
-        upstream_certificates:
-          type: object
-          additionalProperties:
-            type: string
-        pinned_public_keys:
-          type: object
-          additionalProperties:
-            type: string
-        enable_jwt:
-          type: boolean
-          format: boolean
-        use_standard_auth:
-          type: boolean
-          format: boolean
-        enable_coprocess_auth:
-          type: boolean
-          format: boolean
-        jwt_signing_method:
-          type: string
-        jwt_identit_base_field:
-          type: string
-        jwt_client_base_field:
-          type: string
-        jwt_policy_field_name:
-          type: string
-        jwt_issued_at_validation_skew:
-          type: string
-          format: uint64
-        jwt_expires_at_validation_skew:
-          type: string
-          format: uint64
-        jwt_not_before_validation_skew:
-          type: string
-          format: uint64
-        jwt_skip_kid:
-          type: boolean
-          format: boolean
-        notifications:
-          $ref: '#/components/schemas/rbacNotificationsManager'
-        enable_signature_checking:
-          type: boolean
-          format: boolean
-        hmac_allowed_clock_skew:
-          type: number
-          format: double
-        base_identity_provided_by:
-          $ref: '#/components/schemas/rbacAuthTypeEnum'
-        definition:
-          $ref: '#/components/schemas/rbacVersionDefinition'
-        version_data:
-          $ref: '#/components/schemas/rbacVersionData'
-        uptime_tests:
-          $ref: '#/components/schemas/rbacUptimeTests'
-        proxy:
-          $ref: '#/components/schemas/rbacProxy'
-        disable_rate_limit:
-          type: boolean
-          format: boolean
-        disable_quota:
-          type: boolean
-          format: boolean
-        custom_middleware:
-          $ref: '#/components/schemas/rbacMiddlewareSection'
-        custom_middleware_bundle:
-          type: string
-        cache_options:
-          $ref: '#/components/schemas/rbacCacheOptions'
-        session_lifetime:
-          type: string
-          format: int64
-        active:
-          type: boolean
-          format: boolean
-        auth_provider:
-          $ref: '#/components/schemas/rbacAuthProviderMeta'
-        session_provider:
-          $ref: '#/components/schemas/rbacSessionProviderMeta'
-        event_handlers:
-          $ref: '#/components/schemas/rbacEventHandlerMetaConfig'
-        enable_batch_request_support:
-          type: boolean
-          format: boolean
-        allowed_ips:
-          type: array
-          items:
-            type: string
-        dont_set_quota_on_create:
-          type: boolean
-          format: boolean
-        expire_analytics_after:
-          type: string
-          format: int64
-        response_processors:
-          type: array
-          items:
-            $ref: '#/components/schemas/rbacResponseProcessor'
-        CORS:
-          $ref: '#/components/schemas/rbacCORS'
-        domain:
-          type: string
-        do_not_track:
-          type: boolean
-          format: boolean
-        tags:
-          type: array
-          items:
-            type: string
-        enable_context_vars:
-          type: boolean
-          format: boolean
-        config_data:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/rbacobject'
-        tag_headers:
-          type: array
-          items:
-            type: string
-        global_rate_limit:
-          $ref: '#/components/schemas/rbacGlobalRateLimit'
-        strip_auth_data:
-          type: boolean
-          format: boolean
-      title: AuthorizedAPI represents the core settings of an API which requires a JWT (JSON Web Token) bearer token to access
     rbacSecuredAPIs:
       type: array
       items:
@@ -7823,36 +7136,723 @@ components:
           rate: 0
           per: 0
         strip_auth_data: false
-    rbacPolicyPartitions:
+    rbacSecuredAPI:
       type: object
       properties:
-        quota:
+        name:
+          type: string
+        slug:
+          type: string
+        api_id:
+          type: string
+        org_id:
+          type: string
+        use_keyless:
           type: boolean
           format: boolean
-        rate_limit:
+        use_oauth2:
           type: boolean
           format: boolean
-        acl:
+        use_openid:
           type: boolean
           format: boolean
-    rbacVersionDefinition:
+        openid_options:
+          $ref: '#/components/schemas/rbacOpenIDOptions'
+        oauth_meta:
+          $ref: '#/components/schemas/rbacOauth2Meta'
+        auth:
+          $ref: '#/components/schemas/rbacAuth'
+        use_basic_auth:
+          type: boolean
+          format: boolean
+        basic_auth:
+          $ref: '#/components/schemas/rbacBasicAuth'
+        use_mutual_tls_auth:
+          type: boolean
+          format: boolean
+        client_certificates:
+          type: array
+          items:
+            type: string
+        upstream_certificates:
+          type: object
+          additionalProperties:
+            type: string
+        pinned_public_keys:
+          type: object
+          additionalProperties:
+            type: string
+        enable_jwt:
+          type: boolean
+          format: boolean
+        use_standard_auth:
+          type: boolean
+          format: boolean
+        enable_coprocess_auth:
+          type: boolean
+          format: boolean
+        jwt_signing_method:
+          type: string
+        jwt_identit_base_field:
+          type: string
+        jwt_client_base_field:
+          type: string
+        jwt_policy_field_name:
+          type: string
+        jwt_issued_at_validation_skew:
+          type: string
+          format: uint64
+        jwt_expires_at_validation_skew:
+          type: string
+          format: uint64
+        jwt_not_before_validation_skew:
+          type: string
+          format: uint64
+        jwt_skip_kid:
+          type: boolean
+          format: boolean
+        notifications:
+          $ref: '#/components/schemas/rbacNotificationsManager'
+        enable_signature_checking:
+          type: boolean
+          format: boolean
+        hmac_allowed_clock_skew:
+          type: number
+          format: double
+        base_identity_provided_by:
+          $ref: '#/components/schemas/rbacAuthTypeEnum'
+        definition:
+          $ref: '#/components/schemas/rbacVersionDefinition'
+        version_data:
+          $ref: '#/components/schemas/rbacVersionData'
+        uptime_tests:
+          $ref: '#/components/schemas/rbacUptimeTests'
+        proxy:
+          $ref: '#/components/schemas/rbacProxy'
+        disable_rate_limit:
+          type: boolean
+          format: boolean
+        disable_quota:
+          type: boolean
+          format: boolean
+        custom_middleware:
+          $ref: '#/components/schemas/rbacMiddlewareSection'
+        custom_middleware_bundle:
+          type: string
+        cache_options:
+          $ref: '#/components/schemas/rbacCacheOptions'
+        session_lifetime:
+          type: string
+          format: int64
+        active:
+          type: boolean
+          format: boolean
+        auth_provider:
+          $ref: '#/components/schemas/rbacAuthProviderMeta'
+        session_provider:
+          $ref: '#/components/schemas/rbacSessionProviderMeta'
+        event_handlers:
+          $ref: '#/components/schemas/rbacEventHandlerMetaConfig'
+        enable_batch_request_support:
+          type: boolean
+          format: boolean
+        allowed_ips:
+          type: array
+          items:
+            type: string
+        dont_set_quota_on_create:
+          type: boolean
+          format: boolean
+        expire_analytics_after:
+          type: string
+          format: int64
+        response_processors:
+          type: array
+          items:
+            $ref: '#/components/schemas/rbacResponseProcessor'
+        CORS:
+          $ref: '#/components/schemas/rbacCORS'
+        domain:
+          type: string
+        do_not_track:
+          type: boolean
+          format: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        enable_context_vars:
+          type: boolean
+          format: boolean
+        config_data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/rbacobject'
+        tag_headers:
+          type: array
+          items:
+            type: string
+        global_rate_limit:
+          $ref: '#/components/schemas/rbacGlobalRateLimit'
+        strip_auth_data:
+          type: boolean
+          format: boolean
+      title: AuthorizedAPI represents the core settings of an API which requires a JWT (JSON Web Token) bearer token to access
+    rbacCORS:
       type: object
-    rbacUsers:
+    rbacNotificationsManager:
+      type: object
+    rbacAccessDefinition:
+      type: object
+      properties:
+        api_name:
+          type: string
+        api_id:
+          type: string
+        versions:
+          type: array
+          items:
+            type: string
+        allowed_urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/rbacAccessSpec'
+    rbacRoles:
       type: object
       additionalProperties:
-        $ref: '#/components/schemas/rbacUser'
+        $ref: '#/components/schemas/rbacRole'
       example:
-        superuser:
-          Username: superuser
-          Password: default
-          PolicyId: admin
-          FirstName: John
-          LastName: Doe
-    rbacCacheOptions:
+        adminRole:
+          _id: ''
+          id: ''
+          org_id: '1'
+          rate: 1000
+          per: 60
+          quota_max: -1
+          quota_renewal_rate: 60
+          access_rights:
+            api_v1_services:
+              api_name: api/v1/services api
+              api_id: api_v1_services
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            api_v1_spans:
+              api_name: api/v1/spans api
+              api_id: api_v1_spans
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            api_v1_trace:
+              api_name: api/v1/trace api
+              api_id: api_v1_trace
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            api_v1_traces:
+              api_name: api/v1/traces api
+              api_id: api_v1_traces
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            auth-apis:
+              api_name: auth-apis api
+              api_id: auth-apis
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            auth-configs:
+              api_name: auth-configs api
+              api_id: auth-configs
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            cwaaa:
+              api_name: Users and Roles api
+              api_id: cwaaa
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            cwauthconfig:
+              api_name: Auth Server Config api
+              api_id: cwauthconfig
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            cwhi:
+              api_name: HI api
+              api_id: cwhi
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            cwinventory:
+              api_name: inventory api
+              api_id: cwinventory
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            cwnca:
+              api_name: NCA api
+              api_id: cwnca
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            cwpassword:
+              api_name: Password Change api
+              api_id: cwpassword
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            cwplatform:
+              api_name: Platform api
+              api_id: cwplatform
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            cwtopology:
+              api_name: Topology api
+              api_id: cwtopology
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            daas:
+              api_name: WAE Design as service api
+              api_id: daas
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            gcp-service:
+              api_name: gcp-service api
+              api_id: gcp-service
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            geoserver:
+              api_name: geoserver api
+              api_id: geoserver
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            grafana.monitoring:
+              api_name: grafana.monitoring api
+              api_id: grafana.monitoring
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            guacamole:
+              api_name: guacamole api
+              api_id: guacamole
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            inode-manager:
+              api_name: inode-manager api
+              api_id: inode-manager
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            kafka-manager:
+              api_name: kafka-manager api
+              api_id: kafka-manager
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            kibana:
+              api_name: kibana api
+              api_id: kibana
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            kubernetes-dashboard.kube-system:
+              api_name: kubernetes-dashboard.kube-system api
+              api_id: kubernetes-dashboard.kube-system
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            nbi_v1_assurance:
+              api_name: nbi/v1/assurance api
+              api_id: nbi_v1_assurance
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            nbi_v1_central-inventory:
+              api_name: nbi/v1/central-inventory api
+              api_id: nbi_v1_central-inventory
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            robot:
+              api_name: Robot_Infra_API_Proxy
+              api_id: robot
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            robot-grafana:
+              api_name: robot-grafana api
+              api_id: robot-grafana
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            robot-logger:
+              api_name: robot-logger api
+              api_id: robot-logger
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            robot-nca:
+              api_name: robot-nca api
+              api_id: robot-nca
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            robot-openbmp-mysql:
+              api_name: robot-openbmp-mysql api
+              api_id: robot-openbmp-mysql
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            robot-pulse:
+              api_name: robot-pulse api
+              api_id: robot-pulse
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            robot-pulsecore:
+              api_name: robot-pulsecore api
+              api_id: robot-pulsecore
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            robot-pycon:
+              api_name: robot-pycon api
+              api_id: robot-pycon
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            robot-telemetry-broker:
+              api_name: robot-telemetry-broker api
+              api_id: robot-telemetry-broker
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            robotctl:
+              api_name: robotctl api
+              api_id: robotctl
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            rpd-service-manager:
+              api_name: rpd-service-manager api
+              api_id: rpd-service-manager
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            rpd-service-manager-socket:
+              api_name: rpd-service-manager-socket api
+              api_id: rpd-service-manager-socket
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            topology:
+              api_name: topology api
+              api_id: topology
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            zipkin:
+              api_name: zipkin api
+              api_id: zipkin
+              versions:
+              - Default
+              allowed_urls:
+              - url: /.*
+                methods:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+          hmac_enabled: false
+          active: true
+          is_inactive: false
+          tags: []
+          key_expires_in: -1
+          partitions:
+            quota: false
+            rate_limit: false
+            acl: false
+          last_updated: ''
+    rbacAuth:
       type: object
-    rbacMiddlewareSection:
+    rbacOauth2Meta:
       type: object
-    rbacCORS:
+    rbacGlobalRateLimit:
       type: object
   securitySchemes:
     bearerAuth:

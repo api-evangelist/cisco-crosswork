@@ -86,21 +86,6 @@ paths:
     - url: https://example.com/crosswork/dg-manager
 components:
   schemas:
-    QueryParam:
-      title: QueryParam
-      example:
-        field: DGID
-        value:
-          valueStr: 6ddad364-77d1-4f3a-b3b8-2371789436a3
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          $ref: '#/components/schemas/Value'
-      required:
-      - field
-      - value
     Value:
       title: Value
       example:
@@ -126,31 +111,21 @@ components:
             $ref: '#/components/schemas/QueryParam'
       required:
       - queryParams
-    QueryParam_2:
+    QueryParam:
       title: QueryParam
       example:
         field: DGID
         value:
-          valueStr: ''
+          valueStr: 6ddad364-77d1-4f3a-b3b8-2371789436a3
       type: object
       properties:
         field:
           type: string
         value:
-          $ref: '#/components/schemas/Value_2'
+          $ref: '#/components/schemas/Value'
       required:
       - field
       - value
-    Value_2:
-      title: Value
-      example:
-        valueStr: ''
-      type: object
-      properties:
-        valueStr:
-          type: string
-      required:
-      - valueStr
     GetOutageHistoryForVDGRequest:
       title: GetOutageHistoryForVDGRequest
       example:
@@ -172,6 +147,31 @@ components:
             $ref: '#/components/schemas/QueryParam_2'
       required:
       - queryParams
+    Value_2:
+      title: Value
+      example:
+        valueStr: ''
+      type: object
+      properties:
+        valueStr:
+          type: string
+      required:
+      - valueStr
+    QueryParam_2:
+      title: QueryParam
+      example:
+        field: DGID
+        value:
+          valueStr: ''
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          $ref: '#/components/schemas/Value_2'
+      required:
+      - field
+      - value
   securitySchemes:
     bearerAuth:
       type: apiKey

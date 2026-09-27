@@ -95,28 +95,29 @@ paths:
         required: true
 components:
   schemas:
-    cwztpsvcZtpFilterData:
+    cwztpsvcZtpProfileResponse:
       type: object
       properties:
-        SortBy:
+        ztpProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/cwztpsvcZtpProfile'
+        code:
+          type: integer
+          format: int32
+        message:
           type: string
-        PageSize:
-          type: integer
-          format: int64
-        PageNum:
-          type: integer
-          format: int64
-        Descending:
-          type: boolean
-          format: boolean
-        MatchCase:
-          type: boolean
-          format: boolean
-        Criteria:
+        paginationDetails:
+          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
+    cwztpsvcZtpProfileRequest:
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/cwztpsvcZtpProfile'
+        criteria:
           type: string
-        TotalCount:
-          type: integer
-          format: int64
+        filterData:
+          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
     cwztpsvcZtpProfile:
       type: object
       properties:
@@ -157,15 +158,6 @@ components:
           type: boolean
           format: boolean
           title: flag to check if ZTP Profile is in sync with Config
-    cwztpsvcZtpProfileRequest:
-      type: object
-      properties:
-        filter:
-          $ref: '#/components/schemas/cwztpsvcZtpProfile'
-        criteria:
-          type: string
-        filterData:
-          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
     cwztpsvcZtpProfileList:
       type: object
       properties:
@@ -173,17 +165,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/cwztpsvcZtpProfile'
-    cwztpsvcZtpProfileResponse:
+    cwztpsvcZtpFilterData:
       type: object
       properties:
-        ztpProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/cwztpsvcZtpProfile'
-        code:
-          type: integer
-          format: int32
-        message:
+        SortBy:
           type: string
-        paginationDetails:
-          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
+        TotalCount:
+          type: integer
+          format: int64

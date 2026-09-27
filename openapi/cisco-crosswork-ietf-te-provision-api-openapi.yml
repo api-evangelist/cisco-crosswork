@@ -88,7 +88,7 @@ paths:
       - IETF-TE Provision
       summary: Data ietf te te tunnels tunnel tunnel name patch
       description: P2P TE tunnels list.
-      operationId: data_ietf_te_te_tunnels_tunnel_tunnel_name_patch
+      operationId: patchProxyNsoRestconfDataIetfTe:teTunnelsTunnel={tunnelName}
       parameters:
       - $ref: '#/components/parameters/tunnel-name'
       - $ref: '#/components/parameters/data_ietf-te_te_tunnels_tunnel_tunnel-name'
@@ -108,6 +108,8 @@ paths:
       security:
       - basicAuth: []
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: data_ietf_te_te_tunnels_tunnel_tunnel_name_patch
     delete:
       tags:
       - IETF-TE Provision
@@ -124,16 +126,16 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    '409':
-      description: Conflict
-    '204':
-      description: No Content
-    '404':
-      description: Not Found
-    '400':
-      description: Bad Request
     '405':
       description: Method Not Allowed
+    '204':
+      description: No Content
+    '409':
+      description: Conflict
+    '400':
+      description: Bad Request
+    '404':
+      description: Not Found
     '401':
       description: Unauthorized
   parameters:

@@ -355,26 +355,24 @@ components:
           type: string
         secretId:
           type: string
-    server.ResourceExport:
+    server.HTTPError:
       type: object
       properties:
-        resourceId:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
+    models.ResourceType:
+      type: object
+      properties:
+        description:
           type: string
         resourceTypeId:
           type: string
-        secretId:
-          type: string
-    validator.Resource:
-      type: object
-      properties:
-        resource:
+        schema:
           type: object
-        resourceId:
-          type: string
-        resourceTypeId:
-          type: string
-        secretId:
-          type: string
     server.ResourceImportResponse:
       type: object
       properties:
@@ -394,24 +392,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/validator.Resource'
-    models.ResourceType:
+    validator.Resource:
       type: object
       properties:
-        description:
+        resource:
+          type: object
+        resourceId:
           type: string
         resourceTypeId:
           type: string
-        schema:
-          type: object
-    server.HTTPError:
+        secretId:
+          type: string
+    server.ResourceExport:
       type: object
       properties:
-        code:
-          type: integer
-          example: 400
-        message:
+        resourceId:
           type: string
-          example: status bad request
+        resourceTypeId:
+          type: string
+        secretId:
+          type: string
   securitySchemes:
     Bearer:
       type: apiKey

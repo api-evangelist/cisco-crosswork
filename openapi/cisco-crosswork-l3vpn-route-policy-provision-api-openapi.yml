@@ -131,27 +131,19 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    '409':
-      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+    '405':
+      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
     '204':
       description: No Content. The request was successful and there is no additional content in the response body.
+    '409':
+      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
     '400':
       description: Bad Request. The request is malformed in some way and the server cannot process it.
     '404':
       description: Not Found. The client made a request for a resource that does not exist.
-    '405':
-      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
     '401':
       description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
   parameters:
-    l3vpn-route-policy-name:
-      name: l3vpn-route-policy-name
-      in: path
-      description: Route-Policy name
-      required: true
-      schema:
-        type: string
-        format: string
     point:
       name: point
       in: query
@@ -181,6 +173,14 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/l3vpn-route-policy'
+    l3vpn-route-policy-name:
+      name: l3vpn-route-policy-name
+      in: path
+      description: Route-Policy name
+      required: true
+      schema:
+        type: string
+        format: string
   schemas:
     l3vpn-route-policy:
       type: object

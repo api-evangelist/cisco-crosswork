@@ -58,11 +58,11 @@ tags:
 - Orchestration
 - Networking
 - Assurance
-- Telecom
+- Telecommunications
 - RESTCONF
 - YANG
 - Zero Touch Provisioning
-- Workflow-Automation
+- Workflow Automation
 - Traffic Engineering
 - MCP
 - Telemetry
@@ -82,6 +82,7 @@ tags_raw:
 - Model Context Protocol
 - Telemetry
 - On-Premises
+- Workflow-Automation
 apis:
 - aid: cisco-crosswork:cisco-crosswork-add-credentials-api
   name: Cisco Crosswork Add Credentials API

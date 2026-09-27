@@ -201,15 +201,6 @@ paths:
         required: true
 components:
   schemas:
-    server.HTTPError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: status bad request
     server.WorkerProfile:
       type: object
       properties:
@@ -223,6 +214,15 @@ components:
           type: string
         profileName:
           type: string
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
     server.WorkerProfileUpdate:
       type: object
       properties:

@@ -277,6 +277,19 @@ paths:
         required: true
 components:
   schemas:
+    server.formSchema:
+      type: object
+      properties:
+        description:
+          type: string
+        dynamicContentSchema:
+          type: object
+        formId:
+          type: string
+        formSchema:
+          type: object
+        name:
+          type: string
     models.CallbackForm:
       type: object
       properties:
@@ -314,19 +327,6 @@ components:
           type: array
           items:
             type: string
-    server.formSchema:
-      type: object
-      properties:
-        description:
-          type: string
-        dynamicContentSchema:
-          type: object
-        formId:
-          type: string
-        formSchema:
-          type: object
-        name:
-          type: string
   securitySchemes:
     Bearer:
       type: apiKey

@@ -133,16 +133,16 @@ paths:
       - basicAuth: []
 components:
   responses:
-    '409':
-      description: Conflict
-    '204':
-      description: No Content
-    '404':
-      description: Not Found
-    '400':
-      description: Bad Request
     '405':
       description: Method Not Allowed
+    '204':
+      description: No Content
+    '409':
+      description: Conflict
+    '400':
+      description: Bad Request
+    '404':
+      description: Not Found
     '401':
       description: Unauthorized
   schemas:

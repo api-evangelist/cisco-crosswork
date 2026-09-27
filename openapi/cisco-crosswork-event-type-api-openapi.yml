@@ -257,9 +257,6 @@ components:
         message:
           type: string
           example: status bad request
-    gin.H:
-      type: object
-      additionalProperties: {}
     server.EventDefinition:
       type: object
       properties:
@@ -320,6 +317,9 @@ components:
           type: string
         workflowVersion:
           type: string
+    gin.H:
+      type: object
+      additionalProperties: {}
   securitySchemes:
     Bearer:
       type: apiKey

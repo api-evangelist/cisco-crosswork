@@ -117,6 +117,58 @@ paths:
         required: true
 components:
   schemas:
+    authconfigTacacsServer:
+      type: object
+      required:
+      - host
+      - port
+      - secret
+      - service
+      - timeout
+      - retries
+      properties:
+        host:
+          type: string
+          description: IP Address
+        port:
+          type: integer
+        secret:
+          type: string
+          description: Shared secret
+        service:
+          type: string
+        priority:
+          type: integer
+        timeout:
+          type: integer
+          description: Re-transmit timeout
+        interface:
+          type: string
+          description: Interface IP Address
+        policy-id:
+          type: string
+          description: Key name for role ID configured on the TACACS server
+    authconfigEmpty:
+      type: object
+    authconfigLdapServers:
+      type: object
+      properties:
+        ldap:
+          type: array
+          items:
+            $ref: '#/components/schemas/authconfigLdapServer'
+          example:
+          - name: Ldap-132-24
+            ldapUrl: ldap://10.194.132.24:10389
+            bindDn: cn=admin,dc=example,dc=org
+            bindCredential: admin
+            connectTimeout: 5000
+            baseDn: dc=example,dc=org
+            userFilter: uid={user}
+            dnFormat: uid=%s,dc=example,dc=org
+            principalAttributeId: uid
+            policyId: crossworkPolicyId
+            order: 1
     authconfigTacacsServers:
       type: object
       properties:
@@ -131,8 +183,6 @@ components:
             service: raccess
             priority: 1
             timeout: 30
-    authconfigEmpty:
-      type: object
     authconfigLdapServer:
       type: object
       required:
@@ -181,56 +231,6 @@ components:
         connectTimeout:
           type: integer
           description: Connection timeout in milliseconds
-    authconfigTacacsServer:
-      type: object
-      required:
-      - host
-      - port
-      - secret
-      - service
-      - timeout
-      - retries
-      properties:
-        host:
-          type: string
-          description: IP Address
-        port:
-          type: integer
-        secret:
-          type: string
-          description: Shared secret
-        service:
-          type: string
-        priority:
-          type: integer
-        timeout:
-          type: integer
-          description: Re-transmit timeout
-        interface:
-          type: string
-          description: Interface IP Address
-        policy-id:
-          type: string
-          description: Key name for role ID configured on the TACACS server
-    authconfigLdapServers:
-      type: object
-      properties:
-        ldap:
-          type: array
-          items:
-            $ref: '#/components/schemas/authconfigLdapServer'
-          example:
-          - name: Ldap-132-24
-            ldapUrl: ldap://10.194.132.24:10389
-            bindDn: cn=admin,dc=example,dc=org
-            bindCredential: admin
-            connectTimeout: 5000
-            baseDn: dc=example,dc=org
-            userFilter: uid={user}
-            dnFormat: uid=%s,dc=example,dc=org
-            principalAttributeId: uid
-            policyId: crossworkPolicyId
-            order: 1
   securitySchemes:
     bearerAuth:
       type: apiKey
