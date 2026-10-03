@@ -279,26 +279,14 @@ paths:
         required: true
 components:
   schemas:
-    models.Activity:
+    rpc.InitResponse:
       type: object
       properties:
-        adapterId:
+        status:
+          description: status of the worker
           type: string
-        description:
-          type: string
-        id:
-          type: string
-        inputSchema:
-          type: array
-          items:
-            type: integer
-        name:
-          type: string
-        outputSchema:
-          type: array
-          items:
-            type: integer
-        packageName:
+        workerUUID:
+          description: UUID assigned to worker
           type: string
     models.Worker:
       type: object
@@ -326,6 +314,36 @@ components:
         updatedAt:
           type: string
         workerProfile:
+          type: string
+    server.WorkerSimplified:
+      type: object
+      properties:
+        activeError:
+          type: string
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/server.ActivitySimplified'
+        adminStatus:
+          type: string
+        createdAt:
+          description: models.WFBase
+          type: string
+        infraJobId:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        updatedAt:
+          type: string
+    rpc.GenericResponse:
+      type: object
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/github-hyc_scm_engit_cisco_com_CWM_cwm-x24_services_worker-manager-service-dynamic_rpc.ErrorCode'
+        message:
+          description: Message, returned if ErrorCode not OK
           type: string
     models.WorkerStatus:
       type: integer
@@ -358,20 +376,31 @@ components:
         forceReload:
           type: boolean
           default: false
-    server.updateRequest:
+    models.Activity:
       type: object
       properties:
-        activities:
+        adapterId:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        inputSchema:
           type: array
           items:
-            type: string
+            type: integer
+        name:
+          type: string
+        outputSchema:
+          type: array
+          items:
+            type: integer
+        packageName:
+          type: string
+    server.stopRequest:
+      type: object
+      properties:
         forceStop:
-          type: boolean
-          default: false
-        startWorker:
-          type: boolean
-          default: false
-        stopWorkerIfRunning:
           type: boolean
           default: false
     github-hyc_scm_engit_cisco_com_CWM_cwm-x24_services_worker-manager-service-dynamic_rpc.ErrorCode:
@@ -401,14 +430,6 @@ components:
       - ErrorCode_ALREADY_STOPPED
       - ErrorCode_TIMED_OUT
       description: Error Code.
-    rpc.GenericResponse:
-      type: object
-      properties:
-        errorCode:
-          $ref: '#/components/schemas/github-hyc_scm_engit_cisco_com_CWM_cwm-x24_services_worker-manager-service-dynamic_rpc.ErrorCode'
-        message:
-          description: Message, returned if ErrorCode not OK
-          type: string
     server.InRequest:
       type: object
       properties:
@@ -427,37 +448,22 @@ components:
         workerProfile:
           type: string
           default: default
-    server.WorkerSimplified:
+    server.updateRequest:
       type: object
       properties:
-        activeError:
-          type: string
         activities:
           type: array
           items:
-            $ref: '#/components/schemas/server.ActivitySimplified'
-        adminStatus:
-          type: string
-        createdAt:
-          description: models.WFBase
-          type: string
-        infraJobId:
-          type: string
-        name:
-          type: string
-        status:
-          type: string
-        updatedAt:
-          type: string
-    rpc.InitResponse:
-      type: object
-      properties:
-        status:
-          description: status of the worker
-          type: string
-        workerUUID:
-          description: UUID assigned to worker
-          type: string
+            type: string
+        forceStop:
+          type: boolean
+          default: false
+        startWorker:
+          type: boolean
+          default: false
+        stopWorkerIfRunning:
+          type: boolean
+          default: false
     server.ActivitySimplified:
       type: object
       properties:
@@ -465,12 +471,6 @@ components:
           type: string
         numOfActivities:
           type: integer
-    server.stopRequest:
-      type: object
-      properties:
-        forceStop:
-          type: boolean
-          default: false
   securitySchemes:
     Bearer:
       type: apiKey

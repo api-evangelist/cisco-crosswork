@@ -140,42 +140,6 @@ paths:
         required: true
 components:
   schemas:
-    server.responseConfigurations:
-      type: object
-      properties:
-        actionTimeout:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        auditIncludeData:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        auditMaxDataSize:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        eventTimeout:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        jobRetentionPeriod:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        retryDelay:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        retryDelayMultiplier:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        retryJitter:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        retryMaxAttempts:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        retryMaxDelay:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        stateTimeout:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        systemActivityTimeout:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-        workflowTimeout:
-          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
-    server.GetSystemDefaultResponse:
-      type: object
-      properties:
-        description:
-          type: string
-        value:
-          type: object
     server.requestConfiguration:
       type: object
       properties:
@@ -218,6 +182,42 @@ components:
         workflowTimeout:
           type: integer
           default: 3600
+    server.GetSystemDefaultResponse:
+      type: object
+      properties:
+        description:
+          type: string
+        value:
+          type: object
+    server.responseConfigurations:
+      type: object
+      properties:
+        actionTimeout:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        auditIncludeData:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        auditMaxDataSize:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        eventTimeout:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        jobRetentionPeriod:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        retryDelay:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        retryDelayMultiplier:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        retryJitter:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        retryMaxAttempts:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        retryMaxDelay:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        stateTimeout:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        systemActivityTimeout:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
+        workflowTimeout:
+          $ref: '#/components/schemas/server.GetSystemDefaultResponse'
   securitySchemes:
     Bearer:
       type: apiKey

@@ -296,15 +296,11 @@ paths:
         required: true
 components:
   schemas:
-    server.HTTPError:
+    server.patchAdapterRequest:
       type: object
       properties:
-        code:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: status bad request
+        defaultStatus:
+          type: boolean
     server.createPluginsRequest:
       type: object
       properties:
@@ -312,43 +308,6 @@ components:
           type: boolean
         defaultStatus:
           type: boolean
-    server.getAdapterResponse:
-      type: object
-      properties:
-        activities:
-          type: array
-          items:
-            $ref: '#/components/schemas/server.getAdapterActivityResponse'
-        adapterId:
-          type: string
-        createdAt:
-          type: string
-        cwmVersionId:
-          type: string
-        defaultStatus:
-          type: boolean
-        deployedStatus:
-          type: boolean
-        description:
-          type: string
-        hashSum:
-          type: string
-        inUseStatus:
-          type: boolean
-        product:
-          type: string
-        resourceTypeId:
-          type: string
-        updatedAt:
-          type: string
-        uploadedStatus:
-          type: boolean
-        vendor:
-          type: string
-        verified:
-          type: boolean
-        version:
-          type: string
     server.getAdapterActivityResponse:
       type: object
       properties:
@@ -370,6 +329,15 @@ components:
             type: integer
         packageName:
           type: string
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
     server.listAdaptersAdapterResponse:
       type: object
       properties:
@@ -407,11 +375,43 @@ components:
           type: boolean
         version:
           type: string
-    server.patchAdapterRequest:
+    server.getAdapterResponse:
       type: object
       properties:
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/server.getAdapterActivityResponse'
+        adapterId:
+          type: string
+        createdAt:
+          type: string
+        cwmVersionId:
+          type: string
         defaultStatus:
           type: boolean
+        deployedStatus:
+          type: boolean
+        description:
+          type: string
+        hashSum:
+          type: string
+        inUseStatus:
+          type: boolean
+        product:
+          type: string
+        resourceTypeId:
+          type: string
+        updatedAt:
+          type: string
+        uploadedStatus:
+          type: boolean
+        vendor:
+          type: string
+        verified:
+          type: boolean
+        version:
+          type: string
   securitySchemes:
     Bearer:
       type: apiKey

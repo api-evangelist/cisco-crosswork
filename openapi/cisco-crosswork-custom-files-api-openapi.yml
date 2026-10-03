@@ -174,6 +174,24 @@ paths:
       - Custom Files
 components:
   schemas:
+    GETFilesRequest:
+      title: GETFilesRequest
+      example:
+        startRow: 0
+        endRow: 10
+      type: object
+      properties:
+        startRow:
+          type: integer
+          format: int32
+          description: Specify the starting row of the custom software files list.
+        endRow:
+          type: integer
+          format: int32
+          description: Specify the end row of the custom software files list.
+      required:
+      - startRow
+      - endRow
     deleteFileContent:
       title: deleteFileContent
       example:
@@ -203,24 +221,6 @@ components:
       - fileName
       - collectorType
       - fileType
-    GETFilesRequest:
-      title: GETFilesRequest
-      example:
-        startRow: 0
-        endRow: 10
-      type: object
-      properties:
-        startRow:
-          type: integer
-          format: int32
-          description: Specify the starting row of the custom software files list.
-        endRow:
-          type: integer
-          format: int32
-          description: Specify the end row of the custom software files list.
-      required:
-      - startRow
-      - endRow
   securitySchemes:
     bearerAuth:
       type: apiKey

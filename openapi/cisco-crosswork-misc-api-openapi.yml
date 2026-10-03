@@ -86,16 +86,6 @@ paths:
     - url: https://example.com/crosswork/dg-manager
 components:
   schemas:
-    Value:
-      title: Value
-      example:
-        valueStr: 6ddad364-77d1-4f3a-b3b8-2371789436a3
-      type: object
-      properties:
-        valueStr:
-          type: string
-      required:
-      - valueStr
     GetHealthOfDG:
       title: GetHealthOfDG
       example:
@@ -126,31 +116,10 @@ components:
       required:
       - field
       - value
-    GetOutageHistoryForVDGRequest:
-      title: GetOutageHistoryForVDGRequest
-      example:
-        queryParams:
-        - field: DGID
-          value:
-            valueStr: ''
-        - field: VDGID
-          value:
-            valueStr: b7fa0480-e421-42cf-868d-94ecd660116b
-        - field: DAYS
-          value:
-            valueStr: '14'
-      type: object
-      properties:
-        queryParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryParam_2'
-      required:
-      - queryParams
-    Value_2:
+    Value:
       title: Value
       example:
-        valueStr: ''
+        valueStr: 6ddad364-77d1-4f3a-b3b8-2371789436a3
       type: object
       properties:
         valueStr:
@@ -172,6 +141,37 @@ components:
       required:
       - field
       - value
+    Value_2:
+      title: Value
+      example:
+        valueStr: ''
+      type: object
+      properties:
+        valueStr:
+          type: string
+      required:
+      - valueStr
+    GetOutageHistoryForVDGRequest:
+      title: GetOutageHistoryForVDGRequest
+      example:
+        queryParams:
+        - field: DGID
+          value:
+            valueStr: ''
+        - field: VDGID
+          value:
+            valueStr: b7fa0480-e421-42cf-868d-94ecd660116b
+        - field: DAYS
+          value:
+            valueStr: '14'
+      type: object
+      properties:
+        queryParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryParam_2'
+      required:
+      - queryParams
   securitySchemes:
     bearerAuth:
       type: apiKey

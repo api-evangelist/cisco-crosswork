@@ -62,23 +62,89 @@ components:
         operational_data:
           $ref: '#/components/schemas/robotapiRobotDataGatewayOperational'
       title: Data gateway config and operational data
-    robotapiRobotInetAddressFamily:
-      description: Inet Address Family
+    RobotDataGatewayOperationalComponentState:
       type: string
       enum:
-      - ROBOT_INET_ADDR_TYPE_NONE
-      - ROBOT_INET_ADDR_TYPE_v4
-      - ROBOT_INET_ADDR_TYPE_v6
-      default: ROBOT_INET_ADDR_TYPE_NONE
-    RobotDataGatewayOperationalOperationStatusDetails:
+      - CS_UNKNOWN
+      - CS_UP
+      - CS_DOWN
+      default: CS_UNKNOWN
+    robotapiRobotDataGatewayConfig:
       type: object
       properties:
-        component_name:
+        description:
           type: string
-        state:
-          $ref: '#/components/schemas/RobotDataGatewayOperationalComponentState'
-        state_reason:
+        version:
           type: string
+        tags:
+          type: string
+        interfaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/RobotDataGatewayConfigInterface'
+        cert_chain:
+          $ref: '#/components/schemas/RobotDataGatewayConfigCert'
+        profile:
+          $ref: '#/components/schemas/RobotDataGatewayConfigProfile'
+        role:
+          $ref: '#/components/schemas/RobotDataGatewayConfigRole'
+        admin_state:
+          $ref: '#/components/schemas/RobotDataGatewayConfigAdminState'
+    robotapiRobotInetAddr:
+      description: Inet Address
+      type: object
+      properties:
+        inet_af:
+          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
+        inet_addr:
+          type: string
+        mask:
+          type: string
+    RobotDataGatewayConfigRole:
+      type: string
+      enum:
+      - INVALID_ROLE
+      - ACTIVE
+      - PASSIVE
+      default: INVALID_ROLE
+    RobotDataGatewayConfigCert:
+      type: object
+      properties:
+        certificate:
+          type: string
+    RobotDataGatewayConfigInterface:
+      type: object
+      properties:
+        name:
+          type: string
+        mac:
+          type: string
+        ip_addr:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotInetAddr'
+    robotapiRobotDataGatewayOperational:
+      type: object
+      properties:
+        oper_state:
+          $ref: '#/components/schemas/RobotDataGatewayOperationalOperationalState'
+        oper_state_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/RobotDataGatewayOperationalOperationStatusDetails'
+        created_time:
+          type: string
+          format: int64
+        last_updated_time:
+          type: string
+          format: int64
+    RobotDataGatewayConfigAdminState:
+      type: string
+      enum:
+      - UNKNOWN_AS
+      - AS_UP
+      - AS_DOWN
+      default: UNKNOWN_AS
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -118,37 +184,6 @@ components:
           type: string
         title: Impacted elements list
       description: Every Action related to Inventory will have a Job
-    RobotDataGatewayOperationalOperationalState:
-      type: string
-      enum:
-      - INVALID_OS
-      - OS_UNKNOWN
-      - OS_UP
-      - OS_ERROR
-      - OS_PARTIAL_UP
-      default: INVALID_OS
-    RobotDataGatewayOperationalComponentState:
-      type: string
-      enum:
-      - CS_UNKNOWN
-      - CS_UP
-      - CS_DOWN
-      default: CS_UNKNOWN
-    robotapiRobotDataGatewayOperational:
-      type: object
-      properties:
-        oper_state:
-          $ref: '#/components/schemas/RobotDataGatewayOperationalOperationalState'
-        oper_state_details:
-          type: array
-          items:
-            $ref: '#/components/schemas/RobotDataGatewayOperationalOperationStatusDetails'
-        created_time:
-          type: string
-          format: int64
-        last_updated_time:
-          type: string
-          format: int64
     robotapiRobotJobState:
       description: Various Job Resulting states.
       type: string
@@ -161,18 +196,6 @@ components:
       - JOB_COMPLETED
       - JOB_FAILED
       default: JOB_INVALID
-    RobotDataGatewayConfigCert:
-      type: object
-      properties:
-        certificate:
-          type: string
-    RobotDataGatewayConfigAdminState:
-      type: string
-      enum:
-      - UNKNOWN_AS
-      - AS_UP
-      - AS_DOWN
-      default: UNKNOWN_AS
     robotapiRobotDataGatewayList:
       type: object
       properties:
@@ -183,16 +206,23 @@ components:
         user:
           type: string
       title: List of dataGateway enrollments, used in the api request/response
-    robotapiRobotInetAddr:
-      description: Inet Address
-      type: object
-      properties:
-        inet_af:
-          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
-        inet_addr:
-          type: string
-        mask:
-          type: string
+    robotapiRobotInetAddressFamily:
+      description: Inet Address Family
+      type: string
+      enum:
+      - ROBOT_INET_ADDR_TYPE_NONE
+      - ROBOT_INET_ADDR_TYPE_v4
+      - ROBOT_INET_ADDR_TYPE_v6
+      default: ROBOT_INET_ADDR_TYPE_NONE
+    RobotDataGatewayOperationalOperationalState:
+      type: string
+      enum:
+      - INVALID_OS
+      - OS_UNKNOWN
+      - OS_UP
+      - OS_ERROR
+      - OS_PARTIAL_UP
+      default: INVALID_OS
     RobotDataGatewayConfigProfile:
       type: object
       properties:
@@ -205,45 +235,15 @@ components:
         nics:
           type: integer
           format: int64
-    RobotDataGatewayConfigInterface:
+    RobotDataGatewayOperationalOperationStatusDetails:
       type: object
       properties:
-        name:
+        component_name:
           type: string
-        mac:
+        state:
+          $ref: '#/components/schemas/RobotDataGatewayOperationalComponentState'
+        state_reason:
           type: string
-        ip_addr:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotInetAddr'
-    RobotDataGatewayConfigRole:
-      type: string
-      enum:
-      - INVALID_ROLE
-      - ACTIVE
-      - PASSIVE
-      default: INVALID_ROLE
-    robotapiRobotDataGatewayConfig:
-      type: object
-      properties:
-        description:
-          type: string
-        version:
-          type: string
-        tags:
-          type: string
-        interfaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/RobotDataGatewayConfigInterface'
-        cert_chain:
-          $ref: '#/components/schemas/RobotDataGatewayConfigCert'
-        profile:
-          $ref: '#/components/schemas/RobotDataGatewayConfigProfile'
-        role:
-          $ref: '#/components/schemas/RobotDataGatewayConfigRole'
-        admin_state:
-          $ref: '#/components/schemas/RobotDataGatewayConfigAdminState'
   securitySchemes:
     bearerAuth:
       type: apiKey

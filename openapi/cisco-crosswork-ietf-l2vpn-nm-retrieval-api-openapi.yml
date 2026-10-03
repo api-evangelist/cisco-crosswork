@@ -96,18 +96,35 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    '405':
-      description: Method Not Allowed
     '204':
       description: No Content
-    '409':
-      description: Conflict
+    '405':
+      description: Method Not Allowed
     '400':
       description: Bad Request
     '404':
       description: Not Found
+    '409':
+      description: Conflict
     '401':
       description: Unauthorized
+  parameters:
+    vpn-service-plan-vpn-id:
+      name: vpn-service-plan-vpn-id
+      in: path
+      description: ''
+      required: true
+      schema:
+        type: string
+        format: string
+    vpn-service-vpn-id:
+      name: vpn-service-vpn-id
+      in: path
+      description: Refers to unique identifier for the L2NM.
+      required: true
+      schema:
+        type: string
+        format: string
   schemas:
     data_ietf-l2vpn-ntw_l2vpn-ntw_vpn-services_vpn-service-plan_vpn-service-plan-vpn-id:
       type: object
@@ -2250,23 +2267,6 @@ components:
                                                         default: symmetric
                                                         enum:
                                                         - symmetric
-  parameters:
-    vpn-service-vpn-id:
-      name: vpn-service-vpn-id
-      in: path
-      description: Refers to unique identifier for the L2NM.
-      required: true
-      schema:
-        type: string
-        format: string
-    vpn-service-plan-vpn-id:
-      name: vpn-service-plan-vpn-id
-      in: path
-      description: ''
-      required: true
-      schema:
-        type: string
-        format: string
   securitySchemes:
     basicAuth:
       type: http

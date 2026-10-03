@@ -126,42 +126,19 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    '405':
-      description: Method Not Allowed
     '204':
       description: No Content
-    '409':
-      description: Conflict
+    '405':
+      description: Method Not Allowed
     '400':
       description: Bad Request
     '404':
       description: Not Found
+    '409':
+      description: Conflict
     '401':
       description: Unauthorized
   parameters:
-    data_ietf-te_te_tunnels_tunnel_tunnel-name:
-      name: tunnel
-      in: body
-      description: P2P TE tunnels list.
-      required: true
-      schema:
-        $ref: '#/components/schemas/data_ietf-te_te_tunnels_tunnel_tunnel-name'
-    tunnel-name:
-      name: tunnel-name
-      in: path
-      description: TE tunnel name.
-      required: true
-      schema:
-        type: string
-        format: string
-    point:
-      name: point
-      in: query
-      description: used to specify the insertion point
-      required: false
-      schema:
-        type: string
-        format: string
     insert:
       name: insert
       in: query
@@ -176,6 +153,29 @@ components:
         - before
         - after
         default: first
+    data_ietf-te_te_tunnels_tunnel_tunnel-name:
+      name: tunnel
+      in: body
+      description: P2P TE tunnels list.
+      required: true
+      schema:
+        $ref: '#/components/schemas/data_ietf-te_te_tunnels_tunnel_tunnel-name'
+    point:
+      name: point
+      in: query
+      description: used to specify the insertion point
+      required: false
+      schema:
+        type: string
+        format: string
+    tunnel-name:
+      name: tunnel-name
+      in: path
+      description: TE tunnel name.
+      required: true
+      schema:
+        type: string
+        format: string
   schemas:
     data_ietf-te_te_tunnels_tunnel_tunnel-name:
       type: object

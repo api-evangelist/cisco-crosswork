@@ -86,6 +86,61 @@ paths:
       - Command
 components:
   schemas:
+    ShowtechStatusRequest:
+      title: ShowtechStatusRequest
+      example:
+        queryParams:
+        - field: CMDID
+          value:
+            valueStr: '5065'
+      type: object
+      properties:
+        queryParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryParam'
+      required:
+      - queryParams
+    QueryParam:
+      title: QueryParam
+      example:
+        field: CMDID
+        value:
+          valueStr: '5065'
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          $ref: '#/components/schemas/Value1'
+      required:
+      - field
+      - value
+    Arg:
+      title: Arg
+      example:
+        key: passphrase
+        value:
+          str: test1234
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          $ref: '#/components/schemas/Value'
+      required:
+      - key
+      - value
+    Value:
+      title: Value
+      example:
+        str: test1234
+      type: object
+      properties:
+        str:
+          type: string
+      required:
+      - str
     ClientId:
       title: ClientId
       example:
@@ -124,16 +179,6 @@ components:
       - commandName
       - clientId
       - args
-    Value:
-      title: Value
-      example:
-        str: test1234
-      type: object
-      properties:
-        str:
-          type: string
-      required:
-      - str
     SubmitRebootCommand:
       title: RebootCommandPayload
       example:
@@ -153,36 +198,6 @@ components:
       - id
       - commandName
       - clientId
-    ShowtechStatusRequest:
-      title: ShowtechStatusRequest
-      example:
-        queryParams:
-        - field: CMDID
-          value:
-            valueStr: '5065'
-      type: object
-      properties:
-        queryParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryParam'
-      required:
-      - queryParams
-    Arg:
-      title: Arg
-      example:
-        key: passphrase
-        value:
-          str: test1234
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          $ref: '#/components/schemas/Value'
-      required:
-      - key
-      - value
     Value1:
       title: Value1
       example:
@@ -193,21 +208,6 @@ components:
           type: string
       required:
       - valueStr
-    QueryParam:
-      title: QueryParam
-      example:
-        field: CMDID
-        value:
-          valueStr: '5065'
-      type: object
-      properties:
-        field:
-          type: string
-        value:
-          $ref: '#/components/schemas/Value1'
-      required:
-      - field
-      - value
   securitySchemes:
     bearerAuth:
       type: apiKey

@@ -237,6 +237,12 @@ paths:
       - RBAC
 components:
   schemas:
+    rbacCacheOptions:
+      type: object
+    rbacNotificationsManager:
+      type: object
+    rbacResponseProcessor:
+      type: object
     rbacAccessSpec:
       type: object
       properties:
@@ -246,194 +252,15 @@ components:
           type: array
           items:
             type: string
-    rbacAuthTypeEnum:
-      type: string
-    rbacUser:
-      type: object
-      properties:
-        Username:
-          type: string
-        Password:
-          type: string
-        PolicyId:
-          type: string
-        FirstName:
-          type: string
-        LastName:
-          type: string
-      title: User represents a user account created on a local authentication store.
-    rbacUptimeTests:
-      type: object
-    rbacProxy:
+    rbacMiddlewareSection:
       type: object
     rbacobject:
       type: object
-    rbacUsers:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/rbacUser'
-      example:
-        superuser:
-          Username: superuser
-          Password: default
-          PolicyId: admin
-          FirstName: John
-          LastName: Doe
-    rbacAuthProviderMeta:
-      type: object
-    rbacEventHandlerMetaConfig:
-      type: object
-    rbacSecuredAPIsByFeature:
-      example:
-        Change Automations:
-        - api_id: cwnca
-          name: NCA api
-        - api_id: robot-nca
-          name: robot-nca api
-        Core Infra:
-        - api_id: api_v1_services
-          name: api/v1/services api
-        - api_id: api_v1_spans
-          name: api/v1/spans api
-        - api_id: api_v1_trace
-          name: api/v1/trace api
-        - api_id: api_v1_traces
-          name: api/v1/traces api
-        - api_id: cwauthconfig
-          name: Auth Server Config api
-        - api_id: cwsso
-          name: Authentication api
-        - api_id: gcp-service
-          name: gcp-service api
-        - api_id: grafana.monitoring
-          name: grafana.monitoring api
-        - api_id: nbi_v1_assurance
-          name: nbi/v1/assurance api
-        - api_id: nbi_v1_central-inventory
-          name: nbi/v1/central-inventory api
-        - api_id: cwpassword
-          name: Password Change api
-        - api_id: robot-grafana
-          name: robot-grafana api
-        - api_id: robot-logger
-          name: robot-logger api
-        - api_id: robot-ui
-          name: robot-ui api
-        - api_id: robot
-          name: Robot_Infra_API_Proxy
-        - api_id: rpd-service-manager
-          name: rpd-service-manager api
-        - api_id: rpd-service-manager-socket
-          name: rpd-service-manager-socket api
-        - api_id: vmtime
-          name: Server Time api
-        - api_id: cwtopology
-          name: Topology api
-        - api_id: cwaaa
-          name: Users and Roles api
-        - api_id: zipkin
-          name: zipkin api
-        Health Insights:
-        - api_id: cwhi
-          name: HI api
-        Inventory:
-        - api_id: cwinventory
-          name: inventory api
-        Platform:
-        - api_id: cwplatform
-          name: Platform api
-        - api_id: robotctl
-          name: robotctl api
-        T-SDN:
-        - api_id: NSO
-          name: NSO proxy api
-    rbacEmpty:
-      type: object
-    rbacCacheOptions:
-      type: object
-    rbacMiddlewareSection:
-      type: object
-    rbacRole:
-      type: object
-      properties:
-        id:
-          type: string
-        org_id:
-          type: string
-        rate:
-          type: number
-          format: float
-        per:
-          type: number
-          format: float
-        quota_max:
-          type: string
-          format: int64
-        quota_renewal_rate:
-          type: string
-          format: int64
-        access_rights:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/rbacAccessDefinition'
-        hmac_enabled:
-          type: boolean
-          format: boolean
-        active:
-          type: boolean
-          format: boolean
-        is_inactive:
-          type: boolean
-          format: boolean
-        tags:
-          type: array
-          items:
-            type: string
-        key_expires_in:
-          type: string
-          format: int64
-        partitions:
-          $ref: '#/components/schemas/rbacPolicyPartitions'
-        last_updated:
-          type: string
-      title: Role represents a collection of security options, such as access rights to APIs, which are deployed on the system.
-    rbacVersionDefinition:
-      type: object
     rbacBasicAuth:
       type: object
-    rbacSessionProviderMeta:
-      type: object
-    rbacResponseProcessor:
-      type: object
-    rbacUpdateUserReq:
-      type: object
-      properties:
-        PolicyId:
-          type: string
-        FirstName:
-          type: string
-        LastName:
-          type: string
-      example:
-        PolicyId: UpdatedPolicyId
-        FirstName: UpdatedFirstName
-        LastName: UpdatedLastName
-      title: Update user request
-    rbacPolicyPartitions:
-      type: object
-      properties:
-        quota:
-          type: boolean
-          format: boolean
-        rate_limit:
-          type: boolean
-          format: boolean
-        acl:
-          type: boolean
-          format: boolean
+    rbacAuthTypeEnum:
+      type: string
     rbacOpenIDOptions:
-      type: object
-    rbacVersionData:
       type: object
     rbacSecuredAPIs:
       type: array
@@ -7136,6 +6963,41 @@ components:
           rate: 0
           per: 0
         strip_auth_data: false
+    rbacUsers:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/rbacUser'
+      example:
+        superuser:
+          Username: superuser
+          Password: default
+          PolicyId: admin
+          FirstName: John
+          LastName: Doe
+    rbacProxy:
+      type: object
+    rbacUpdateUserReq:
+      type: object
+      properties:
+        PolicyId:
+          type: string
+        FirstName:
+          type: string
+        LastName:
+          type: string
+      example:
+        PolicyId: UpdatedPolicyId
+        FirstName: UpdatedFirstName
+        LastName: UpdatedLastName
+      title: Update user request
+    rbacAuth:
+      type: object
+    rbacEmpty:
+      type: object
+    rbacVersionDefinition:
+      type: object
+    rbacCORS:
+      type: object
     rbacSecuredAPI:
       type: object
       properties:
@@ -7298,9 +7160,55 @@ components:
           type: boolean
           format: boolean
       title: AuthorizedAPI represents the core settings of an API which requires a JWT (JSON Web Token) bearer token to access
-    rbacCORS:
+    rbacRole:
       type: object
-    rbacNotificationsManager:
+      properties:
+        id:
+          type: string
+        org_id:
+          type: string
+        rate:
+          type: number
+          format: float
+        per:
+          type: number
+          format: float
+        quota_max:
+          type: string
+          format: int64
+        quota_renewal_rate:
+          type: string
+          format: int64
+        access_rights:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/rbacAccessDefinition'
+        hmac_enabled:
+          type: boolean
+          format: boolean
+        active:
+          type: boolean
+          format: boolean
+        is_inactive:
+          type: boolean
+          format: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        key_expires_in:
+          type: string
+          format: int64
+        partitions:
+          $ref: '#/components/schemas/rbacPolicyPartitions'
+        last_updated:
+          type: string
+      title: Role represents a collection of security options, such as access rights to APIs, which are deployed on the system.
+    rbacOauth2Meta:
+      type: object
+    rbacGlobalRateLimit:
+      type: object
+    rbacEventHandlerMetaConfig:
       type: object
     rbacAccessDefinition:
       type: object
@@ -7317,6 +7225,90 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/rbacAccessSpec'
+    rbacSessionProviderMeta:
+      type: object
+    rbacUptimeTests:
+      type: object
+    rbacVersionData:
+      type: object
+    rbacUser:
+      type: object
+      properties:
+        Username:
+          type: string
+        Password:
+          type: string
+        PolicyId:
+          type: string
+        FirstName:
+          type: string
+        LastName:
+          type: string
+      title: User represents a user account created on a local authentication store.
+    rbacSecuredAPIsByFeature:
+      example:
+        Change Automations:
+        - api_id: cwnca
+          name: NCA api
+        - api_id: robot-nca
+          name: robot-nca api
+        Core Infra:
+        - api_id: api_v1_services
+          name: api/v1/services api
+        - api_id: api_v1_spans
+          name: api/v1/spans api
+        - api_id: api_v1_trace
+          name: api/v1/trace api
+        - api_id: api_v1_traces
+          name: api/v1/traces api
+        - api_id: cwauthconfig
+          name: Auth Server Config api
+        - api_id: cwsso
+          name: Authentication api
+        - api_id: gcp-service
+          name: gcp-service api
+        - api_id: grafana.monitoring
+          name: grafana.monitoring api
+        - api_id: nbi_v1_assurance
+          name: nbi/v1/assurance api
+        - api_id: nbi_v1_central-inventory
+          name: nbi/v1/central-inventory api
+        - api_id: cwpassword
+          name: Password Change api
+        - api_id: robot-grafana
+          name: robot-grafana api
+        - api_id: robot-logger
+          name: robot-logger api
+        - api_id: robot-ui
+          name: robot-ui api
+        - api_id: robot
+          name: Robot_Infra_API_Proxy
+        - api_id: rpd-service-manager
+          name: rpd-service-manager api
+        - api_id: rpd-service-manager-socket
+          name: rpd-service-manager-socket api
+        - api_id: vmtime
+          name: Server Time api
+        - api_id: cwtopology
+          name: Topology api
+        - api_id: cwaaa
+          name: Users and Roles api
+        - api_id: zipkin
+          name: zipkin api
+        Health Insights:
+        - api_id: cwhi
+          name: HI api
+        Inventory:
+        - api_id: cwinventory
+          name: inventory api
+        Platform:
+        - api_id: cwplatform
+          name: Platform api
+        - api_id: robotctl
+          name: robotctl api
+        T-SDN:
+        - api_id: NSO
+          name: NSO proxy api
     rbacRoles:
       type: object
       additionalProperties:
@@ -7848,12 +7840,20 @@ components:
             rate_limit: false
             acl: false
           last_updated: ''
-    rbacAuth:
+    rbacAuthProviderMeta:
       type: object
-    rbacOauth2Meta:
+    rbacPolicyPartitions:
       type: object
-    rbacGlobalRateLimit:
-      type: object
+      properties:
+        quota:
+          type: boolean
+          format: boolean
+        rate_limit:
+          type: boolean
+          format: boolean
+        acl:
+          type: boolean
+          format: boolean
   securitySchemes:
     bearerAuth:
       type: apiKey

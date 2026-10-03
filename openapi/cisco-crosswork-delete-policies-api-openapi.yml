@@ -54,6 +54,33 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    robotapiRobotInventoryType:
+      description: Supported Inventory Type
+      type: string
+      enum:
+      - INV_TYPE_UNKNOWN
+      - INV_TYPE_NODE
+      - INV_TYPE_PROVIDER
+      - INV_TYPE_CREDENTIAL
+      - INV_TYPE_TAG
+      default: INV_TYPE_UNKNOWN
+    robotapiRobotUniquePolicy:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Unique name
+        invType:
+          $ref: '#/components/schemas/robotapiRobotInventoryType'
+          title: Inventory Type, In 3.1 version, policies are supported only for Nodes
+        fields:
+          type: array
+          items:
+            type: string
+          title: Array of field names on which the uniqueness will be maintained
+        Type:
+          $ref: '#/components/schemas/robotapiUniquePolicyType'
+          title: Combination of all the filed supplied or independent
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -93,6 +120,16 @@ components:
           type: string
         title: Impacted elements list
       description: Every Action related to Inventory will have a Job
+    robotapiRobotUniquePolicyList:
+      type: object
+      properties:
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotUniquePolicy'
+        user:
+          type: string
+      title: List of policies used in the api request/response
     robotapiRobotJobState:
       description: Various Job Resulting states.
       type: string
@@ -112,43 +149,6 @@ components:
       - INDEPENDENT
       - COMBINED
       default: UNKNOWN_TYPE
-    robotapiRobotUniquePolicyList:
-      type: object
-      properties:
-        policies:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotUniquePolicy'
-        user:
-          type: string
-      title: List of policies used in the api request/response
-    robotapiRobotUniquePolicy:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Unique name
-        invType:
-          $ref: '#/components/schemas/robotapiRobotInventoryType'
-          title: Inventory Type, In 3.1 version, policies are supported only for Nodes
-        fields:
-          type: array
-          items:
-            type: string
-          title: Array of field names on which the uniqueness will be maintained
-        Type:
-          $ref: '#/components/schemas/robotapiUniquePolicyType'
-          title: Combination of all the filed supplied or independent
-    robotapiRobotInventoryType:
-      description: Supported Inventory Type
-      type: string
-      enum:
-      - INV_TYPE_UNKNOWN
-      - INV_TYPE_NODE
-      - INV_TYPE_PROVIDER
-      - INV_TYPE_CREDENTIAL
-      - INV_TYPE_TAG
-      default: INV_TYPE_UNKNOWN
   securitySchemes:
     bearerAuth:
       type: apiKey

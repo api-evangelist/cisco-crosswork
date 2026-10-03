@@ -257,33 +257,9 @@ components:
         message:
           type: string
           example: status bad request
-    server.EventDefinition:
+    gin.H:
       type: object
-      properties:
-        correlationAttrs:
-          type: array
-          items:
-            type: integer
-        createWorkflow:
-          type: boolean
-        endpoint:
-          type: string
-        kind:
-          type: string
-        payloadAttrs:
-          type: object
-          additionalProperties:
-            type: string
-        resourceId:
-          type: string
-        source:
-          type: string
-        type:
-          type: string
-        workflowName:
-          type: string
-        workflowVersion:
-          type: string
+      additionalProperties: {}
     server.EventResponse:
       type: object
       properties:
@@ -317,9 +293,33 @@ components:
           type: string
         workflowVersion:
           type: string
-    gin.H:
+    server.EventDefinition:
       type: object
-      additionalProperties: {}
+      properties:
+        correlationAttrs:
+          type: array
+          items:
+            type: integer
+        createWorkflow:
+          type: boolean
+        endpoint:
+          type: string
+        kind:
+          type: string
+        payloadAttrs:
+          type: object
+          additionalProperties:
+            type: string
+        resourceId:
+          type: string
+        source:
+          type: string
+        type:
+          type: string
+        workflowName:
+          type: string
+        workflowVersion:
+          type: string
   securitySchemes:
     Bearer:
       type: apiKey

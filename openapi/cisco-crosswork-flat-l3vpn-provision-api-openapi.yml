@@ -130,57 +130,6 @@ paths:
       - basicAuth: []
       x-summary-source: derived
 components:
-  responses:
-    '405':
-      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
-    '204':
-      description: No Content. The request was successful and there is no additional content in the response body.
-    '409':
-      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
-    '400':
-      description: Bad Request. The request is malformed in some way and the server cannot process it.
-    '404':
-      description: Not Found. The client made a request for a resource that does not exist.
-    '401':
-      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
-  parameters:
-    point:
-      name: point
-      in: query
-      description: Specify the insertion point.
-      required: false
-      schema:
-        type: string
-        format: string
-    flat-L3vpn:
-      name: flat-L3vpn
-      in: body
-      description: Flat L3VPN Configuration
-      required: true
-      schema:
-        $ref: '#/components/schemas/flat-L3vpn'
-    insert:
-      name: insert
-      in: query
-      description: Control the order of addition when adding new list elements.
-      required: false
-      schema:
-        type: string
-        format: enumeration
-        enum:
-        - first
-        - last
-        - before
-        - after
-        default: first
-    flat-L3vpn-name:
-      name: flat-L3vpn-name
-      in: path
-      description: Service Name for L3VPN
-      required: true
-      schema:
-        type: string
-        format: string
   schemas:
     flat-L3vpn:
       type: object
@@ -996,6 +945,57 @@ components:
           properties: {}
       xml:
         namespace: http://cisco.com/ns/nso/fp/examples/cisco-tsdn-flat-L3vpn
+  responses:
+    '204':
+      description: No Content. The request was successful and there is no additional content in the response body.
+    '409':
+      description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
+    '405':
+      description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
+    '400':
+      description: Bad Request. The request is malformed in some way and the server cannot process it.
+    '404':
+      description: Not Found. The client made a request for a resource that does not exist.
+    '401':
+      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
+  parameters:
+    insert:
+      name: insert
+      in: query
+      description: Control the order of addition when adding new list elements.
+      required: false
+      schema:
+        type: string
+        format: enumeration
+        enum:
+        - first
+        - last
+        - before
+        - after
+        default: first
+    point:
+      name: point
+      in: query
+      description: Specify the insertion point.
+      required: false
+      schema:
+        type: string
+        format: string
+    flat-L3vpn:
+      name: flat-L3vpn
+      in: body
+      description: Flat L3VPN Configuration
+      required: true
+      schema:
+        $ref: '#/components/schemas/flat-L3vpn'
+    flat-L3vpn-name:
+      name: flat-L3vpn-name
+      in: path
+      description: Service Name for L3VPN
+      required: true
+      schema:
+        type: string
+        format: string
   securitySchemes:
     basicAuth:
       type: http

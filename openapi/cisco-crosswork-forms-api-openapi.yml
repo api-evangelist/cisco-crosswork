@@ -277,19 +277,22 @@ paths:
         required: true
 components:
   schemas:
-    server.formSchema:
+    server.HTTPError:
       type: object
       properties:
-        description:
+        code:
+          type: integer
+          example: 400
+        message:
           type: string
-        dynamicContentSchema:
-          type: object
-        formId:
-          type: string
-        formSchema:
-          type: object
-        name:
-          type: string
+          example: status bad request
+    server.FormExport:
+      type: object
+      properties:
+        formIds:
+          type: array
+          items:
+            type: string
     models.CallbackForm:
       type: object
       properties:
@@ -311,22 +314,19 @@ components:
           type: string
         updatedAt:
           type: string
-    server.HTTPError:
+    server.formSchema:
       type: object
       properties:
-        code:
-          type: integer
-          example: 400
-        message:
+        description:
           type: string
-          example: status bad request
-    server.FormExport:
-      type: object
-      properties:
-        formIds:
-          type: array
-          items:
-            type: string
+        dynamicContentSchema:
+          type: object
+        formId:
+          type: string
+        formSchema:
+          type: object
+        name:
+          type: string
   securitySchemes:
     Bearer:
       type: apiKey

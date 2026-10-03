@@ -95,6 +95,28 @@ paths:
         required: true
 components:
   schemas:
+    cwztpsvcZtpFilterData:
+      type: object
+      properties:
+        SortBy:
+          type: string
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
+        TotalCount:
+          type: integer
+          format: int64
     cwztpsvcZtpProfileResponse:
       type: object
       properties:
@@ -165,25 +187,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/cwztpsvcZtpProfile'
-    cwztpsvcZtpFilterData:
-      type: object
-      properties:
-        SortBy:
-          type: string
-        PageSize:
-          type: integer
-          format: int64
-        PageNum:
-          type: integer
-          format: int64
-        Descending:
-          type: boolean
-          format: boolean
-        MatchCase:
-          type: boolean
-          format: boolean
-        Criteria:
-          type: string
-        TotalCount:
-          type: integer
-          format: int64

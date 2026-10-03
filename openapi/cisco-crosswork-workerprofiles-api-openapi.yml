@@ -201,19 +201,6 @@ paths:
         required: true
 components:
   schemas:
-    server.WorkerProfile:
-      type: object
-      properties:
-        cpuMax:
-          type: string
-        cpuMin:
-          type: string
-        memMax:
-          type: string
-        memMin:
-          type: string
-        profileName:
-          type: string
     server.HTTPError:
       type: object
       properties:
@@ -233,6 +220,19 @@ components:
         memMax:
           type: string
         memMin:
+          type: string
+    server.WorkerProfile:
+      type: object
+      properties:
+        cpuMax:
+          type: string
+        cpuMin:
+          type: string
+        memMax:
+          type: string
+        memMin:
+          type: string
+        profileName:
           type: string
   securitySchemes:
     Bearer:

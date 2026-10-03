@@ -227,46 +227,6 @@ paths:
         required: true
 components:
   schemas:
-    alarmsRestDestinationList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/alarmsRestDestination'
-      title: Rest Destination List
-    alarmsGetAlarmsReq:
-      type: object
-      properties:
-        openAlarmsOnly:
-          type: boolean
-          format: boolean
-        criteria:
-          type: string
-      title: Request Alarms proto, criteria is a criteria for alarms
-    alarmsSeverity:
-      type: string
-      enum:
-      - InvalidSeverity
-      - Clear
-      - Info
-      - Warning
-      - Minor
-      - Major
-      - Critical
-      default: InvalidSeverity
-      title: Defines the Event/Alarm severity
-    alarmsCategory:
-      type: string
-      enum:
-      - InvalidCategory
-      - System
-      - Network
-      - Audit
-      - Security
-      - External
-      default: InvalidCategory
-      title: Defines the Category of the Event/Alarm
     alarmsRestDestination:
       type: object
       properties:
@@ -282,6 +242,98 @@ components:
         password:
           type: string
       title: Rest Destination
+    alarmsSyslogDestinationList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/alarmsSyslogDestination'
+      title: Syslog Destination List
+    alarmsNoteAlarmReq:
+      type: object
+      properties:
+        alarmId:
+          type: string
+        criteria:
+          type: string
+        note:
+          type: string
+      title: Add Notes to Alarm Request
+    alarmsAcknowledgeAlarmReq:
+      type: object
+      properties:
+        alarmId:
+          type: string
+        criteria:
+          type: string
+        note:
+          type: string
+        ack:
+          type: boolean
+          format: boolean
+      title: Acknowledge/UnAcknowledge Alarm Request
+    alarmsAlarmResponse:
+      type: object
+      properties:
+        state:
+          $ref: '#/components/schemas/alarmsResponseState'
+        Message:
+          type: string
+        eventId:
+          type: string
+        alarmId:
+          type: string
+        alarms:
+          type: array
+          items:
+            $ref: '#/components/schemas/alarmsAlarm'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/alarmsEvent'
+        total:
+          type: string
+          format: int64
+      title: Response object for any Alarm Center API
+    alarmsSyslogDestination:
+      type: object
+      properties:
+        host:
+          type: string
+        port:
+          type: integer
+          format: int32
+        criteria:
+          type: string
+        rate_per_second:
+          type: integer
+          format: int32
+        secure:
+          type: boolean
+          format: boolean
+        certificate_id:
+          type: string
+      title: Syslog Destination
+    alarmsRestDestinationList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/alarmsRestDestination'
+      title: Rest Destination List
+    alarmsCategory:
+      type: string
+      enum:
+      - InvalidCategory
+      - System
+      - Network
+      - Audit
+      - Security
+      - External
+      default: InvalidCategory
+      title: Defines the Category of the Event/Alarm
     alarmsAlarm:
       type: object
       properties:
@@ -361,56 +413,27 @@ components:
           format: int32
           title: Number of events in this alarm
       title: An Alarm that aggregates several Events & Alarms
-    alarmsAcknowledgeAlarmReq:
+    alarmsSeverity:
+      type: string
+      enum:
+      - InvalidSeverity
+      - Clear
+      - Info
+      - Warning
+      - Minor
+      - Major
+      - Critical
+      default: InvalidSeverity
+      title: Defines the Event/Alarm severity
+    alarmsGetAlarmsReq:
       type: object
       properties:
-        alarmId:
-          type: string
-        criteria:
-          type: string
-        note:
-          type: string
-        ack:
+        openAlarmsOnly:
           type: boolean
           format: boolean
-      title: Acknowledge/UnAcknowledge Alarm Request
-    alarmsSyslogDestinationList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/alarmsSyslogDestination'
-      title: Syslog Destination List
-    alarmsSyslogDestination:
-      type: object
-      properties:
-        host:
-          type: string
-        port:
-          type: integer
-          format: int32
         criteria:
           type: string
-        rate_per_second:
-          type: integer
-          format: int32
-        secure:
-          type: boolean
-          format: boolean
-        certificate_id:
-          type: string
-      title: Syslog Destination
-    alarmsClearAlarmReq:
-      type: object
-      properties:
-        alarmId:
-          type: string
-        criteria:
-          type: string
-        note:
-          type: string
-      title: Clear Alarm Request
+      title: Request Alarms proto, criteria is a criteria for alarms
     alarmsResponseState:
       type: string
       enum:
@@ -470,30 +493,7 @@ components:
       title: 'An Event structure, an application/service will post this proto as an input
 
         for the Alarm Center to create Events and Alarms'
-    alarmsAlarmResponse:
-      type: object
-      properties:
-        state:
-          $ref: '#/components/schemas/alarmsResponseState'
-        Message:
-          type: string
-        eventId:
-          type: string
-        alarmId:
-          type: string
-        alarms:
-          type: array
-          items:
-            $ref: '#/components/schemas/alarmsAlarm'
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/alarmsEvent'
-        total:
-          type: string
-          format: int64
-      title: Response object for any Alarm Center API
-    alarmsNoteAlarmReq:
+    alarmsClearAlarmReq:
       type: object
       properties:
         alarmId:
@@ -502,4 +502,4 @@ components:
           type: string
         note:
           type: string
-      title: Add Notes to Alarm Request
+      title: Clear Alarm Request

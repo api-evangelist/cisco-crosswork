@@ -344,6 +344,17 @@ paths:
       path: /resourceType/{resourceTypeId}
 components:
   schemas:
+    validator.Resource:
+      type: object
+      properties:
+        resource:
+          type: object
+        resourceId:
+          type: string
+        resourceTypeId:
+          type: string
+        secretId:
+          type: string
     models.Resource:
       type: object
       properties:
@@ -355,15 +366,6 @@ components:
           type: string
         secretId:
           type: string
-    server.HTTPError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: status bad request
     models.ResourceType:
       type: object
       properties:
@@ -373,6 +375,15 @@ components:
           type: string
         schema:
           type: object
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
     server.ResourceImportResponse:
       type: object
       properties:
@@ -392,17 +403,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/validator.Resource'
-    validator.Resource:
-      type: object
-      properties:
-        resource:
-          type: object
-        resourceId:
-          type: string
-        resourceTypeId:
-          type: string
-        secretId:
-          type: string
     server.ResourceExport:
       type: object
       properties:

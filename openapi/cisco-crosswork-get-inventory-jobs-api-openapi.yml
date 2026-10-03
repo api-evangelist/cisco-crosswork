@@ -96,6 +96,18 @@ components:
           $ref: '#/components/schemas/robotapiRobotNodeJob'
         filterData:
           $ref: '#/components/schemas/robotapiRobotFilterData'
+    robotapiRobotNodeJobList:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotNodeJob'
+          description: creation time based sorted list of RobotNodeJob
+        total_count:
+          type: integer
+          format: int32
+          description: Number of total jobs available at present
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -147,18 +159,6 @@ components:
       - JOB_COMPLETED
       - JOB_FAILED
       default: JOB_INVALID
-    robotapiRobotNodeJobList:
-      type: object
-      properties:
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotNodeJob'
-          description: creation time based sorted list of RobotNodeJob
-        total_count:
-          type: integer
-          format: int32
-          description: Number of total jobs available at present
   securitySchemes:
     bearerAuth:
       type: apiKey

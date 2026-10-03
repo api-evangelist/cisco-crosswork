@@ -97,6 +97,19 @@ paths:
       - basicAuth: []
       x-summary-source: derived
 components:
+  responses:
+    '204':
+      description: No Content
+    '405':
+      description: Method Not Allowed
+    '400':
+      description: Bad Request
+    '404':
+      description: Not Found
+    '409':
+      description: Conflict
+    '401':
+      description: Unauthorized
   schemas:
     data_ietf-te_te_tunnels_tunnel-plan_tunnel-plan-name:
       type: object
@@ -2040,32 +2053,19 @@ components:
                                 type: leaf
                               type: string
                               format: string
-  responses:
-    '405':
-      description: Method Not Allowed
-    '204':
-      description: No Content
-    '409':
-      description: Conflict
-    '400':
-      description: Bad Request
-    '404':
-      description: Not Found
-    '401':
-      description: Unauthorized
   parameters:
-    tunnel-name:
-      name: tunnel-name
-      in: path
-      description: TE tunnel name.
-      required: true
-      schema:
-        type: string
-        format: string
     tunnel-plan-name:
       name: tunnel-plan-name
       in: path
       description: ''
+      required: true
+      schema:
+        type: string
+        format: string
+    tunnel-name:
+      name: tunnel-name
+      in: path
+      description: TE tunnel name.
       required: true
       schema:
         type: string

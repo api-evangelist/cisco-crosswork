@@ -82,6 +82,22 @@ components:
           type: integer
           format: int32
           description: Number of total tags available at present
+    robotapiRobotNodeTag:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        created_by:
+          type: string
+        creation_time:
+          type: string
+          format: int64
+        devices_tagged:
+          type: integer
+          format: int64
+      description: Device Tag Object
     robotapiRobotFilterData:
       description: Request body with filter options
       type: object
@@ -102,22 +118,6 @@ components:
           format: boolean
         Criteria:
           type: string
-    robotapiRobotNodeTag:
-      type: object
-      properties:
-        name:
-          type: string
-        category:
-          type: string
-        created_by:
-          type: string
-        creation_time:
-          type: string
-          format: int64
-        devices_tagged:
-          type: integer
-          format: int64
-      description: Device Tag Object
   securitySchemes:
     bearerAuth:
       type: apiKey

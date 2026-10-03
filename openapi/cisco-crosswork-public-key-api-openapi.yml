@@ -226,6 +226,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    server.PublicKeyUpdateRequest:
+      type: object
+      properties:
+        author:
+          type: string
+        enabled:
+          type: boolean
+        publicKey:
+          type: string
     server.PublicKeyCreateRequest:
       type: object
       required:
@@ -239,15 +248,6 @@ components:
           type: boolean
         name:
           type: string
-        publicKey:
-          type: string
-    server.PublicKeyUpdateRequest:
-      type: object
-      properties:
-        author:
-          type: string
-        enabled:
-          type: boolean
         publicKey:
           type: string
     server.PublicKeyResponse:

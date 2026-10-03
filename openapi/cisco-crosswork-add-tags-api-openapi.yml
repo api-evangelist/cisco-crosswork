@@ -54,49 +54,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    robotapiRobotNodeTagList:
-      description: List of Tags
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotNodeTag'
-          description: List of Tags
-        user:
-          type: string
-        total_count:
-          type: integer
-          format: int32
-          description: Number of total tags available at present
-    robotapiRobotJobState:
-      description: Various Job Resulting states.
-      type: string
-      enum:
-      - JOB_INVALID
-      - JOB_REJECTED
-      - JOB_ACCEPTED
-      - JOB_DB_UPDATED
-      - JOB_NOTIFICATION_PUBLISHED
-      - JOB_COMPLETED
-      - JOB_FAILED
-      default: JOB_INVALID
-    robotapiRobotNodeTag:
-      type: object
-      properties:
-        name:
-          type: string
-        category:
-          type: string
-        created_by:
-          type: string
-        creation_time:
-          type: string
-          format: int64
-        devices_tagged:
-          type: integer
-          format: int64
-      description: Device Tag Object
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -136,6 +93,49 @@ components:
           type: string
         title: Impacted elements list
       description: Every Action related to Inventory will have a Job
+    robotapiRobotJobState:
+      description: Various Job Resulting states.
+      type: string
+      enum:
+      - JOB_INVALID
+      - JOB_REJECTED
+      - JOB_ACCEPTED
+      - JOB_DB_UPDATED
+      - JOB_NOTIFICATION_PUBLISHED
+      - JOB_COMPLETED
+      - JOB_FAILED
+      default: JOB_INVALID
+    robotapiRobotNodeTagList:
+      description: List of Tags
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotNodeTag'
+          description: List of Tags
+        user:
+          type: string
+        total_count:
+          type: integer
+          format: int32
+          description: Number of total tags available at present
+    robotapiRobotNodeTag:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        created_by:
+          type: string
+        creation_time:
+          type: string
+          format: int64
+        devices_tagged:
+          type: integer
+          format: int64
+      description: Device Tag Object
   securitySchemes:
     bearerAuth:
       type: apiKey

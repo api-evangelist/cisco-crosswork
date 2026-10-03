@@ -104,15 +104,17 @@ paths:
       - Crosswork Health API
 components:
   schemas:
-    robotctl_apiSupervisordState:
+    robotctl_apiRobotSvcState:
       type: string
       enum:
-      - SupRunning
-      - SupFatal
-      - SupRestarting
-      - SupShutdown
-      default: SupRunning
-      title: '- SupRunning: supervisord API codes'
+      - Unknown
+      - Down
+      - Running
+      - Degraded
+      - Deleted
+      - Failed
+      default: Unknown
+      description: " - Unknown: ROBOT_MSVC_STATE_UNKNOWN defines unknown state. Only used to app-status.\n - Down: ROBOT_MSVC_STATE_DOWN defines when the service/container is non-functional.\n - Running: ROBOT_MSVC_STATE_RUNNING defines when the service/container is completely functional.\n - Degraded: ROBOT_MSVC_STATE_DEGRADED defines when the service/container is not completely functional.\n - Deleted: ROBOT_MSVC_STATE_DELETING defines when the service/container is supposed to be deleted.\n - Failed: ROBOT_MSVC_STATE_FAILED defines when the service/container action failed and is in stale state."
     robotctl_apicountInfo:
       type: object
       properties:
@@ -131,43 +133,6 @@ components:
         Unknown:
           type: integer
           format: int32
-    robotctl_apiHealthAppSrvProcesses:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/robotctl_apiResultValue'
-        Description:
-          type: string
-          title: Additional info for the service status response
-        ProcessList:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotctl_apisrvProcessDetail'
-          title: List of processes for the service
-    robotctl_apiRobotSvcState:
-      type: string
-      enum:
-      - Unknown
-      - Down
-      - Running
-      - Degraded
-      - Deleted
-      - Failed
-      default: Unknown
-      description: " - Unknown: ROBOT_MSVC_STATE_UNKNOWN defines unknown state. Only used to app-status.\n - Down: ROBOT_MSVC_STATE_DOWN defines when the service/container is non-functional.\n - Running: ROBOT_MSVC_STATE_RUNNING defines when the service/container is completely functional.\n - Degraded: ROBOT_MSVC_STATE_DEGRADED defines when the service/container is not completely functional.\n - Deleted: ROBOT_MSVC_STATE_DELETING defines when the service/container is supposed to be deleted.\n - Failed: ROBOT_MSVC_STATE_FAILED defines when the service/container action failed and is in stale state."
-    robotctl_apiHealthAppServices:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/robotctl_apiResultValue'
-        Description:
-          type: string
-        ServiceList:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotctl_apisrvInfo'
-          title: List of service names for the application
-      title: Service detail per app
     robotctl_apisrvInfo:
       type: object
       properties:
@@ -189,22 +154,6 @@ components:
           items:
             type: string
           title: List of pods running the service
-    robotctl_apiResultValue:
-      type: string
-      enum:
-      - NOOP
-      - SUCCESS
-      - FAILURE
-      default: NOOP
-    robotctl_apiHealthSystem:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/robotctl_apiResultValue'
-        Description:
-          type: string
-        AppSummary:
-          $ref: '#/components/schemas/robotctl_apicountInfo'
     robotctl_apiHealthApps:
       type: object
       properties:
@@ -218,6 +167,71 @@ components:
             $ref: '#/components/schemas/robotctl_apiappInfo'
           title: List of application names/ids
       title: Application Summary
+    robotctl_apiResultValue:
+      type: string
+      enum:
+      - NOOP
+      - SUCCESS
+      - FAILURE
+      default: NOOP
+    robotctl_apiHealthAppServices:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
+        Description:
+          type: string
+        ServiceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotctl_apisrvInfo'
+          title: List of service names for the application
+      title: Service detail per app
+    robotctl_apiSupervisordState:
+      type: string
+      enum:
+      - SupRunning
+      - SupFatal
+      - SupRestarting
+      - SupShutdown
+      default: SupRunning
+      title: '- SupRunning: supervisord API codes'
+    robotctl_apiHealthSystem:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
+        Description:
+          type: string
+        AppSummary:
+          $ref: '#/components/schemas/robotctl_apicountInfo'
+    robotctl_apiappInfo:
+      type: object
+      properties:
+        Id:
+          type: string
+          title: Application name
+        State:
+          $ref: '#/components/schemas/robotctl_apiRobotSvcState'
+        Counts:
+          $ref: '#/components/schemas/robotctl_apicountInfo'
+        Issue:
+          type: string
+        Recommendation:
+          type: string
+    robotctl_apiHealthAppSrvProcesses:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/robotctl_apiResultValue'
+        Description:
+          type: string
+          title: Additional info for the service status response
+        ProcessList:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotctl_apisrvProcessDetail'
+          title: List of processes for the service
     robotctl_apisrvProcessDetail:
       type: object
       properties:
@@ -239,20 +253,6 @@ components:
         StatusString:
           type: string
         Time:
-          type: string
-    robotctl_apiappInfo:
-      type: object
-      properties:
-        Id:
-          type: string
-          title: Application name
-        State:
-          $ref: '#/components/schemas/robotctl_apiRobotSvcState'
-        Counts:
-          $ref: '#/components/schemas/robotctl_apicountInfo'
-        Issue:
-          type: string
-        Recommendation:
           type: string
   securitySchemes:
     bearerAuth:
