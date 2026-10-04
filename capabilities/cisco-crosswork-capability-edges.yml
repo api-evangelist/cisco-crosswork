@@ -3,6 +3,7 @@ provider: Cisco Crosswork
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
+- Software & Technology
 - Telecommunications
 min_confidence: 0.7
 capability_model:
@@ -11,7 +12,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 40
+edge_count: 41
 edges:
 - tag: Get Nodes/Devices
   spec_file: cisco-crosswork-get-nodes-devices-api-openapi.yml
@@ -123,6 +124,16 @@ edges:
   reason: Operation registers network nodes/devices in the Crosswork inventory, with schemas for node
     admin/operational state, geo data and capabilities — an authoritative record of network resources,
     i.e. network inventory management for a service-provider network automation product.
+- tag: CwVmMangager
+  spec_file: cisco-crosswork-cwvmmangager-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: 'GET /v1/node-manager/dcs  GetDCs  Get map of Data Centres configured in Crosswork; GET /v1/node-manager/clusters  GetClusters;
+    schemas: install_apiVCentreDC, install_apiCwVM'
+  reason: VM manager over data centres, vCenter clusters and virtual machines — provisioning and inventory
+    of compute infrastructure, squarely IT Infrastructure Management.
 - tag: Delete Nodes/Devices
   spec_file: cisco-crosswork-delete-nodes-devices-api-openapi.yml
   capability_id: BC-2600.40
