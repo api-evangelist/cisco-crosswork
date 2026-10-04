@@ -54,19 +54,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    robotapiRobotNodeTagGetReq:
-      description: Tage Request Data
-      type: object
-      properties:
-        filter:
-          $ref: '#/components/schemas/robotapiRobotNodeTag'
-        filterData:
-          $ref: '#/components/schemas/robotapiRobotFilterData'
-        limit:
-          type: integer
-          format: int64
-        next_from:
-          type: string
     robotapiRobotNodeTagList:
       description: List of Tags
       type: object
@@ -82,22 +69,19 @@ components:
           type: integer
           format: int32
           description: Number of total tags available at present
-    robotapiRobotNodeTag:
+    robotapiRobotNodeTagGetReq:
+      description: Tage Request Data
       type: object
       properties:
-        name:
-          type: string
-        category:
-          type: string
-        created_by:
-          type: string
-        creation_time:
-          type: string
-          format: int64
-        devices_tagged:
+        filter:
+          $ref: '#/components/schemas/robotapiRobotNodeTag'
+        filterData:
+          $ref: '#/components/schemas/robotapiRobotFilterData'
+        limit:
           type: integer
           format: int64
-      description: Device Tag Object
+        next_from:
+          type: string
     robotapiRobotFilterData:
       description: Request body with filter options
       type: object
@@ -118,6 +102,22 @@ components:
           format: boolean
         Criteria:
           type: string
+    robotapiRobotNodeTag:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        created_by:
+          type: string
+        creation_time:
+          type: string
+          format: int64
+        devices_tagged:
+          type: integer
+          format: int64
+      description: Device Tag Object
   securitySchemes:
     bearerAuth:
       type: apiKey

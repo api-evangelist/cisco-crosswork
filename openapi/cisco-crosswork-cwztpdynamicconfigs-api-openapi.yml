@@ -39,13 +39,6 @@ paths:
         required: true
 components:
   schemas:
-    cwztpsvcdynamicConfigRequest:
-      type: object
-      properties:
-        configId:
-          type: string
-        profileName:
-          type: string
     cwztpsvcdynamicConfigResponse:
       type: object
       properties:
@@ -61,4 +54,11 @@ components:
           type: integer
           format: int32
         message:
+          type: string
+    cwztpsvcdynamicConfigRequest:
+      type: object
+      properties:
+        configId:
+          type: string
+        profileName:
           type: string

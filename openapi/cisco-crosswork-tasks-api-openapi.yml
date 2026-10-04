@@ -138,36 +138,6 @@ paths:
       path: /task/{taskId}
 components:
   schemas:
-    server.HTTPError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: status bad request
-    models.CallbackForm:
-      type: object
-      properties:
-        createdAt:
-          type: string
-        description:
-          type: string
-        dynamicContentSchema:
-          type: array
-          items:
-            type: integer
-        formId:
-          type: string
-        formSchema:
-          type: array
-          items:
-            type: integer
-        name:
-          type: string
-        updatedAt:
-          type: string
     models.CallbackTask:
       type: object
       properties:
@@ -197,6 +167,36 @@ components:
           type: string
         updatedAt:
           type: string
+    models.CallbackForm:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        description:
+          type: string
+        dynamicContentSchema:
+          type: array
+          items:
+            type: integer
+        formId:
+          type: string
+        formSchema:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+        updatedAt:
+          type: string
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
   securitySchemes:
     Bearer:
       type: apiKey

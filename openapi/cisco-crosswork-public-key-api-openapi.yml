@@ -226,6 +226,27 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    server.PublicKeyResponse:
+      type: object
+      properties:
+        author:
+          type: string
+        createdAt:
+          type: string
+        enabled:
+          type: boolean
+        keyAlgorithm:
+          description: RSA
+          type: string
+        keyFormat:
+          description: PKCS#1 or PKCS#8
+          type: string
+        name:
+          type: string
+        publicKey:
+          type: string
+        updatedAt:
+          type: string
     server.PublicKeyUpdateRequest:
       type: object
       properties:
@@ -249,27 +270,6 @@ components:
         name:
           type: string
         publicKey:
-          type: string
-    server.PublicKeyResponse:
-      type: object
-      properties:
-        author:
-          type: string
-        createdAt:
-          type: string
-        enabled:
-          type: boolean
-        keyAlgorithm:
-          description: RSA
-          type: string
-        keyFormat:
-          description: PKCS#1 or PKCS#8
-          type: string
-        name:
-          type: string
-        publicKey:
-          type: string
-        updatedAt:
           type: string
   securitySchemes:
     Bearer:

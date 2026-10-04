@@ -270,6 +270,20 @@ paths:
           description: Forbidden. The server recognizes the authentication credentials, but the client is not authorized to perform this request.
 components:
   schemas:
+    ResponseDtoOfImageDto:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageDto'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+      title: ResponseDtoOfImageDto
     ImageDto:
       type: object
       properties:
@@ -296,20 +310,6 @@ components:
         modifiedBy:
           type: string
       title: ImageDto
-    ResponseDtoOfImageDto:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ImageDto'
-        pageNumber:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
-      title: ResponseDtoOfImageDto
   securitySchemes:
     bearerAuth:
       type: apiKey

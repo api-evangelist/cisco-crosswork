@@ -140,6 +140,13 @@ paths:
         required: true
 components:
   schemas:
+    server.GetSystemDefaultResponse:
+      type: object
+      properties:
+        description:
+          type: string
+        value:
+          type: object
     server.requestConfiguration:
       type: object
       properties:
@@ -182,13 +189,6 @@ components:
         workflowTimeout:
           type: integer
           default: 3600
-    server.GetSystemDefaultResponse:
-      type: object
-      properties:
-        description:
-          type: string
-        value:
-          type: object
     server.responseConfigurations:
       type: object
       properties:

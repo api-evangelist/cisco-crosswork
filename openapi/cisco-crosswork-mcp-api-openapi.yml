@@ -81,24 +81,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    mcp.MCPRequest:
-      description: JSON-RPC 2.0 request structure for MCP
-      type: object
-      properties:
-        id:
-          description: Request identifier (string or number)
-          type: string
-          example: '1'
-        jsonrpc:
-          description: JSON-RPC version, must be "2.0"
-          type: string
-          example: '2.0'
-        method:
-          description: 'Method name to invoke: initialize, tools/list, tools/call, ping, notifications/initialized, logging/setLevel'
-          type: string
-          example: tools/list
-        params:
-          description: Optional parameters for the method
     mcp.MCPError:
       description: Error object with code and message
       type: object
@@ -143,6 +125,24 @@ components:
           example: '2.0'
         result:
           description: Result of the method call (present on success)
+    mcp.MCPRequest:
+      description: JSON-RPC 2.0 request structure for MCP
+      type: object
+      properties:
+        id:
+          description: Request identifier (string or number)
+          type: string
+          example: '1'
+        jsonrpc:
+          description: JSON-RPC version, must be "2.0"
+          type: string
+          example: '2.0'
+        method:
+          description: 'Method name to invoke: initialize, tools/list, tools/call, ping, notifications/initialized, logging/setLevel'
+          type: string
+          example: tools/list
+        params:
+          description: Optional parameters for the method
   securitySchemes:
     Bearer:
       type: apiKey

@@ -69,6 +69,16 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    errors.InternalAPIError:
+      type: object
+      properties:
+        code:
+          type: integer
+        details:
+          type: string
+        err: {}
+        message:
+          type: string
     server.DecodedPayloadResponse:
       type: object
       properties:
@@ -89,16 +99,6 @@ components:
           description: size in bytes
           type: integer
           example: 11
-    errors.InternalAPIError:
-      type: object
-      properties:
-        code:
-          type: integer
-        details:
-          type: string
-        err: {}
-        message:
-          type: string
   securitySchemes:
     Bearer:
       type: apiKey

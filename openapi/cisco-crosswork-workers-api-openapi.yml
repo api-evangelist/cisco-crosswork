@@ -279,6 +279,20 @@ paths:
         required: true
 components:
   schemas:
+    server.startRequest:
+      type: object
+      properties:
+        forceReload:
+          type: boolean
+          default: false
+    rpc.GenericResponse:
+      type: object
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/github-hyc_scm_engit_cisco_com_CWM_cwm-x24_services_worker-manager-service-dynamic_rpc.ErrorCode'
+        message:
+          description: Message, returned if ErrorCode not OK
+          type: string
     rpc.InitResponse:
       type: object
       properties:
@@ -337,14 +351,6 @@ components:
           type: string
         updatedAt:
           type: string
-    rpc.GenericResponse:
-      type: object
-      properties:
-        errorCode:
-          $ref: '#/components/schemas/github-hyc_scm_engit_cisco_com_CWM_cwm-x24_services_worker-manager-service-dynamic_rpc.ErrorCode'
-        message:
-          description: Message, returned if ErrorCode not OK
-          type: string
     models.WorkerStatus:
       type: integer
       enum:
@@ -370,12 +376,6 @@ components:
       - Initializing
       - Stopping
       - Deleting
-    server.startRequest:
-      type: object
-      properties:
-        forceReload:
-          type: boolean
-          default: false
     models.Activity:
       type: object
       properties:
@@ -397,6 +397,47 @@ components:
             type: integer
         packageName:
           type: string
+    server.updateRequest:
+      type: object
+      properties:
+        activities:
+          type: array
+          items:
+            type: string
+        forceStop:
+          type: boolean
+          default: false
+        startWorker:
+          type: boolean
+          default: false
+        stopWorkerIfRunning:
+          type: boolean
+          default: false
+    server.InRequest:
+      type: object
+      properties:
+        activities:
+          type: array
+          items:
+            type: string
+        force:
+          type: boolean
+          default: false
+        startWorker:
+          type: boolean
+          default: false
+        workerName:
+          type: string
+        workerProfile:
+          type: string
+          default: default
+    server.ActivitySimplified:
+      type: object
+      properties:
+        adapterId:
+          type: string
+        numOfActivities:
+          type: integer
     server.stopRequest:
       type: object
       properties:
@@ -430,47 +471,6 @@ components:
       - ErrorCode_ALREADY_STOPPED
       - ErrorCode_TIMED_OUT
       description: Error Code.
-    server.InRequest:
-      type: object
-      properties:
-        activities:
-          type: array
-          items:
-            type: string
-        force:
-          type: boolean
-          default: false
-        startWorker:
-          type: boolean
-          default: false
-        workerName:
-          type: string
-        workerProfile:
-          type: string
-          default: default
-    server.updateRequest:
-      type: object
-      properties:
-        activities:
-          type: array
-          items:
-            type: string
-        forceStop:
-          type: boolean
-          default: false
-        startWorker:
-          type: boolean
-          default: false
-        stopWorkerIfRunning:
-          type: boolean
-          default: false
-    server.ActivitySimplified:
-      type: object
-      properties:
-        adapterId:
-          type: string
-        numOfActivities:
-          type: integer
   securitySchemes:
     Bearer:
       type: apiKey

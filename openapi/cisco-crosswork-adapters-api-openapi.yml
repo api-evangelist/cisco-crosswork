@@ -296,48 +296,6 @@ paths:
         required: true
 components:
   schemas:
-    server.patchAdapterRequest:
-      type: object
-      properties:
-        defaultStatus:
-          type: boolean
-    server.createPluginsRequest:
-      type: object
-      properties:
-        createWorker:
-          type: boolean
-        defaultStatus:
-          type: boolean
-    server.getAdapterActivityResponse:
-      type: object
-      properties:
-        adapterId:
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        inputSchema:
-          type: array
-          items:
-            type: integer
-        name:
-          type: string
-        outputSchema:
-          type: array
-          items:
-            type: integer
-        packageName:
-          type: string
-    server.HTTPError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: status bad request
     server.listAdaptersAdapterResponse:
       type: object
       properties:
@@ -374,6 +332,27 @@ components:
         verified:
           type: boolean
         version:
+          type: string
+    server.getAdapterActivityResponse:
+      type: object
+      properties:
+        adapterId:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        inputSchema:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+        outputSchema:
+          type: array
+          items:
+            type: integer
+        packageName:
           type: string
     server.getAdapterResponse:
       type: object
@@ -412,6 +391,27 @@ components:
           type: boolean
         version:
           type: string
+    server.patchAdapterRequest:
+      type: object
+      properties:
+        defaultStatus:
+          type: boolean
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
+    server.createPluginsRequest:
+      type: object
+      properties:
+        createWorker:
+          type: boolean
+        defaultStatus:
+          type: boolean
   securitySchemes:
     Bearer:
       type: apiKey

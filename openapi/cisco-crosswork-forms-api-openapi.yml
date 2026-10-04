@@ -277,15 +277,19 @@ paths:
         required: true
 components:
   schemas:
-    server.HTTPError:
+    server.formSchema:
       type: object
       properties:
-        code:
-          type: integer
-          example: 400
-        message:
+        description:
           type: string
-          example: status bad request
+        dynamicContentSchema:
+          type: object
+        formId:
+          type: string
+        formSchema:
+          type: object
+        name:
+          type: string
     server.FormExport:
       type: object
       properties:
@@ -314,19 +318,15 @@ components:
           type: string
         updatedAt:
           type: string
-    server.formSchema:
+    server.HTTPError:
       type: object
       properties:
-        description:
+        code:
+          type: integer
+          example: 400
+        message:
           type: string
-        dynamicContentSchema:
-          type: object
-        formId:
-          type: string
-        formSchema:
-          type: object
-        name:
-          type: string
+          example: status bad request
   securitySchemes:
     Bearer:
       type: apiKey

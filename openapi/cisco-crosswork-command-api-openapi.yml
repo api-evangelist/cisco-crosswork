@@ -86,21 +86,35 @@ paths:
       - Command
 components:
   schemas:
-    ShowtechStatusRequest:
-      title: ShowtechStatusRequest
+    ClientId:
+      title: ClientId
       example:
-        queryParams:
-        - field: CMDID
-          value:
-            valueStr: '5065'
+        uuid: d58de587-5da2-4a62-b010-32395acc8dbc
       type: object
       properties:
-        queryParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryParam'
+        uuid:
+          type: string
       required:
-      - queryParams
+      - uuid
+    SubmitRebootCommand:
+      title: RebootCommandPayload
+      example:
+        id: '3003'
+        commandName: REBOOT_VM
+        clientId:
+          uuid: c9582aba-456c-43b7-aab0-605e28c6f131
+      type: object
+      properties:
+        id:
+          type: string
+        commandName:
+          type: string
+        clientId:
+          $ref: '#/components/schemas/ClientId'
+      required:
+      - id
+      - commandName
+      - clientId
     QueryParam:
       title: QueryParam
       example:
@@ -131,26 +145,31 @@ components:
       required:
       - key
       - value
-    Value:
-      title: Value
+    Value1:
+      title: Value1
       example:
-        str: test1234
+        valueStr: '5065'
       type: object
       properties:
-        str:
+        valueStr:
           type: string
       required:
-      - str
-    ClientId:
-      title: ClientId
+      - valueStr
+    ShowtechStatusRequest:
+      title: ShowtechStatusRequest
       example:
-        uuid: d58de587-5da2-4a62-b010-32395acc8dbc
+        queryParams:
+        - field: CMDID
+          value:
+            valueStr: '5065'
       type: object
       properties:
-        uuid:
-          type: string
+        queryParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryParam'
       required:
-      - uuid
+      - queryParams
     SubmitShowtechCommand:
       title: ShowtechCommandPayload
       example:
@@ -179,35 +198,16 @@ components:
       - commandName
       - clientId
       - args
-    SubmitRebootCommand:
-      title: RebootCommandPayload
+    Value:
+      title: Value
       example:
-        id: '3003'
-        commandName: REBOOT_VM
-        clientId:
-          uuid: c9582aba-456c-43b7-aab0-605e28c6f131
+        str: test1234
       type: object
       properties:
-        id:
-          type: string
-        commandName:
-          type: string
-        clientId:
-          $ref: '#/components/schemas/ClientId'
-      required:
-      - id
-      - commandName
-      - clientId
-    Value1:
-      title: Value1
-      example:
-        valueStr: '5065'
-      type: object
-      properties:
-        valueStr:
+        str:
           type: string
       required:
-      - valueStr
+      - str
   securitySchemes:
     bearerAuth:
       type: apiKey

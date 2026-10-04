@@ -211,13 +211,102 @@ paths:
       - TLSManager
 components:
   schemas:
-    tlsCertRoleList:
+    tlsLabel:
+      type: object
+      properties:
+        present:
+          type: boolean
+          format: boolean
+        mandatory:
+          type: boolean
+          format: boolean
+        name:
+          type: string
+    tlsCertStore:
+      type: object
+      properties:
+        trust_store:
+          $ref: '#/components/schemas/tlsTrustStore'
+        intermediate_key_store:
+          $ref: '#/components/schemas/tlsIntermediateKeyStore'
+    tlsCertDisplay:
+      type: string
+      enum:
+      - NO_OP
+      - READONLY
+      - READWRITE
+      - READWRITEADD
+      default: NO_OP
+    tlsCertSummaryList:
+      type: object
+      properties:
+        cert_summary:
+          type: array
+          items:
+            $ref: '#/components/schemas/tlsCertSummary'
+      title: Certificate Page
+    tlsCertDetailList:
+      type: object
+      properties:
+        cert_name:
+          type: string
+        cert_detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/tlsCertDetail'
+        _exportAllTrustStore:
+          type: boolean
+          format: boolean
+        _exportAllKeyStore:
+          type: boolean
+          format: boolean
+    tlsAssocSummary:
       type: object
       properties:
         role_name:
+          type: string
+    tlsTrustStore:
+      type: object
+      properties:
+        trust_store_cert:
+          type: string
+    tlsResponse:
+      type: object
+      properties:
+        resp_code:
+          $ref: '#/components/schemas/tlsRespCode'
+        message:
+          type: string
+    tlsDeviceDetails:
+      type: object
+      properties:
+        device_nodes:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/tlsDeviceNodes'
+    tlsIntermediateKeyStore:
+      type: object
+      properties:
+        intermediate_key_store_cert:
+          type: string
+        key:
+          type: string
+        passphrase:
+          type: string
+    tlsIntermediateKeyStoreResp:
+      type: object
+      properties:
+        intermediate_key_store:
+          $ref: '#/components/schemas/tlsIntermediateKeyStore'
+        response:
+          $ref: '#/components/schemas/tlsResponse'
+    tlsTrustStoreResp:
+      type: object
+      properties:
+        trust_store:
+          $ref: '#/components/schemas/tlsTrustStore'
+        response:
+          $ref: '#/components/schemas/tlsResponse'
     tlsCertStoreLabel:
       type: object
       properties:
@@ -227,43 +316,34 @@ components:
           $ref: '#/components/schemas/tlsTrustStoreLabel'
         intermediate_key_store_label:
           $ref: '#/components/schemas/tlsIntermediateKeyStoreLabel'
-    tlsDeviceNodes:
+    tlsCertRoleList:
       type: object
       properties:
-        device_ip:
-          type: string
-        device_uuid:
-          type: string
-    tlsTrustStoreResp:
+        role_name:
+          type: array
+          items:
+            type: string
+    tlsAllCertResp:
       type: object
       properties:
-        trust_store:
-          $ref: '#/components/schemas/tlsTrustStore'
+        cert_store:
+          $ref: '#/components/schemas/tlsCertStore'
         response:
           $ref: '#/components/schemas/tlsResponse'
-    tlsCertUpdateResp:
+    tlsDestinationNodes:
       type: object
       properties:
-        response:
-          $ref: '#/components/schemas/tlsResponse'
-    tlsTrustStoreLabel:
-      type: object
-      properties:
-        cert_label:
-          $ref: '#/components/schemas/tlsLabel'
-    tlsWebRestartMsg:
-      type: object
-      properties:
-        display_msg:
+        destination_ip:
           type: string
-          title: Display the warning message to log out
-        time_before_restart:
+        destination_uuid:
           type: string
-          title: Time to restart in minutes
-        auto_logout:
-          type: boolean
-          format: boolean
-          title: Auto logout
+    tlsDestinationDetails:
+      type: object
+      properties:
+        destination_nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/tlsDestinationNodes'
     tlsCertSummary:
       type: object
       properties:
@@ -281,77 +361,11 @@ components:
           $ref: '#/components/schemas/tlsCertDisplay'
         role_name:
           type: string
-    tlsResponse:
+    tlsCertLabelReq:
       type: object
       properties:
-        resp_code:
-          $ref: '#/components/schemas/tlsRespCode'
-        message:
-          type: string
-    tlsCertReq:
-      type: object
-      properties:
-        cert_name:
-          type: string
-        cert_roles:
-          type: array
-          items:
-            type: string
-    tlsCertSummaryList:
-      type: object
-      properties:
-        cert_summary:
-          type: array
-          items:
-            $ref: '#/components/schemas/tlsCertSummary'
-      title: Certificate Page
-    tlsIntermediateKeyStoreResp:
-      type: object
-      properties:
-        intermediate_key_store:
-          $ref: '#/components/schemas/tlsIntermediateKeyStore'
-        response:
-          $ref: '#/components/schemas/tlsResponse'
-    tlsDestinationDetails:
-      type: object
-      properties:
-        destination_nodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/tlsDestinationNodes'
-    tlsAllCertResp:
-      type: object
-      properties:
-        cert_store:
-          $ref: '#/components/schemas/tlsCertStore'
-        response:
-          $ref: '#/components/schemas/tlsResponse'
-    tlsAssocDetails:
-      type: object
-      properties:
-        cert_name:
-          type: string
         role_name:
           type: string
-        device_details:
-          $ref: '#/components/schemas/tlsDeviceDetails'
-        destination_details:
-          $ref: '#/components/schemas/tlsDestinationDetails'
-    tlsCertDetailList:
-      type: object
-      properties:
-        cert_name:
-          type: string
-        cert_detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/tlsCertDetail'
-        _exportAllTrustStore:
-          type: boolean
-          format: boolean
-        _exportAllKeyStore:
-          type: boolean
-          format: boolean
     tlsCertUpdateReq:
       type: object
       properties:
@@ -368,6 +382,56 @@ components:
         isEdit:
           type: boolean
           format: boolean
+    tlsRespCode:
+      type: string
+      enum:
+      - UNKNOWN
+      - SUCCESS
+      - FAILURE
+      default: UNKNOWN
+    tlsTrustStoreLabel:
+      type: object
+      properties:
+        cert_label:
+          $ref: '#/components/schemas/tlsLabel'
+    tlsIntermediateKeyStoreLabel:
+      type: object
+      properties:
+        cert_label:
+          $ref: '#/components/schemas/tlsLabel'
+        key_label:
+          $ref: '#/components/schemas/tlsLabel'
+        passphrase_label:
+          $ref: '#/components/schemas/tlsLabel'
+    tlsCertReq:
+      type: object
+      properties:
+        cert_name:
+          type: string
+        cert_roles:
+          type: array
+          items:
+            type: string
+    tlsWebRestartMsg:
+      type: object
+      properties:
+        display_msg:
+          type: string
+          title: Display the warning message to log out
+        time_before_restart:
+          type: string
+          title: Time to restart in minutes
+        auto_logout:
+          type: boolean
+          format: boolean
+          title: Auto logout
+    tlsDeviceNodes:
+      type: object
+      properties:
+        device_ip:
+          type: string
+        device_uuid:
+          type: string
     tlsCertDetail:
       type: object
       properties:
@@ -388,83 +452,19 @@ components:
           format: boolean
         _exportUrlPath:
           type: string
-    tlsRespCode:
-      type: string
-      enum:
-      - UNKNOWN
-      - SUCCESS
-      - FAILURE
-      default: UNKNOWN
-    tlsCertLabelReq:
+    tlsCertUpdateResp:
       type: object
       properties:
+        response:
+          $ref: '#/components/schemas/tlsResponse'
+    tlsAssocDetails:
+      type: object
+      properties:
+        cert_name:
+          type: string
         role_name:
           type: string
-    tlsCertDisplay:
-      type: string
-      enum:
-      - NO_OP
-      - READONLY
-      - READWRITE
-      - READWRITEADD
-      default: NO_OP
-    tlsAssocSummary:
-      type: object
-      properties:
-        role_name:
-          type: string
-    tlsDeviceDetails:
-      type: object
-      properties:
-        device_nodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/tlsDeviceNodes'
-    tlsIntermediateKeyStoreLabel:
-      type: object
-      properties:
-        cert_label:
-          $ref: '#/components/schemas/tlsLabel'
-        key_label:
-          $ref: '#/components/schemas/tlsLabel'
-        passphrase_label:
-          $ref: '#/components/schemas/tlsLabel'
-    tlsDestinationNodes:
-      type: object
-      properties:
-        destination_ip:
-          type: string
-        destination_uuid:
-          type: string
-    tlsTrustStore:
-      type: object
-      properties:
-        trust_store_cert:
-          type: string
-    tlsLabel:
-      type: object
-      properties:
-        present:
-          type: boolean
-          format: boolean
-        mandatory:
-          type: boolean
-          format: boolean
-        name:
-          type: string
-    tlsCertStore:
-      type: object
-      properties:
-        trust_store:
-          $ref: '#/components/schemas/tlsTrustStore'
-        intermediate_key_store:
-          $ref: '#/components/schemas/tlsIntermediateKeyStore'
-    tlsIntermediateKeyStore:
-      type: object
-      properties:
-        intermediate_key_store_cert:
-          type: string
-        key:
-          type: string
-        passphrase:
-          type: string
+        device_details:
+          $ref: '#/components/schemas/tlsDeviceDetails'
+        destination_details:
+          $ref: '#/components/schemas/tlsDestinationDetails'

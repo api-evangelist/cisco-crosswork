@@ -126,6 +126,27 @@ components:
           type: string
       required:
       - valueStr
+    GetOutageHistoryForVDGRequest:
+      title: GetOutageHistoryForVDGRequest
+      example:
+        queryParams:
+        - field: DGID
+          value:
+            valueStr: ''
+        - field: VDGID
+          value:
+            valueStr: b7fa0480-e421-42cf-868d-94ecd660116b
+        - field: DAYS
+          value:
+            valueStr: '14'
+      type: object
+      properties:
+        queryParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryParam_2'
+      required:
+      - queryParams
     QueryParam_2:
       title: QueryParam
       example:
@@ -151,27 +172,6 @@ components:
           type: string
       required:
       - valueStr
-    GetOutageHistoryForVDGRequest:
-      title: GetOutageHistoryForVDGRequest
-      example:
-        queryParams:
-        - field: DGID
-          value:
-            valueStr: ''
-        - field: VDGID
-          value:
-            valueStr: b7fa0480-e421-42cf-868d-94ecd660116b
-        - field: DAYS
-          value:
-            valueStr: '14'
-      type: object
-      properties:
-        queryParams:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryParam_2'
-      required:
-      - queryParams
   securitySchemes:
     bearerAuth:
       type: apiKey

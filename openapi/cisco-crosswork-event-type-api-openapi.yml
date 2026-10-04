@@ -248,15 +248,33 @@ paths:
         required: true
 components:
   schemas:
-    server.HTTPError:
+    server.EventDefinition:
       type: object
       properties:
-        code:
-          type: integer
-          example: 400
-        message:
+        correlationAttrs:
+          type: array
+          items:
+            type: integer
+        createWorkflow:
+          type: boolean
+        endpoint:
           type: string
-          example: status bad request
+        kind:
+          type: string
+        payloadAttrs:
+          type: object
+          additionalProperties:
+            type: string
+        resourceId:
+          type: string
+        source:
+          type: string
+        type:
+          type: string
+        workflowName:
+          type: string
+        workflowVersion:
+          type: string
     gin.H:
       type: object
       additionalProperties: {}
@@ -293,33 +311,15 @@ components:
           type: string
         workflowVersion:
           type: string
-    server.EventDefinition:
+    server.HTTPError:
       type: object
       properties:
-        correlationAttrs:
-          type: array
-          items:
-            type: integer
-        createWorkflow:
-          type: boolean
-        endpoint:
+        code:
+          type: integer
+          example: 400
+        message:
           type: string
-        kind:
-          type: string
-        payloadAttrs:
-          type: object
-          additionalProperties:
-            type: string
-        resourceId:
-          type: string
-        source:
-          type: string
-        type:
-          type: string
-        workflowName:
-          type: string
-        workflowVersion:
-          type: string
+          example: status bad request
   securitySchemes:
     Bearer:
       type: apiKey

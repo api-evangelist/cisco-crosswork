@@ -54,16 +54,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    robotapiRobotInventoryType:
-      description: Supported Inventory Type
-      type: string
-      enum:
-      - INV_TYPE_UNKNOWN
-      - INV_TYPE_NODE
-      - INV_TYPE_PROVIDER
-      - INV_TYPE_CREDENTIAL
-      - INV_TYPE_TAG
-      default: INV_TYPE_UNKNOWN
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -115,6 +105,16 @@ components:
       - JOB_COMPLETED
       - JOB_FAILED
       default: JOB_INVALID
+    robotapiRobotInventoryType:
+      description: Supported Inventory Type
+      type: string
+      enum:
+      - INV_TYPE_UNKNOWN
+      - INV_TYPE_NODE
+      - INV_TYPE_PROVIDER
+      - INV_TYPE_CREDENTIAL
+      - INV_TYPE_TAG
+      default: INV_TYPE_UNKNOWN
     robotapiRobotCsvUploadReq:
       description: Request body for uploading a CSV file for any inventory type
       type: object

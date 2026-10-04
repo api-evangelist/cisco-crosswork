@@ -126,56 +126,18 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    '204':
-      description: No Content
-    '405':
-      description: Method Not Allowed
-    '400':
-      description: Bad Request
     '404':
       description: Not Found
+    '400':
+      description: Bad Request
+    '405':
+      description: Method Not Allowed
+    '204':
+      description: No Content
     '409':
       description: Conflict
     '401':
       description: Unauthorized
-  parameters:
-    insert:
-      name: insert
-      in: query
-      description: controlling the order when adding new list elements
-      required: false
-      schema:
-        type: string
-        format: enumeration
-        enum:
-        - first
-        - last
-        - before
-        - after
-        default: first
-    data_ietf-te_te_tunnels_tunnel_tunnel-name:
-      name: tunnel
-      in: body
-      description: P2P TE tunnels list.
-      required: true
-      schema:
-        $ref: '#/components/schemas/data_ietf-te_te_tunnels_tunnel_tunnel-name'
-    point:
-      name: point
-      in: query
-      description: used to specify the insertion point
-      required: false
-      schema:
-        type: string
-        format: string
-    tunnel-name:
-      name: tunnel-name
-      in: path
-      description: TE tunnel name.
-      required: true
-      schema:
-        type: string
-        format: string
   schemas:
     data_ietf-te_te_tunnels_tunnel_tunnel-name:
       type: object
@@ -856,6 +818,44 @@ components:
                                 type: leaf
                               type: string
                               format: string
+  parameters:
+    point:
+      name: point
+      in: query
+      description: used to specify the insertion point
+      required: false
+      schema:
+        type: string
+        format: string
+    data_ietf-te_te_tunnels_tunnel_tunnel-name:
+      name: tunnel
+      in: body
+      description: P2P TE tunnels list.
+      required: true
+      schema:
+        $ref: '#/components/schemas/data_ietf-te_te_tunnels_tunnel_tunnel-name'
+    insert:
+      name: insert
+      in: query
+      description: controlling the order when adding new list elements
+      required: false
+      schema:
+        type: string
+        format: enumeration
+        enum:
+        - first
+        - last
+        - before
+        - after
+        default: first
+    tunnel-name:
+      name: tunnel-name
+      in: path
+      description: TE tunnel name.
+      required: true
+      schema:
+        type: string
+        format: string
   securitySchemes:
     basicAuth:
       type: http
