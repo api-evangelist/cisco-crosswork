@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/HEAD/CDG/2.0APIs/cdg_troubleshooting_api.swagger.json",
+ "requested_url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/HEAD/CDG/2.0APIs/cdg_troubleshooting_api.swagger.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 7094,
+ "sha256": "16fac15d2835777de98a01a887477984ae01d5e3903591ba727b1233979c467a",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

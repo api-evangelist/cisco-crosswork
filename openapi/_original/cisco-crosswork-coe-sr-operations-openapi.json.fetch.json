@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/HEAD/COE/1.1APIs/sr_operations.swagger.json",
+ "requested_url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/HEAD/COE/1.1APIs/sr_operations.swagger.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 30015,
+ "sha256": "e7fae5a2e62e9d8006ae9e249b69018b8accd3e128ed704ca53efa07a0786278",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

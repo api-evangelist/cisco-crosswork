@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/HEAD/NCAHI/3.0APIs/platform.swagger.json",
+ "requested_url": "https://raw.githubusercontent.com/CiscoDevNet/crosswork-openapi-spec/HEAD/NCAHI/3.0APIs/platform.swagger.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 25112,
+ "sha256": "b848b51e75a62479553e9d503d024b1b686b27a5a6afc6fce30d965384997442",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
