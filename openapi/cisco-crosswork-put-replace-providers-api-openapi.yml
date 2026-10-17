@@ -54,30 +54,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    robotapiRobotInetAddr:
-      description: Inet Address
-      type: object
-      properties:
-        inet_af:
-          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
-        inet_addr:
-          type: string
-        mask:
-          type: string
-    robotapiRobotProviderFamily:
-      type: string
-      enum:
-      - ROBOT_PROVIDER_UNKNOWN
-      - ROBOT_PROVIDER_EPNM
-      - ROBOT_PROVIDER_NSO
-      - ROBOT_PROVIDER_WAE
-      - ROBOT_PROVIDER_CSM
-      - ROBOT_PROVIDER_XTC
-      - ROBOT_PROVIDER_SYSLOG_STORAGE
-      - ROBOT_PROVIDER_SR_PCE
-      - ROBOT_PROVIDER_DESTINATION
-      default: ROBOT_PROVIDER_UNKNOWN
-      description: Provider Family types
     robotapiRobotTransport:
       type: object
       properties:
@@ -109,62 +85,26 @@ components:
         error:
           type: string
           description: error reason for protocol reachability failure
-    robotapiRobotNodeJob:
+    robotapiRobotProviderDataList:
+      description: List of providers
       type: object
       properties:
-        job_id:
+        providers:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotProviderData'
+        user:
           type: string
-          description: Job id
-        inst_id:
+    robotapiRobotInetAddr:
+      description: Inet Address
+      type: object
+      properties:
+        inet_af:
+          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
+        inet_addr:
           type: string
-          description: Server instance identifier
-        state:
-          $ref: '#/components/schemas/robotapiRobotJobState'
-          description: Current State of the Job
-        type:
+        mask:
           type: string
-          description: Job type. Debug purpose
-        error:
-          type: string
-          description: If any error
-        completion_time:
-          type: string
-          format: int64
-          description: Remaining time to complete
-        creation_time:
-          type: string
-          format: int64
-          description: Job creation time in epoch seconds
-        created_by:
-          type: string
-          description: User
-        impacted_count:
-          type: integer
-          format: int64
-          description: Impacted nodes/tags, provider or profiles
-      impacted:
-        type: array
-        items:
-          type: string
-        title: Impacted elements list
-      description: Every Action related to Inventory will have a Job
-    robotapiRobotProviderType:
-      type: string
-      enum:
-      - ROBOT_PROVIDER_NONE
-      - ROBOT_PROVIDER_CFG_LOCAL
-      - ROBOT_PROVIDER_INSTALL
-      - ROBOT_PROVIDER_COMPUTE
-      default: ROBOT_PROVIDER_NONE
-      description: Provider types
-    robotapiRobotInetAddressFamily:
-      description: Inet Address Family
-      type: string
-      enum:
-      - ROBOT_INET_ADDR_TYPE_NONE
-      - ROBOT_INET_ADDR_TYPE_v4
-      - ROBOT_INET_ADDR_TYPE_v6
-      default: ROBOT_INET_ADDR_TYPE_NONE
     robotapiRobotTransportType:
       type: string
       enum:
@@ -185,25 +125,15 @@ components:
       - ROBOT_MSVC_TRANS_NATS
       default: ROBOT_MSVC_TRANS_NONE
       description: Transport types for robot micro-services
-    robotapiRobotProviderDataList:
-      description: List of providers
-      type: object
-      properties:
-        providers:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotProviderData'
-        user:
-          type: string
-    robotapiSupportedModels:
-      type: object
-      properties:
-        model_prefix:
-          type: string
-          description: Yang model prefix e.g. Cisco-IOS-XR, Cisco-NX-OS, Cisco-IOS-XE
-        model_version:
-          type: string
-          description: Yang model version
+    robotapiRobotProviderDeviceKey:
+      type: string
+      enum:
+      - ROBOT_PROVDEVKEY_NONE
+      - ROBOT_PROVDEVKEY_HOST_NAME
+      - ROBOT_PROVDEVKEY_NODE_IP
+      - ROBOT_PROVDEVKEY_INVENTORY_ID
+      default: ROBOT_PROVDEVKEY_NONE
+      description: Key types used for generating UUID for Provider
     robotapiRobotProviderData:
       type: object
       properties:
@@ -252,6 +182,95 @@ components:
         properties:
           type: object
           description: map to configure provider specific properties as key, value pairs
+    robotapiRobotProviderType:
+      type: string
+      enum:
+      - ROBOT_PROVIDER_NONE
+      - ROBOT_PROVIDER_CFG_LOCAL
+      - ROBOT_PROVIDER_INSTALL
+      - ROBOT_PROVIDER_COMPUTE
+      default: ROBOT_PROVIDER_NONE
+      description: Provider types
+    robotapiSupportedModels:
+      type: object
+      properties:
+        model_prefix:
+          type: string
+          description: Yang model prefix e.g. Cisco-IOS-XR, Cisco-NX-OS, Cisco-IOS-XE
+        model_version:
+          type: string
+          description: Yang model version
+    robotapiRobotEntityConnectivityState:
+      description: Derived reachability state for a device. Cannot be set by user
+      type: string
+      enum:
+      - CONN_STATE_UNKNOWN
+      - CONN_STATE_REACHABLE
+      - CONN_STATE_UNREACHABLE
+      - CONN_STATE_MAX
+      - CONN_STATE_DEGRADED
+      default: CONN_STATE_UNKNOWN
+    robotapiRobotNodeJob:
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: Job id
+        inst_id:
+          type: string
+          description: Server instance identifier
+        state:
+          $ref: '#/components/schemas/robotapiRobotJobState'
+          description: Current State of the Job
+        type:
+          type: string
+          description: Job type. Debug purpose
+        error:
+          type: string
+          description: If any error
+        completion_time:
+          type: string
+          format: int64
+          description: Remaining time to complete
+        creation_time:
+          type: string
+          format: int64
+          description: Job creation time in epoch seconds
+        created_by:
+          type: string
+          description: User
+        impacted_count:
+          type: integer
+          format: int64
+          description: Impacted nodes/tags, provider or profiles
+      impacted:
+        type: array
+        items:
+          type: string
+        title: Impacted elements list
+      description: Every Action related to Inventory will have a Job
+    robotapiRobotProviderFamily:
+      type: string
+      enum:
+      - ROBOT_PROVIDER_UNKNOWN
+      - ROBOT_PROVIDER_EPNM
+      - ROBOT_PROVIDER_NSO
+      - ROBOT_PROVIDER_WAE
+      - ROBOT_PROVIDER_CSM
+      - ROBOT_PROVIDER_XTC
+      - ROBOT_PROVIDER_SYSLOG_STORAGE
+      - ROBOT_PROVIDER_SR_PCE
+      - ROBOT_PROVIDER_DESTINATION
+      default: ROBOT_PROVIDER_UNKNOWN
+      description: Provider Family types
+    robotapiRobotInetAddressFamily:
+      description: Inet Address Family
+      type: string
+      enum:
+      - ROBOT_INET_ADDR_TYPE_NONE
+      - ROBOT_INET_ADDR_TYPE_v4
+      - ROBOT_INET_ADDR_TYPE_v6
+      default: ROBOT_INET_ADDR_TYPE_NONE
     robotapiRobotJobState:
       description: Various Job Resulting states.
       type: string
@@ -264,25 +283,6 @@ components:
       - JOB_COMPLETED
       - JOB_FAILED
       default: JOB_INVALID
-    robotapiRobotProviderDeviceKey:
-      type: string
-      enum:
-      - ROBOT_PROVDEVKEY_NONE
-      - ROBOT_PROVDEVKEY_HOST_NAME
-      - ROBOT_PROVDEVKEY_NODE_IP
-      - ROBOT_PROVDEVKEY_INVENTORY_ID
-      default: ROBOT_PROVDEVKEY_NONE
-      description: Key types used for generating UUID for Provider
-    robotapiRobotEntityConnectivityState:
-      description: Derived reachability state for a device. Cannot be set by user
-      type: string
-      enum:
-      - CONN_STATE_UNKNOWN
-      - CONN_STATE_REACHABLE
-      - CONN_STATE_UNREACHABLE
-      - CONN_STATE_MAX
-      - CONN_STATE_DEGRADED
-      default: CONN_STATE_UNKNOWN
   securitySchemes:
     bearerAuth:
       type: apiKey

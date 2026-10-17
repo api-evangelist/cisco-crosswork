@@ -333,27 +333,27 @@ components:
           type: boolean
         version:
           type: string
-    server.getAdapterActivityResponse:
+    server.createPluginsRequest:
       type: object
       properties:
-        adapterId:
+        createWorker:
+          type: boolean
+        defaultStatus:
+          type: boolean
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
           type: string
-        description:
-          type: string
-        id:
-          type: string
-        inputSchema:
-          type: array
-          items:
-            type: integer
-        name:
-          type: string
-        outputSchema:
-          type: array
-          items:
-            type: integer
-        packageName:
-          type: string
+          example: status bad request
+    server.patchAdapterRequest:
+      type: object
+      properties:
+        defaultStatus:
+          type: boolean
     server.getAdapterResponse:
       type: object
       properties:
@@ -391,27 +391,27 @@ components:
           type: boolean
         version:
           type: string
-    server.patchAdapterRequest:
+    server.getAdapterActivityResponse:
       type: object
       properties:
-        defaultStatus:
-          type: boolean
-    server.HTTPError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 400
-        message:
+        adapterId:
           type: string
-          example: status bad request
-    server.createPluginsRequest:
-      type: object
-      properties:
-        createWorker:
-          type: boolean
-        defaultStatus:
-          type: boolean
+        description:
+          type: string
+        id:
+          type: string
+        inputSchema:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+        outputSchema:
+          type: array
+          items:
+            type: integer
+        packageName:
+          type: string
   securitySchemes:
     Bearer:
       type: apiKey

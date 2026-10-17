@@ -279,171 +279,6 @@ paths:
         required: true
 components:
   schemas:
-    server.startRequest:
-      type: object
-      properties:
-        forceReload:
-          type: boolean
-          default: false
-    rpc.GenericResponse:
-      type: object
-      properties:
-        errorCode:
-          $ref: '#/components/schemas/github-hyc_scm_engit_cisco_com_CWM_cwm-x24_services_worker-manager-service-dynamic_rpc.ErrorCode'
-        message:
-          description: Message, returned if ErrorCode not OK
-          type: string
-    rpc.InitResponse:
-      type: object
-      properties:
-        status:
-          description: status of the worker
-          type: string
-        workerUUID:
-          description: UUID assigned to worker
-          type: string
-    models.Worker:
-      type: object
-      properties:
-        activeError:
-          type: string
-        activities:
-          type: array
-          items:
-            $ref: '#/components/schemas/models.Activity'
-        adminStatus:
-          $ref: '#/components/schemas/models.WorkerStatus'
-        createdAt:
-          type: string
-        cwmVersion:
-          type: string
-        infraJobId:
-          type: string
-        isJobChecked:
-          type: boolean
-        name:
-          type: string
-        status:
-          $ref: '#/components/schemas/models.WorkerStatus'
-        updatedAt:
-          type: string
-        workerProfile:
-          type: string
-    server.WorkerSimplified:
-      type: object
-      properties:
-        activeError:
-          type: string
-        activities:
-          type: array
-          items:
-            $ref: '#/components/schemas/server.ActivitySimplified'
-        adminStatus:
-          type: string
-        createdAt:
-          description: models.WFBase
-          type: string
-        infraJobId:
-          type: string
-        name:
-          type: string
-        status:
-          type: string
-        updatedAt:
-          type: string
-    models.WorkerStatus:
-      type: integer
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      x-enum-comments:
-        Deleting: 'todo: support'
-        Stopping: 'todo: support'
-      x-enum-varnames:
-      - Unknown
-      - Initialized
-      - Running
-      - Stopped
-      - Deleted
-      - Failed
-      - Initializing
-      - Stopping
-      - Deleting
-    models.Activity:
-      type: object
-      properties:
-        adapterId:
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        inputSchema:
-          type: array
-          items:
-            type: integer
-        name:
-          type: string
-        outputSchema:
-          type: array
-          items:
-            type: integer
-        packageName:
-          type: string
-    server.updateRequest:
-      type: object
-      properties:
-        activities:
-          type: array
-          items:
-            type: string
-        forceStop:
-          type: boolean
-          default: false
-        startWorker:
-          type: boolean
-          default: false
-        stopWorkerIfRunning:
-          type: boolean
-          default: false
-    server.InRequest:
-      type: object
-      properties:
-        activities:
-          type: array
-          items:
-            type: string
-        force:
-          type: boolean
-          default: false
-        startWorker:
-          type: boolean
-          default: false
-        workerName:
-          type: string
-        workerProfile:
-          type: string
-          default: default
-    server.ActivitySimplified:
-      type: object
-      properties:
-        adapterId:
-          type: string
-        numOfActivities:
-          type: integer
-    server.stopRequest:
-      type: object
-      properties:
-        forceStop:
-          type: boolean
-          default: false
     github-hyc_scm_engit_cisco_com_CWM_cwm-x24_services_worker-manager-service-dynamic_rpc.ErrorCode:
       type: integer
       enum:
@@ -471,6 +306,171 @@ components:
       - ErrorCode_ALREADY_STOPPED
       - ErrorCode_TIMED_OUT
       description: Error Code.
+    server.InRequest:
+      type: object
+      properties:
+        activities:
+          type: array
+          items:
+            type: string
+        force:
+          type: boolean
+          default: false
+        startWorker:
+          type: boolean
+          default: false
+        workerName:
+          type: string
+        workerProfile:
+          type: string
+          default: default
+    models.Worker:
+      type: object
+      properties:
+        activeError:
+          type: string
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/models.Activity'
+        adminStatus:
+          $ref: '#/components/schemas/models.WorkerStatus'
+        createdAt:
+          type: string
+        cwmVersion:
+          type: string
+        infraJobId:
+          type: string
+        isJobChecked:
+          type: boolean
+        name:
+          type: string
+        status:
+          $ref: '#/components/schemas/models.WorkerStatus'
+        updatedAt:
+          type: string
+        workerProfile:
+          type: string
+    server.ActivitySimplified:
+      type: object
+      properties:
+        adapterId:
+          type: string
+        numOfActivities:
+          type: integer
+    rpc.GenericResponse:
+      type: object
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/github-hyc_scm_engit_cisco_com_CWM_cwm-x24_services_worker-manager-service-dynamic_rpc.ErrorCode'
+        message:
+          description: Message, returned if ErrorCode not OK
+          type: string
+    server.startRequest:
+      type: object
+      properties:
+        forceReload:
+          type: boolean
+          default: false
+    server.updateRequest:
+      type: object
+      properties:
+        activities:
+          type: array
+          items:
+            type: string
+        forceStop:
+          type: boolean
+          default: false
+        startWorker:
+          type: boolean
+          default: false
+        stopWorkerIfRunning:
+          type: boolean
+          default: false
+    rpc.InitResponse:
+      type: object
+      properties:
+        status:
+          description: status of the worker
+          type: string
+        workerUUID:
+          description: UUID assigned to worker
+          type: string
+    models.WorkerStatus:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      x-enum-comments:
+        Deleting: 'todo: support'
+        Stopping: 'todo: support'
+      x-enum-varnames:
+      - Unknown
+      - Initialized
+      - Running
+      - Stopped
+      - Deleted
+      - Failed
+      - Initializing
+      - Stopping
+      - Deleting
+    server.WorkerSimplified:
+      type: object
+      properties:
+        activeError:
+          type: string
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/server.ActivitySimplified'
+        adminStatus:
+          type: string
+        createdAt:
+          description: models.WFBase
+          type: string
+        infraJobId:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        updatedAt:
+          type: string
+    server.stopRequest:
+      type: object
+      properties:
+        forceStop:
+          type: boolean
+          default: false
+    models.Activity:
+      type: object
+      properties:
+        adapterId:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        inputSchema:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+        outputSchema:
+          type: array
+          items:
+            type: integer
+        packageName:
+          type: string
   securitySchemes:
     Bearer:
       type: apiKey

@@ -95,6 +95,20 @@ paths:
         required: true
 components:
   schemas:
+    cwztpsvcZtpProfileResponse:
+      type: object
+      properties:
+        ztpProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/cwztpsvcZtpProfile'
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        paginationDetails:
+          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
     cwztpsvcZtpProfileList:
       type: object
       properties:
@@ -133,20 +147,6 @@ components:
         TotalCount:
           type: integer
           format: int64
-    cwztpsvcZtpProfileResponse:
-      type: object
-      properties:
-        ztpProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/cwztpsvcZtpProfile'
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        paginationDetails:
-          $ref: '#/components/schemas/cwztpsvcZtpFilterData'
     cwztpsvcZtpProfile:
       type: object
       properties:

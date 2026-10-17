@@ -138,6 +138,15 @@ paths:
       path: /task/{taskId}
 components:
   schemas:
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
     models.CallbackTask:
       type: object
       properties:
@@ -188,15 +197,6 @@ components:
           type: string
         updatedAt:
           type: string
-    server.HTTPError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: status bad request
   securitySchemes:
     Bearer:
       type: apiKey

@@ -69,19 +69,6 @@ components:
           type: integer
           format: int32
           description: Number of total tags available at present
-    robotapiRobotNodeTagGetReq:
-      description: Tage Request Data
-      type: object
-      properties:
-        filter:
-          $ref: '#/components/schemas/robotapiRobotNodeTag'
-        filterData:
-          $ref: '#/components/schemas/robotapiRobotFilterData'
-        limit:
-          type: integer
-          format: int64
-        next_from:
-          type: string
     robotapiRobotFilterData:
       description: Request body with filter options
       type: object
@@ -101,6 +88,19 @@ components:
           type: boolean
           format: boolean
         Criteria:
+          type: string
+    robotapiRobotNodeTagGetReq:
+      description: Tage Request Data
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/robotapiRobotNodeTag'
+        filterData:
+          $ref: '#/components/schemas/robotapiRobotFilterData'
+        limit:
+          type: integer
+          format: int64
+        next_from:
           type: string
     robotapiRobotNodeTag:
       type: object

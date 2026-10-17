@@ -344,6 +344,55 @@ paths:
       path: /resourceType/{resourceTypeId}
 components:
   schemas:
+    models.ResourceType:
+      type: object
+      properties:
+        description:
+          type: string
+        resourceTypeId:
+          type: string
+        schema:
+          type: object
+    server.ResourceExport:
+      type: object
+      properties:
+        resourceId:
+          type: string
+        resourceTypeId:
+          type: string
+        secretId:
+          type: string
+    validator.Resource:
+      type: object
+      properties:
+        resource:
+          type: object
+        resourceId:
+          type: string
+        resourceTypeId:
+          type: string
+        secretId:
+          type: string
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
+    models.Resource:
+      type: object
+      properties:
+        resource:
+          type: object
+        resourceId:
+          type: string
+        resourceTypeId:
+          type: string
+        secretId:
+          type: string
     server.ResourceImportResponse:
       type: object
       properties:
@@ -363,55 +412,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/validator.Resource'
-    models.ResourceType:
-      type: object
-      properties:
-        description:
-          type: string
-        resourceTypeId:
-          type: string
-        schema:
-          type: object
-    models.Resource:
-      type: object
-      properties:
-        resource:
-          type: object
-        resourceId:
-          type: string
-        resourceTypeId:
-          type: string
-        secretId:
-          type: string
-    server.ResourceExport:
-      type: object
-      properties:
-        resourceId:
-          type: string
-        resourceTypeId:
-          type: string
-        secretId:
-          type: string
-    server.HTTPError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: status bad request
-    validator.Resource:
-      type: object
-      properties:
-        resource:
-          type: object
-        resourceId:
-          type: string
-        resourceTypeId:
-          type: string
-        secretId:
-          type: string
   securitySchemes:
     Bearer:
       type: apiKey

@@ -458,29 +458,16 @@ paths:
         required: true
 components:
   schemas:
-    repository.NameVersion:
-      type: object
-      required:
-      - name
-      - version
-      properties:
-        name:
-          type: string
-        version:
-          type: string
-    server.WorkflowAttributes:
+    server.WorkflowGetResponse:
       type: object
       properties:
-        definition:
+        workflow:
+          $ref: '#/components/schemas/models.Workflow'
+    server.InputSchemaVadation:
+      type: object
+      properties:
+        data:
           type: object
-        formId:
-          type: string
-        path:
-          type: string
-        wfTags:
-          type: array
-          items:
-            type: string
     models.Workflow:
       type: object
       properties:
@@ -511,21 +498,34 @@ components:
         workflowId:
           type: string
           format: uuid
-    server.WorkflowGetResponse:
+    repository.NameVersion:
       type: object
+      required:
+      - name
+      - version
       properties:
-        workflow:
-          $ref: '#/components/schemas/models.Workflow'
+        name:
+          type: string
+        version:
+          type: string
     server.WorkflowDefinition:
       type: object
       properties:
         definition:
           type: object
-    server.InputSchemaVadation:
+    server.WorkflowAttributes:
       type: object
       properties:
-        data:
+        definition:
           type: object
+        formId:
+          type: string
+        path:
+          type: string
+        wfTags:
+          type: array
+          items:
+            type: string
   securitySchemes:
     Bearer:
       type: apiKey

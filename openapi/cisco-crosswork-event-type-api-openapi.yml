@@ -275,6 +275,15 @@ components:
           type: string
         workflowVersion:
           type: string
+    server.HTTPError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
     gin.H:
       type: object
       additionalProperties: {}
@@ -311,15 +320,6 @@ components:
           type: string
         workflowVersion:
           type: string
-    server.HTTPError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: status bad request
   securitySchemes:
     Bearer:
       type: apiKey

@@ -199,24 +199,43 @@ paths:
         required: true
 components:
   schemas:
-    internal.ScheduleRange:
+    server.updateSchedule:
       type: object
       properties:
-        end:
-          description: 'End of the range (inclusive)
-
-
-            Optional: defaulted to Start'
+        catchupWindow:
+          $ref: '#/components/schemas/time.Duration'
+        data:
+          type: object
+        jobName:
+          type: string
+        logLevel:
+          type: string
+        note:
+          type: string
+        overlap:
+          $ref: '#/components/schemas/enums.ScheduleOverlapPolicy'
+        pauseOnFailure:
+          type: boolean
+        paused:
+          type: boolean
+        remainingActions:
           type: integer
-        start:
-          description: Start of the range (inclusive)
-          type: integer
-        step:
-          description: 'Step to be take between each value
-
-
-            Optional: defaulted to 1'
-          type: integer
+        scheduleBackfill:
+          type: array
+          items:
+            $ref: '#/components/schemas/client.ScheduleBackfill'
+        spec:
+          $ref: '#/components/schemas/server.ScheduleSpec'
+        tags:
+          type: array
+          items:
+            type: string
+        triggerImmediately:
+          type: boolean
+        workflowName:
+          type: string
+        workflowVersion:
+          type: string
     server.createSchedule:
       type: object
       properties:
@@ -256,81 +275,58 @@ components:
           type: string
         workflowVersion:
           type: string
-    client.ScheduleBackfill:
+    gin.H:
+      type: object
+      additionalProperties: {}
+    client.ScheduleIntervalSpec:
+      type: object
+      properties:
+        every:
+          $ref: '#/components/schemas/time.Duration'
+        offset:
+          $ref: '#/components/schemas/time.Duration'
+    internal.ScheduleRange:
       type: object
       properties:
         end:
-          description: End - end of the range to evaluate schedule in.
-          type: string
-        overlap:
-          $ref: '#/components/schemas/enums.ScheduleOverlapPolicy'
-        start:
-          description: Start - start of the range to evaluate schedule in.
-          type: string
-    server.updateSchedule:
-      type: object
-      properties:
-        catchupWindow:
-          $ref: '#/components/schemas/time.Duration'
-        data:
-          type: object
-        jobName:
-          type: string
-        logLevel:
-          type: string
-        note:
-          type: string
-        overlap:
-          $ref: '#/components/schemas/enums.ScheduleOverlapPolicy'
-        pauseOnFailure:
-          type: boolean
-        paused:
-          type: boolean
-        remainingActions:
+          description: 'End of the range (inclusive)
+
+
+            Optional: defaulted to Start'
           type: integer
-        scheduleBackfill:
-          type: array
-          items:
-            $ref: '#/components/schemas/client.ScheduleBackfill'
-        spec:
-          $ref: '#/components/schemas/server.ScheduleSpec'
-        tags:
-          type: array
-          items:
-            type: string
-        triggerImmediately:
-          type: boolean
-        workflowName:
-          type: string
-        workflowVersion:
-          type: string
-    server.ScheduleSpec:
-      type: object
-      properties:
-        calendars:
-          type: array
-          items:
-            $ref: '#/components/schemas/client.ScheduleCalendarSpec'
-        cronExpressions:
-          type: array
-          items:
-            type: string
-        endAt:
-          type: string
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/client.ScheduleIntervalSpec'
-        jitter:
-          $ref: '#/components/schemas/time.Duration'
-        skip:
-          type: array
-          items:
-            $ref: '#/components/schemas/client.ScheduleCalendarSpec'
-        startAt:
-          type: string
-        timeZoneName:
-          type: string
+        start:
+          description: Start of the range (inclusive)
+          type: integer
+        step:
+          description: 'Step to be take between each value
+
+
+            Optional: defaulted to 1'
+          type: integer
+    time.Duration:
+      type: integer
+      enum:
+      - -9223372036854776000
+      - 9223372036854776000
+      - 1
+      - 1000
+      - 1000000
+      - 1000000000
+      - 60000000000
+      - 3600000000000
+      x-enum-varnames:
+      - minDuration
+      - maxDuration
+      - Nanosecond
+      - Microsecond
+      - Millisecond
+      - Second
+      - Minute
+      - Hour
+      description: 'Offset - is a fixed offset added to the intervals period.
+
+
+        Optional: Defaulted to 0'
     enums.ScheduleOverlapPolicy:
       type: integer
       enum:
@@ -412,40 +408,44 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/internal.ScheduleRange'
-    client.ScheduleIntervalSpec:
+    client.ScheduleBackfill:
       type: object
       properties:
-        every:
-          $ref: '#/components/schemas/time.Duration'
-        offset:
-          $ref: '#/components/schemas/time.Duration'
-    gin.H:
+        end:
+          description: End - end of the range to evaluate schedule in.
+          type: string
+        overlap:
+          $ref: '#/components/schemas/enums.ScheduleOverlapPolicy'
+        start:
+          description: Start - start of the range to evaluate schedule in.
+          type: string
+    server.ScheduleSpec:
       type: object
-      additionalProperties: {}
-    time.Duration:
-      type: integer
-      enum:
-      - -9223372036854776000
-      - 9223372036854776000
-      - 1
-      - 1000
-      - 1000000
-      - 1000000000
-      - 60000000000
-      - 3600000000000
-      x-enum-varnames:
-      - minDuration
-      - maxDuration
-      - Nanosecond
-      - Microsecond
-      - Millisecond
-      - Second
-      - Minute
-      - Hour
-      description: 'Offset - is a fixed offset added to the intervals period.
-
-
-        Optional: Defaulted to 0'
+      properties:
+        calendars:
+          type: array
+          items:
+            $ref: '#/components/schemas/client.ScheduleCalendarSpec'
+        cronExpressions:
+          type: array
+          items:
+            type: string
+        endAt:
+          type: string
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/client.ScheduleIntervalSpec'
+        jitter:
+          $ref: '#/components/schemas/time.Duration'
+        skip:
+          type: array
+          items:
+            $ref: '#/components/schemas/client.ScheduleCalendarSpec'
+        startAt:
+          type: string
+        timeZoneName:
+          type: string
   securitySchemes:
     Bearer:
       type: apiKey

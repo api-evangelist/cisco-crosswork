@@ -174,6 +174,20 @@ paths:
       - Custom Files
 components:
   schemas:
+    DeletePayload:
+      title: DeletePayload
+      type: object
+      properties:
+        fileName:
+          type: string
+        collectorType:
+          type: string
+        fileType:
+          type: string
+      required:
+      - fileName
+      - collectorType
+      - fileType
     deleteFileContent:
       title: deleteFileContent
       example:
@@ -207,20 +221,6 @@ components:
       required:
       - startRow
       - endRow
-    DeletePayload:
-      title: DeletePayload
-      type: object
-      properties:
-        fileName:
-          type: string
-        collectorType:
-          type: string
-        fileType:
-          type: string
-      required:
-      - fileName
-      - collectorType
-      - fileType
   securitySchemes:
     bearerAuth:
       type: apiKey

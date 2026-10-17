@@ -290,13 +290,15 @@ components:
           type: object
         name:
           type: string
-    server.FormExport:
+    server.HTTPError:
       type: object
       properties:
-        formIds:
-          type: array
-          items:
-            type: string
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: status bad request
     models.CallbackForm:
       type: object
       properties:
@@ -318,15 +320,13 @@ components:
           type: string
         updatedAt:
           type: string
-    server.HTTPError:
+    server.FormExport:
       type: object
       properties:
-        code:
-          type: integer
-          example: 400
-        message:
-          type: string
-          example: status bad request
+        formIds:
+          type: array
+          items:
+            type: string
   securitySchemes:
     Bearer:
       type: apiKey

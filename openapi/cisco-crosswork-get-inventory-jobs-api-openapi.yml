@@ -54,26 +54,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    robotapiRobotFilterData:
-      description: Request body with filter options
-      type: object
-      properties:
-        SortBy:
-          type: string
-        PageSize:
-          type: integer
-          format: int64
-        PageNum:
-          type: integer
-          format: int64
-        Descending:
-          type: boolean
-          format: boolean
-        MatchCase:
-          type: boolean
-          format: boolean
-        Criteria:
-          type: string
     robotapiRobotNodeJobGetReq:
       description: Job Request data
       type: object
@@ -147,6 +127,26 @@ components:
           type: string
         title: Impacted elements list
       description: Every Action related to Inventory will have a Job
+    robotapiRobotFilterData:
+      description: Request body with filter options
+      type: object
+      properties:
+        SortBy:
+          type: string
+        PageSize:
+          type: integer
+          format: int64
+        PageNum:
+          type: integer
+          format: int64
+        Descending:
+          type: boolean
+          format: boolean
+        MatchCase:
+          type: boolean
+          format: boolean
+        Criteria:
+          type: string
     robotapiRobotJobState:
       description: Various Job Resulting states.
       type: string

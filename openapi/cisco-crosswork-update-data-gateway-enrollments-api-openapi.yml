@@ -55,25 +55,24 @@ paths:
         required: true
 components:
   schemas:
-    RobotDataGatewayOperationalOperationStatusDetails:
+    RobotDataGatewayConfigInterface:
       type: object
       properties:
-        component_name:
+        name:
           type: string
-        state:
-          $ref: '#/components/schemas/RobotDataGatewayOperationalComponentState'
-        state_reason:
+        mac:
           type: string
-    robotapiRobotInetAddr:
-      description: Inet Address
-      type: object
-      properties:
-        inet_af:
-          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
-        inet_addr:
-          type: string
-        mask:
-          type: string
+        ip_addr:
+          type: array
+          items:
+            $ref: '#/components/schemas/robotapiRobotInetAddr'
+    RobotDataGatewayOperationalComponentState:
+      type: string
+      enum:
+      - CS_UNKNOWN
+      - CS_UP
+      - CS_DOWN
+      default: CS_UNKNOWN
     robotapiRobotDataGatewayList:
       type: object
       properties:
@@ -105,49 +104,65 @@ components:
           $ref: '#/components/schemas/RobotDataGatewayConfigRole'
         admin_state:
           $ref: '#/components/schemas/RobotDataGatewayConfigAdminState'
-    RobotDataGatewayConfigInterface:
+    RobotDataGatewayConfigProfile:
       type: object
       properties:
-        name:
-          type: string
-        mac:
-          type: string
-        ip_addr:
-          type: array
-          items:
-            $ref: '#/components/schemas/robotapiRobotInetAddr'
-    robotapiRobotDataGateway:
+        cpu:
+          type: integer
+          format: int64
+        memory:
+          type: integer
+          format: int64
+        nics:
+          type: integer
+          format: int64
+    robotapiRobotInetAddr:
+      description: Inet Address
       type: object
       properties:
-        duuid:
+        inet_af:
+          $ref: '#/components/schemas/robotapiRobotInetAddressFamily'
+        inet_addr:
           type: string
-        name:
+        mask:
           type: string
-        config_data:
-          $ref: '#/components/schemas/robotapiRobotDataGatewayConfig'
-        operational_data:
-          $ref: '#/components/schemas/robotapiRobotDataGatewayOperational'
-      title: Data gateway config and operational data
+    RobotDataGatewayConfigAdminState:
+      type: string
+      enum:
+      - UNKNOWN_AS
+      - AS_UP
+      - AS_DOWN
+      default: UNKNOWN_AS
     RobotDataGatewayConfigCert:
       type: object
       properties:
         certificate:
           type: string
-    robotapiRobotDataGatewayOperational:
+    RobotDataGatewayOperationalOperationStatusDetails:
       type: object
       properties:
-        oper_state:
-          $ref: '#/components/schemas/RobotDataGatewayOperationalOperationalState'
-        oper_state_details:
-          type: array
-          items:
-            $ref: '#/components/schemas/RobotDataGatewayOperationalOperationStatusDetails'
-        created_time:
+        component_name:
           type: string
-          format: int64
-        last_updated_time:
+        state:
+          $ref: '#/components/schemas/RobotDataGatewayOperationalComponentState'
+        state_reason:
           type: string
-          format: int64
+    RobotDataGatewayOperationalOperationalState:
+      type: string
+      enum:
+      - INVALID_OS
+      - OS_UNKNOWN
+      - OS_UP
+      - OS_ERROR
+      - OS_PARTIAL_UP
+      default: INVALID_OS
+    RobotDataGatewayConfigRole:
+      type: string
+      enum:
+      - INVALID_ROLE
+      - ACTIVE
+      - PASSIVE
+      default: INVALID_ROLE
     robotapiRobotNodeJob:
       type: object
       properties:
@@ -187,13 +202,6 @@ components:
           type: string
         title: Impacted elements list
       description: Every Action related to Inventory will have a Job
-    RobotDataGatewayOperationalComponentState:
-      type: string
-      enum:
-      - CS_UNKNOWN
-      - CS_UP
-      - CS_DOWN
-      default: CS_UNKNOWN
     robotapiRobotInetAddressFamily:
       description: Inet Address Family
       type: string
@@ -202,13 +210,33 @@ components:
       - ROBOT_INET_ADDR_TYPE_v4
       - ROBOT_INET_ADDR_TYPE_v6
       default: ROBOT_INET_ADDR_TYPE_NONE
-    RobotDataGatewayConfigRole:
-      type: string
-      enum:
-      - INVALID_ROLE
-      - ACTIVE
-      - PASSIVE
-      default: INVALID_ROLE
+    robotapiRobotDataGateway:
+      type: object
+      properties:
+        duuid:
+          type: string
+        name:
+          type: string
+        config_data:
+          $ref: '#/components/schemas/robotapiRobotDataGatewayConfig'
+        operational_data:
+          $ref: '#/components/schemas/robotapiRobotDataGatewayOperational'
+      title: Data gateway config and operational data
+    robotapiRobotDataGatewayOperational:
+      type: object
+      properties:
+        oper_state:
+          $ref: '#/components/schemas/RobotDataGatewayOperationalOperationalState'
+        oper_state_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/RobotDataGatewayOperationalOperationStatusDetails'
+        created_time:
+          type: string
+          format: int64
+        last_updated_time:
+          type: string
+          format: int64
     robotapiRobotJobState:
       description: Various Job Resulting states.
       type: string
@@ -221,34 +249,6 @@ components:
       - JOB_COMPLETED
       - JOB_FAILED
       default: JOB_INVALID
-    RobotDataGatewayConfigProfile:
-      type: object
-      properties:
-        cpu:
-          type: integer
-          format: int64
-        memory:
-          type: integer
-          format: int64
-        nics:
-          type: integer
-          format: int64
-    RobotDataGatewayConfigAdminState:
-      type: string
-      enum:
-      - UNKNOWN_AS
-      - AS_UP
-      - AS_DOWN
-      default: UNKNOWN_AS
-    RobotDataGatewayOperationalOperationalState:
-      type: string
-      enum:
-      - INVALID_OS
-      - OS_UNKNOWN
-      - OS_UP
-      - OS_ERROR
-      - OS_PARTIAL_UP
-      default: INVALID_OS
   securitySchemes:
     bearerAuth:
       type: apiKey

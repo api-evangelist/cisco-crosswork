@@ -86,16 +86,6 @@ paths:
       - Command
 components:
   schemas:
-    ClientId:
-      title: ClientId
-      example:
-        uuid: d58de587-5da2-4a62-b010-32395acc8dbc
-      type: object
-      properties:
-        uuid:
-          type: string
-      required:
-      - uuid
     SubmitRebootCommand:
       title: RebootCommandPayload
       example:
@@ -115,6 +105,16 @@ components:
       - id
       - commandName
       - clientId
+    Value:
+      title: Value
+      example:
+        str: test1234
+      type: object
+      properties:
+        str:
+          type: string
+      required:
+      - str
     QueryParam:
       title: QueryParam
       example:
@@ -130,6 +130,16 @@ components:
       required:
       - field
       - value
+    Value1:
+      title: Value1
+      example:
+        valueStr: '5065'
+      type: object
+      properties:
+        valueStr:
+          type: string
+      required:
+      - valueStr
     Arg:
       title: Arg
       example:
@@ -145,16 +155,6 @@ components:
       required:
       - key
       - value
-    Value1:
-      title: Value1
-      example:
-        valueStr: '5065'
-      type: object
-      properties:
-        valueStr:
-          type: string
-      required:
-      - valueStr
     ShowtechStatusRequest:
       title: ShowtechStatusRequest
       example:
@@ -198,16 +198,16 @@ components:
       - commandName
       - clientId
       - args
-    Value:
-      title: Value
+    ClientId:
+      title: ClientId
       example:
-        str: test1234
+        uuid: d58de587-5da2-4a62-b010-32395acc8dbc
       type: object
       properties:
-        str:
+        uuid:
           type: string
       required:
-      - str
+      - uuid
   securitySchemes:
     bearerAuth:
       type: apiKey

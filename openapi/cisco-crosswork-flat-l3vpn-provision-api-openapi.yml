@@ -131,18 +131,18 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    '404':
-      description: Not Found. The client made a request for a resource that does not exist.
     '400':
       description: Bad Request. The request is malformed in some way and the server cannot process it.
     '405':
       description: Method Not Allowed. The method received in the request line is known by the origin server but not supported by the target resource.
-    '401':
-      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
     '409':
       description: Conflict. The request could not be completed due to a conflict with the current state of the target resource.
     '204':
       description: No Content. The request was successful and there is no additional content in the response body.
+    '404':
+      description: Not Found. The client made a request for a resource that does not exist.
+    '401':
+      description: Unauthorized. The request has not been applied because it lacks valid authentication credentials for the target resource.
   schemas:
     flat-L3vpn:
       type: object
@@ -959,21 +959,6 @@ components:
       xml:
         namespace: http://cisco.com/ns/nso/fp/examples/cisco-tsdn-flat-L3vpn
   parameters:
-    flat-L3vpn:
-      name: flat-L3vpn
-      in: body
-      description: Flat L3VPN Configuration
-      required: true
-      schema:
-        $ref: '#/components/schemas/flat-L3vpn'
-    flat-L3vpn-name:
-      name: flat-L3vpn-name
-      in: path
-      description: Service Name for L3VPN
-      required: true
-      schema:
-        type: string
-        format: string
     insert:
       name: insert
       in: query
@@ -988,6 +973,14 @@ components:
         - before
         - after
         default: first
+    flat-L3vpn-name:
+      name: flat-L3vpn-name
+      in: path
+      description: Service Name for L3VPN
+      required: true
+      schema:
+        type: string
+        format: string
     point:
       name: point
       in: query
@@ -996,6 +989,13 @@ components:
       schema:
         type: string
         format: string
+    flat-L3vpn:
+      name: flat-L3vpn
+      in: body
+      description: Flat L3VPN Configuration
+      required: true
+      schema:
+        $ref: '#/components/schemas/flat-L3vpn'
   securitySchemes:
     basicAuth:
       type: http
